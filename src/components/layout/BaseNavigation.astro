@@ -9,16 +9,16 @@ interface Props {
 const { pageTitle } = Astro.props;
 ---
 
-<header class='sticky top-0 z-40 border-b border-[#E84125]/40 bg-[#05070f]/80 px-6 py-4 backdrop-blur-xl'>
+<header class='sticky top-0 z-40 border-b border-[#E84125]/45 bg-[#05070f]/85 px-6 py-4 backdrop-blur-xl shadow-[0_8px_28px_rgba(232,65,37,0.12)]'>
   {pageTitle && <h1 class='hidden'>{pageTitle}</h1>}
   <div class='mx-auto w-full max-w-6xl'>
-    <div class='inline-flex items-center gap-3'>
+    <div class='matrix-text inline-flex items-center gap-3 text-[#ffb5a8]'>
       <Image
         src={logo}
         alt='Veralify logo'
         width={40}
         height={40}
-        class='rounded-xl object-cover ring-1 ring-white/20'
+        class='rounded-xl object-cover ring-1 ring-[#E84125]/50'
       />
       <p class='matrix-heading text-xl font-semibold tracking-tight text-white md:text-2xl'>Veralify</p>
     </div>
