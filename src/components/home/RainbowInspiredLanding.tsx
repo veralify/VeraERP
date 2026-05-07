@@ -11,6 +11,9 @@ export default function RainbowInspiredLanding() {
         <p className='inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white/85'>
           Veralify
         </p>
+        <p className='mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-fuchsia-300'>
+          Coming Soon
+        </p>
         <h1 className='mt-5 text-4xl font-semibold tracking-tight md:text-6xl'>
           Verify ownership.
           <br />
@@ -26,7 +29,7 @@ export default function RainbowInspiredLanding() {
           rel='noopener noreferrer'
           className='mt-8 inline-flex rounded-xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-400 px-6 py-3 font-semibold text-black transition hover:brightness-110'
         >
-            Follow on X
+          Follow on X
         </a>
       </section>
     </main>
