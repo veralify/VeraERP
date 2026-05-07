@@ -32,6 +32,7 @@
   /* Base Tokens */
   --sys-color-white: #ffffff;
   --sys-color-black: #000000;
+  --brand-primary: #e84125;
 
   /* Theme Tokens */
   --primary: var(--sys-color-white);
@@ -167,4 +168,33 @@ html {
 
 ::selection {
   background-color: aliceblue;
+}
+
+.matrix-text {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.matrix-heading {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgb(232 65 37 / 40%);
 }
