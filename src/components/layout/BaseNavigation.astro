@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.png';
+
 interface Props {
   pageTitle?: string;
 }
@@ -6,9 +9,18 @@ interface Props {
 const { pageTitle } = Astro.props;
 ---
 
-<header class='border-b-4 border-black flex justify-between p-6 items-center'>
+<header class='sticky top-0 z-40 border-b border-[#E84125]/40 bg-[#05070f]/80 px-6 py-4 backdrop-blur-xl'>
   {pageTitle && <h1 class='hidden'>{pageTitle}</h1>}
-  <a href='/' title='Back to Home'>
-    <p class='righteous md:text-5xl'>Veralify</p>
-  </a>
+  <div class='mx-auto w-full max-w-6xl'>
+    <div class='inline-flex items-center gap-3'>
+      <Image
+        src={logo}
+        alt='Veralify logo'
+        width={40}
+        height={40}
+        class='rounded-xl object-cover ring-1 ring-white/20'
+      />
+      <p class='matrix-heading text-xl font-semibold tracking-tight text-white md:text-2xl'>Veralify</p>
+    </div>
+  </div>
 </header>
