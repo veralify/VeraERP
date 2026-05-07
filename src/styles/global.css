@@ -28,15 +28,38 @@
 }
 
 :root {
-  /* ---- ⚫️ Colors ⚪️ ---- */
-  /* Base Tokens */
-  --sys-color-white: #ffffff;
-  --sys-color-black: #000000;
   --brand-primary: #e84125;
+  --page-bg: #05070f;
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --surface: rgb(255 255 255 / 3%);
+  --surface-border: rgb(232 65 37 / 35%);
+  --surface-elevated: #120806;
+  --chip-bg: rgb(232 65 37 / 15%);
+  --chip-border: rgb(232 65 37 / 40%);
+  --chip-text: #ffb5a8;
+  --item-bg: rgb(232 65 37 / 10%);
+  --item-border: rgb(232 65 37 / 30%);
+  --logo-ring: rgb(255 255 255 / 20%);
+  --scroll-track: #0b0f1a;
+  --scroll-thumb: rgb(232 65 37 / 75%);
+}
 
-  /* Theme Tokens */
-  --primary: var(--sys-color-white);
-  --secondary: var(--sys-color-black);
+:root[data-theme='light'] {
+  --page-bg: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #334155;
+  --surface: rgb(255 255 255 / 92%);
+  --surface-border: rgb(232 65 37 / 30%);
+  --surface-elevated: #fff7f5;
+  --chip-bg: rgb(232 65 37 / 10%);
+  --chip-border: rgb(232 65 37 / 35%);
+  --chip-text: #b53c26;
+  --item-bg: rgb(232 65 37 / 8%);
+  --item-border: rgb(232 65 37 / 20%);
+  --logo-ring: rgb(15 23 42 / 18%);
+  --scroll-track: #e7ecf5;
+  --scroll-thumb: rgb(232 65 37 / 60%);
 }
 
 html {
@@ -46,17 +69,17 @@ html {
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  background-color: #0b0f1a;
+  background-color: var(--scroll-track);
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #0b0f1a;
-  border-left: 1px solid rgb(232 65 37 / 20%);
+  background-color: var(--scroll-track);
+  border-left: 1px solid rgb(232 65 37 / 25%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(232 65 37 / 75%);
-  border: 2px solid #0b0f1a;
+  background-color: var(--scroll-thumb);
+  border: 2px solid var(--scroll-track);
   border-radius: 9999px;
 }
 
@@ -68,7 +91,16 @@ html {
 }
 
 ::selection {
-  background-color: aliceblue;
+  background-color: rgb(232 65 37 / 25%);
+}
+
+body {
+  margin: 0;
+  background-color: var(--page-bg);
+  color: var(--text-main);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
 }
 
 .matrix-text {

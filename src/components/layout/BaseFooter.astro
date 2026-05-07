@@ -36,11 +36,14 @@ const { backToTop = false } = Astro.props;
   )
 }
 
-<footer class='border-t border-[#E84125]/40 bg-[#05070f] px-6 py-8 text-slate-400'>
+<footer
+  class='border-t px-6 py-8'
+  style='border-color: var(--surface-border); background-color: var(--page-bg); color: var(--text-muted);'
+>
   <h2 class='hidden'>Footer</h2>
   <div class='matrix-text mx-auto grid w-full max-w-6xl items-center gap-4 text-sm md:grid-cols-3'>
     <div class='md:justify-self-start'>
-      <p class='text-slate-300'>© 2026 Veralify</p>
+      <p style='color: var(--text-main);'>© 2026 Veralify</p>
     </div>
 
     <div class='justify-self-center'>
@@ -58,7 +61,8 @@ const { backToTop = false } = Astro.props;
         target='_blank'
         rel='noopener noreferrer'
         aria-label='Veralify on X'
-        class='text-slate-300 transition hover:text-[#E84125]'
+        class='transition hover:text-[#E84125]'
+        style='color: var(--text-muted);'
       >
         <svg viewBox='0 0 24 24' aria-hidden='true' class='h-5 w-5 fill-current'>
           <path d='M18.9 2H22l-6.8 7.7L23 22h-6.4l-5-6.5L5.8 22H2.7l7.3-8.3L1 2h6.6l4.5 5.9L18.9 2Zm-1.1 18h1.7L6.6 3.9H4.8L17.8 20Z' />
@@ -69,7 +73,8 @@ const { backToTop = false } = Astro.props;
         target='_blank'
         rel='noopener noreferrer'
         aria-label='Veralify on LinkedIn'
-        class='text-slate-300 transition hover:text-[#E84125]'
+        class='transition hover:text-[#E84125]'
+        style='color: var(--text-muted);'
       >
         <svg viewBox='0 0 24 24' aria-hidden='true' class='h-5 w-5 fill-current'>
           <path d='M4.98 3.5a2.5 2.5 0 1 0 .02 5 2.5 2.5 0 0 0-.02-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.8 2.6 4.8 6V21h-4v-5.3c0-1.3 0-2.8-1.8-2.8-1.8 0-2 1.4-2 2.7V21h-4V9Z' />
