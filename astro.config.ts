@@ -11,17 +11,14 @@ export default defineConfig({
       ? 'https://veralify.com/'
       : process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}/`
-        : 'https://localhost:3000/',
+        : 'http://localhost:3000/', // Changed to http as localhost is usually not https by default
   trailingSlash: 'ignore',
   output: 'server',
+  integrations: [sitemap(), react()],
   adapter: vercel({
     webAnalytics: {
       enabled: true,
     },
-  }),
-  integrations: [sitemap(), react()],
-  adapter: vercel({
-    webAnalytics: { enabled: true },
   }),
   vite: {
     plugins: [tailwindcss()],
