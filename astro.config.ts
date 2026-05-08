@@ -20,6 +20,9 @@ export default defineConfig({
     },
   }),
   integrations: [sitemap(), react()],
+  adapter: vercel({
+    webAnalytics: { enabled: true },
+  }),
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
