@@ -27,6 +27,7 @@
     "@eliancodes/brutal-ui": "^0.2.7",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.13",
+    "@vercel/speed-insights": "^2.0.0",
     "astro": "^6.1.8",
     "astro-font": "^1.1.0",
     "react": "^19.2.6",
