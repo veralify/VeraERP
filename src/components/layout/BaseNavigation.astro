@@ -21,6 +21,8 @@ const { pageTitle } = Astro.props;
         alt='Veralify logo'
         width={40}
         height={40}
+        loading='eager'
+        fetchpriority='high'
         class='rounded-xl object-cover ring-1'
         style='--tw-ring-color: var(--logo-ring);'
       />

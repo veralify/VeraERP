@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.4",
-    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/vercel": "^10.0.6",
     "@eliancodes/brutal-ui": "^0.2.7",
