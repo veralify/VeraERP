@@ -76,11 +76,51 @@ The RSS will output to `https://example.com/feed.xml` by default. You can change
 
 The navigation includes WalletConnect AppKit (Web3Modal) configured for Solana with orange modal branding.
 
-Set this public env var:
+Set these env vars:
 
 ```bash
 PUBLIC_WALLETCONNECT_PROJECT_ID=c1eb462f2683a11949061eb199bc311a
+PUBLIC_SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
+PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
+
+### Vera Badge minting (MVP)
+
+The homepage includes a **Create Vera Badge** form where users can:
+
+1. Connect a Solana wallet
+2. Upload asset details and photos
+3. Mint a badge token to their wallet
+
+Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
+
+#### Supabase server setup
+
+1. Create a public Storage bucket named `vera-badges` in your Supabase project.
+2. Run DB migration to create users + eNFT tables:
+   ```bash
+   supabase db push
+   ```
+3. In your terminal, login and link your Supabase project:
+   ```bash
+   supabase login
+   supabase link --project-ref syehqhcexzgtxzavjpmw
+   ```
+4. Set required Edge Function secrets:
+   ```bash
+   supabase secrets set SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
+   supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+   supabase secrets set VERA_BADGE_STORAGE_BUCKET=vera-badges
+   ```
+5. Deploy the function:
+   ```bash
+   supabase functions deploy vera-badge-upload
+   supabase functions deploy vera-badge-save
+   ```
+
+During mint, a **0.001 SOL fee** is transferred to:
+
+`CK1gBf6XyJaeZq1aS2gHsmrohA4gMDmPDBBu9hCBswnS`
 
 ### Image
 

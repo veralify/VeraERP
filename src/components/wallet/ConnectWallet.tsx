@@ -1,49 +1,10 @@
-import { solana } from '@reown/appkit/networks';
-import { createAppKit, useAppKit, useAppKitAccount, useDisconnect } from '@reown/appkit/react';
-import { SolanaAdapter, useAppKitConnection } from '@reown/appkit-adapter-solana/react';
+import { useAppKit, useAppKitAccount, useDisconnect } from '@reown/appkit/react';
+import { useAppKitConnection } from '@reown/appkit-adapter-solana/react';
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
 import { useEffect, useState } from 'react';
+import { ensureAppKitInitialized, WALLETCONNECT_PROJECT_ID } from './appkit';
 
-const WALLETCONNECT_PROJECT_ID = import.meta.env.PUBLIC_WALLETCONNECT_PROJECT_ID;
-
-let initializedProjectId: string | null = null;
-
-function initializeAppKit(projectId: string) {
-  if (initializedProjectId === projectId) {
-    return;
-  }
-
-  createAppKit({
-    projectId,
-    adapters: [new SolanaAdapter()],
-    networks: [solana],
-    defaultNetwork: solana,
-    showWallets: true,
-    metadata: {
-      name: 'Veralify',
-      description: 'Veralify wallet connection',
-      url: window.location.origin,
-      icons: [`${window.location.origin}/favicon.svg`],
-    },
-    themeMode: 'dark',
-    themeVariables: {
-      '--w3m-accent': '#d78a7a',
-      '--w3m-color-mix': '#0d111b',
-      '--w3m-color-mix-strength': 6,
-      '--w3m-qr-color': '#d7a79c',
-      '--apkt-accent': '#d78a7a',
-      '--apkt-color-mix': '#0d111b',
-      '--apkt-color-mix-strength': 6,
-      '--apkt-qr-color': '#d7a79c',
-    },
-  });
-
-  initializedProjectId = projectId;
-}
-
-if (typeof window !== 'undefined' && WALLETCONNECT_PROJECT_ID) {
-  initializeAppKit(WALLETCONNECT_PROJECT_ID);
-}
+ensureAppKitInitialized();
 
 export function ConnectWallet() {
   const { open } = useAppKit();
