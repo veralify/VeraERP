@@ -1,6 +1,7 @@
 ---
 import BaseFooter from '@components/layout/BaseFooter.astro';
 import BaseNavigation from '@components/layout/BaseNavigation.astro';
+import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import BaseHead from '../components/layout/BaseHead.astro';
 import '../styles/global.css';
@@ -23,6 +24,7 @@ const { title, description, classList, pageTitle, ogImage } = Astro.props;
     <BaseNavigation {pageTitle} />
     <slot />
     <BaseFooter />
+    <Analytics />
     <SpeedInsights />
   </body>
 </html>
