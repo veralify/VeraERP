@@ -23,13 +23,7 @@ const { title, description, ogImage } = Astro.props;
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <meta name='generator' content={Astro.generator} />
 
-  <link
-    rel='alternate'
-    href='/feed.xml'
-    type='application/rss+xml'
-  />
-
-  <meta name='title' content={`Veralify | ${title}`} />
+  <meta name='title' content={title} />
   <meta name='description' content={description} />
 
   <meta property='og:type' content='website' />
@@ -45,9 +39,12 @@ const { title, description, ogImage } = Astro.props;
   <meta property='twitter:image' content={ogImage} />
 
   <link rel='canonical' href={canonicalURL} />
-  <link rel='icon' type='image/svg' href='/favicon.svg' />
+  <link rel='manifest' href='/manifest.json' />
+  <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
+  <link rel='shortcut icon' href='/favicon.svg' type='image/svg+xml' />
+  <meta name='theme-color' content='#e84125' />
 
-  <title>Veralify | {title}</title>
+  <title>{title}</title>
 
   <ClientRouter />
 

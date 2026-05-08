@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/favicon.svg';
+---
+
+<main
+  class='relative overflow-hidden px-6 pb-20 pt-14 md:pt-20'
+  style='background-color: var(--page-bg); color: var(--text-main);'
+>
+  <div class='pointer-events-none absolute inset-0'>
+    <div class='absolute left-1/2 top-0 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-[#E84125]/25 blur-3xl' />
+    <div class='absolute -left-20 top-40 h-72 w-72 rounded-full bg-[#E84125]/20 blur-3xl' />
+    <div class='absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-[#E84125]/20 blur-3xl' />
+  </div>
+
+  <section
+    class='relative mx-auto grid w-full max-w-6xl gap-10 rounded-3xl border p-8 shadow-[0_0_120px_rgba(232,65,37,0.22)] backdrop-blur-xl md:grid-cols-2 md:p-12'
+    style='border-color: var(--surface-border); background-color: var(--surface);'
+  >
+    <div>
+      <p
+        class='matrix-text inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium tracking-wide'
+        style='border-color: var(--chip-border); background-color: var(--chip-bg); color: var(--chip-text);'
+      >
+        Coming Soon
+      </p>
+      <h1 class='matrix-heading mt-5 text-4xl font-semibold leading-tight tracking-tight md:text-6xl'>
+        The trust layer
+        <br />
+        for physical assets.
+      </h1>
+      <p class='matrix-text mt-5 max-w-xl text-base md:text-lg' style='color: var(--text-muted);'>
+        Veralify helps users verify ownership and risk signals before buying,
+        selling, or transferring high-value items.
+      </p>
+
+      <div class='mt-8 flex flex-wrap gap-3'>
+        <a
+          href='https://x.com/Veralify'
+          target='_blank'
+          rel='noopener noreferrer'
+          class='matrix-text inline-flex rounded-xl bg-[#E84125] px-6 py-3 font-semibold text-black transition hover:brightness-110'
+        >
+          Follow on X
+        </a>
+      </div>
+    </div>
+
+    <div
+      class='rounded-2xl border p-6'
+      style='border-color: var(--surface-border); background-color: var(--surface-elevated);'
+    >
+      <div class='flex items-center gap-3'>
+        <Image
+          src={logo}
+          alt='Veralify logo'
+          width={48}
+          height={48}
+          loading='eager'
+        />
+        <div>
+          <p class='matrix-text text-sm' style='color: var(--text-muted);'>Veralify Network</p>
+          <p class='matrix-heading text-lg font-semibold'>Ownership Verification API</p>
+        </div>
+      </div>
+
+      <div class='matrix-text mt-6 space-y-3 text-sm' style='color: var(--text-muted);'>
+        <div class='rounded-lg border p-3' style='border-color: var(--item-border); background-color: var(--item-bg);'>
+          Real-time risk checks
+        </div>
+        <div class='rounded-lg border p-3' style='border-color: var(--item-border); background-color: var(--item-bg);'>
+          Stolen item intelligence
+        </div>
+        <div class='rounded-lg border p-3' style='border-color: var(--item-border); background-color: var(--item-bg);'>
+          Transfer-ready provenance
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

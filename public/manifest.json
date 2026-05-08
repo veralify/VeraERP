@@ -1,0 +1,13 @@
+{
+  "name": "Veralify",
+  "short_name": "Veralify",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#e84125",
+  "background_color": "#05070f"
+}
