@@ -72,6 +72,16 @@ The RSS feed is automatically generated from the Markdown files in the `src/cont
 
 The RSS will output to `https://example.com/feed.xml` by default. You can change this, by renaming `src/pages/feed.xml.js`.
 
+### WalletConnect AppKit (Solana)
+
+The navigation includes WalletConnect AppKit (Web3Modal) configured for Solana with orange modal branding.
+
+Set this public env var:
+
+```bash
+PUBLIC_WALLETCONNECT_PROJECT_ID=c1eb462f2683a11949061eb199bc311a
+```
+
 ### Image
 
 ## Components
