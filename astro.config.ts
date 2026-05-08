@@ -13,6 +13,12 @@ export default defineConfig({
         ? `https://${process.env.VERCEL_URL}/`
         : 'https://localhost:3000/',
   trailingSlash: 'ignore',
+  output: 'server',
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   integrations: [sitemap(), react()],
   adapter: vercel({
     webAnalytics: { enabled: true },
