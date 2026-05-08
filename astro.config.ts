@@ -1,5 +1,6 @@
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
+import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
@@ -13,6 +14,9 @@ export default defineConfig({
         : 'https://localhost:3000/',
   trailingSlash: 'ignore',
   integrations: [sitemap(), react()],
+  adapter: vercel({
+    webAnalytics: { enabled: true },
+  }),
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
