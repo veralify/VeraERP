@@ -90,7 +90,7 @@ The homepage includes a **Create Vera Badge** form where users can:
 
 1. Connect a Solana wallet
 2. Upload asset details and photos
-3. Mint a badge token to their wallet
+3. Mint a compressed badge NFT (cNFT) to their wallet
 
 Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
 
@@ -101,6 +101,7 @@ Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
    ```bash
    supabase db push
    ```
+   This now also creates a `vera_mint_payments` table used to resume paid-but-failed mints safely.
 3. In your terminal, login and link your Supabase project:
    ```bash
    supabase login
@@ -112,9 +113,21 @@ Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
    supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
    supabase secrets set VERA_BADGE_STORAGE_BUCKET=vera-badges
    ```
-5. Deploy the function:
+5. Set cNFT mint secrets (service wallet + tree):
+   ```bash
+   supabase secrets set VERA_SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
+   supabase secrets set VERA_CNFT_MINT_AUTHORITY_SECRET=your_base58_or_json_secret_key
+   supabase secrets set VERA_CNFT_TREE_ADDRESS=your_merkle_tree_public_key
+   # Optional only for first-time tree auto-create:
+   # supabase secrets set VERA_CNFT_TREE_SECRET=your_merkle_tree_secret_key
+   # Optional overrides:
+   # supabase secrets set VERA_CNFT_MAX_DEPTH=14
+   # supabase secrets set VERA_CNFT_MAX_BUFFER_SIZE=64
+   ```
+6. Deploy the functions:
    ```bash
    supabase functions deploy vera-badge-upload
+   supabase functions deploy vera-badge-mint-compressed
    supabase functions deploy vera-badge-save
    ```
 

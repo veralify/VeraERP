@@ -68,7 +68,8 @@ Deno.serve(async (req) => {
     });
 
     const createdAt = Date.now();
-    const basePath = `vera-badges/${createdAt}-${crypto.randomUUID()}`;
+    const mintNonce = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
+    const basePath = `${createdAt}-${mintNonce}`;
 
     const photoUrls: string[] = [];
 
@@ -93,7 +94,7 @@ Deno.serve(async (req) => {
     }
 
     const metadata = {
-      name: `${assetName} • Vera Badge`,
+      name: `${assetName} • Vera Badge #${mintNonce.slice(0, 6)}`,
       symbol: 'VERA',
       description,
       image: photoUrls[0],
@@ -114,9 +115,12 @@ Deno.serve(async (req) => {
     };
 
     const metadataPath = `${basePath}/metadata.json`;
+    const metadataBlob = new Blob([JSON.stringify(metadata, null, 2)], {
+      type: 'application/json',
+    });
     const { error: metadataError } = await supabase.storage
       .from(bucket)
-      .upload(metadataPath, JSON.stringify(metadata, null, 2), {
+      .upload(metadataPath, metadataBlob, {
         contentType: 'application/json',
         upsert: false,
       });
