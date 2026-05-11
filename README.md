@@ -48,6 +48,22 @@ Astro-specific diagnostics still run through `astro check`, so CI and local vali
 pnpm run check
 ```
 
+## White-label brand architecture
+
+Brand configuration now lives in:
+
+- `src/config/brands/types.ts` (shared shape)
+- `src/config/brands/veralify.ts` (Veralify brand config)
+- `src/config/brands/index.ts` (active brand resolver)
+
+Set the active brand with:
+
+```bash
+PUBLIC_BRAND=veralify
+```
+
+The app defaults to `veralify` when `PUBLIC_BRAND` is not set.
+
 ## Integrations
 
 ### Tailwind CSS
@@ -71,6 +87,74 @@ export default defineConfig({
 The RSS feed is automatically generated from the Markdown files in the `src/content/blog` folder. You can ofcourse completely change this to your own needs.
 
 The RSS will output to `https://example.com/feed.xml` by default. You can change this, by renaming `src/pages/feed.xml.js`.
+
+### Privy Auth
+
+The navigation, hero, and dashboard use Privy social authentication.
+Privy onboarding is configured for:
+
+- Google, Apple, Facebook, Email, and Phone login
+- Automatic embedded Solana wallet creation on login (for users without wallets)
+
+Set these env vars:
+
+```bash
+PUBLIC_PRIVY_APP_ID=your_privy_app_id
+PUBLIC_TWENTY_URL=https://crm.veralify.com
+PUBLIC_SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
+PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### Supabase user sync
+
+Social identity is synced to Supabase through the `vera-user-sync` edge function.
+
+1. Run migrations:
+   ```bash
+   supabase db push
+   ```
+2. In your terminal, login and link your Supabase project:
+   ```bash
+   supabase login
+   supabase link --project-ref syehqhcexzgtxzavjpmw
+   ```
+3. Set required Edge Function secrets:
+   ```bash
+   supabase secrets set SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
+   supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+   supabase secrets set VERA_ADMIN_API_KEY=your_strong_admin_api_key
+   supabase secrets set RESEND_API_KEY=your_resend_api_key
+   supabase secrets set VERA_EMAIL_FROM='Veralify <noreply@yourdomain.com>'
+   ```
+4. Deploy the functions:
+   ```bash
+   supabase functions deploy vera-user-sync
+   supabase functions deploy vera-newsletter-subscribe --no-verify-jwt
+   supabase functions deploy vera-signup-submit --no-verify-jwt
+   supabase functions deploy vera-blog-api --no-verify-jwt
+   supabase functions deploy vera-users-api
+   supabase functions deploy vera-newsletter-api
+   ```
+
+### Admin server APIs
+
+Use the admin API key in either `Authorization: Bearer <key>` or `x-api-key: <key>`.
+
+- `vera-users-api` actions:
+  - `list_users`
+  - `get_user`
+  - `update_user_role`
+- `vera-newsletter-api` actions:
+  - `dashboard_bootstrap`
+  - `send_campaign`
+  - `list_subscribers`
+  - `update_subscriber_status`
+  - `delete_subscriber`
+  - `stats`
+
+- `vera-blog-api` actions:
+  - Public: `list_published`, `get_published_post`
+  - Admin: `admin_bootstrap`, `create_post`, `update_post`, `publish_post`, `unpublish_post`
 
 ### Image
 

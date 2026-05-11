@@ -27,11 +27,13 @@ const socials: Array<{ name: string; url: string; icon: SocialIconName }> = [
   <ul class='flex justify-between'>
     {
       socials.map((item) => (
-        <li class='rounded border-2 border-black bg-white px-4 py-2 text-green-700 card-shadow'>
-          <a href={item.url} target='_blank' rel='noopener' title={`Go to ${item.name}`}>
-            <SocialIcon icon={item.icon} class='p-6' />
-          </a>
-        </li>
+        <Fragment key={item.name}>
+          <li class='rounded border-2 border-black bg-white px-4 py-2 text-green-700 card-shadow'>
+            <a href={item.url} target='_blank' rel='noopener' title={`Go to ${item.name}`}>
+              <SocialIcon icon={item.icon} class='p-6' />
+            </a>
+          </li>
+        </Fragment>
       ))
     }
   </ul>
