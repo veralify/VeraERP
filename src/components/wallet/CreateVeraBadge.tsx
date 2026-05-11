@@ -1,16 +1,27 @@
-import { useAppKitAccount, useAppKitProvider } from '@reown/appkit/react';
 import {
-  type Provider as SolanaProvider,
-  useAppKitConnection,
-} from '@reown/appkit-adapter-solana/react';
-import { LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import { useState } from 'react';
-import { ensureAppKitInitialized, VERA_BADGE_FEE_SOL, VERA_FEE_WALLET } from './appkit';
+  PRIVY_APP_ID,
+  privyConfig,
+  SOLANA_RPC_URL,
+  SUPABASE_ANON_KEY,
+  SUPABASE_URL,
+} from '@components/auth/privyConfig';
+import { getPrimaryEmbeddedSolanaWallet, syncPrivyUserToSupabase } from '@components/auth/userSync';
+import { PrivyProvider, usePrivy } from '@privy-io/react-auth';
+import {
+  useSignAndSendTransaction,
+  useWallets as useSolanaWallets,
+} from '@privy-io/react-auth/solana';
+import {
+  Connection,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+} from '@solana/web3.js';
+import bs58 from 'bs58';
+import { useEffect, useMemo, useState } from 'react';
+import { VERA_BADGE_FEE_SOL, VERA_FEE_WALLET } from './appkit';
 
-ensureAppKitInitialized();
-
-const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_UPLOAD_FUNCTION = 'vera-badge-upload';
 const SUPABASE_CNFT_MINT_FUNCTION = 'vera-badge-mint-compressed';
 const SUPABASE_SAVE_FUNCTION = 'vera-badge-save';
@@ -37,10 +48,13 @@ type PendingMint = {
   upload: UploadedBadgeMetadata;
 };
 
-export function CreateVeraBadge() {
-  const { address, isConnected } = useAppKitAccount({ namespace: 'solana' });
-  const { connection } = useAppKitConnection();
-  const { walletProvider } = useAppKitProvider<SolanaProvider | undefined>('solana');
+function CreateVeraBadgeInner() {
+  const { authenticated, user } = usePrivy();
+  const { wallets } = useSolanaWallets();
+  const { signAndSendTransaction } = useSignAndSendTransaction();
+  const connection = useMemo(() => new Connection(SOLANA_RPC_URL, 'confirmed'), []);
+  const embeddedWallet = useMemo(() => getPrimaryEmbeddedSolanaWallet(wallets), [wallets]);
+  const walletAddress = embeddedWallet?.address || null;
 
   const [form, setForm] = useState<BadgeForm>({
     assetName: '',
@@ -53,6 +67,14 @@ export function CreateVeraBadge() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<{ signature: string; assetId: string } | null>(null);
   const [pendingMint, setPendingMint] = useState<PendingMint | null>(null);
+
+  useEffect(() => {
+    if (!authenticated || !user || !walletAddress) {
+      return;
+    }
+
+    void syncPrivyUserToSupabase({ user, walletAddress });
+  }, [authenticated, user, walletAddress]);
 
   const onFieldChange = (field: keyof Omit<BadgeForm, 'photos'>, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -220,14 +242,11 @@ export function CreateVeraBadge() {
       setSuccess(null);
       setIsSubmitting(true);
 
-      if (!isConnected || !address) {
-        throw new Error('Connect your wallet first.');
+      if (!authenticated || !user) {
+        throw new Error('Sign in first to continue.');
       }
-      if (!connection) {
-        throw new Error('Solana network connection is not ready.');
-      }
-      if (!walletProvider) {
-        throw new Error('Wallet provider is not available.');
+      if (!embeddedWallet || !walletAddress) {
+        throw new Error('Embedded Solana wallet is not ready yet.');
       }
       if (!form.assetName.trim()) {
         throw new Error('Asset name is required.');
@@ -276,29 +295,35 @@ export function CreateVeraBadge() {
 
       const uploadResult = (await uploadResponse.json()) as UploadedBadgeMetadata;
 
-      const user = new PublicKey(address);
+      const owner = new PublicKey(walletAddress);
       const feeWallet = new PublicKey(VERA_FEE_WALLET);
       const feeLamports = Math.round(VERA_BADGE_FEE_SOL * LAMPORTS_PER_SOL);
 
       const buildFeeTransaction = (blockhash: string) => {
         const tx = new Transaction().add(
           SystemProgram.transfer({
-            fromPubkey: user,
+            fromPubkey: owner,
             toPubkey: feeWallet,
             lamports: feeLamports,
           }),
         );
-        tx.feePayer = user;
+        tx.feePayer = owner;
         tx.recentBlockhash = blockhash;
         return tx;
       };
 
       const latestBlockhash = await connection.getLatestBlockhash('processed');
       const feeTransaction = buildFeeTransaction(latestBlockhash.blockhash);
-      const feeSignature = await walletProvider.sendTransaction(feeTransaction, connection, {
-        preflightCommitment: 'processed',
-        maxRetries: 3,
+      const feeTransactionBytes = feeTransaction.serialize({
+        requireAllSignatures: false,
+        verifySignatures: false,
       });
+      const { signature: feeSignatureBytes } = await signAndSendTransaction({
+        transaction: feeTransactionBytes,
+        wallet: embeddedWallet,
+        chain: 'solana:mainnet',
+      });
+      const feeSignature = bs58.encode(feeSignatureBytes);
 
       try {
         await connection.confirmTransaction(
@@ -319,7 +344,7 @@ export function CreateVeraBadge() {
 
       const pending: PendingMint = {
         paymentSignature: feeSignature,
-        walletAddress: address,
+        walletAddress,
         feeLamports,
         form: {
           assetName: form.assetName,
@@ -355,8 +380,8 @@ export function CreateVeraBadge() {
       <div className="flex flex-col gap-2">
         <h2 className="matrix-heading text-2xl font-semibold md:text-3xl">Create Vera Badge</h2>
         <p className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
-          Upload your physical asset details + photos, mint your compressed Vera badge to your
-          wallet, and pay {VERA_BADGE_FEE_SOL} SOL mint fee.
+          Upload your physical asset details + photos, mint your passport-grade compressed Vera
+          badge, and pay {VERA_BADGE_FEE_SOL} SOL mint fee using your embedded wallet.
         </p>
       </div>
 
@@ -408,15 +433,22 @@ export function CreateVeraBadge() {
           type="button"
           className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
           style={{ borderColor: 'var(--surface-border)' }}
-          disabled={!isConnected || isSubmitting}
+          disabled={!authenticated || !walletAddress || isSubmitting}
           onClick={submitBadge}
         >
-          {isSubmitting ? 'Minting...' : 'Mint Vera Badge'}
+          {isSubmitting ? 'Minting...' : 'Mint Passport'}
         </button>
         <span className="matrix-text text-xs" style={{ color: 'var(--text-muted)' }}>
           Fee recipient: {VERA_FEE_WALLET}
         </span>
       </div>
+
+      {(!authenticated || !walletAddress) && (
+        <p className="mt-3 text-sm" style={{ color: 'var(--text-muted)' }}>
+          Sign in with Email, Phone, Google, Apple, or Facebook to mint with your embedded Solana
+          wallet.
+        </p>
+      )}
 
       {error && (
         <p className="mt-3 text-sm" style={{ color: '#ffb5a8' }}>
@@ -450,5 +482,26 @@ export function CreateVeraBadge() {
         </div>
       )}
     </section>
+  );
+}
+
+export function CreateVeraBadge() {
+  if (!PRIVY_APP_ID) {
+    return (
+      <section
+        className="mx-auto mt-8 w-full max-w-6xl rounded-2xl border p-6"
+        style={{ borderColor: 'var(--surface-border)', backgroundColor: 'var(--surface-elevated)' }}
+      >
+        <p className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
+          Authentication is unavailable. Set PUBLIC_PRIVY_APP_ID to enable secure onboarding.
+        </p>
+      </section>
+    );
+  }
+
+  return (
+    <PrivyProvider appId={PRIVY_APP_ID} config={privyConfig}>
+      <CreateVeraBadgeInner />
+    </PrivyProvider>
   );
 }

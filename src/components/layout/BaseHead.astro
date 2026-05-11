@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import { getActiveBrand } from '@config/brands';
 import LocalFont from '../generic/LocalFont.astro';
 
 interface Props {
@@ -15,6 +16,7 @@ if (Astro.props.ogImage === undefined) {
 }
 
 const { title, description, ogImage } = Astro.props;
+const brand = getActiveBrand();
 ---
 
 <head>
@@ -40,9 +42,9 @@ const { title, description, ogImage } = Astro.props;
 
   <link rel='canonical' href={canonicalURL} />
   <link rel='manifest' href='/manifest.json' />
-  <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
-  <link rel='shortcut icon' href='/favicon.svg' type='image/svg+xml' />
-  <meta name='theme-color' content='#e84125' />
+  <link rel='icon' href={brand.assets.faviconPath} type='image/svg+xml' />
+  <link rel='shortcut icon' href={brand.assets.faviconPath} type='image/svg+xml' />
+  <meta name='theme-color' content={brand.theme.themeColor} />
 
   <title>{title}</title>
 

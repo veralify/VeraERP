@@ -48,6 +48,22 @@ Astro-specific diagnostics still run through `astro check`, so CI and local vali
 pnpm run check
 ```
 
+## White-label brand architecture
+
+Brand configuration now lives in:
+
+- `src/config/brands/types.ts` (shared shape)
+- `src/config/brands/veralify.ts` (Veralify brand config)
+- `src/config/brands/index.ts` (active brand resolver)
+
+Set the active brand with:
+
+```bash
+PUBLIC_BRAND=veralify
+```
+
+The app defaults to `veralify` when `PUBLIC_BRAND` is not set.
+
 ## Integrations
 
 ### Tailwind CSS
@@ -72,14 +88,23 @@ The RSS feed is automatically generated from the Markdown files in the `src/cont
 
 The RSS will output to `https://example.com/feed.xml` by default. You can change this, by renaming `src/pages/feed.xml.js`.
 
-### WalletConnect AppKit (Solana)
+### Privy Social Auth + Embedded Solana Wallets
 
-The navigation includes WalletConnect AppKit (Web3Modal) configured for Solana with orange modal branding.
+The navigation and hero now use a Web2-first onboarding flow powered by Privy with:
+
+- Email
+- Phone Number
+- Google
+- Apple
+- Facebook (configured as a custom OAuth provider, e.g. `privy:facebook`)
+
+Each authenticated user gets an embedded Solana wallet for minting.
 
 Set these env vars:
 
 ```bash
-PUBLIC_WALLETCONNECT_PROJECT_ID=c1eb462f2683a11949061eb199bc311a
+PUBLIC_PRIVY_APP_ID=your_privy_app_id
+PUBLIC_SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
 PUBLIC_SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
@@ -88,9 +113,10 @@ PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 The homepage includes a **Create Vera Badge** form where users can:
 
-1. Connect a Solana wallet
-2. Upload asset details and photos
-3. Mint a compressed badge NFT (cNFT) to their wallet
+1. Sign in with social/email/phone
+2. Get an embedded Solana wallet automatically
+3. Upload asset details and photos
+4. Mint a compressed badge NFT (cNFT) to their wallet
 
 Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
 
@@ -101,7 +127,9 @@ Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
    ```bash
    supabase db push
    ```
-   This now also creates a `vera_mint_payments` table used to resume paid-but-failed mints safely.
+   This now also creates:
+   - `vera_mint_payments` (resume paid-but-failed mints safely)
+   - `registered_devices` (tracks embedded wallets and primary wallet selection)
 3. In your terminal, login and link your Supabase project:
    ```bash
    supabase login
@@ -129,6 +157,7 @@ Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
    supabase functions deploy vera-badge-upload
    supabase functions deploy vera-badge-mint-compressed
    supabase functions deploy vera-badge-save
+   supabase functions deploy vera-user-sync
    ```
 
 During mint, a **0.001 SOL fee** is transferred to:

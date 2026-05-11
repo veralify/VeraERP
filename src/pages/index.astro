@@ -1,12 +1,15 @@
 ---
 import RainbowInspiredLanding from '@components/home/RainbowInspiredLanding.astro';
+import { getActiveBrand } from '@config/brands';
 import Layout from '@layouts/Default.astro';
+
+const brand = getActiveBrand();
 ---
 
 <Layout
-  title='Veralify'
-  pageTitle='Veralify | Coming Soon'
-  description='Sign up to get upcoming Veralify updates.'
+  title={brand.name}
+  pageTitle={`${brand.name} | Coming Soon`}
+  description={`Sign up to get upcoming ${brand.name} updates.`}
 >
   <RainbowInspiredLanding />
 </Layout>
