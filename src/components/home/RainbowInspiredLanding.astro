@@ -4,6 +4,9 @@ import { getActiveBrand } from '@config/brands';
 
 const hasPrivyAppId = Boolean(import.meta.env.PUBLIC_PRIVY_APP_ID);
 const brand = getActiveBrand();
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
 ---
 
 <main
@@ -50,7 +53,7 @@ const brand = getActiveBrand();
           href={brand.social.xUrl}
           target='_blank'
           rel='noopener noreferrer'
-          class='matrix-text inline-flex h-[46px] items-center rounded-xl px-6 font-semibold text-black transition hover:brightness-110'
+          class='matrix-text inline-flex h-[46px] items-center rounded-xl px-6 font-semibold text-white transition hover:brightness-110'
           style={`background-color: ${brand.theme.primary};`}
         >
           Follow on X
@@ -100,4 +103,199 @@ const brand = getActiveBrand();
       </div>
     </div>
   </section>
+
+  <section class='relative mx-auto mt-12 w-full max-w-3xl px-2 text-center'>
+    <p class='matrix-heading text-2xl font-semibold md:text-3xl'>Stay ahead with Veralify.</p>
+    <p class='matrix-text mx-auto mt-3 max-w-xl text-xs md:text-sm' style='color: var(--text-muted);'>
+      Get monthly updates on trusted asset verification, fraud intelligence, and new Veralify releases.
+    </p>
+
+    <form
+      id='newsletter-form'
+      class='mx-auto mt-6 flex w-full max-w-md items-center gap-2 rounded-full border p-1.5'
+      style='border-color: var(--surface-border); background-color: var(--page-bg);'
+      data-supabase-url={supabaseUrl || ''}
+      data-supabase-key={supabaseAnonKey || ''}
+      data-brand={brand.id}
+    >
+      <input
+        type='email'
+        id='newsletter-email'
+        name='email'
+        autocomplete='email'
+        placeholder='Enter your email'
+        class='newsletter-input h-10 w-full bg-transparent px-3 text-sm outline-none'
+        style='color: var(--text-main);'
+        required
+      />
+      <button
+        type='submit'
+        class='matrix-text inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full px-5 text-xs font-semibold text-white transition hover:brightness-110'
+        style={`background-color: ${brand.theme.primary};`}
+        disabled={!hasNewsletterBackend}
+      >
+        <svg
+          id='newsletter-btn-spinner'
+          class='hidden h-4 w-4 animate-spin'
+          viewBox='0 0 24 24'
+          aria-hidden='true'
+        >
+          <circle cx='12' cy='12' r='9' stroke='currentColor' stroke-width='3' fill='none' opacity='0.3' />
+          <path d='M21 12a9 9 0 0 0-9-9' stroke='currentColor' stroke-width='3' fill='none' />
+        </svg>
+        <svg id='newsletter-btn-check' class='hidden h-4 w-4' viewBox='0 0 24 24' aria-hidden='true'>
+          <path
+            d='M20 7 10 17l-5-5'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='3'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+          />
+        </svg>
+        <span id='newsletter-btn-label'>Subscribe</span>
+      </button>
+    </form>
+    <p id='newsletter-status' class='mt-3 text-xs' style='color: var(--text-muted);'></p>
+  </section>
 </main>
+
+<style>
+  .newsletter-input:focus,
+  .newsletter-input:focus-visible {
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  .newsletter-input:-webkit-autofill,
+  .newsletter-input:-webkit-autofill:hover,
+  .newsletter-input:-webkit-autofill:focus,
+  .newsletter-input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-main);
+    transition: background-color 9999s ease-in-out 0s;
+    box-shadow: 0 0 0 1000px transparent inset;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('newsletter-form');
+    const emailInput = document.getElementById('newsletter-email');
+    const statusText = document.getElementById('newsletter-status');
+
+    if (!(form instanceof HTMLFormElement) || !(emailInput instanceof HTMLInputElement)) {
+      return;
+    }
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const buttonLabel = document.getElementById('newsletter-btn-label');
+    const buttonSpinner = document.getElementById('newsletter-btn-spinner');
+    const buttonCheck = document.getElementById('newsletter-btn-check');
+    const supabaseFunctionUrl = form.dataset.supabaseUrl
+      ? `${form.dataset.supabaseUrl}/functions/v1/vera-newsletter-subscribe`
+      : '';
+    const anonKey = form.dataset.supabaseKey || '';
+    const brand = form.dataset.brand || 'default';
+
+    if (!supabaseFunctionUrl || !anonKey) {
+      if (statusText) {
+        statusText.textContent = 'Newsletter backend is not configured yet.';
+      }
+      return;
+    }
+
+    const setButtonState = (state: 'idle' | 'loading' | 'success') => {
+      if (!(submitButton instanceof HTMLButtonElement) || !(buttonLabel instanceof HTMLElement)) {
+        return;
+      }
+
+      if (buttonSpinner instanceof SVGElement) {
+        buttonSpinner.classList.toggle('hidden', state !== 'loading');
+      }
+      if (buttonCheck instanceof SVGElement) {
+        buttonCheck.classList.toggle('hidden', state !== 'success');
+      }
+
+      if (state === 'loading') {
+        submitButton.disabled = true;
+        buttonLabel.textContent = 'Subscribe';
+        return;
+      }
+
+      if (state === 'success') {
+        submitButton.disabled = true;
+        buttonLabel.textContent = 'Done';
+        return;
+      }
+
+      submitButton.disabled = false;
+      buttonLabel.textContent = 'Subscribe';
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const email = emailInput.value.trim();
+      if (!email) {
+        if (statusText) {
+          statusText.textContent = 'Please enter a valid email.';
+        }
+        return;
+      }
+
+      setButtonState('loading');
+      if (statusText) {
+        statusText.textContent = '';
+      }
+
+      try {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+        let response: Response;
+        try {
+          response = await fetch(supabaseFunctionUrl, {
+            method: 'POST',
+            signal: controller.signal,
+            headers: {
+              apikey: anonKey,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email,
+              brand,
+              source: 'homepage-newsletter',
+            }),
+          });
+        } finally {
+          window.clearTimeout(timeoutId);
+        }
+
+        const json = (await response.json().catch(() => null)) as { error?: string; message?: string } | null;
+        if (!response.ok || !json) {
+          throw new Error(json?.error || `Subscription failed (HTTP ${response.status})`);
+        }
+
+        if (statusText) {
+          statusText.textContent = json.message || 'Subscribed successfully.';
+        }
+        form.reset();
+        setButtonState('success');
+        window.setTimeout(() => {
+          setButtonState('idle');
+        }, 1400);
+      } catch (error) {
+        const message =
+          error instanceof Error && error.name === 'AbortError'
+            ? 'Request timed out. Please try again.'
+            : error instanceof Error
+              ? error.message
+              : 'Subscription failed.';
+        if (statusText) {
+          statusText.textContent = message;
+        }
+        setButtonState('idle');
+      }
+    });
+  });
+</script>

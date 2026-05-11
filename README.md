@@ -123,11 +123,29 @@ Social identity is synced to Supabase through the `vera-user-sync` edge function
    ```bash
    supabase secrets set SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
    supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+   supabase secrets set VERA_ADMIN_API_KEY=your_strong_admin_api_key
    ```
-4. Deploy the function:
+4. Deploy the functions:
    ```bash
    supabase functions deploy vera-user-sync
+   supabase functions deploy vera-newsletter-subscribe
+   supabase functions deploy vera-users-api
+   supabase functions deploy vera-newsletter-api
    ```
+
+### Admin server APIs
+
+Use the admin API key in either `Authorization: Bearer <key>` or `x-api-key: <key>`.
+
+- `vera-users-api` actions:
+  - `list_users`
+  - `get_user`
+  - `update_user_role`
+- `vera-newsletter-api` actions:
+  - `list_subscribers`
+  - `update_subscriber_status`
+  - `delete_subscriber`
+  - `stats`
 
 ### Image
 

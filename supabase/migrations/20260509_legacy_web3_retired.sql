@@ -1,0 +1,2 @@
+-- Reserved legacy migration version to keep remote/local history aligned.
+-- Web3 schema was removed from the current product direction.
