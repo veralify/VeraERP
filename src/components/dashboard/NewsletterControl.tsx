@@ -1,12 +1,6 @@
-import {
-  PRIVY_APP_ID,
-  privyConfig,
-  SUPABASE_ANON_KEY,
-  SUPABASE_URL,
-} from '@components/auth/privyConfig';
-import { getDisplayIdentity, syncPrivyUserToSupabase } from '@components/auth/userSync';
+import { auth } from '@components/auth/firebaseConfig';
 import { activeBrand } from '@config/brands';
-import { PrivyProvider, usePrivy } from '@privy-io/react-auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useCallback, useEffect, useState } from 'react';
 
 type Campaign = {
@@ -23,6 +17,9 @@ type BootstrapData = {
   subscribedCount: number;
   campaigns: Campaign[];
 };
+
+const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
 const postAction = async <T,>(url: string, payload: Record<string, unknown>) => {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
@@ -48,22 +45,30 @@ const postAction = async <T,>(url: string, payload: Record<string, unknown>) => 
 };
 
 const NewsletterControlInner = () => {
-  const { authenticated, ready, user, login, logout } = usePrivy();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [bootstrap, setBootstrap] = useState<BootstrapData | null>(null);
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [sending, setSending] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const twentyUrl = import.meta.env.PUBLIC_TWENTY_URL || 'https://crm.veralify.com';
 
-  const reload = useCallback(async (privyUserId: string) => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const reload = useCallback(async (userId: string) => {
     setLoading(true);
     setError(null);
     try {
       const newsletterData = await postAction<BootstrapData>('vera-newsletter-api', {
         action: 'dashboard_bootstrap',
-        privyUserId,
+        privyUserId: userId,
       });
       setBootstrap(newsletterData);
     } catch (reloadError) {
@@ -76,12 +81,11 @@ const NewsletterControlInner = () => {
   }, []);
 
   useEffect(() => {
-    if (!ready || !authenticated || !user) {
+    if (!user) {
       return;
     }
-    void syncPrivyUserToSupabase({ user });
-    void reload(user.id);
-  }, [ready, authenticated, user, reload]);
+    void reload(user.uid);
+  }, [user, reload]);
 
   const sendCampaign = async () => {
     if (!user) {
@@ -97,14 +101,14 @@ const NewsletterControlInner = () => {
     try {
       await postAction('vera-newsletter-api', {
         action: 'send_campaign',
-        privyUserId: user.id,
+        privyUserId: user.uid,
         brand: activeBrand.id,
         subject: subject.trim(),
         body: body.trim(),
       });
       setSubject('');
       setBody('');
-      await reload(user.id);
+      await reload(user.uid);
     } catch (sendError) {
       setError(sendError instanceof Error ? sendError.message : 'Failed to send campaign.');
     } finally {
@@ -112,21 +116,35 @@ const NewsletterControlInner = () => {
     }
   };
 
-  if (!ready || !authenticated || !user) {
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (err) {
+      setError('Failed to sign out');
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
+        <p className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
+          Loading authentication...
+        </p>
+      </section>
+    );
+  }
+
+  if (!user || !user.emailVerified) {
     return (
       <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
         <h1 className="matrix-heading text-3xl font-semibold">Admin Dashboard</h1>
         <p className="matrix-text mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
           Sign in to control newsletter and CRM.
         </p>
-        <button
-          type="button"
-          className="matrix-text mt-6 inline-flex rounded-xl border px-5 py-2 text-sm font-semibold"
-          style={{ borderColor: '#c6a15b', color: '#f3ddad', backgroundColor: '#141414' }}
-          onClick={() => login()}
-        >
-          Sign In
-        </button>
+        <p className="matrix-text mt-4 text-xs" style={{ color: '#ffb5a8' }}>
+          {user && !user.emailVerified ? 'Please verify your email to access the dashboard.' : ''}
+        </p>
       </section>
     );
   }
@@ -137,14 +155,14 @@ const NewsletterControlInner = () => {
         <div>
           <h1 className="matrix-heading text-3xl font-semibold">Admin Dashboard</h1>
           <p className="matrix-text mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
-            Signed in as {getDisplayIdentity(user)}
+            Signed in as {user.email}
           </p>
         </div>
         <button
           type="button"
           className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
           style={{ borderColor: 'var(--surface-border)' }}
-          onClick={() => logout()}
+          onClick={handleLogout}
         >
           Sign Out
         </button>
@@ -236,19 +254,5 @@ const NewsletterControlInner = () => {
 };
 
 export function NewsletterControl() {
-  if (!PRIVY_APP_ID) {
-    return (
-      <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
-        <p className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
-          Authentication is unavailable. Set PUBLIC_PRIVY_APP_ID to use the admin dashboard.
-        </p>
-      </section>
-    );
-  }
-
-  return (
-    <PrivyProvider appId={PRIVY_APP_ID} config={privyConfig}>
-      <NewsletterControlInner />
-    </PrivyProvider>
-  );
+  return <NewsletterControlInner />;
 }
