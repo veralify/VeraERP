@@ -1,5 +1,5 @@
-import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
@@ -18,11 +18,7 @@ export default defineConfig({
     webAnalytics: { enabled: true },
   }),
   // Remove it from here:
-  integrations: [
-    sitemap(), 
-    react()
-    // vercel() <--- DELETE THIS LINE
-  ],
+  integrations: [sitemap(), react()],
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {

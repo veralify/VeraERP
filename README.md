@@ -88,9 +88,9 @@ The RSS feed is automatically generated from the Markdown files in the `src/cont
 
 The RSS will output to `https://example.com/feed.xml` by default. You can change this, by renaming `src/pages/feed.xml.js`.
 
-### Privy Social Auth + Embedded Solana Wallets
+### Privy Social Auth
 
-The navigation and hero now use a Web2-first onboarding flow powered by Privy with:
+The navigation and hero use a Web2-first onboarding flow powered by Privy with:
 
 - Email
 - Phone Number
@@ -98,71 +98,36 @@ The navigation and hero now use a Web2-first onboarding flow powered by Privy wi
 - Apple
 - Facebook (configured as a custom OAuth provider, e.g. `privy:facebook`)
 
-Each authenticated user gets an embedded Solana wallet for minting.
-
 Set these env vars:
 
 ```bash
 PUBLIC_PRIVY_APP_ID=your_privy_app_id
-PUBLIC_SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
 PUBLIC_SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-### Vera Badge minting (MVP)
+### Supabase user sync
 
-The homepage includes a **Create Vera Badge** form where users can:
+Social identity is synced to Supabase through the `vera-user-sync` edge function.
 
-1. Sign in with social/email/phone
-2. Get an embedded Solana wallet automatically
-3. Upload asset details and photos
-4. Mint a compressed badge NFT (cNFT) to their wallet
-
-Images and NFT metadata are uploaded by a Supabase-hosted Edge Function.
-
-#### Supabase server setup
-
-1. Create a public Storage bucket named `vera-badges` in your Supabase project.
-2. Run DB migration to create users + eNFT tables:
+1. Run migrations:
    ```bash
    supabase db push
    ```
-   This now also creates:
-   - `vera_mint_payments` (resume paid-but-failed mints safely)
-   - `registered_devices` (tracks embedded wallets and primary wallet selection)
-3. In your terminal, login and link your Supabase project:
+2. In your terminal, login and link your Supabase project:
    ```bash
    supabase login
    supabase link --project-ref syehqhcexzgtxzavjpmw
    ```
-4. Set required Edge Function secrets:
+3. Set required Edge Function secrets:
    ```bash
    supabase secrets set SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
    supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-   supabase secrets set VERA_BADGE_STORAGE_BUCKET=vera-badges
    ```
-5. Set cNFT mint secrets (service wallet + tree):
+4. Deploy the function:
    ```bash
-   supabase secrets set VERA_SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
-   supabase secrets set VERA_CNFT_MINT_AUTHORITY_SECRET=your_base58_or_json_secret_key
-   supabase secrets set VERA_CNFT_TREE_ADDRESS=your_merkle_tree_public_key
-   # Optional only for first-time tree auto-create:
-   # supabase secrets set VERA_CNFT_TREE_SECRET=your_merkle_tree_secret_key
-   # Optional overrides:
-   # supabase secrets set VERA_CNFT_MAX_DEPTH=14
-   # supabase secrets set VERA_CNFT_MAX_BUFFER_SIZE=64
-   ```
-6. Deploy the functions:
-   ```bash
-   supabase functions deploy vera-badge-upload
-   supabase functions deploy vera-badge-mint-compressed
-   supabase functions deploy vera-badge-save
    supabase functions deploy vera-user-sync
    ```
-
-During mint, a **0.001 SOL fee** is transferred to:
-
-`CK1gBf6XyJaeZq1aS2gHsmrohA4gMDmPDBBu9hCBswnS`
 
 ### Image
 

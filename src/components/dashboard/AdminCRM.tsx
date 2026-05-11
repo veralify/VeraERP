@@ -1,13 +1,18 @@
-import { PrivyProvider, usePrivy } from '@privy-io/react-auth';
-import { useEffect, useMemo, useState } from 'react';
-import { PRIVY_APP_ID, SUPABASE_ANON_KEY, SUPABASE_URL, privyConfig } from '@components/auth/privyConfig';
+import {
+  PRIVY_APP_ID,
+  privyConfig,
+  SUPABASE_ANON_KEY,
+  SUPABASE_URL,
+} from '@components/auth/privyConfig';
 import { getDisplayIdentity, syncPrivyUserToSupabase } from '@components/auth/userSync';
+import { PrivyProvider, usePrivy } from '@privy-io/react-auth';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type VeraUser = {
   id: string;
   display_name: string | null;
   email: string | null;
-  wallet_address: string;
+  account_identifier: string;
   role: 'user' | 'admin';
 };
 
@@ -100,7 +105,7 @@ const AdminCRMInner = () => {
     return map;
   }, [bootstrap?.users]);
 
-  const reload = async () => {
+  const reload = useCallback(async () => {
     if (!user?.id) {
       return;
     }
@@ -125,7 +130,7 @@ const AdminCRMInner = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.id]);
 
   useEffect(() => {
     if (!ready || !authenticated || !user) {
@@ -134,7 +139,7 @@ const AdminCRMInner = () => {
 
     void syncPrivyUserToSupabase({ user });
     void reload();
-  }, [authenticated, ready, user]);
+  }, [authenticated, ready, user, reload]);
 
   const createTicket = async () => {
     if (!user?.id) {
@@ -161,7 +166,8 @@ const AdminCRMInner = () => {
       setTicketAssetId('');
       await reload();
     } catch (createError) {
-      const message = createError instanceof Error ? createError.message : 'Failed to create ticket.';
+      const message =
+        createError instanceof Error ? createError.message : 'Failed to create ticket.';
       setError(message);
     }
   };
@@ -179,7 +185,8 @@ const AdminCRMInner = () => {
       });
       await reload();
     } catch (updateError) {
-      const message = updateError instanceof Error ? updateError.message : 'Failed to update ticket.';
+      const message =
+        updateError instanceof Error ? updateError.message : 'Failed to update ticket.';
       setError(message);
     }
   };
@@ -233,7 +240,8 @@ const AdminCRMInner = () => {
       });
       await reload();
     } catch (updateError) {
-      const message = updateError instanceof Error ? updateError.message : 'Failed to update action.';
+      const message =
+        updateError instanceof Error ? updateError.message : 'Failed to update action.';
       setError(message);
     }
   };
@@ -294,7 +302,10 @@ const AdminCRMInner = () => {
 
       {!forbidden && bootstrap && (
         <>
-          <div className="mt-8 rounded-2xl border p-5" style={{ borderColor: 'var(--surface-border)' }}>
+          <div
+            className="mt-8 rounded-2xl border p-5"
+            style={{ borderColor: 'var(--surface-border)' }}
+          >
             <h2 className="matrix-heading text-xl font-semibold">Create Ticket</h2>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               <input
@@ -313,7 +324,7 @@ const AdminCRMInner = () => {
                 <option value="">Select subject user</option>
                 {bootstrap.users.map((crmUser) => (
                   <option key={crmUser.id} value={crmUser.id}>
-                    {crmUser.display_name || crmUser.email || crmUser.wallet_address.slice(0, 10)}
+                    {crmUser.display_name || crmUser.email || crmUser.id.slice(0, 10)}
                   </option>
                 ))}
               </select>
@@ -397,7 +408,10 @@ const TicketCard = (props: {
         <select
           value={props.ticket.status}
           onChange={(event) =>
-            void props.onUpdateStatus(event.currentTarget.value ? props.ticket.id : props.ticket.id, event.currentTarget.value as CrmTicket['status'])
+            void props.onUpdateStatus(
+              event.currentTarget.value ? props.ticket.id : props.ticket.id,
+              event.currentTarget.value as CrmTicket['status'],
+            )
           }
           className="rounded-xl border px-3 py-2 text-xs"
           style={{ borderColor: 'var(--surface-border)', backgroundColor: 'transparent' }}
@@ -466,7 +480,10 @@ const TicketCard = (props: {
                 <select
                   value={action.status}
                   onChange={(event) =>
-                    void props.onUpdateActionStatus(action.id, event.currentTarget.value as CrmAction['status'])
+                    void props.onUpdateActionStatus(
+                      action.id,
+                      event.currentTarget.value as CrmAction['status'],
+                    )
                   }
                   className="rounded-lg border px-2 py-1 text-xs"
                   style={{ borderColor: 'var(--surface-border)', backgroundColor: 'transparent' }}

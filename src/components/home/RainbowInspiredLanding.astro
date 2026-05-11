@@ -87,13 +87,14 @@ const brand = getActiveBrand();
       <div class='matrix-text mt-6 space-y-3 text-sm' style='color: var(--text-muted);'>
         {
           brand.copy.highlights.map((highlight) => (
-            <div
-              key={highlight}
-              class='rounded-lg border p-3'
-              style='border-color: var(--item-border); background-color: var(--item-bg);'
-            >
-              {highlight}
-            </div>
+            <Fragment key={highlight}>
+              <div
+                class='rounded-lg border p-3'
+                style='border-color: var(--item-border); background-color: var(--item-bg);'
+              >
+                {highlight}
+              </div>
+            </Fragment>
           ))
         }
       </div>

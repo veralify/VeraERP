@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.49.8';
 
 const corsHeaders = {
@@ -21,7 +22,6 @@ type SyncUserPayload = {
   email?: string | null;
   phone?: string | null;
   displayName?: string | null;
-  walletAddress: string;
 };
 
 Deno.serve(async (req) => {
@@ -45,12 +45,12 @@ Deno.serve(async (req) => {
 
   try {
     const payload = (await req.json()) as SyncUserPayload;
-    if (!payload.privyUserId || !payload.walletAddress) {
-      return jsonResponse({ error: 'Missing privyUserId or walletAddress.' }, 400);
+    if (!payload.privyUserId) {
+      return jsonResponse({ error: 'Missing privyUserId.' }, 400);
     }
 
-    const normalizedWallet = payload.walletAddress.trim();
     const normalizedPrivyId = payload.privyUserId.trim();
+    const accountIdentifier = `acct:${normalizedPrivyId}`;
     const normalizedSocialProvider = payload.socialProvider?.trim() || null;
     const normalizedSocialUserId = payload.socialUserId?.trim() || null;
     const normalizedEmail = payload.email?.trim() || null;
@@ -87,22 +87,24 @@ Deno.serve(async (req) => {
     }
 
     if (!existingUserId) {
-      const { data: byWallet, error: byWalletError } = await supabase
+      const { data: byAccountIdentifier, error: byAccountIdentifierError } = await supabase
         .from('vera_users')
         .select('id')
-        .eq('wallet_address', normalizedWallet)
+        .eq('account_identifier', accountIdentifier)
         .maybeSingle();
-      if (byWalletError) {
-        throw new Error(`Failed to query by wallet address: ${byWalletError.message}`);
+      if (byAccountIdentifierError) {
+        throw new Error(
+          `Failed to query by account identifier: ${byAccountIdentifierError.message}`,
+        );
       }
-      existingUserId = byWallet?.id || null;
+      existingUserId = byAccountIdentifier?.id || null;
     }
 
     if (existingUserId) {
       const { error: updateUserError } = await supabase
         .from('vera_users')
         .update({
-          wallet_address: normalizedWallet,
+          account_identifier: accountIdentifier,
           privy_user_id: normalizedPrivyId,
           social_provider: normalizedSocialProvider,
           social_user_id: normalizedSocialUserId,
@@ -119,7 +121,7 @@ Deno.serve(async (req) => {
       const { data: insertedUser, error: insertUserError } = await supabase
         .from('vera_users')
         .insert({
-          wallet_address: normalizedWallet,
+          account_identifier: accountIdentifier,
           privy_user_id: normalizedPrivyId,
           social_provider: normalizedSocialProvider,
           social_user_id: normalizedSocialUserId,
@@ -135,30 +137,7 @@ Deno.serve(async (req) => {
       existingUserId = insertedUser.id;
     }
 
-    const { error: clearPrimaryError } = await supabase
-      .from('registered_devices')
-      .update({ is_primary: false, updated_at: new Date().toISOString() })
-      .eq('user_id', existingUserId);
-    if (clearPrimaryError) {
-      throw new Error(`Failed to clear previous primary devices: ${clearPrimaryError.message}`);
-    }
-
-    const { error: upsertDeviceError } = await supabase.from('registered_devices').upsert(
-      {
-        user_id: existingUserId,
-        wallet_address: normalizedWallet,
-        wallet_type: 'embedded',
-        auth_provider: 'privy',
-        is_primary: true,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: 'wallet_address' },
-    );
-    if (upsertDeviceError) {
-      throw new Error(`Failed to upsert registered device: ${upsertDeviceError.message}`);
-    }
-
-    return jsonResponse({ success: true, userId: existingUserId, walletAddress: normalizedWallet });
+    return jsonResponse({ success: true, userId: existingUserId });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unexpected user sync error.';
     return jsonResponse({ error: message }, 500);
