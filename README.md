@@ -88,20 +88,19 @@ The RSS feed is automatically generated from the Markdown files in the `src/cont
 
 The RSS will output to `https://example.com/feed.xml` by default. You can change this, by renaming `src/pages/feed.xml.js`.
 
-### Privy Social Auth
+### Privy Auth
 
-The navigation and hero use a Web2-first onboarding flow powered by Privy with:
+The navigation, hero, and dashboard use Privy social authentication.
+Privy onboarding is configured for:
 
-- Email
-- Phone Number
-- Google
-- Apple
-- Facebook (configured as a custom OAuth provider, e.g. `privy:facebook`)
+- Google, Apple, Facebook, Email, and Phone login
+- Automatic embedded Solana wallet creation on login (for users without wallets)
 
 Set these env vars:
 
 ```bash
 PUBLIC_PRIVY_APP_ID=your_privy_app_id
+PUBLIC_TWENTY_URL=https://crm.veralify.com
 PUBLIC_SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
@@ -124,11 +123,15 @@ Social identity is synced to Supabase through the `vera-user-sync` edge function
    supabase secrets set SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
    supabase secrets set SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
    supabase secrets set VERA_ADMIN_API_KEY=your_strong_admin_api_key
+   supabase secrets set RESEND_API_KEY=your_resend_api_key
+   supabase secrets set VERA_EMAIL_FROM='Veralify <noreply@yourdomain.com>'
    ```
 4. Deploy the functions:
    ```bash
    supabase functions deploy vera-user-sync
-   supabase functions deploy vera-newsletter-subscribe
+   supabase functions deploy vera-newsletter-subscribe --no-verify-jwt
+   supabase functions deploy vera-signup-submit --no-verify-jwt
+   supabase functions deploy vera-blog-api --no-verify-jwt
    supabase functions deploy vera-users-api
    supabase functions deploy vera-newsletter-api
    ```
@@ -142,10 +145,16 @@ Use the admin API key in either `Authorization: Bearer <key>` or `x-api-key: <ke
   - `get_user`
   - `update_user_role`
 - `vera-newsletter-api` actions:
+  - `dashboard_bootstrap`
+  - `send_campaign`
   - `list_subscribers`
   - `update_subscriber_status`
   - `delete_subscriber`
   - `stats`
+
+- `vera-blog-api` actions:
+  - Public: `list_published`, `get_published_post`
+  - Admin: `admin_bootstrap`, `create_post`, `update_post`, `publish_post`, `unpublish_post`
 
 ### Image
 

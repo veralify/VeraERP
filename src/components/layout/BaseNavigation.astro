@@ -25,19 +25,8 @@ const brand = getActiveBrand();
         style={`background-color: ${brand.theme.primary}; box-shadow: 0 0 12px ${brand.theme.primary};`}
       />
     </a>
-    {
-      hasPrivyAppId ? (
-        <AuthWidget client:only="react" />
-      ) : (
-        <button
-          type='button'
-          class='matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold'
-          style={`border-color: ${brand.theme.authAccent}; color: #f3ddad; background-color: #141414;`}
-          title='Set PUBLIC_PRIVY_APP_ID to enable social login.'
-        >
-          Sign In
-        </button>
-      )
-    }
+    <div class='flex items-center gap-3'>
+      {hasPrivyAppId ? <AuthWidget client:only="react" /> : null}
+    </div>
   </div>
 </header>

@@ -25,7 +25,7 @@ const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
   const startLogin = async () => {
     try {
       setError(null);
-      login({ loginMethods: ['google'] });
+      login();
     } catch (loginError) {
       const message = loginError instanceof Error ? loginError.message : 'Sign in failed.';
       setError(message);
@@ -45,7 +45,7 @@ const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
           }}
           onClick={() => void startLogin()}
         >
-          {authenticated ? 'Manage Secure Access' : 'Sign In'}
+          {authenticated ? 'Manage Secure Access' : 'Sign In / Register'}
         </button>
         {authenticated && displayIdentity && (
           <span className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
@@ -84,20 +84,7 @@ const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
             Sign Out
           </button>
         </div>
-      ) : (
-        <button
-          type="button"
-          className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-          style={{
-            borderColor: activeBrand.theme.authAccent,
-            color: '#f3ddad',
-            backgroundColor: '#141414',
-          }}
-          onClick={() => void startLogin()}
-        >
-          Sign In
-        </button>
-      )}
+      ) : null}
 
       {error && <span className="text-xs text-[#ffb5a8]">{error}</span>}
     </div>

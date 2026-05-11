@@ -19,6 +19,7 @@ type SyncUserPayload = {
   privyUserId: string;
   socialProvider?: string | null;
   socialUserId?: string | null;
+  embeddedWalletAddress?: string | null;
   email?: string | null;
   phone?: string | null;
   displayName?: string | null;
@@ -53,6 +54,7 @@ Deno.serve(async (req) => {
     const accountIdentifier = `acct:${normalizedPrivyId}`;
     const normalizedSocialProvider = payload.socialProvider?.trim() || null;
     const normalizedSocialUserId = payload.socialUserId?.trim() || null;
+    const normalizedEmbeddedWalletAddress = payload.embeddedWalletAddress?.trim() || null;
     const normalizedEmail = payload.email?.trim() || null;
     const normalizedPhone = payload.phone?.trim() || null;
     const normalizedDisplayName = payload.displayName?.trim() || null;
@@ -108,6 +110,7 @@ Deno.serve(async (req) => {
           privy_user_id: normalizedPrivyId,
           social_provider: normalizedSocialProvider,
           social_user_id: normalizedSocialUserId,
+          embedded_wallet_address: normalizedEmbeddedWalletAddress,
           email: normalizedEmail,
           phone: normalizedPhone,
           display_name: normalizedDisplayName,
@@ -125,6 +128,7 @@ Deno.serve(async (req) => {
           privy_user_id: normalizedPrivyId,
           social_provider: normalizedSocialProvider,
           social_user_id: normalizedSocialUserId,
+          embedded_wallet_address: normalizedEmbeddedWalletAddress,
           email: normalizedEmail,
           phone: normalizedPhone,
           display_name: normalizedDisplayName,

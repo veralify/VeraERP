@@ -11,6 +11,41 @@ export type SocialIdentity = {
 const isObject = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null;
 
+const getEmbeddedSolanaWalletAddress = (user: User): string | null => {
+  for (const linkedAccount of user.linkedAccounts) {
+    if (!isObject(linkedAccount)) {
+      continue;
+    }
+
+    const chainType =
+      typeof linkedAccount.chainType === 'string'
+        ? linkedAccount.chainType.toLowerCase()
+        : typeof linkedAccount.chain_type === 'string'
+          ? linkedAccount.chain_type.toLowerCase()
+          : null;
+    if (chainType !== 'solana') {
+      continue;
+    }
+
+    const walletClientType =
+      typeof linkedAccount.walletClientType === 'string'
+        ? linkedAccount.walletClientType.toLowerCase()
+        : typeof linkedAccount.wallet_client_type === 'string'
+          ? linkedAccount.wallet_client_type.toLowerCase()
+          : null;
+    const isEmbeddedWallet =
+      !walletClientType ||
+      walletClientType.includes('embedded') ||
+      walletClientType.includes('privy');
+
+    if (isEmbeddedWallet && typeof linkedAccount.address === 'string') {
+      return linkedAccount.address;
+    }
+  }
+
+  return null;
+};
+
 const getLinkedAccountIdentity = (user: User): SocialIdentity | null => {
   const customFacebook = user.linkedAccounts.find((account) =>
     typeof account.type === 'string' ? account.type.toLowerCase().includes('facebook') : false,
@@ -66,7 +101,6 @@ export const syncPrivyUserToSupabase = async (params: { user: User }) => {
   await fetch(`${SUPABASE_URL}/functions/v1/vera-user-sync`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       apikey: SUPABASE_ANON_KEY,
       'Content-Type': 'application/json',
     },
@@ -74,6 +108,7 @@ export const syncPrivyUserToSupabase = async (params: { user: User }) => {
       privyUserId: params.user.id,
       socialProvider: identity?.provider || null,
       socialUserId: identity?.socialUserId || null,
+      embeddedWalletAddress: getEmbeddedSolanaWalletAddress(params.user),
       email: identity?.email || params.user.email?.address || null,
       phone: params.user.phone?.number || null,
       displayName: getDisplayIdentity(params.user),

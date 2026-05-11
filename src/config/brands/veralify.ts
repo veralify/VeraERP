@@ -18,7 +18,7 @@ export const veralifyBrand: BrandConfig = {
     xUrl: 'https://x.com/Veralify',
   },
   copy: {
-    heroBadge: 'Coming Soon',
+    heroBadge: 'New!',
     heroTitleLine1: 'The trust layer',
     heroTitleLine2: 'for physical assets.',
     heroDescription:
