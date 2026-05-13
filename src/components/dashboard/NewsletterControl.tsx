@@ -1,12 +1,9 @@
 import {
-  PRIVY_APP_ID,
-  privyConfig,
   SUPABASE_ANON_KEY,
   SUPABASE_URL,
-} from '@components/auth/privyConfig';
-import { getDisplayIdentity, syncPrivyUserToSupabase } from '@components/auth/userSync';
+} from '@components/auth/supabaseConfig';
 import { activeBrand } from '@config/brands';
-import { PrivyProvider, usePrivy } from '@privy-io/react-auth';
+
 import { useCallback, useEffect, useState } from 'react';
 
 type Campaign = {
@@ -48,7 +45,6 @@ const postAction = async <T,>(url: string, payload: Record<string, unknown>) => 
 };
 
 const NewsletterControlInner = () => {
-  const { authenticated, ready, user, login, logout } = usePrivy();
   const [bootstrap, setBootstrap] = useState<BootstrapData | null>(null);
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
@@ -57,13 +53,12 @@ const NewsletterControlInner = () => {
   const [error, setError] = useState<string | null>(null);
   const twentyUrl = import.meta.env.PUBLIC_TWENTY_URL || 'https://crm.veralify.com';
 
-  const reload = useCallback(async (privyUserId: string) => {
+  const reload = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const newsletterData = await postAction<BootstrapData>('vera-newsletter-api', {
         action: 'dashboard_bootstrap',
-        privyUserId,
       });
       setBootstrap(newsletterData);
     } catch (reloadError) {
@@ -76,17 +71,10 @@ const NewsletterControlInner = () => {
   }, []);
 
   useEffect(() => {
-    if (!ready || !authenticated || !user) {
-      return;
-    }
-    void syncPrivyUserToSupabase({ user });
-    void reload(user.id);
-  }, [ready, authenticated, user, reload]);
+    void reload();
+  }, [reload]);
 
   const sendCampaign = async () => {
-    if (!user) {
-      return;
-    }
     if (!subject.trim() || !body.trim()) {
       setError('Subject and body are required.');
       return;
@@ -97,14 +85,13 @@ const NewsletterControlInner = () => {
     try {
       await postAction('vera-newsletter-api', {
         action: 'send_campaign',
-        privyUserId: user.id,
         brand: activeBrand.id,
         subject: subject.trim(),
         body: body.trim(),
       });
       setSubject('');
       setBody('');
-      await reload(user.id);
+      await reload();
     } catch (sendError) {
       setError(sendError instanceof Error ? sendError.message : 'Failed to send campaign.');
     } finally {
@@ -112,42 +99,12 @@ const NewsletterControlInner = () => {
     }
   };
 
-  if (!ready || !authenticated || !user) {
-    return (
-      <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
-        <h1 className="matrix-heading text-3xl font-semibold">Admin Dashboard</h1>
-        <p className="matrix-text mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
-          Sign in to control newsletter and CRM.
-        </p>
-        <button
-          type="button"
-          className="matrix-text mt-6 inline-flex rounded-xl border px-5 py-2 text-sm font-semibold"
-          style={{ borderColor: '#c6a15b', color: '#f3ddad', backgroundColor: '#141414' }}
-          onClick={() => login()}
-        >
-          Sign In
-        </button>
-      </section>
-    );
-  }
-
   return (
     <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="matrix-heading text-3xl font-semibold">Admin Dashboard</h1>
-          <p className="matrix-text mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
-            Signed in as {getDisplayIdentity(user)}
-          </p>
         </div>
-        <button
-          type="button"
-          className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-          style={{ borderColor: 'var(--surface-border)' }}
-          onClick={() => logout()}
-        >
-          Sign Out
-        </button>
       </div>
 
       {error && (
@@ -236,19 +193,5 @@ const NewsletterControlInner = () => {
 };
 
 export function NewsletterControl() {
-  if (!PRIVY_APP_ID) {
-    return (
-      <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
-        <p className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
-          Authentication is unavailable. Set PUBLIC_PRIVY_APP_ID to use the admin dashboard.
-        </p>
-      </section>
-    );
-  }
-
-  return (
-    <PrivyProvider appId={PRIVY_APP_ID} config={privyConfig}>
-      <NewsletterControlInner />
-    </PrivyProvider>
-  );
+  return <NewsletterControlInner />;
 }

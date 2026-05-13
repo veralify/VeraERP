@@ -1,31 +1,17 @@
 import { activeBrand } from '@config/brands';
-import { PrivyProvider, usePrivy } from '@privy-io/react-auth';
-import { useEffect, useState } from 'react';
-import { PRIVY_APP_ID, privyConfig } from './privyConfig';
-import { getDisplayIdentity, syncPrivyUserToSupabase } from './userSync';
+
+import { useState } from 'react';
 
 type AuthWidgetProps = {
   variant?: 'navbar' | 'hero';
 };
 
 const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
-  const { authenticated, ready, user, login, logout } = usePrivy();
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!ready || !authenticated || !user) {
-      return;
-    }
-
-    void syncPrivyUserToSupabase({ user });
-  }, [authenticated, ready, user]);
-
-  const displayIdentity = user ? getDisplayIdentity(user) : null;
 
   const startLogin = async () => {
     try {
       setError(null);
-      login();
     } catch (loginError) {
       const message = loginError instanceof Error ? loginError.message : 'Sign in failed.';
       setError(message);
@@ -47,11 +33,7 @@ const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
         >
           {authenticated ? 'Manage Secure Access' : 'Sign In / Register'}
         </button>
-        {authenticated && displayIdentity && (
-          <span className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
-            Welcome, {displayIdentity}
-          </span>
-        )}
+ 
         {error && (
           <span className="matrix-text text-xs" style={{ color: '#ffb5a8' }}>
             {error}
@@ -63,51 +45,11 @@ const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
 
   return (
     <div className="flex flex-col items-end gap-2">
-      {authenticated && displayIdentity ? (
-        <div className="flex items-center gap-2">
-          <span
-            className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-            style={{
-              borderColor: activeBrand.theme.authAccent,
-              color: '#f3ddad',
-              backgroundColor: '#141414',
-            }}
-          >
-            {displayIdentity}
-          </span>
-          <button
-            type="button"
-            className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-            style={{ borderColor: 'var(--surface-border)' }}
-            onClick={() => logout()}
-          >
-            Sign Out
-          </button>
-        </div>
-      ) : null}
-
       {error && <span className="text-xs text-[#ffb5a8]">{error}</span>}
     </div>
   );
 };
 
 export function AuthWidget(props: AuthWidgetProps) {
-  if (!PRIVY_APP_ID) {
-    return (
-      <button
-        type="button"
-        className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-        style={{ borderColor: 'var(--surface-border)', color: 'var(--text-muted)' }}
-        disabled
-      >
-        Auth unavailable
-      </button>
-    );
-  }
-
-  return (
-    <PrivyProvider appId={PRIVY_APP_ID} config={privyConfig}>
-      <AuthWidgetInner {...props} />
-    </PrivyProvider>
-  );
+  return <AuthWidgetInner {...props} />;
 }
