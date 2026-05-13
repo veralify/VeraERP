@@ -16,6 +16,7 @@
 		CA880C20FEA5B3DACAC72E36 /* StatCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B6E0BB5DA4C9C1F85708FB /* StatCardView.swift */; };
 		D19A8D340EBECB54C21703E7 /* VeralifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA134966D197236BDC48C0 /* VeralifyApp.swift */; };
 		D396C2B57B12946AD974A1DC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E162275E64730614BC6E9160 /* LoginView.swift */; };
+		D7526C22493198C6D2006219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1BD0EE658DE80C313FC7014 /* Assets.xcassets */; };
 		EA211DD48F3C001E3D4EFD04 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55577D2EE9AD1456D1997D21 /* MainTabView.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		55577D2EE9AD1456D1997D21 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		66455C22AA8840B1A8C23DB8 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		9AF04246ECA1F30D8459DA7F /* Veralify.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Veralify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1BD0EE658DE80C313FC7014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3B6E0BB5DA4C9C1F85708FB /* StatCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCardView.swift; sourceTree = "<group>"; };
 		ADEA134966D197236BDC48C0 /* VeralifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeralifyApp.swift; sourceTree = "<group>"; };
 		B177B247979338243E120921 /* ProfileFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldView.swift; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 		5B05606EE418676A18A61CEB /* Veralify */ = {
 			isa = PBXGroup;
 			children = (
+				A1BD0EE658DE80C313FC7014 /* Assets.xcassets */,
 				7E8418326A0ED604ACF1C3BE /* App */,
 				7F79F1D7CC9D4210FBDE4BC1 /* Core */,
 				7317C43B882F4D9DA304F3DD /* Features */,
@@ -147,6 +150,7 @@
 			buildConfigurationList = A79828BC13E7B1B756666978 /* Build configuration list for PBXNativeTarget "Veralify" */;
 			buildPhases = (
 				2CD01E721D4407E8AA6CAC07 /* Sources */,
+				E524AF32099D4207AA7E07EF /* Resources */,
 			);
 			buildRules = (
 			);
@@ -188,6 +192,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E524AF32099D4207AA7E07EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7526C22493198C6D2006219 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2CD01E721D4407E8AA6CAC07 /* Sources */ = {
