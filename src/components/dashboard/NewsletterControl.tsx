@@ -1,6 +1,9 @@
-import { auth } from '@components/auth/firebaseConfig';
+import {
+  SUPABASE_ANON_KEY,
+  SUPABASE_URL,
+} from '@components/auth/supabaseConfig';
 import { activeBrand } from '@config/brands';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+
 import { useCallback, useEffect, useState } from 'react';
 
 type Campaign = {
@@ -45,8 +48,6 @@ const postAction = async <T,>(url: string, payload: Record<string, unknown>) => 
 };
 
 const NewsletterControlInner = () => {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [bootstrap, setBootstrap] = useState<BootstrapData | null>(null);
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
@@ -54,21 +55,12 @@ const NewsletterControlInner = () => {
   const [error, setError] = useState<string | null>(null);
   const twentyUrl = import.meta.env.PUBLIC_TWENTY_URL || 'https://crm.veralify.com';
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const reload = useCallback(async (userId: string) => {
+  const reload = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const newsletterData = await postAction<BootstrapData>('vera-newsletter-api', {
         action: 'dashboard_bootstrap',
-        privyUserId: userId,
       });
       setBootstrap(newsletterData);
     } catch (reloadError) {
@@ -81,16 +73,10 @@ const NewsletterControlInner = () => {
   }, []);
 
   useEffect(() => {
-    if (!user) {
-      return;
-    }
-    void reload(user.uid);
-  }, [user, reload]);
+    void reload();
+  }, [reload]);
 
   const sendCampaign = async () => {
-    if (!user) {
-      return;
-    }
     if (!subject.trim() || !body.trim()) {
       setError('Subject and body are required.');
       return;
@@ -101,14 +87,13 @@ const NewsletterControlInner = () => {
     try {
       await postAction('vera-newsletter-api', {
         action: 'send_campaign',
-        privyUserId: user.uid,
         brand: activeBrand.id,
         subject: subject.trim(),
         body: body.trim(),
       });
       setSubject('');
       setBody('');
-      await reload(user.uid);
+      await reload();
     } catch (sendError) {
       setError(sendError instanceof Error ? sendError.message : 'Failed to send campaign.');
     } finally {
@@ -116,56 +101,12 @@ const NewsletterControlInner = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      setUser(null);
-    } catch (err) {
-      setError('Failed to sign out');
-    }
-  };
-
-  if (loading) {
-    return (
-      <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
-        <p className="matrix-text text-sm" style={{ color: 'var(--text-muted)' }}>
-          Loading authentication...
-        </p>
-      </section>
-    );
-  }
-
-  if (!user || !user.emailVerified) {
-    return (
-      <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
-        <h1 className="matrix-heading text-3xl font-semibold">Admin Dashboard</h1>
-        <p className="matrix-text mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
-          Sign in to control newsletter and CRM.
-        </p>
-        <p className="matrix-text mt-4 text-xs" style={{ color: '#ffb5a8' }}>
-          {user && !user.emailVerified ? 'Please verify your email to access the dashboard.' : ''}
-        </p>
-      </section>
-    );
-  }
-
   return (
     <section className="mx-auto mt-10 w-full max-w-5xl rounded-2xl border p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="matrix-heading text-3xl font-semibold">Admin Dashboard</h1>
-          <p className="matrix-text mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
-            Signed in as {user.email}
-          </p>
         </div>
-        <button
-          type="button"
-          className="matrix-text inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-          style={{ borderColor: 'var(--surface-border)' }}
-          onClick={handleLogout}
-        >
-          Sign Out
-        </button>
       </div>
 
       {error && (
