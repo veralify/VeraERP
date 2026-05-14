@@ -21,9 +21,6 @@ type BootstrapData = {
   campaigns: Campaign[];
 };
 
-const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-
 const postAction = async <T,>(url: string, payload: Record<string, unknown>) => {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     throw new Error('Missing PUBLIC_SUPABASE_URL or PUBLIC_SUPABASE_ANON_KEY.');
@@ -52,6 +49,7 @@ const NewsletterControlInner = () => {
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
   const [sending, setSending] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const twentyUrl = import.meta.env.PUBLIC_TWENTY_URL || 'https://crm.veralify.com';
 
