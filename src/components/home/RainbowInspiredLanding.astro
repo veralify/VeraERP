@@ -1,5 +1,4 @@
 ---
-import { ItemSearch } from '@components/search/ItemSearch';
 import { getActiveBrand } from '@config/brands';
 
 const brand = getActiveBrand();
@@ -87,16 +86,6 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
         }
       </div>
     </div>
-  </section>
-
-  <section class='relative mx-auto mt-12 w-full max-w-6xl px-2'>
-    <div class='mb-6 text-center'>
-      <p class='matrix-heading text-2xl font-semibold md:text-3xl'>Search Lost & Stolen Items</p>
-      <p class='matrix-text mx-auto mt-3 max-w-xl text-xs md:text-sm' style='color: var(--text-muted);'>
-        Search across Veralify and trusted public databases like BikeIndex to find reported stolen items.
-      </p>
-    </div>
-    <ItemSearch client:only="react" />
   </section>
 
   <section class='relative mx-auto mt-12 w-full max-w-3xl px-2 text-center'>
