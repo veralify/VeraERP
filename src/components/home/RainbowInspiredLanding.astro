@@ -348,9 +348,9 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
 </script>
 
 <script>
-  const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&';
-  const REVEAL_MS = 55;
-  const TICK_MS = 22;
+  const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!><';
+  const REVEAL_MS = 90;
+  const TICK_MS = 40;
 
   function runScramble(el: HTMLElement) {
     const target = el.textContent ?? '';
