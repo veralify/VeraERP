@@ -67,7 +67,7 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
         <img src={brand.assets.logoPath} alt={`${brand.name} logo`} width='48' height='48' loading='eager' />
         <div>
           <p class='matrix-text text-sm' style='color: var(--text-muted);'>{brand.copy.networkLabel}</p>
-          <p class='matrix-heading text-lg font-semibold'>{brand.copy.networkTitle}</p>
+          <p class='matrix-heading text-lg font-semibold'><span data-scramble data-scramble-delay="300">{brand.copy.networkTitle}</span></p>
         </div>
       </div>
 
@@ -89,7 +89,7 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
   </section>
 
   <section class='relative mx-auto mt-12 w-full max-w-3xl px-2 text-center'>
-    <p class='matrix-heading text-2xl font-semibold md:text-3xl'>Stay ahead with Veralify.</p>
+    <p class='matrix-heading text-2xl font-semibold md:text-3xl'><span data-scramble data-scramble-delay="500">Stay ahead with Veralify.</span></p>
     <p class='matrix-text mx-auto mt-3 max-w-xl text-xs md:text-sm' style='color: var(--text-muted);'>
       Get monthly updates on trusted asset verification, fraud intelligence, and new Veralify releases.
     </p>

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ItemSearch } from '@components/search/ItemSearch';
+import { ScrambleText } from '@components/search/ScrambleText';
 
 export function NavSearch() {
   const [open, setOpen] = useState(false);
@@ -92,13 +93,17 @@ export function NavSearch() {
           <div className="relative mx-auto w-full max-w-6xl flex-1 px-6 py-10">
             <div className="mb-8 text-center">
               <p className="matrix-heading text-3xl font-semibold md:text-4xl" style={{ color: 'var(--text-main)' }}>
-                Search Lost &amp; Stolen Items
+                <ScrambleText text="Search Lost & Stolen Items" trigger={open} />
               </p>
               <p
                 className="matrix-text mx-auto mt-3 max-w-xl text-xs md:text-sm"
                 style={{ color: 'var(--text-muted)' }}
               >
-                Search across Veralify and trusted public databases like BikeIndex to find reported stolen items.
+                <ScrambleText
+                  text="Search across Veralify and trusted public databases like BikeIndex to find reported stolen items."
+                  delay={200}
+                  trigger={open}
+                />
               </p>
             </div>
             <ItemSearch />
