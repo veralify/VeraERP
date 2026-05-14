@@ -91,23 +91,19 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
   <section class='relative mx-auto mt-12 w-full max-w-3xl px-2 text-center'>
     <p class='matrix-heading text-2xl font-semibold md:text-3xl'><span data-scramble data-scramble-delay="500">Stay ahead with Veralify.</span></p>
     <p class='matrix-text mx-auto mt-3 max-w-xl text-xs md:text-sm' style='color: var(--text-muted);'>
-      Get monthly updates on trusted asset verification, fraud intelligence, and new Veralify releases.
+      Search across Veralify and trusted public databases like BikeIndex to find reported stolen items.
     </p>
 
     <form
       id='newsletter-form'
       class='mx-auto mt-6 flex w-full max-w-md items-center gap-2 rounded-full border p-1.5'
       style='border-color: var(--surface-border); background-color: var(--page-bg);'
-      data-supabase-url={supabaseUrl || ''}
-      data-supabase-key={supabaseAnonKey || ''}
-      data-brand={brand.id}
     >
       <input
-        type='email'
+        type='text'
         id='newsletter-email'
-        name='email'
-        autocomplete='email'
-        placeholder='Enter your email'
+        name='query'
+        placeholder='Search for a lost or stolen bike...'
         class='newsletter-input h-10 w-full bg-transparent px-3 text-sm outline-none'
         style='color: var(--text-main);'
         required
@@ -116,7 +112,6 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
         type='submit'
         class='matrix-text inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full px-5 text-xs font-semibold text-white transition hover:brightness-110'
         style={`background-color: ${brand.theme.primary};`}
-        disabled={!hasNewsletterBackend}
       >
         <svg
           id='newsletter-btn-spinner'
@@ -127,21 +122,54 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
           <circle cx='12' cy='12' r='9' stroke='currentColor' stroke-width='3' fill='none' opacity='0.3' />
           <path d='M21 12a9 9 0 0 0-9-9' stroke='currentColor' stroke-width='3' fill='none' />
         </svg>
-        <svg id='newsletter-btn-check' class='hidden h-4 w-4' viewBox='0 0 24 24' aria-hidden='true'>
-          <path
-            d='M20 7 10 17l-5-5'
-            fill='none'
-            stroke='currentColor'
-            stroke-width='3'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-          />
-        </svg>
-        <span id='newsletter-btn-label'>Subscribe</span>
+        <span id='newsletter-btn-label'>Search</span>
       </button>
     </form>
     <p id='newsletter-status' class='mt-3 text-xs' style='color: var(--text-muted);'></p>
   </section>
+
+  <!-- Search Results Modal -->
+  <div
+    id='search-modal'
+    class='hidden fixed inset-0 z-50 flex flex-col overflow-y-auto'
+    style='background-color: var(--page-bg);'
+  >
+    <!-- Glow decoration -->
+    <div class='pointer-events-none absolute inset-0 overflow-hidden'>
+      <div
+        class='absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl'
+        style='background-color: rgba(232,65,37,0.18);'
+      />
+    </div>
+
+    <!-- Header bar -->
+    <div
+      class='sticky top-0 z-10 flex items-center justify-between border-b px-6 py-4'
+      style='border-color: var(--surface-border); background-color: var(--page-bg);'
+    >
+      <div class='flex items-center gap-2'>
+        <svg viewBox='0 0 24 24' class='h-5 w-5 shrink-0' fill='none' stroke='currentColor' stroke-width='2' style='color: #e84125;' aria-hidden='true'>
+          <circle cx='11' cy='11' r='8' />
+          <path d='m21 21-4.35-4.35' />
+        </svg>
+        <span class='matrix-heading text-sm font-semibold' style='color: var(--text-main);'>Search</span>
+      </div>
+      <button
+        type='button'
+        id='close-modal'
+        aria-label='Close search'
+        class='matrix-text inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs transition hover:brightness-125'
+        style='border-color: var(--surface-border); color: var(--text-muted);'
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div id='modal-results' class='relative mx-auto w-full max-w-6xl flex-1 px-6 py-10'>
+      <!-- Results will be inserted here -->
+    </div>
+  </div>
 
 </main>
 
@@ -168,6 +196,16 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
     transition: background-color 9999s ease-in-out 0s;
     box-shadow: 0 0 0 1000px transparent inset;
   }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+    20%, 40%, 60%, 80% { transform: translateX(6px); }
+  }
+
+  .shake {
+    animation: shake 0.4s ease-in-out;
+  }
 </style>
 
 <script>
@@ -175,6 +213,9 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
     const form = document.getElementById('newsletter-form');
     const emailInput = document.getElementById('newsletter-email');
     const statusText = document.getElementById('newsletter-status');
+    const modal = document.getElementById('search-modal');
+    const modalResults = document.getElementById('modal-results');
+    const closeBtn = document.getElementById('close-modal');
 
     if (!(form instanceof HTMLFormElement) || !(emailInput instanceof HTMLInputElement)) {
       return;
@@ -183,21 +224,8 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
     const submitButton = form.querySelector('button[type="submit"]');
     const buttonLabel = document.getElementById('newsletter-btn-label');
     const buttonSpinner = document.getElementById('newsletter-btn-spinner');
-    const buttonCheck = document.getElementById('newsletter-btn-check');
-    const supabaseFunctionUrl = form.dataset.supabaseUrl
-      ? `${form.dataset.supabaseUrl}/functions/v1/vera-newsletter-subscribe`
-      : '';
-    const anonKey = form.dataset.supabaseKey || '';
-    const brand = form.dataset.brand || 'default';
 
-    if (!supabaseFunctionUrl || !anonKey) {
-      if (statusText) {
-        statusText.textContent = 'Newsletter backend is not configured yet.';
-      }
-      return;
-    }
-
-    const setButtonState = (state: 'idle' | 'loading' | 'success') => {
+    const setButtonState = (state: 'idle' | 'loading') => {
       if (!(submitButton instanceof HTMLButtonElement) || !(buttonLabel instanceof HTMLElement)) {
         return;
       }
@@ -205,34 +233,34 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
       if (buttonSpinner instanceof SVGElement) {
         buttonSpinner.classList.toggle('hidden', state !== 'loading');
       }
-      if (buttonCheck instanceof SVGElement) {
-        buttonCheck.classList.toggle('hidden', state !== 'success');
-      }
 
       if (state === 'loading') {
         submitButton.disabled = true;
-        buttonLabel.textContent = 'Subscribe';
-        return;
-      }
-
-      if (state === 'success') {
-        submitButton.disabled = true;
-        buttonLabel.textContent = 'Done';
+        buttonLabel.textContent = 'Searching';
         return;
       }
 
       submitButton.disabled = false;
-      buttonLabel.textContent = 'Subscribe';
+      buttonLabel.textContent = 'Search';
     };
+
+    closeBtn?.addEventListener('click', () => {
+      modal?.classList.add('hidden');
+    });
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const email = emailInput.value.trim();
-      if (!email) {
-        if (statusText) {
-          statusText.textContent = 'Please enter a valid email.';
-        }
+      const query = emailInput.value.trim();
+      if (!query) {
+        emailInput.classList.add('shake');
+        setTimeout(() => emailInput.classList.remove('shake'), 400);
         return;
       }
 
@@ -242,50 +270,76 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
       }
 
       try {
-        const controller = new AbortController();
-        const timeoutId = window.setTimeout(() => controller.abort(), 12000);
-        let response: Response;
-        try {
-          response = await fetch(supabaseFunctionUrl, {
-            method: 'POST',
-            signal: controller.signal,
-            headers: {
-              apikey: anonKey,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email,
-              brand,
-              source: 'homepage-newsletter',
-            }),
-          });
-        } finally {
-          window.clearTimeout(timeoutId);
-        }
+        const res = await fetch(
+          `/api/search/bikes?q=${encodeURIComponent(query)}&page=1`,
+        );
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Search failed');
 
-        const json = (await response.json().catch(() => null)) as { error?: string; message?: string } | null;
-        if (!response.ok || !json) {
-          throw new Error(json?.error || `Subscription failed (HTTP ${response.status})`);
+        const bikes = data.bikes || [];
+        if (bikes.length > 0) {
+          if (statusText) {
+            statusText.textContent = `Found ${bikes.length} result${bikes.length !== 1 ? 's' : ''}`;
+          }
+          
+          // Render bikes in modal
+          if (modalResults) {
+            modalResults.innerHTML = `
+              <p class="matrix-text mb-4 text-center text-xs" style="color: var(--text-muted);">
+                ${bikes.length} result${bikes.length !== 1 ? 's' : ''} — click any card to view on source
+              </p>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" id="bikes-grid"></div>
+            `;
+            
+            const grid = document.getElementById('bikes-grid');
+            if (grid) {
+              for (const bike of bikes) {
+                const statusColor = bike.status === 'stolen' 
+                  ? { bg: 'rgba(239,68,68,0.15)', border: 'rgba(239,68,68,0.4)', text: '#fca5a5' }
+                  : bike.status === 'found'
+                    ? { bg: 'rgba(34,197,94,0.15)', border: 'rgba(34,197,94,0.4)', text: '#86efac' }
+                    : { bg: 'rgba(232,65,37,0.1)', border: 'rgba(232,65,37,0.3)', text: '#ffb5a8' };
+                
+                const card = document.createElement('a');
+                card.href = bike.url;
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+                card.className = 'group flex flex-col overflow-hidden rounded-2xl border transition-all duration-200 hover:brightness-110';
+                card.style.borderColor = 'var(--surface-border)';
+                card.style.backgroundColor = 'var(--surface-elevated)';
+                card.style.textDecoration = 'none';
+                
+                card.innerHTML = `
+                  <div class="relative flex h-44 w-full items-center justify-center overflow-hidden" style="background-color: var(--item-bg);">
+                    ${bike.thumb || bike.large_img ? `<img src="${bike.thumb || bike.large_img}" alt="${bike.title}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />` : '<div class="opacity-20">🚲</div>'}
+                    <span class="matrix-text absolute left-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase" style="background-color: ${statusColor.bg}; border: 1px solid ${statusColor.border}; color: ${statusColor.text};">${bike.status}</span>
+                  </div>
+                  <div class="flex flex-1 flex-col gap-2 p-4">
+                    <p class="matrix-heading text-sm font-semibold leading-tight" style="color: var(--text-main);">${bike.title}</p>
+                    <div class="matrix-text space-y-1 text-xs" style="color: var(--text-muted);">
+                      ${bike.frame_colors?.length > 0 ? `<p>🎨 ${bike.frame_colors.join(', ')}</p>` : ''}
+                    </div>
+                  </div>
+                `;
+                grid.appendChild(card);
+              }
+            }
+          }
+          
+          // Show modal
+          modal?.classList.remove('hidden');
+        } else {
+          if (statusText) {
+            statusText.textContent = `No results found for "${query}"`;
+          }
         }
-
-        if (statusText) {
-          statusText.textContent = json.message || 'Subscribed successfully.';
-        }
-        form.reset();
-        setButtonState('success');
-        window.setTimeout(() => {
-          setButtonState('idle');
-        }, 1400);
       } catch (error) {
         const message =
-          error instanceof Error && error.name === 'AbortError'
-            ? 'Request timed out. Please try again.'
-            : error instanceof Error
-              ? error.message
-              : 'Subscription failed.';
+          error instanceof Error ? error.message : 'Search failed.';
         if (statusText) {
           statusText.textContent = message;
         }
+      } finally {
         setButtonState('idle');
       }
     });
@@ -294,61 +348,63 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
 </script>
 
 <script>
-  const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!><';
+  const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&';
+  const REVEAL_MS = 55;
+  const TICK_MS = 22;
 
-  // ms each non-space character scrambles before locking in
-  const REVEAL_MS = 130;
-  // scramble frame rate — lower = smoother, more random values per char
-  const TICK_MS = 48;
-
-  function runScramble(el: HTMLElement, startDelay: number) {
+  function runScramble(el: HTMLElement) {
     const target = el.textContent ?? '';
     if (!target.trim()) return;
 
-    // Compute per-character lock time (spaces lock instantly)
     let nonSpaceIdx = 0;
     const lockAt = [...target].map((c) => (c === ' ' ? -1 : nonSpaceIdx++ * REVEAL_MS));
     const duration = nonSpaceIdx * REVEAL_MS;
+    const t0 = performance.now();
 
-    setTimeout(() => {
-      const t0 = performance.now();
+    const id = setInterval(() => {
+      const elapsed = performance.now() - t0;
+      let html = '';
 
-      const id = setInterval(() => {
-        const elapsed = performance.now() - t0;
-        let html = '';
-
-        for (let i = 0; i < target.length; i++) {
-          const ch = target[i];
-          if (ch === ' ') {
-            html += ' ';
-            continue;
-          }
-          if (elapsed >= lockAt[i]) {
-            // Locked in — render final character
-            html += ch;
-          } else {
-            // Still scrambling — colour shifts from dim to bright as char approaches lock
-            const progress = elapsed / lockAt[i];
-            const opacity = (0.35 + 0.55 * progress).toFixed(2);
-            const rand = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
-            html += `<span style="color:#e84125;opacity:${opacity}">${rand}</span>`;
-          }
+      for (let i = 0; i < target.length; i++) {
+        const ch = target[i];
+        if (ch === ' ') { html += ' '; continue; }
+        if (elapsed >= lockAt[i]) {
+          html += ch;
+        } else {
+          const progress = elapsed / lockAt[i];
+          const opacity = (0.55 + 0.45 * progress).toFixed(2);
+          const rand = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+          html += `<span style="color:#e84125;opacity:${opacity}">${rand}</span>`;
         }
+      }
 
-        el.innerHTML = html;
+      el.innerHTML = html;
 
-        if (elapsed >= duration) {
-          el.textContent = target;
-          clearInterval(id);
-        }
-      }, TICK_MS);
-    }, startDelay);
+      if (elapsed >= duration) {
+        el.textContent = target;
+        clearInterval(id);
+      }
+    }, TICK_MS);
   }
 
-  document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll<HTMLElement>('[data-scramble]').forEach((el) => {
-      const delay = Number(el.dataset.scrambleDelay ?? 0);
-      runScramble(el, delay);
-    });
-  });
+  function initScramble() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            runScramble(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll<HTMLElement>('[data-scramble]').forEach((el) => observer.observe(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScramble);
+  } else {
+    initScramble();
+  }
 </script>
