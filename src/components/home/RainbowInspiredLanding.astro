@@ -38,9 +38,9 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
         {brand.copy.heroBadge}
       </p>
       <h1 class='matrix-heading mt-5 text-4xl font-semibold leading-tight tracking-tight md:text-6xl'>
-        {brand.copy.heroTitleLine1}
+        <span data-scramble>{brand.copy.heroTitleLine1}</span>
         <br />
-        {brand.copy.heroTitleLine2}
+        <span data-scramble data-scramble-delay="150">{brand.copy.heroTitleLine2}</span>
       </h1>
       <p class='matrix-text mt-5 max-w-xl text-base md:text-lg' style='color: var(--text-muted);'>
         {brand.copy.heroDescription}
@@ -290,5 +290,53 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
       }
     });
 
+  });
+</script>
+
+<script>
+  const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!><';
+
+  function runScramble(el: HTMLElement, delay: number) {
+    const target = el.textContent ?? '';
+
+    setTimeout(() => {
+      let frame = 0;
+
+      const tick = setInterval(() => {
+        frame++;
+        const revealed = Math.floor(frame * 0.5);
+
+        let resolved = '';
+        let scrambled = '';
+
+        for (let i = 0; i < target.length; i++) {
+          if (i < revealed) {
+            resolved += target[i];
+          } else if (target[i] === ' ') {
+            scrambled += ' ';
+          } else {
+            scrambled += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+          }
+        }
+
+        el.innerHTML =
+          `<span>${resolved}</span>` +
+          (scrambled
+            ? `<span style="color:#e84125;opacity:0.75">${scrambled}</span>`
+            : '');
+
+        if (revealed >= target.length) {
+          el.textContent = target;
+          clearInterval(tick);
+        }
+      }, 30);
+    }, delay);
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('[data-scramble]').forEach((el) => {
+      const delay = Number(el.dataset.scrambleDelay ?? 0);
+      runScramble(el, delay);
+    });
   });
 </script>
