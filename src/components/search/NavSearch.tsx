@@ -99,11 +99,7 @@ export function NavSearch() {
                 className="matrix-text mx-auto mt-3 max-w-xl text-xs md:text-sm"
                 style={{ color: 'var(--text-muted)' }}
               >
-                <ScrambleText
-                  text="Search across Veralify and trusted public databases like BikeIndex to find reported stolen items."
-                  delay={200}
-                  trigger={open}
-                />
+                Search across Veralify and trusted public databases like BikeIndex to find reported stolen items.
               </p>
             </div>
             <ItemSearch />
