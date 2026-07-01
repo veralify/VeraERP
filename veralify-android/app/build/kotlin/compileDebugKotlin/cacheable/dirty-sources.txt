@@ -1,4 +1,0 @@
-/Users/abdelwahab/veralify/veralify-android/app/src/main/kotlin/com/veralify/ui/theme/Color.kt
-/Users/abdelwahab/veralify/veralify-android/app/src/main/kotlin/com/veralify/ui/theme/Theme.kt
-/Users/abdelwahab/veralify/veralify-android/app/src/main/kotlin/com/veralify/ui/theme/Type.kt
-/Users/abdelwahab/veralify/veralify-android/app/src/main/kotlin/com/veralify/MainActivity.kt
