@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject private var supabase = SupabaseClient.shared
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if supabase.isAuthenticated {
+            TabView {
+                ExploreView()
+                    .tabItem { Label("Explore", systemImage: "globe") }
+
+                MyESIMsView()
+                    .tabItem { Label("My eSIMs", systemImage: "simcard.2.fill") }
+
+                ProfileView()
+                    .tabItem { Label("Profile", systemImage: "person.fill") }
+            }
+        } else {
+            LoginView()
         }
-        .padding()
     }
 }
 
