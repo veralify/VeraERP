@@ -7,21 +7,17 @@ struct ExploreView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Search bar
-                HStack {
+            VStack(spacing: 12) {
+                HStack(spacing: 10) {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
                     TextField("Where are you going?", text: $viewModel.searchText)
-                        .autocapitalization(.none)
+                        .textInputAutocapitalization(.never)
                 }
-                .padding(12)
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                .premiumCard()
                 .padding(.horizontal)
                 .padding(.top, 8)
-                .padding(.bottom, 12)
 
-                // Category tabs
                 Picker("Category", selection: $viewModel.selectedCategory) {
                     ForEach(PlanCategory.allCases) { cat in
                         Text(cat.rawValue).tag(cat)
@@ -29,63 +25,58 @@ struct ExploreView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
-                .padding(.bottom, 12)
 
-                // Content
                 switch viewModel.selectedCategory {
                 case .local:
-                    CountriesGrid(
-                        countries: viewModel.filteredCountries,
-                        searchText: viewModel.searchText
-                    )
+                    CountriesGrid(countries: viewModel.filteredCountries, searchText: viewModel.searchText)
                 case .regional:
-                    PackagesList(
-                        packages: viewModel.regionalPackages,
-                        isLoading: viewModel.isLoadingGlobal,
-                        emptyTitle: "No Regional Plans",
-                        category: .regional
-                    )
-                    .task { await viewModel.loadGlobalPackages() }
+                    PackagesList(packages: viewModel.regionalPackages, isLoading: viewModel.isLoadingGlobal, emptyTitle: "No Regional Plans")
+                        .task { await viewModel.loadGlobalPackages() }
                 case .global:
-                    PackagesList(
-                        packages: viewModel.worldwidePackages,
-                        isLoading: viewModel.isLoadingGlobal,
-                        emptyTitle: "No Global Plans",
-                        category: .global
-                    )
-                    .task { await viewModel.loadGlobalPackages() }
+                    PackagesList(packages: viewModel.worldwidePackages, isLoading: viewModel.isLoadingGlobal, emptyTitle: "No Global Plans")
+                        .task { await viewModel.loadGlobalPackages() }
                 }
             }
-            .navigationTitle(AppConfig.appName)
-            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle("Get Data")
+            .background(AppTheme.screenBackground.ignoresSafeArea())
         }
     }
 }
-
-// MARK: - Countries Grid
 
 private struct CountriesGrid: View {
     let countries: [Country]
     let searchText: String
 
-    private let columns = [GridItem(.adaptive(minimum: 100, maximum: 130), spacing: 12)]
+    private let columns = [GridItem(.adaptive(minimum: 104, maximum: 140), spacing: 12)]
 
     var body: some View {
         ScrollView {
-            if countries.isEmpty {
-                ContentUnavailableView.search(text: searchText)
-                    .padding(.top, 60)
-            } else {
-                LazyVGrid(columns: columns, spacing: 12) {
-                    ForEach(countries) { country in
-                        NavigationLink(destination: CountryDetailView(country: country)) {
-                            CountryCard(country: country)
-                        }
-                        .buttonStyle(.plain)
-                    }
+            VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Popular Destinations")
+                        .font(.headline)
+                    Text("Pick a country and activate in minutes.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
-                .padding()
+                .padding(.horizontal)
+
+                if countries.isEmpty {
+                    ContentUnavailableView.search(text: searchText)
+                        .padding(.top, 60)
+                } else {
+                    LazyVGrid(columns: columns, spacing: 12) {
+                        ForEach(countries) { country in
+                            NavigationLink(destination: CountryDetailView(country: country)) {
+                                CountryCard(country: country)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
             }
+            .padding(.vertical, 4)
         }
     }
 }
@@ -94,29 +85,24 @@ private struct CountryCard: View {
     let country: Country
 
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: 8) {
             Text(country.flagEmoji)
-                .font(.system(size: 36))
+                .font(.system(size: 34))
             Text(country.name)
-                .font(.caption)
-                .fontWeight(.medium)
+                .font(.subheadline.weight(.semibold))
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
+                .minimumScaleFactor(0.9)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .padding(.horizontal, 8)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .frame(maxWidth: .infinity, minHeight: 98)
+        .premiumCard()
     }
 }
-
-// MARK: - Packages List (Regional / Global)
 
 private struct PackagesList: View {
     let packages: [ESIMPackage]
     let isLoading: Bool
     let emptyTitle: String
-    let category: PlanCategory
 
     var body: some View {
         Group {
@@ -133,7 +119,6 @@ private struct PackagesList: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(packages) { pkg in
-                            // Regional/Global packages cover multiple countries — no single country context
                             let dummyCountry = Country(
                                 code: pkg.countries.first ?? "XX",
                                 name: pkg.planCategory == .global ? "Worldwide" : "Multi-country"
@@ -144,7 +129,8 @@ private struct PackagesList: View {
                             .buttonStyle(.plain)
                         }
                     }
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                 }
             }
         }
@@ -155,10 +141,10 @@ struct PackageRow: View {
     let package: ESIMPackage
 
     var body: some View {
-        HStack {
+        HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(package.data)
-                    .font(.title3.bold())
+                    .font(.headline)
                 Text(package.validityText)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -168,11 +154,10 @@ struct PackageRow: View {
             }
             Spacer()
             Text(package.formattedPrice)
-                .font(.title3.bold())
-                .foregroundStyle(.tint)
+                .font(.headline.weight(.bold))
+                .foregroundStyle(AppTheme.premiumGradient)
         }
-        .padding()
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .premiumCard()
     }
 }
 

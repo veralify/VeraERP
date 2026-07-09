@@ -8,7 +8,7 @@ struct ESIMDetailView: View {
     @State private var isLoadingUsage = true
     @State private var showQR = false
 
-    private let airalo = AiraloClient.shared
+    private let esimGo = ESIMGoClient.shared
 
     var body: some View {
         ScrollView {
@@ -89,7 +89,7 @@ struct ESIMDetailView: View {
         .navigationTitle("eSIM Details")
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            if let u = try? await airalo.getSimUsage(iccid: order.iccid) {
+            if let u = try? await esimGo.getSimUsage(iccid: order.iccid) {
                 usage = u
             }
             isLoadingUsage = false

@@ -3,111 +3,128 @@ import SwiftUI
 struct ESIMInstallView: View {
     let order: LocalOrder
     @State private var showManualInstructions = false
+    @State private var manualSectionID = UUID()
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                // Success header
-                VStack(spacing: 8) {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 56))
-                        .foregroundStyle(.green)
-                    Text("eSIM Ready!")
-                        .font(.largeTitle.bold())
-                    Text("Your \(order.dataText) plan for \(order.flagEmoji) \(order.countryName) is ready to install.")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.top, 8)
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(spacing: 16) {
+                    VStack(spacing: 8) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 56))
+                            .foregroundStyle(.green)
+                        Text("eSIM Ready!")
+                            .font(.largeTitle.bold())
+                        Text("Your \(order.dataText) plan for \(order.flagEmoji) \(order.countryName) is ready to install.")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .premiumCard()
 
-                // QR Code
-                VStack(spacing: 12) {
-                    Text("Scan with a second device")
-                        .font(.subheadline.bold())
-
-                    if let urlString = order.qrcodeURL, let url = URL(string: urlString) {
-                        AsyncImage(url: url) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image.resizable().scaledToFit()
-                                    .frame(width: 200, height: 200)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                            case .failure:
-                                QRCodeFallback(qrcode: order.qrcode)
-                            case .empty:
-                                ProgressView().frame(width: 200, height: 200)
-                            @unknown default:
-                                EmptyView()
+                    // Native "1-Tap" install using CoreTelephony, mapped
+                    // directly from eSIM Go's smdpAddress/matchingId for
+                    // this order (see LocalOrder.lpa / .matchingID, which
+                    // are populated from ESIMGoInstalledESIM at purchase
+                    // time in CheckoutViewModel).
+                    ESIMInstantSetupCard(
+                        smdpAddress: order.lpa,
+                        matchingId: order.matchingID,
+                        onShowManualSetup: {
+                            withAnimation {
+                                showManualInstructions = true
+                                proxy.scrollTo(manualSectionID, anchor: .top)
                             }
                         }
-                    } else {
-                        QRCodeFallback(qrcode: order.qrcode)
+                    )
+
+                        VStack(spacing: 12) {
+                        Text("Scan with a second device")
+                            .font(.headline)
+
+                        if let urlString = order.qrcodeURL, let url = URL(string: urlString) {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image.resizable().scaledToFit()
+                                        .frame(width: 210, height: 210)
+                                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                case .failure:
+                                    QRCodeFallback(qrcode: order.qrcode)
+                                case .empty:
+                                    ProgressView().frame(width: 210, height: 210)
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                        } else {
+                            QRCodeFallback(qrcode: order.qrcode)
+                        }
+
+                        Text("Go to **Settings → Cellular → Add Cellular Plan** and scan this QR code.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .premiumCard()
+
+                    if let urlString = order.directAppleInstallURL, let url = URL(string: urlString) {
+                        Button {
+                            UIApplication.shared.open(url)
+                        } label: {
+                            Label("Install on This iPhone", systemImage: "iphone.badge.play")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                                .background(AppTheme.premiumGradient, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                .foregroundStyle(.white)
+                        }
+
+                        Text("Requires iOS 17.4+")
+                            .font(.caption2)
+                            .foregroundStyle(.tertiary)
                     }
 
-                    Text("Go to **Settings → Cellular → Add Cellular Plan** and scan this QR code")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding()
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
-
-                // Direct install button (iOS 17.4+)
-                if let urlString = order.directAppleInstallURL, let url = URL(string: urlString) {
-                    Button {
-                        UIApplication.shared.open(url)
-                    } label: {
-                        Label("Install on This iPhone", systemImage: "iphone.badge.play")
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
+                    DisclosureGroup("Manual Installation", isExpanded: $showManualInstructions) {
+                        VStack(alignment: .leading, spacing: 12) {
+                            ManualStep(number: 1, text: "Open **Settings → Cellular → Add Cellular Plan**")
+                            ManualStep(number: 2, text: "Tap **Enter Details Manually**")
+                            ManualStep(number: 3, text: "SM-DP+ Address: **\(order.lpa)**")
+                            ManualStep(number: 4, text: "Activation Code: **\(order.matchingID)**")
+                            ManualStep(number: 5, text: "Follow on-screen prompts to complete installation")
+                        }
+                        .padding(.top, 8)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .premiumCard()
+                    .id(manualSectionID)
 
-                    Text("Requires iOS 17.4+")
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
-                }
-
-                // Manual instructions toggle
-                DisclosureGroup("Manual Installation", isExpanded: $showManualInstructions) {
-                    VStack(alignment: .leading, spacing: 12) {
-                        ManualStep(number: 1, text: "Open **Settings → Cellular → Add Cellular Plan**")
-                        ManualStep(number: 2, text: "Tap **Enter Details Manually**")
-                        ManualStep(number: 3, text: "SM-DP+ Address: **\(order.lpa)**")
-                        ManualStep(number: 4, text: "Activation Code: **\(order.matchingID)**")
-                        ManualStep(number: 5, text: "Follow on-screen prompts to complete installation")
+                    VStack(alignment: .leading, spacing: 4) {
+                        Label("ICCID", systemImage: "simcard.fill")
+                            .font(.caption.bold())
+                            .foregroundStyle(.secondary)
+                        Text(order.iccid)
+                            .font(.system(.caption, design: .monospaced))
+                            .textSelection(.enabled)
                     }
-                    .padding(.top, 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .premiumCard()
+
+                    Button("Done") { dismiss() }
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
                 .padding()
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
-
-                // ICCID info
-                VStack(alignment: .leading, spacing: 4) {
-                    Label("ICCID (save this)", systemImage: "simcard.fill")
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
-                    Text(order.iccid)
-                        .font(.system(.caption, design: .monospaced))
-                        .textSelection(.enabled)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-
-                Button("Done") { dismiss() }
-                    .padding(.bottom, 8)
             }
-            .padding()
-        }
-        .navigationTitle("Install eSIM")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Done") { dismiss() }
+            .background(AppTheme.screenBackground.ignoresSafeArea())
+            .navigationTitle("Install eSIM")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
             }
         }
     }
@@ -115,17 +132,19 @@ struct ESIMInstallView: View {
 
 private struct QRCodeFallback: View {
     let qrcode: String
+
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: "qrcode")
-                .font(.system(size: 80))
+                .font(.system(size: 82))
                 .foregroundStyle(.secondary)
             Text(qrcode)
                 .font(.system(size: 8, design: .monospaced))
                 .foregroundStyle(.tertiary)
                 .multilineTextAlignment(.center)
+                .lineLimit(3)
         }
-        .frame(width: 200, height: 200)
+        .frame(width: 210, height: 210)
     }
 }
 

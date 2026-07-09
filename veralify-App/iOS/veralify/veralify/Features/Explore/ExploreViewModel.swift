@@ -10,7 +10,7 @@ final class ExploreViewModel: ObservableObject {
     @Published var isLoadingGlobal = false
     @Published var errorMessage: String?
 
-    private let airalo = AiraloClient.shared
+    private let esimGo = ESIMGoClient.shared
 
     let countries = Country.popular
 
@@ -35,7 +35,7 @@ final class ExploreViewModel: ObservableObject {
         isLoadingGlobal = true
         errorMessage = nil
         do {
-            globalPackages = try await airalo.getPackages(type: .global)
+            globalPackages = try await esimGo.getPackages(type: .global)
         } catch let error as APIError {
             errorMessage = error.errorDescription
         } catch {

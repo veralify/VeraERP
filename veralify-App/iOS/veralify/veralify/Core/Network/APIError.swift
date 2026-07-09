@@ -20,7 +20,7 @@ enum APIError: LocalizedError {
         case .httpError(let code, let message):
             return message ?? "HTTP error \(code)"
         case .unauthorized:
-            return "Unauthorized – please sign in again"
+            return "Unauthorized – please verify your eSIM Go API key"
         case .notFound:
             return "Resource not found"
         case .unknown:

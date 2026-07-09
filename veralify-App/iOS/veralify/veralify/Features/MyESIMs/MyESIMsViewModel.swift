@@ -9,7 +9,7 @@ final class MyESIMsViewModel: ObservableObject {
     @Published var isLoadingUsage = false
 
     private let store = LocalOrderStore.shared
-    private let airalo = AiraloClient.shared
+    private let esimGo = ESIMGoClient.shared
 
     func load(userID: String) {
         orders = store.all(for: userID)
@@ -18,7 +18,7 @@ final class MyESIMsViewModel: ObservableObject {
     func fetchUsage(for order: LocalOrder) async {
         guard !order.iccid.isEmpty else { return }
         isLoadingUsage = true
-        if let usage = try? await airalo.getSimUsage(iccid: order.iccid) {
+        if let usage = try? await esimGo.getSimUsage(iccid: order.iccid) {
             usageMap[order.iccid] = usage
         }
         isLoadingUsage = false

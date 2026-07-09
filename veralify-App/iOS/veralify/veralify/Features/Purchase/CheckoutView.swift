@@ -12,31 +12,27 @@ struct CheckoutView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
-                    // Order summary card
-                    VStack(alignment: .leading, spacing: 16) {
+                VStack(spacing: 14) {
+                    VStack(alignment: .leading, spacing: 14) {
                         HStack(spacing: 12) {
                             Text(country.flagEmoji).font(.system(size: 36))
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(country.name).font(.headline)
                                 Text(package.operatorName).font(.subheadline).foregroundStyle(.secondary)
                             }
+                            Spacer()
                         }
 
-                        Divider()
-
                         HStack {
-                            Label(package.data, systemImage: "wifi")
+                            Label(package.data, systemImage: "antenna.radiowaves.left.and.right")
                             Spacer()
                             Label(package.validityText, systemImage: "calendar")
                         }
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                     }
-                    .padding()
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
+                    .premiumCard()
 
-                    // Price breakdown
                     VStack(spacing: 0) {
                         PriceRow(label: "Plan", value: package.formattedPrice)
                         Divider().padding(.leading, 16)
@@ -44,30 +40,33 @@ struct CheckoutView: View {
                         Divider().padding(.leading, 16)
                         PriceRow(label: "Total", value: package.formattedPrice, isTotal: true)
                     }
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
+                    .premiumCard()
 
-                    // Info
                     HStack(alignment: .top, spacing: 10) {
-                        Image(systemName: "checkmark.shield.fill").foregroundStyle(.green)
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Instant delivery").fontWeight(.medium)
+                        Image(systemName: "checkmark.shield.fill")
+                            .foregroundStyle(.green)
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text("Instant delivery")
+                                .font(.subheadline.weight(.semibold))
                             Text("Your eSIM will be ready to install immediately after purchase.")
-                                .font(.footnote).foregroundStyle(.secondary)
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
                         }
+                        Spacer()
                     }
-                    .padding()
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                    .premiumCard()
 
                     if let error = viewModel.errorMessage {
                         Text(error)
                             .font(.footnote)
                             .foregroundStyle(.red)
                             .multilineTextAlignment(.center)
-                            .padding()
+                            .premiumCard()
                     }
                 }
                 .padding()
             }
+            .background(AppTheme.screenBackground.ignoresSafeArea())
             .navigationTitle("Checkout")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -82,19 +81,20 @@ struct CheckoutView: View {
                 } label: {
                     Group {
                         if viewModel.isLoading {
-                            ProgressView()
+                            ProgressView().tint(.white)
                         } else {
                             Text("Confirm Purchase · \(package.formattedPrice)")
-                                .fontWeight(.semibold)
+                                .font(.headline)
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
+                    .padding(.vertical, 14)
+                    .background(AppTheme.premiumGradient, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .foregroundStyle(.white)
                 }
-                .buttonStyle(.borderedProminent)
                 .disabled(viewModel.isLoading)
                 .padding()
-                .background(.regularMaterial)
+                .background(.ultraThinMaterial)
             }
             .navigationDestination(item: $viewModel.completedOrder) { order in
                 ESIMInstallView(order: order)
@@ -110,9 +110,11 @@ private struct PriceRow: View {
 
     var body: some View {
         HStack {
-            Text(label).fontWeight(isTotal ? .bold : .regular)
+            Text(label)
+                .fontWeight(isTotal ? .bold : .regular)
             Spacer()
-            Text(value).fontWeight(isTotal ? .bold : .regular)
+            Text(value)
+                .fontWeight(isTotal ? .bold : .regular)
                 .foregroundStyle(isTotal ? .primary : .secondary)
         }
         .padding()

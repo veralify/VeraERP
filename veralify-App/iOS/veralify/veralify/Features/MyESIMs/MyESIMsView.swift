@@ -17,7 +17,7 @@ struct MyESIMsView: View {
                     ContentUnavailableView(
                         "No eSIMs Yet",
                         systemImage: "simcard.2.fill",
-                        description: Text("Buy your first eSIM in the Explore tab.")
+                        description: Text("Buy your first eSIM in Explore.")
                     )
                 } else {
                     ScrollView {
@@ -34,34 +34,33 @@ struct MyESIMsView: View {
                     }
                 }
             }
-            .navigationTitle("My eSIMs")
+            .navigationTitle("My eSIM")
+            .background(AppTheme.screenBackground.ignoresSafeArea())
             .onAppear { viewModel.load(userID: userID) }
         }
     }
 }
-
-// MARK: - eSIM Card
 
 struct ESIMCard: View {
     let order: LocalOrder
     let usage: SIMUsage?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // Header
+        VStack(alignment: .leading, spacing: 14) {
             HStack {
-                Text(order.flagEmoji).font(.system(size: 28))
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(order.countryName).font(.headline)
-                    Text(order.packageTitle).font(.caption).foregroundStyle(.secondary)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("\(order.flagEmoji) \(order.countryName)")
+                        .font(.headline)
+                    Text(order.packageTitle)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
                 Spacer()
                 StatusBadge(status: usage?.displayStatus ?? "Active")
             }
 
-            // Usage bar
             if let usage {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 6) {
                     ProgressView(value: usage.usageFraction)
                         .tint(progressColor(fraction: usage.usageFraction))
                     HStack {
@@ -82,8 +81,7 @@ struct ESIMCard: View {
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }
-        .padding()
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .premiumCard()
     }
 
     private func progressColor(fraction: Double) -> Color {
@@ -99,9 +97,9 @@ private struct StatusBadge: View {
     var body: some View {
         Text(status.capitalized)
             .font(.caption2.bold())
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(color.opacity(0.15), in: Capsule())
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(color.opacity(0.14), in: Capsule())
             .foregroundStyle(color)
     }
 
@@ -109,7 +107,7 @@ private struct StatusBadge: View {
         switch status.uppercased() {
         case "ACTIVE": return .green
         case "EXPIRED": return .red
-        case "FINISHED": return .orange
+        case "FINISHED", "DEPLETED": return .orange
         default: return .secondary
         }
     }

@@ -6,11 +6,13 @@ enum AppConfig {
     static let supabaseAnonKey = "sb_publishable_pMSKTLquLKtd2VVWUYAI2Q_5iHOKn2b"
     static let appBundleID = "com.veralify.app"
 
-    // MARK: - Airalo Partner API
-    // Sign up at https://partners.airalo.com to get credentials
-    static let airaloBaseURL = "https://partners-api.airalo.com"
-    static let airaloClientID = "YOUR_AIRALO_CLIENT_ID"
-    static let airaloClientSecret = "YOUR_AIRALO_CLIENT_SECRET"
+    // MARK: - eSIM Go API
+    // Docs: https://docs.esim-go.com
+    // Create your account and API key in https://portal.esim-go.com
+    static let esimGoBaseURL = "https://api.esim-go.com/v2.4"
+    static let esimGoAPIKey = "YOUR_ESIMGO_API_KEY"
+    // Optional: set if you manage multiple branding profiles in eSIM Go
+    static let esimGoBrandingProfileID = ""
 
     // MARK: - App
     static let appName = "Veralify"
@@ -18,7 +20,5 @@ enum AppConfig {
 
     // MARK: - eSIM Branding
     // This name appears on the eSIM profile in iOS Settings after installation.
-    // Set up your brand in the Airalo Partner Platform first:
-    // https://app.partners.airalo.com → Brand Settings
     static let eSIMBrandName = "Veralify"
 }

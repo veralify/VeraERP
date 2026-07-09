@@ -7,8 +7,7 @@ struct PlanDetailView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                // Hero card
+            VStack(spacing: 14) {
                 VStack(spacing: 8) {
                     Text(country.flagEmoji)
                         .font(.system(size: 48))
@@ -20,9 +19,8 @@ struct PlanDetailView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 32)
-                .background(.tint.opacity(0.08), in: RoundedRectangle(cornerRadius: 20))
+                .premiumCard()
 
-                // Details
                 VStack(spacing: 0) {
                     DetailRow(icon: "building.2.fill", label: "Operator", value: package.operatorName)
                     Divider().padding(.leading, 44)
@@ -34,9 +32,8 @@ struct PlanDetailView: View {
                     Divider().padding(.leading, 44)
                     DetailRow(icon: "phone.slash", label: "Calls & SMS", value: "Data only")
                 }
-                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                .premiumCard()
 
-                // Info box
                 if let info = package.shortInfo {
                     HStack(alignment: .top, spacing: 10) {
                         Image(systemName: "info.circle.fill")
@@ -45,14 +42,14 @@ struct PlanDetailView: View {
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
-                    .padding()
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                    .premiumCard()
                 }
 
                 Spacer(minLength: 24)
             }
             .padding()
         }
+        .background(AppTheme.screenBackground.ignoresSafeArea())
         .navigationTitle("Plan Details")
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
@@ -66,10 +63,11 @@ struct PlanDetailView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
+                .background(AppTheme.premiumGradient, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .foregroundStyle(.white)
             }
-            .buttonStyle(.borderedProminent)
             .padding()
-            .background(.regularMaterial)
+            .background(.ultraThinMaterial)
         }
         .sheet(isPresented: $showCheckout) {
             CheckoutView(package: package, country: country)
