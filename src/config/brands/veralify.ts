@@ -18,11 +18,11 @@ export const veralifyBrand: BrandConfig = {
     xUrl: 'https://x.com/Veralify',
   },
   copy: {
-    heroBadge: 'New!',
+    heroBadge: 'Coming soon · 2026',
     heroTitleLine1: 'Your passport',
     heroTitleLine2: 'to a borderless world.',
     heroDescription:
-      'Veralify keeps you connected the moment you land. Activate global internet in seconds with a travel-ready eSIM — no roaming fees, no SIM swaps, no friction.',
+      'The first travel and telecom super-app built for modern explorers. Activate global internet in seconds, curate your perfect trip, and stay connected everywhere — zero friction, no roaming drama. Join us as we find better ways to explore the world.',
     authLandingHeader: 'Stay Connected Anywhere with Veralify',
     authLandingMessage: 'Join the Borderless Network',
     networkLabel: 'Veralify Network',

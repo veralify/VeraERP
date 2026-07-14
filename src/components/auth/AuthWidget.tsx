@@ -8,6 +8,7 @@ type AuthWidgetProps = {
 
 const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
   const [error, setError] = useState<string | null>(null);
+  const [authenticated] = useState(false);
 
   const startLogin = async () => {
     try {

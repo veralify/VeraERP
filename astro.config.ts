@@ -13,6 +13,13 @@ export default defineConfig({
         : 'http://localhost:3000/',
   trailingSlash: 'ignore',
   output: 'server',
+  // The only state-changing endpoints (/api/waitlist, /api/unsubscribe) are
+  // public and token-authorised — no cookie/session to abuse — so Astro's
+  // CSRF origin check adds no protection but blocks Gmail's RFC-8058 one-click
+  // unsubscribe (a cross-origin form POST). Disable it so one-click works.
+  security: {
+    checkOrigin: false,
+  },
   // Keep it here:
   adapter: vercel({
     webAnalytics: { enabled: true },

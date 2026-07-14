@@ -1,6 +1,5 @@
 ---
 import { AuthWidget } from '@components/auth/AuthWidget';
-import { NavSearch } from '@components/search/NavSearch';
 import { getActiveBrand } from '@config/brands';
 
 interface Props {
@@ -17,7 +16,7 @@ const brand = getActiveBrand();
   style='border-color: var(--surface-border); background-color: var(--page-bg);'
 >
   {pageTitle && <h1 class='hidden'>{pageTitle}</h1>}
-  <div class='mx-auto flex w-full max-w-6xl items-center justify-between'>
+  <div class='relative mx-auto flex w-full max-w-6xl items-center justify-center'>
     <a href='/' data-astro-reload class='matrix-text inline-flex items-center gap-3 hover:opacity-80 transition-opacity'>
       <img src={brand.assets.logoPath} alt={`${brand.name} logo`} width='40' height='40' loading='eager' />
       <p class='matrix-heading text-xl font-semibold tracking-tight md:text-2xl'>{brand.shortName}</p>
@@ -26,9 +25,6 @@ const brand = getActiveBrand();
         style={`background-color: ${brand.theme.primary}; box-shadow: 0 0 12px ${brand.theme.primary};`}
       />
     </a>
-    <div class='flex items-center gap-3'>
-      <NavSearch client:only="react" />
-      {hasPrivyAppId ? <AuthWidget client:only="react" /> : null}
-    </div>
+    {hasPrivyAppId ? <div class='absolute right-6'><AuthWidget client:only='react' /></div> : null}
   </div>
 </header>

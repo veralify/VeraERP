@@ -1,0 +1,85 @@
+---
+import { getActiveBrand } from '@config/brands';
+import Layout from '@layouts/Default.astro';
+
+const brand = getActiveBrand();
+const cannyBoardToken = import.meta.env.PUBLIC_CANNY_BOARD_TOKEN;
+const cannySubdomain = import.meta.env.PUBLIC_CANNY_SUBDOMAIN;
+
+const isConfigured =
+  Boolean(cannyBoardToken) &&
+  cannyBoardToken !== 'your_board_token' &&
+  Boolean(cannySubdomain) &&
+  cannySubdomain !== 'your-subdomain';
+
+const hostedBoardUrl = cannySubdomain ? `https://${cannySubdomain}.canny.io` : null;
+---
+
+<Layout
+  title={`Feedback | ${brand.name}`}
+  pageTitle={`${brand.name} | Feedback`}
+  description={`Share ideas, vote on features, and shape the ${brand.name} roadmap.`}
+>
+  <main
+    class='mx-auto w-full max-w-5xl px-6 py-16'
+    style='background-color: var(--page-bg); color: var(--text-main);'
+  >
+    <div class='mx-auto max-w-2xl text-center'>
+      <h1 class='matrix-heading text-3xl font-semibold md:text-4xl'>
+        <span data-scramble>Help shape Veralify.</span>
+      </h1>
+      <p class='matrix-text mt-4 text-sm md:text-base' style='color: var(--text-muted);'>
+        Request a feature, report an issue, or vote on what we build next. This board is public —
+        your voice directly steers the roadmap.
+      </p>
+    </div>
+
+    {
+      isConfigured ? (
+        <div
+          class='mt-12 rounded-2xl border p-4 md:p-6'
+          style='border-color: var(--surface-border); background-color: var(--surface);'
+        >
+          <div data-canny />
+        </div>
+      ) : (
+        <div
+          class='mx-auto mt-12 max-w-xl rounded-2xl border p-8 text-center'
+          style='border-color: var(--surface-border); background-color: var(--surface);'
+        >
+          <p class='matrix-heading text-lg font-semibold' style='color: var(--text-main);'>
+            Feedback board coming online
+          </p>
+          <p class='matrix-text mt-3 text-sm' style='color: var(--text-muted);'>
+            Set <code>PUBLIC_CANNY_SUBDOMAIN</code> and <code>PUBLIC_CANNY_BOARD_TOKEN</code> in your
+            environment to render the embedded Canny board here.
+          </p>
+          {hostedBoardUrl && (
+            <a
+              href={hostedBoardUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='matrix-text mt-6 inline-flex h-10 items-center rounded-xl px-5 text-sm font-semibold text-white transition hover:brightness-110'
+              style={`background-color: ${brand.theme.primary};`}
+            >
+              Open feedback board
+            </a>
+          )}
+        </div>
+      )
+    }
+  </main>
+</Layout>
+
+{
+  isConfigured && (
+    <>
+      <script is:inline>
+        {`(function(w,d,i,s){function l(){if(!d.getElementById(i)){var f=d.getElementsByTagName(s)[0],e=d.createElement(s);e.type="text/javascript";e.async=!0;e.src="https://canny.io/sdk.js";f.parentNode.insertBefore(e,f)}}if("function"!=typeof w.Canny){var c=function(){c.q.push(arguments)};c.q=[];w.Canny=c;"complete"===d.readyState?l():w.attachEvent?w.attachEvent("onload",l):w.addEventListener("load",l,!1)}})(window,document,"canny-jssdk","script");`}
+      </script>
+      <script is:inline define:vars={{ cannyBoardToken }}>
+        {`window.Canny && window.Canny('render', { boardToken: cannyBoardToken, basePath: '/feedback', ssoToken: null, theme: 'auto' });`}
+      </script>
+    </>
+  )
+}

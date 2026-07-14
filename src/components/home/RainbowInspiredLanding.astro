@@ -2,9 +2,6 @@
 import { getActiveBrand } from '@config/brands';
 
 const brand = getActiveBrand();
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
 ---
 
 <main
@@ -26,84 +23,36 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
     />
   </div>
 
-  <section
-    class='relative mx-auto grid w-full max-w-6xl gap-10 rounded-3xl border p-8 shadow-[0_0_120px_rgba(232,65,37,0.22)] backdrop-blur-xl md:grid-cols-2 md:p-12'
-    style='border-color: var(--surface-border); background-color: var(--surface);'
-  >
-    <div>
-      <p
-        class='matrix-text inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium tracking-wide'
-        style='border-color: var(--chip-border); background-color: var(--chip-bg); color: var(--chip-text);'
-      >
-        {brand.copy.heroBadge}
-      </p>
-      <h1 class='matrix-heading mt-5 text-4xl font-semibold leading-tight tracking-tight md:text-6xl'>
-        <span data-scramble>{brand.copy.heroTitleLine1}</span>
-        <br />
-        <span data-scramble data-scramble-delay="150">{brand.copy.heroTitleLine2}</span>
-      </h1>
-      <p class='matrix-text mt-5 max-w-xl text-base md:text-lg' style='color: var(--text-muted);'>
-        {brand.copy.heroDescription}
-      </p>
-
-      <div class='mt-8 flex flex-wrap gap-3'>
-        <a
-          href={brand.social.xUrl}
-          target='_blank'
-          rel='noopener noreferrer'
-          class='matrix-text inline-flex h-[46px] items-center rounded-xl px-6 font-semibold text-white transition hover:brightness-110'
-          style={`background-color: ${brand.theme.primary};`}
-        >
-          Follow on X
-        </a>
-      </div>
-    </div>
-
-    <div
-      class='rounded-2xl border p-6'
-      style='border-color: var(--surface-border); background-color: var(--surface-elevated);'
+  <section class='relative mx-auto flex min-h-[70vh] w-full max-w-2xl flex-col items-center justify-center text-center'>
+    <p
+      class='matrix-text inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-wide'
+      style='border-color: var(--chip-border); background-color: var(--chip-bg); color: var(--chip-text);'
     >
-      <div class='flex items-center gap-3'>
-        <img src={brand.assets.logoPath} alt={`${brand.name} logo`} width='48' height='48' loading='eager' />
-        <div>
-          <p class='matrix-text text-sm' style='color: var(--text-muted);'>{brand.copy.networkLabel}</p>
-          <p class='matrix-heading text-lg font-semibold'><span data-scramble data-scramble-delay="300">{brand.copy.networkTitle}</span></p>
-        </div>
-      </div>
+      {brand.copy.heroBadge}
+    </p>
 
-      <div class='matrix-text mt-6 space-y-3 text-sm' style='color: var(--text-muted);'>
-        {
-          brand.copy.highlights.map((highlight) => (
-            <Fragment key={highlight}>
-              <div
-                class='rounded-lg border p-3'
-                style='border-color: var(--item-border); background-color: var(--item-bg);'
-              >
-                {highlight}
-              </div>
-            </Fragment>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+    <h1 class='matrix-heading mt-6 text-4xl font-semibold leading-[1.1] tracking-tight md:text-6xl'>
+      <span data-scramble>{brand.copy.heroTitleLine1}</span>
+      <br />
+      <span data-scramble data-scramble-delay='150'>{brand.copy.heroTitleLine2}</span>
+    </h1>
 
-  <section class='relative mx-auto mt-12 w-full max-w-3xl px-2 text-center'>
-    <p class='matrix-heading text-2xl font-semibold md:text-3xl'><span data-scramble data-scramble-delay="500">Stay ahead with Veralify.</span></p>
-    <p class='matrix-text mx-auto mt-3 max-w-xl text-xs md:text-sm' style='color: var(--text-muted);'>
-      Search across Veralify and trusted public databases like BikeIndex to find reported stolen items.
+    <p class='matrix-text mx-auto mt-6 max-w-xl text-base md:text-lg' style='color: var(--text-muted);'>
+      {brand.copy.heroDescription}
     </p>
 
     <form
-      id='newsletter-form'
-      class='mx-auto mt-6 flex w-full max-w-md items-center gap-2 rounded-full border p-1.5'
+      id='waitlist-form'
+      class='mx-auto mt-9 flex w-full max-w-md items-center gap-2 rounded-full border p-1.5'
       style='border-color: var(--surface-border); background-color: var(--page-bg);'
+      data-brand={brand.id}
     >
       <input
-        type='text'
-        id='newsletter-email'
-        name='query'
-        placeholder='Search for a lost or stolen bike...'
+        type='email'
+        id='waitlist-email'
+        name='email'
+        placeholder='name@domain.com'
+        autocomplete='email'
         class='newsletter-input h-10 w-full bg-transparent px-3 text-sm outline-none'
         style='color: var(--text-main);'
         required
@@ -114,7 +63,7 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
         style={`background-color: ${brand.theme.primary};`}
       >
         <svg
-          id='newsletter-btn-spinner'
+          id='waitlist-btn-spinner'
           class='hidden h-4 w-4 animate-spin'
           viewBox='0 0 24 24'
           aria-hidden='true'
@@ -122,67 +71,46 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
           <circle cx='12' cy='12' r='9' stroke='currentColor' stroke-width='3' fill='none' opacity='0.3' />
           <path d='M21 12a9 9 0 0 0-9-9' stroke='currentColor' stroke-width='3' fill='none' />
         </svg>
-        <span id='newsletter-btn-label'>Search</span>
+        <span id='waitlist-btn-label'>Join now</span>
       </button>
     </form>
-    <p id='newsletter-status' class='mt-3 text-xs' style='color: var(--text-muted);'></p>
-  </section>
-
-  <!-- Search Results Modal -->
-  <div
-    id='search-modal'
-    class='hidden fixed inset-0 z-50 flex flex-col overflow-y-auto'
-    style='background-color: var(--page-bg);'
-  >
-    <!-- Glow decoration -->
-    <div class='pointer-events-none absolute inset-0 overflow-hidden'>
-      <div
-        class='absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl'
-        style='background-color: rgba(232,65,37,0.18);'
-      />
-    </div>
-
-    <!-- Header bar -->
-    <div
-      class='sticky top-0 z-10 flex items-center justify-between border-b px-6 py-4'
-      style='border-color: var(--surface-border); background-color: var(--page-bg);'
+    <label
+      for='waitlist-consent'
+      class='matrix-text mx-auto mt-3 flex max-w-md cursor-pointer items-start gap-2 text-left text-xs'
+      style='color: var(--text-muted);'
     >
-      <div class='flex items-center gap-2'>
-        <svg viewBox='0 0 24 24' class='h-5 w-5 shrink-0' fill='none' stroke='currentColor' stroke-width='2' style='color: #e84125;' aria-hidden='true'>
-          <circle cx='11' cy='11' r='8' />
-          <path d='m21 21-4.35-4.35' />
-        </svg>
-        <span class='matrix-heading text-sm font-semibold' style='color: var(--text-main);'>Search</span>
-      </div>
-      <button
-        type='button'
-        id='close-modal'
-        aria-label='Close search'
-        class='matrix-text inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs transition hover:brightness-125'
-        style='border-color: var(--surface-border); color: var(--text-muted);'
-      >
-        ✕
-      </button>
-    </div>
+      <input
+        type='checkbox'
+        id='waitlist-consent'
+        name='consent'
+        class='mt-0.5 h-3.5 w-3.5 shrink-0'
+        style={`accent-color: ${brand.theme.primary};`}
+      />
+      <span>
+        I agree to receive product and launch updates from Veralify Ltd and accept the
+        <a href='/privacy' class='underline hover:opacity-80'>Privacy Policy</a>.
+      </span>
+    </label>
+    <p id='waitlist-status' class='mt-3 text-xs' style='color: var(--text-muted);'></p>
 
-    <!-- Content -->
-    <div id='modal-results' class='relative mx-auto w-full max-w-6xl flex-1 px-6 py-10'>
-      <!-- Results will be inserted here -->
+    <div id='waitlist-social-proof' class='mt-8 hidden items-center justify-center gap-3'>
+      <div class='flex -space-x-2'>
+        <span class='inline-block h-7 w-7 rounded-full border-2' style='border-color: var(--page-bg); background: linear-gradient(135deg, #E84125, #ff8a5b);'></span>
+        <span class='inline-block h-7 w-7 rounded-full border-2' style='border-color: var(--page-bg); background: linear-gradient(135deg, #3b82f6, #22d3ee);'></span>
+        <span class='inline-block h-7 w-7 rounded-full border-2' style='border-color: var(--page-bg); background: linear-gradient(135deg, #a855f7, #ec4899);'></span>
+      </div>
+      <p class='matrix-text text-sm' style='color: var(--text-muted);'>
+        <span id='waitlist-count' class='font-semibold' style='color: var(--text-main);'>0</span>
+        <span> have already joined</span>
+      </p>
     </div>
-  </div>
+  </section>
 
 </main>
 
 <style>
   .newsletter-input:focus,
   .newsletter-input:focus-visible {
-    outline: none;
-    box-shadow: none;
-    background-color: transparent;
-  }
-
-  .search-input:focus,
-  .search-input:focus-visible {
     outline: none;
     box-shadow: none;
     background-color: transparent;
@@ -210,140 +138,103 @@ const hasNewsletterBackend = Boolean(supabaseUrl && supabaseAnonKey);
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const form = document.getElementById('newsletter-form');
-    const emailInput = document.getElementById('newsletter-email');
-    const statusText = document.getElementById('newsletter-status');
-    const modal = document.getElementById('search-modal');
-    const modalResults = document.getElementById('modal-results');
-    const closeBtn = document.getElementById('close-modal');
+    const countEl = document.getElementById('waitlist-count');
+    const socialProof = document.getElementById('waitlist-social-proof');
+    if (countEl && socialProof) {
+      fetch('/api/waitlist-count')
+        .then((r) => r.json())
+        .then((d) => {
+          const count = typeof d.count === 'number' ? d.count : 0;
+          if (count > 0) {
+            countEl.textContent = count.toLocaleString('en-US');
+            socialProof.classList.remove('hidden');
+            socialProof.classList.add('flex');
+          }
+        })
+        .catch(() => {});
+    }
+
+    const form = document.getElementById('waitlist-form');
+    const emailInput = document.getElementById('waitlist-email');
+    const consentInput = document.getElementById('waitlist-consent');
+    const statusText = document.getElementById('waitlist-status');
 
     if (!(form instanceof HTMLFormElement) || !(emailInput instanceof HTMLInputElement)) {
       return;
     }
 
+    const brand = form.dataset.brand || 'veralify';
     const submitButton = form.querySelector('button[type="submit"]');
-    const buttonLabel = document.getElementById('newsletter-btn-label');
-    const buttonSpinner = document.getElementById('newsletter-btn-spinner');
+    const buttonLabel = document.getElementById('waitlist-btn-label');
+    const buttonSpinner = document.getElementById('waitlist-btn-spinner');
 
-    const setButtonState = (state: 'idle' | 'loading') => {
-      if (!(submitButton instanceof HTMLButtonElement) || !(buttonLabel instanceof HTMLElement)) {
-        return;
-      }
-
+    const setLoading = (loading: boolean) => {
       if (buttonSpinner instanceof SVGElement) {
-        buttonSpinner.classList.toggle('hidden', state !== 'loading');
+        buttonSpinner.classList.toggle('hidden', !loading);
       }
-
-      if (state === 'loading') {
-        submitButton.disabled = true;
-        buttonLabel.textContent = 'Searching';
-        return;
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = loading;
       }
-
-      submitButton.disabled = false;
-      buttonLabel.textContent = 'Search';
+      if (buttonLabel instanceof HTMLElement) {
+        buttonLabel.textContent = loading ? 'Joining' : 'Get Early Access';
+      }
     };
-
-    closeBtn?.addEventListener('click', () => {
-      modal?.classList.add('hidden');
-    });
-
-    modal?.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('hidden');
-      }
-    });
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const query = emailInput.value.trim();
-      if (!query) {
+      const email = emailInput.value.trim();
+      if (!email) {
         emailInput.classList.add('shake');
         setTimeout(() => emailInput.classList.remove('shake'), 400);
         return;
       }
 
-      setButtonState('loading');
+      const consent = consentInput instanceof HTMLInputElement ? consentInput.checked : false;
+      if (!consent) {
+        if (statusText) {
+          statusText.textContent = 'Please tick the consent box to join the waitlist.';
+        }
+        return;
+      }
+
+      setLoading(true);
       if (statusText) {
         statusText.textContent = '';
       }
 
       try {
-        const res = await fetch(
-          `/api/search/bikes?q=${encodeURIComponent(query)}&page=1`,
-        );
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            brand,
+            consent,
+            source: 'waitlist',
+            ref: new URLSearchParams(window.location.search).get('ref'),
+          }),
+        });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Search failed');
+        if (!res.ok) throw new Error(data.error || 'Something went wrong.');
 
-        const bikes = data.bikes || [];
-        if (bikes.length > 0) {
-          if (statusText) {
-            statusText.textContent = `Found ${bikes.length} result${bikes.length !== 1 ? 's' : ''}`;
-          }
-          
-          // Render bikes in modal
-          if (modalResults) {
-            modalResults.innerHTML = `
-              <p class="matrix-text mb-4 text-center text-xs" style="color: var(--text-muted);">
-                ${bikes.length} result${bikes.length !== 1 ? 's' : ''} — click any card to view on source
-              </p>
-              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" id="bikes-grid"></div>
-            `;
-            
-            const grid = document.getElementById('bikes-grid');
-            if (grid) {
-              for (const bike of bikes) {
-                const statusColor = bike.status === 'stolen' 
-                  ? { bg: 'rgba(239,68,68,0.15)', border: 'rgba(239,68,68,0.4)', text: '#fca5a5' }
-                  : bike.status === 'found'
-                    ? { bg: 'rgba(34,197,94,0.15)', border: 'rgba(34,197,94,0.4)', text: '#86efac' }
-                    : { bg: 'rgba(232,65,37,0.1)', border: 'rgba(232,65,37,0.3)', text: '#ffb5a8' };
-                
-                const card = document.createElement('a');
-                card.href = bike.url;
-                card.target = '_blank';
-                card.rel = 'noopener noreferrer';
-                card.className = 'group flex flex-col overflow-hidden rounded-2xl border transition-all duration-200 hover:brightness-110';
-                card.style.borderColor = 'var(--surface-border)';
-                card.style.backgroundColor = 'var(--surface-elevated)';
-                card.style.textDecoration = 'none';
-                
-                card.innerHTML = `
-                  <div class="relative flex h-44 w-full items-center justify-center overflow-hidden" style="background-color: var(--item-bg);">
-                    ${bike.thumb || bike.large_img ? `<img src="${bike.thumb || bike.large_img}" alt="${bike.title}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />` : '<div class="opacity-20">🚲</div>'}
-                    <span class="matrix-text absolute left-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase" style="background-color: ${statusColor.bg}; border: 1px solid ${statusColor.border}; color: ${statusColor.text};">${bike.status}</span>
-                  </div>
-                  <div class="flex flex-1 flex-col gap-2 p-4">
-                    <p class="matrix-heading text-sm font-semibold leading-tight" style="color: var(--text-main);">${bike.title}</p>
-                    <div class="matrix-text space-y-1 text-xs" style="color: var(--text-muted);">
-                      ${bike.frame_colors?.length > 0 ? `<p>🎨 ${bike.frame_colors.join(', ')}</p>` : ''}
-                    </div>
-                  </div>
-                `;
-                grid.appendChild(card);
-              }
-            }
-          }
-          
-          // Show modal
-          modal?.classList.remove('hidden');
-        } else {
-          if (statusText) {
-            statusText.textContent = `No results found for "${query}"`;
-          }
-        }
+        form.reset();
+        const params = new URLSearchParams();
+        if (data.position) params.set('pos', String(data.position));
+        if (data.referralCode) params.set('ref', data.referralCode);
+        if (data.alreadySubscribed) params.set('welcome', 'back');
+        window.location.href = `/welcome?${params.toString()}`;
       } catch (error) {
-        const message =
-          error instanceof Error ? error.message : 'Search failed.';
+        const message = error instanceof Error ? error.message : 'Something went wrong.';
         if (statusText) {
           statusText.textContent = message;
         }
       } finally {
-        setButtonState('idle');
+        setLoading(false);
       }
     });
-
   });
 </script>
 

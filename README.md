@@ -105,6 +105,19 @@ PUBLIC_SUPABASE_URL=https://syehqhcexzgtxzavjpmw.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
+### Canny feedback board
+
+The public feedback board renders at `/feedback` via the Canny SDK. Grab your values from
+Canny (**Settings → your board → Install**) and set:
+
+```bash
+PUBLIC_CANNY_SUBDOMAIN=your-subdomain      # the `yoursubdomain` in yoursubdomain.canny.io
+PUBLIC_CANNY_BOARD_TOKEN=your_board_token  # the boardToken shown on the Install tab
+```
+
+Until both are set, `/feedback` shows a placeholder (and a link to the hosted board if the
+subdomain is present) instead of the embedded widget.
+
 ### Supabase user sync
 
 Social identity is synced to Supabase through the `vera-user-sync` edge function.

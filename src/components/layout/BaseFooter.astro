@@ -42,17 +42,38 @@ const { backToTop = false } = Astro.props;
 >
   <h2 class='hidden'>Footer</h2>
   <div class='matrix-text mx-auto grid w-full max-w-6xl items-center gap-4 text-sm md:grid-cols-3'>
-    <div class='md:justify-self-start'>
-      <p style='color: var(--text-main);'>© 2026 Veralify</p>
+    <div class='space-y-1 md:justify-self-start'>
+      <p style='color: var(--text-main);'>VERALIFY LTD. Company Number: 17332341.</p>
+      <p class='text-xs'>Registered in England and Wales.</p>
+      <p class='text-xs'>© 2026 Veralify. All rights reserved.</p>
     </div>
 
     <div class='justify-self-center'>
-      <span class='inline-flex items-center gap-2 rounded-full border border-[#b79756]/40 bg-[#b79756]/10 px-3 py-1 text-xs text-[#d3b97f]'>
-        <svg viewBox='0 0 24 24' aria-hidden='true' class='h-3.5 w-3.5 fill-current'>
-          <path d='M4 5h15l-2.2 2.5H1.8L4 5Zm2.2 5.8H21l-2.2 2.4H4l2.2-2.4Zm-2.2 5.7h15l-2.2 2.5H1.8L4 16.5Z' />
-        </svg>
-        Verification Platform
-      </span>
+      <nav class='flex items-center gap-4 text-xs'>
+        <a
+          href='/feedback'
+          class='transition hover:text-[#E84125]'
+          style='color: var(--text-muted);'
+        >
+          Feedback
+        </a>
+        <span aria-hidden='true' style='color: var(--surface-border);'>·</span>
+        <a
+          href='/privacy'
+          class='transition hover:text-[#E84125]'
+          style='color: var(--text-muted);'
+        >
+          Privacy Policy
+        </a>
+        <span aria-hidden='true' style='color: var(--surface-border);'>·</span>
+        <a
+          href='/terms'
+          class='transition hover:text-[#E84125]'
+          style='color: var(--text-muted);'
+        >
+          Terms of Service
+        </a>
+      </nav>
     </div>
 
     <div class='flex items-center justify-start gap-4 md:justify-self-end'>
