@@ -19,14 +19,14 @@ export const veralifyBrand: BrandConfig = {
   },
   copy: {
     heroBadge: 'New!',
-    heroTitleLine1: 'The trust layer',
-    heroTitleLine2: 'for physical assets.',
+    heroTitleLine1: 'Your passport',
+    heroTitleLine2: 'to a borderless world.',
     heroDescription:
-      'Veralify helps users verify ownership and risk signals before buying, selling, or transferring high-value items.',
-    authLandingHeader: 'Secure Your Assets with Veralify',
-    authLandingMessage: 'Join the Global Registry',
+      'Veralify keeps you connected the moment you land. Activate global internet in seconds with a travel-ready eSIM — no roaming fees, no SIM swaps, no friction.',
+    authLandingHeader: 'Stay Connected Anywhere with Veralify',
+    authLandingMessage: 'Join the Borderless Network',
     networkLabel: 'Veralify Network',
-    networkTitle: 'Ownership Verification API',
-    highlights: ['Real-time risk checks', 'Stolen item intelligence', 'Transfer-ready provenance'],
+    networkTitle: 'Global eSIM Connectivity',
+    highlights: ['Instant eSIM activation', 'Coverage in 190+ countries', 'No roaming, no surprises'],
   },
 };
