@@ -10,9 +10,9 @@ export const veralifyBrand: BrandConfig = {
     faviconPath: '/favicon.svg',
   },
   theme: {
-    primary: '#E84125',
+    primary: '#3B82F6',
     authAccent: '#c6a15b',
-    themeColor: '#e84125',
+    themeColor: '#3b82f6',
   },
   social: {
     xUrl: 'https://x.com/Veralify',

@@ -4,7 +4,7 @@ export const prerender = false;
 
 const page = (title: string, message: string) =>
   new Response(
-    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#0d0d0d;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0"><div style="max-width:420px;padding:40px;text-align:center"><h1 style="font-size:22px;margin:0 0 12px">${title}</h1><p style="color:#b3b3b3;font-size:15px;line-height:24px;margin:0 0 24px">${message}</p><a href="/" style="color:#E84125;text-decoration:none;font-weight:600">← Back to Veralify</a></div></body></html>`,
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#0d0d0d;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0"><div style="max-width:420px;padding:40px;text-align:center"><h1 style="font-size:22px;margin:0 0 12px">${title}</h1><p style="color:#b3b3b3;font-size:15px;line-height:24px;margin:0 0 24px">${message}</p><a href="/" style="color:#3B82F6;text-decoration:none;font-weight:600">← Back to Veralify</a></div></body></html>`,
     { status: 200, headers: { 'Content-Type': 'text/html' } },
   );
 

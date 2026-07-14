@@ -95,25 +95,25 @@ function BikeCard({ bike }: { bike: Bike }) {
         <div className="matrix-text space-y-1 text-xs" style={{ color: 'var(--text-muted)' }}>
           {bike.stolen_location && (
             <p className="flex items-center gap-1.5">
-              <span style={{ color: '#e84125' }}>📍</span>
+              <span style={{ color: '#3b82f6' }}>📍</span>
               {bike.stolen_location}
             </p>
           )}
           {bike.serial && bike.serial !== 'Hidden' && (
             <p className="flex items-center gap-1.5">
-              <span style={{ color: '#e84125' }}>#</span>
+              <span style={{ color: '#3b82f6' }}>#</span>
               {bike.serial}
             </p>
           )}
           {bike.date_stolen && bike.stolen && (
             <p className="flex items-center gap-1.5">
-              <span style={{ color: '#e84125' }}>📅</span>
+              <span style={{ color: '#3b82f6' }}>📅</span>
               Stolen {formatDate(bike.date_stolen)}
             </p>
           )}
           {bike.frame_colors?.length > 0 && (
             <p className="flex items-center gap-1.5">
-              <span style={{ color: '#e84125' }}>🎨</span>
+              <span style={{ color: '#3b82f6' }}>🎨</span>
               {bike.frame_colors.join(', ')}
             </p>
           )}
@@ -229,7 +229,7 @@ export function ItemSearch() {
           type="submit"
           disabled={loading || !query.trim()}
           className="matrix-text inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full px-5 text-xs font-semibold text-white transition hover:brightness-110 disabled:opacity-50"
-          style={{ backgroundColor: '#e84125' }}
+          style={{ backgroundColor: '#3b82f6' }}
         >
           {loading && page === 1 ? (
             <>

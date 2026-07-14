@@ -21,27 +21,48 @@ type WaitlistWelcomeEmailProps = {
 };
 
 const main = {
-  backgroundColor: '#ffffff',
+  backgroundColor: '#05070f',
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  color: '#cbd5e1',
 };
 
 const container = {
   margin: '0 auto',
-  padding: '32px 24px',
-  maxWidth: '480px',
+  padding: '24px',
+  maxWidth: '520px',
 };
 
 const paragraph = {
-  color: '#333333',
+  color: '#cbd5e1',
   fontSize: '15px',
   lineHeight: '24px',
   margin: '0 0 16px',
 };
 
+// Space / planet-horizon header: dark with a blue glow rising from the bottom.
+const hero = {
+  backgroundColor: '#070b16',
+  backgroundImage:
+    'radial-gradient(ellipse at 50% 125%, rgba(59,130,246,0.45) 0%, rgba(37,99,235,0.14) 42%, rgba(7,11,22,0) 70%)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '16px',
+  padding: '40px 24px 52px',
+  textAlign: 'center' as const,
+  margin: '0 0 24px',
+};
+
+const heroTitle = {
+  color: '#ffffff',
+  fontSize: '24px',
+  lineHeight: '30px',
+  fontWeight: 600,
+  margin: '20px 0 0',
+};
+
 export const WaitlistWelcomeEmail = ({
   brandName = 'Veralify',
-  primaryColor = '#E84125',
+  primaryColor = '#3B82F6',
   websiteUrl = 'https://veralify.com',
   logoUrl = 'https://syehqhcexzgtxzavjpmw.supabase.co/storage/v1/object/public/public-assets/veralify-logo.png',
   unsubscribeUrl = 'https://veralify.com',
@@ -55,13 +76,20 @@ export const WaitlistWelcomeEmail = ({
     </Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img
-          src={logoUrl}
-          alt={`${brandName} logo`}
-          width="32"
-          height="32"
-          style={{ borderRadius: '7px', display: 'block', marginBottom: '24px' }}
-        />
+        <Section style={hero}>
+          <Img
+            src={logoUrl}
+            alt={`${brandName} logo`}
+            width="40"
+            height="40"
+            style={{ borderRadius: '9px', display: 'inline-block' }}
+          />
+          <Text style={heroTitle}>
+            Your passport to a
+            <br />
+            borderless world.
+          </Text>
+        </Section>
 
         <Text style={paragraph}>Hey 👋</Text>
 
@@ -93,15 +121,15 @@ export const WaitlistWelcomeEmail = ({
         {/* Position card */}
         <Section
           style={{
-            backgroundColor: '#faf6f5',
-            border: `1px solid ${primaryColor}33`,
+            backgroundColor: '#0d1220',
+            border: `1px solid ${primaryColor}40`,
             borderRadius: '12px',
             padding: '20px',
             textAlign: 'center' as const,
             margin: '0 0 20px',
           }}
         >
-          <Text style={{ color: '#666666', fontSize: '13px', margin: '0 0 4px' }}>
+          <Text style={{ color: '#94a3b8', fontSize: '13px', margin: '0 0 4px' }}>
             Your position on the waitlist
           </Text>
           <Text
@@ -123,14 +151,15 @@ export const WaitlistWelcomeEmail = ({
           friend who joins with your link bumps you up the list.
         </Text>
 
-        <Text style={{ ...paragraph, margin: '0 0 6px', color: '#666666', fontSize: '13px' }}>
+        <Text style={{ ...paragraph, margin: '0 0 6px', color: '#94a3b8', fontSize: '13px' }}>
           Your personal invite link:
         </Text>
         <Text
           style={{
             margin: '0 0 24px',
             padding: '12px 16px',
-            backgroundColor: '#f4f4f4',
+            backgroundColor: '#0d1220',
+            border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: '8px',
             fontSize: '14px',
             wordBreak: 'break-all' as const,
@@ -153,13 +182,13 @@ export const WaitlistWelcomeEmail = ({
           </Link>
         </Text>
 
-        <Section style={{ marginTop: '28px' }}>
-          <Text style={{ color: '#999999', fontSize: '12px', lineHeight: '18px', margin: 0 }}>
+        <Section style={{ marginTop: '28px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px' }}>
+          <Text style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: 0 }}>
             VERALIFY LTD · Company Number 17332341 · Registered in England and Wales.
           </Text>
-          <Text style={{ color: '#999999', fontSize: '12px', lineHeight: '18px', margin: '6px 0 0' }}>
+          <Text style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: '6px 0 0' }}>
             You're receiving this because you joined our waitlist.{' '}
-            <Link href={unsubscribeUrl} style={{ color: '#999999', textDecoration: 'underline' }}>
+            <Link href={unsubscribeUrl} style={{ color: '#64748b', textDecoration: 'underline' }}>
               Unsubscribe
             </Link>
             .

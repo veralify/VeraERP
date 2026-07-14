@@ -67,7 +67,7 @@ export function NavSearch() {
             }}
           >
             <div className="flex items-center gap-2">
-              <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#e84125' }} aria-hidden="true">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#3b82f6' }} aria-hidden="true">
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.35-4.35" />
               </svg>

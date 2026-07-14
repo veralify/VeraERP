@@ -22,27 +22,48 @@ type ReferralNotificationEmailProps = {
 };
 
 const main = {
-  backgroundColor: '#ffffff',
+  backgroundColor: '#05070f',
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  color: '#cbd5e1',
 };
 
 const container = {
   margin: '0 auto',
-  padding: '32px 24px',
-  maxWidth: '480px',
+  padding: '24px',
+  maxWidth: '520px',
 };
 
 const paragraph = {
-  color: '#333333',
+  color: '#cbd5e1',
   fontSize: '15px',
   lineHeight: '24px',
   margin: '0 0 16px',
 };
 
+// Space / planet-horizon header: dark with a blue glow rising from the bottom.
+const hero = {
+  backgroundColor: '#070b16',
+  backgroundImage:
+    'radial-gradient(ellipse at 50% 125%, rgba(59,130,246,0.45) 0%, rgba(37,99,235,0.14) 42%, rgba(7,11,22,0) 70%)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '16px',
+  padding: '40px 24px 52px',
+  textAlign: 'center' as const,
+  margin: '0 0 24px',
+};
+
+const heroTitle = {
+  color: '#ffffff',
+  fontSize: '24px',
+  lineHeight: '30px',
+  fontWeight: 600,
+  margin: '20px 0 0',
+};
+
 export const ReferralNotificationEmail = ({
   brandName = 'Veralify',
-  primaryColor = '#E84125',
+  primaryColor = '#3B82F6',
   websiteUrl = 'https://veralify.com',
   logoUrl = 'https://syehqhcexzgtxzavjpmw.supabase.co/storage/v1/object/public/public-assets/veralify-logo.png',
   unsubscribeUrl = 'https://veralify.com',

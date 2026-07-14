@@ -42,7 +42,7 @@ export function ScrambleText({ text, delay = 0, trigger, className, style }: Pro
             const progress = elapsed / lockAt[i];
             const opacity = (0.35 + 0.55 * progress).toFixed(2);
             const rand = CHARS[Math.floor(Math.random() * CHARS.length)];
-            html += `<span style="color:#e84125;opacity:${opacity}">${rand}</span>`;
+            html += `<span style="color:#3b82f6;opacity:${opacity}">${rand}</span>`;
           }
         }
 
