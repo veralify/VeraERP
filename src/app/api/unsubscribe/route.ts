@@ -1,19 +1,25 @@
+import { type ApiLogger, apiLogger } from '@lib/logger';
+
 const page = (title: string, message: string) =>
   new Response(
     `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#0d0d0d;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0"><div style="max-width:420px;padding:40px;text-align:center"><h1 style="font-size:22px;margin:0 0 12px">${title}</h1><p style="color:#b3b3b3;font-size:15px;line-height:24px;margin:0 0 24px">${message}</p><a href="/" style="color:#3B82F6;text-decoration:none;font-weight:600">← Back to Veralify</a></div></body></html>`,
     { status: 200, headers: { 'Content-Type': 'text/html' } },
   );
 
-const unsubscribe = async (token: string | null) => {
+const unsubscribe = async (token: string | null, log: ApiLogger) => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!token) return false;
+  if (!token) {
+    log.warn('missing token');
+    return false;
+  }
   if (!supabaseUrl || !serviceRoleKey || serviceRoleKey === 'your_service_role_key') {
+    log.error('storage not configured');
     return false;
   }
 
-  const res = await fetch(
+  const res = await log.fetch(
     `${supabaseUrl}/rest/v1/newsletter_subscribers?unsubscribe_token=eq.${encodeURIComponent(token)}`,
     {
       method: 'PATCH',
@@ -35,15 +41,19 @@ const unsubscribe = async (token: string | null) => {
 
 // Gmail / Apple Mail one-click unsubscribe (RFC 8058).
 export async function POST(request: Request) {
+  const log = apiLogger('/api/unsubscribe', request);
   const url = new URL(request.url);
-  const ok = await unsubscribe(url.searchParams.get('token'));
+  const ok = await unsubscribe(url.searchParams.get('token'), log);
+  log.done(ok ? 200 : 400);
   return new Response(null, { status: ok ? 200 : 400 });
 }
 
 // Human clicking the "Unsubscribe" link in the email.
 export async function GET(request: Request) {
+  const log = apiLogger('/api/unsubscribe', request);
   const url = new URL(request.url);
-  const ok = await unsubscribe(url.searchParams.get('token'));
+  const ok = await unsubscribe(url.searchParams.get('token'), log);
+  log.done(200);
   return ok
     ? page(
         "You're unsubscribed",

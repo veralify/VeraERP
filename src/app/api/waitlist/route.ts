@@ -3,6 +3,7 @@ import { fmt, getEmailStrings } from '@emails/i18n';
 import { ReferralNotificationEmail } from '@emails/referral-notification';
 import { WaitlistWelcomeEmail } from '@emails/waitlist-welcome';
 import { defaultLocale, isLocale } from '@i18n/config';
+import { apiLogger } from '@lib/logger';
 import { render } from '@react-email/components';
 import { NextResponse } from 'next/server';
 
@@ -18,6 +19,7 @@ const getClientIp = (request: Request) => {
 };
 
 export async function POST(request: Request) {
+  const log = apiLogger('/api/waitlist', request);
   const brand = getActiveBrand();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -43,12 +45,18 @@ export async function POST(request: Request) {
   const ref = payload.ref?.trim() || null;
   const locale = isLocale(payload.locale) ? payload.locale : defaultLocale;
 
+  log.info('signup', { email, source, locale, hasRef: Boolean(ref) });
+
   if (!email || !isValidEmail(email)) {
+    log.warn('rejected: invalid email');
+    log.done(400);
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
   }
 
   // GDPR: explicit consent is required before we store or contact anyone.
   if (payload.consent !== true) {
+    log.warn('rejected: missing consent');
+    log.done(400);
     return NextResponse.json(
       { error: 'Please tick the consent box to join the waitlist.' },
       { status: 400 },
@@ -56,6 +64,8 @@ export async function POST(request: Request) {
   }
 
   if (!supabaseUrl || !serviceRoleKey || serviceRoleKey === 'your_service_role_key') {
+    log.error('storage not configured');
+    log.done(500);
     return NextResponse.json(
       { error: 'Waitlist storage is not configured on the server.' },
       { status: 500 },
@@ -64,7 +74,7 @@ export async function POST(request: Request) {
 
   // Detect whether this is a brand-new signup (so referral credit is only
   // given once, never on a re-submit of an existing email).
-  const existingRes = await fetch(
+  const existingRes = await log.fetch(
     `${supabaseUrl}/rest/v1/newsletter_subscribers?email=eq.${encodeURIComponent(email)}&select=referral_code,status`,
     {
       headers: {
@@ -100,7 +110,7 @@ export async function POST(request: Request) {
     record.referred_by = ref;
   }
 
-  const dbRes = await fetch(`${supabaseUrl}/rest/v1/newsletter_subscribers?on_conflict=email`, {
+  const dbRes = await log.fetch(`${supabaseUrl}/rest/v1/newsletter_subscribers?on_conflict=email`, {
     method: 'POST',
     headers: {
       apikey: serviceRoleKey,
@@ -113,6 +123,8 @@ export async function POST(request: Request) {
 
   if (!dbRes.ok) {
     const detail = await dbRes.text();
+    log.error('db upsert failed', detail);
+    log.done(502);
     return NextResponse.json(
       { error: 'Could not save your email. Please try again.', detail },
       { status: 502 },
@@ -125,7 +137,7 @@ export async function POST(request: Request) {
     : brand.websiteUrl;
 
   const rpc = (fn: string, body: unknown) =>
-    fetch(`${supabaseUrl}/rest/v1/rpc/${fn}`, {
+    log.fetch(`${supabaseUrl}/rest/v1/rpc/${fn}`, {
       method: 'POST',
       headers: {
         apikey: serviceRoleKey,
@@ -173,7 +185,7 @@ export async function POST(request: Request) {
       const html = await render(element);
       const text = await render(element, { plainText: true });
 
-      const mailRes = await fetch('https://api.resend.com/emails', {
+      const mailRes = await log.fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${resendApiKey}`,
@@ -192,7 +204,9 @@ export async function POST(request: Request) {
         }),
       });
       emailSent = mailRes.ok;
-    } catch {
+      if (!mailRes.ok) log.warn('welcome email send failed', await mailRes.text());
+    } catch (err) {
+      log.error('welcome email threw', err instanceof Error ? err.message : String(err));
       emailSent = false;
     }
   }
@@ -201,7 +215,7 @@ export async function POST(request: Request) {
   //    up. Best-effort; skipped for self-referrals and unsubscribed referrers.
   if (isReferredSignup && resendApiKey && resendApiKey !== 're_xxxxxxxxx') {
     try {
-      const referrerRes = await fetch(
+      const referrerRes = await log.fetch(
         `${supabaseUrl}/rest/v1/newsletter_subscribers?referral_code=eq.${encodeURIComponent(ref as string)}&select=email,referral_count,referral_code,unsubscribe_token,status,locale`,
         {
           headers: {
@@ -239,7 +253,7 @@ export async function POST(request: Request) {
         const refHtml = await render(refElement);
         const refText = await render(refElement, { plainText: true });
 
-        await fetch('https://api.resend.com/emails', {
+        await log.fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${resendApiKey}`,
@@ -262,11 +276,13 @@ export async function POST(request: Request) {
           }),
         });
       }
-    } catch {
+    } catch (err) {
       // Notifying the referrer is a nice-to-have; never fail the signup for it.
+      log.warn('referrer notification failed', err instanceof Error ? err.message : String(err));
     }
   }
 
+  log.done(200, { emailSent, alreadySubscribed, position });
   return NextResponse.json({
     success: true,
     emailSent,
