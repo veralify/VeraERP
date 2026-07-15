@@ -1,3 +1,5 @@
+'use client';
+
 import { activeBrand } from '@config/brands';
 
 import { useState } from 'react';
@@ -34,7 +36,7 @@ const AuthWidgetInner = ({ variant = 'navbar' }: AuthWidgetProps) => {
         >
           {authenticated ? 'Manage Secure Access' : 'Sign In / Register'}
         </button>
- 
+
         {error && (
           <span className="matrix-text text-xs" style={{ color: '#ffb5a8' }}>
             {error}

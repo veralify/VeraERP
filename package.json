@@ -1,57 +1,37 @@
 {
-  "name": "brutal",
-  "version": "1.2.0",
-  "private": false,
+  "name": "veralify",
+  "version": "2.0.0",
+  "private": true,
   "type": "module",
   "packageManager": "pnpm@10.32.1",
-  "author": {
-    "name": "Elian Van Cutsem",
-    "email": "hello@elian.codes",
-    "url": "https://www.elian.codes/"
-  },
-  "homepage": "https://brutal.elian.codes",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
     "lint": "biome lint .",
     "format": "biome format --write .",
-    "check": "astro check && biome check .",
-    "email": "email dev --dir src/emails --port 3030",
-    "astro": "astro"
+    "check": "biome check . && tsc --noEmit",
+    "email": "email dev --dir src/emails --port 3030"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.4",
-    "@astrojs/sitemap": "^3.7.2",
-    "@astrojs/vercel": "^10.0.6",
-    "@eliancodes/brutal-ui": "^0.2.7",
     "@privy-io/react-auth": "^3.23.1",
     "@react-email/components": "^1.0.12",
+    "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.13",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "astro": "^6.1.8",
-    "astro-font": "^1.1.0",
-    "buffer": "^6.0.3",
+    "next": "^15.5.4",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "resend": "^6.17.2",
-    "satori": "^0.5.0",
-    "satori-html": "^0.3.2",
-    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
     "@biomejs/biome": "^2.4.9",
-    "@react-email/ui": "^6.8.1",
-    "@resvg/resvg-js": "^2.6.0",
+    "@types/node": "^24.12.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "react-email": "^6.8.1",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.1"
+    "typescript": "^5.9.3"
   }
 }

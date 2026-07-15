@@ -1,0 +1,264 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+.card-shadow {
+  filter: drop-shadow(7px 7px 0 rgb(0 0 0 / 1));
+  transition: all;
+  transition-duration: 0.5s;
+  animation: ease-in-out;
+}
+.card-shadow:hover {
+  filter: drop-shadow(5px 5px 0 rgb(0 0 0 / 1));
+}
+
+.bg-pink-theme {
+  background-color: rgb(249 168 212);
+}
+
+.bg-green-theme {
+  background-color: rgb(134 239 172);
+}
+
+.bg-purple-theme {
+  background-color: rgb(216 180 254);
+}
+
+.bg-blue-theme {
+  background-color: rgb(147 197 253);
+}
+
+:root {
+  --brand-primary: #3b82f6;
+  --page-bg: #05070f;
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --surface: rgb(255 255 255 / 3%);
+  --surface-border: rgb(59 130 246 / 35%);
+  --surface-elevated: #120806;
+  --chip-bg: rgb(59 130 246 / 15%);
+  --chip-border: rgb(59 130 246 / 40%);
+  --chip-text: #ffb5a8;
+  --item-bg: rgb(59 130 246 / 10%);
+  --item-border: rgb(59 130 246 / 30%);
+  --logo-ring: rgb(255 255 255 / 20%);
+  --scroll-track: #0b0f1a;
+  --scroll-thumb: rgb(59 130 246 / 75%);
+}
+
+:root[data-theme='light'] {
+  --page-bg: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #334155;
+  --surface: rgb(255 255 255 / 92%);
+  --surface-border: rgb(59 130 246 / 30%);
+  --surface-elevated: #fff7f5;
+  --chip-bg: rgb(59 130 246 / 10%);
+  --chip-border: rgb(59 130 246 / 35%);
+  --chip-text: #b53c26;
+  --item-bg: rgb(59 130 246 / 8%);
+  --item-border: rgb(59 130 246 / 20%);
+  --logo-ring: rgb(15 23 42 / 18%);
+  --scroll-track: #e7ecf5;
+  --scroll-thumb: rgb(59 130 246 / 60%);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: var(--scroll-track);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--scroll-track);
+  border-left: 1px solid rgb(59 130 246 / 25%);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border: 1px solid var(--scroll-track);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #3b82f6;
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::selection {
+  background-color: rgb(59 130 246 / 25%);
+}
+
+body {
+  margin: 0;
+  background-color: var(--page-bg);
+  color: var(--text-main);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.matrix-text {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.matrix-heading {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgb(59 130 246 / 40%);
+}
+
+/* Local fonts (migrated from astro-font / next local ttf in /public/fonts) */
+@font-face {
+  font-family: 'Outfit';
+  src: url('/fonts/outfit.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Righteous';
+  src: url('/fonts/righteous.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sanchez';
+  src: url('/fonts/sanchez.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DM Serif Text';
+  src: url('/fonts/dm-serif.ttf') format('truetype');
+  font-display: swap;
+}
+
+.outfit {
+  font-family: 'Outfit', sans-serif;
+}
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+.righteous {
+  font-family: 'Righteous', sans-serif;
+}
+.sanchez {
+  font-family: 'Sanchez', serif;
+}
+.dm-serif {
+  font-family: 'DM Serif Text', serif;
+}
+
+/* Component styles migrated from Astro <style> blocks */
+#site-nav.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.backToTop.active {
+  opacity: 1;
+}
+
+.footer-curve {
+  border-top-left-radius: 100% 64px;
+  border-top-right-radius: 100% 64px;
+}
+
+/* Landing (RainbowInspiredLanding) styles migrated from Astro <style> */
+.hero-badge {
+  border-color: rgba(255, 255, 255, 0.14);
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #e5e7eb;
+  backdrop-filter: blur(6px);
+}
+
+.hero-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+}
+
+.horizon-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -25vh;
+  width: 120vw;
+  height: 80vh;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.4) 0%,
+    rgba(37, 99, 235, 0.16) 38%,
+    rgba(5, 7, 15, 0) 70%
+  );
+  filter: blur(24px);
+}
+
+.horizon-arc {
+  position: absolute;
+  left: 50%;
+  width: 185vw;
+  height: 185vw;
+  bottom: calc(45vh - 185vw);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #05070f;
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 -2px 70px 4px rgba(191, 219, 254, 0.28),
+    inset 0 3px 40px rgba(147, 197, 253, 0.14);
+}
+
+.newsletter-input:focus,
+.newsletter-input:focus-visible {
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.newsletter-input:-webkit-autofill,
+.newsletter-input:-webkit-autofill:hover,
+.newsletter-input:-webkit-autofill:focus,
+.newsletter-input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--text-main);
+  transition: background-color 9999s ease-in-out 0s;
+  box-shadow: 0 0 0 1000px transparent inset;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-6px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}

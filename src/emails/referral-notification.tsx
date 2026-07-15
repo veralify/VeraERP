@@ -23,8 +23,7 @@ type ReferralNotificationEmailProps = {
 
 const main = {
   backgroundColor: '#05070f',
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
   color: '#cbd5e1',
 };
 
@@ -166,11 +165,19 @@ export const ReferralNotificationEmail = ({
           </Link>
         </Text>
 
-        <Section style={{ marginTop: '28px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px' }}>
+        <Section
+          style={{
+            marginTop: '28px',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            paddingTop: '20px',
+          }}
+        >
           <Text style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: 0 }}>
             VERALIFY LTD · Company Number 17332341 · Registered in England and Wales.
           </Text>
-          <Text style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: '6px 0 0' }}>
+          <Text
+            style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: '6px 0 0' }}
+          >
             You're receiving this because you joined our waitlist.{' '}
             <Link href={unsubscribeUrl} style={{ color: '#64748b', textDecoration: 'underline' }}>
               Unsubscribe

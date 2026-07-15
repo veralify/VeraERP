@@ -27,6 +27,10 @@ export const veralifyBrand: BrandConfig = {
     authLandingMessage: 'Join the Borderless Network',
     networkLabel: 'Veralify Network',
     networkTitle: 'Global eSIM Connectivity',
-    highlights: ['Instant eSIM activation', 'Coverage in 190+ countries', 'No roaming, no surprises'],
+    highlights: [
+      'Instant eSIM activation',
+      'Coverage in 190+ countries',
+      'No roaming, no surprises',
+    ],
   },
 };

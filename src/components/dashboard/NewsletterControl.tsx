@@ -1,7 +1,6 @@
-import {
-  SUPABASE_ANON_KEY,
-  SUPABASE_URL,
-} from '@components/auth/supabaseConfig';
+'use client';
+
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from '@components/auth/supabaseConfig';
 import { activeBrand } from '@config/brands';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -51,7 +50,7 @@ const NewsletterControlInner = () => {
   const [sending, setSending] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const twentyUrl = import.meta.env.PUBLIC_TWENTY_URL || 'https://crm.veralify.com';
+  const twentyUrl = process.env.NEXT_PUBLIC_TWENTY_URL || 'https://crm.veralify.com';
 
   const reload = useCallback(async () => {
     setLoading(true);

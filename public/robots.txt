@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 Host: https://veralify.com/
-Sitemap: https://veralify.com/sitemap-index.xml
+Sitemap: https://veralify.com/sitemap.xml

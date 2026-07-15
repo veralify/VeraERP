@@ -1,11 +1,18 @@
-import { defineMiddleware } from 'astro:middleware';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export const onRequest = defineMiddleware((context, next) => {
-  const host = context.request.headers.get('host')?.toLowerCase() || '';
+export function middleware(request: NextRequest) {
+  const host = request.headers.get('host')?.toLowerCase() || '';
 
-  if (host.startsWith('dashboard.veralify.com') && context.url.pathname === '/') {
-    return context.redirect('/dashboard');
+  if (host.startsWith('dashboard.veralify.com') && request.nextUrl.pathname === '/') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/dashboard';
+    return NextResponse.redirect(url);
   }
 
-  return next();
-});
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: '/',
+};

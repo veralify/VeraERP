@@ -5,7 +5,7 @@ const brands: Record<BrandId, BrandConfig> = {
   veralify: veralifyBrand,
 };
 
-const envBrand = (import.meta.env.PUBLIC_BRAND || 'veralify').toLowerCase();
+const envBrand = (process.env.NEXT_PUBLIC_BRAND || 'veralify').toLowerCase();
 
 export const activeBrand = brands[(envBrand as BrandId) || 'veralify'] || veralifyBrand;
 export const getActiveBrand = () => activeBrand;

@@ -1,8 +1,19 @@
-.astro
+# dependencies
 node_modules
-dist
+
+# next.js
+.next
+next-env.d.ts
+out
+
+# vercel
 .vercel
+
+# react-email
 .react-email
+
+# misc
+.DS_Store
 
 # Environment secrets (never commit)
 .env
