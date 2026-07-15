@@ -274,3 +274,17 @@ body {
 .bounce-error {
   animation: bounce-error 0.5s ease-in-out;
 }
+
+/* Bee-like arrow pointing to the Get Notified button */
+@keyframes notify-arrow-buzz {
+  0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
+  25% { transform: translate(-50%, -3px) rotate(-4deg); }
+  50% { transform: translate(-50%, 1px) rotate(0deg); }
+  75% { transform: translate(-50%, -2px) rotate(4deg); }
+}
+
+.notify-arrow {
+  transform-origin: bottom center;
+  animation: notify-arrow-buzz 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 210, 74, 0.5));
+}

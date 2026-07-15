@@ -275,11 +275,33 @@ export function RainbowInspiredLanding() {
               style={{ color: 'var(--text-main)' }}
               required
             />
-            <button
-              type="submit"
-              disabled={loading}
-              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition hover:bg-white/90"
-            >
+            <span className="relative shrink-0">
+              <svg
+                className="notify-arrow pointer-events-none absolute -top-14 left-1/2 h-14 w-16 -translate-x-1/2"
+                viewBox="0 0 64 56"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6 6C20 2 46 6 52 26c2 7-1 16-8 21"
+                  stroke="#ffd24a"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray="1 7"
+                />
+                <path
+                  d="M52 26c2 7-1 16-8 21M43 46l1 1M44 47c3-2 8-3 12-2M44 47c-1-4-3-8-6-11"
+                  stroke="#ffd24a"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <button
+                type="submit"
+                disabled={loading}
+                className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition hover:bg-white/90"
+              >
               {loading && (
                 <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
                   <circle
@@ -301,6 +323,7 @@ export function RainbowInspiredLanding() {
               )}
               <span>{loading ? 'Joining' : 'Get Notified'}</span>
             </button>
+            </span>
           </form>
           <label
             htmlFor="waitlist-consent"
