@@ -30,7 +30,7 @@ export const POST: APIRoute = async ({ request }) => {
   const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
   const serviceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
   const resendApiKey = import.meta.env.RESEND_API_KEY;
-  const from = import.meta.env.RESEND_FROM || 'onboarding@resend.dev';
+  const from = import.meta.env.RESEND_FROM || 'Veralify <hello@veralify.com>';
 
   let payload: { email?: string; consent?: boolean; source?: string; ref?: string };
   try {
@@ -169,7 +169,7 @@ export const POST: APIRoute = async ({ request }) => {
         brandName: brand.name,
         primaryColor: brand.theme.primary,
         websiteUrl: brand.websiteUrl,
-        logoUrl: `${supabaseUrl}/storage/v1/object/public/public-assets/veralify-logo.png`,
+        logoUrl: `${brand.websiteUrl}/veralify-logo.png`,
         unsubscribeUrl,
         position,
         referralUrl,
@@ -234,7 +234,7 @@ export const POST: APIRoute = async ({ request }) => {
           brandName: brand.name,
           primaryColor: brand.theme.primary,
           websiteUrl: brand.websiteUrl,
-          logoUrl: `${supabaseUrl}/storage/v1/object/public/public-assets/veralify-logo.png`,
+          logoUrl: `${brand.websiteUrl}/veralify-logo.png`,
           unsubscribeUrl: referrerUnsub,
           position: referrerPosition,
           referralCount: Number(referrer.referral_count) || 1,
