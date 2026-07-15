@@ -11,6 +11,16 @@ import { it } from './locales/it';
 
 const dictionaries: Record<Locale, Dictionary> = { en, es, fr, de, it, ar };
 
+// Persist the choice in a cookie (one year) so the server can render the right
+// language on the first paint, eliminating the English flash on navigation.
+const writeLocaleCookie = (locale: Locale) => {
+  try {
+    document.cookie = `${STORAGE_KEY}=${locale};path=/;max-age=31536000;samesite=lax`;
+  } catch {
+    /* ignore */
+  }
+};
+
 type LanguageContextValue = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
@@ -20,19 +30,28 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+export function LanguageProvider({
+  children,
+  initialLocale = defaultLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+}) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale);
 
   useEffect(() => {
-    const stored = typeof window !== 'undefined' ? window.localStorage.getItem(STORAGE_KEY) : null;
+    // The server already resolved the locale from the cookie / Accept-Language,
+    // so `initialLocale` is normally correct. This only reconciles legacy users
+    // who saved a preference in localStorage before we used a cookie — adopt it
+    // once and mirror it into the cookie so future loads render it server-side.
+    const stored = window.localStorage.getItem(STORAGE_KEY);
     if (isLocale(stored)) {
-      setLocaleState(stored);
-      return;
+      if (stored !== initialLocale) setLocaleState(stored);
+      writeLocaleCookie(stored);
+    } else {
+      writeLocaleCookie(initialLocale);
     }
-    const browser =
-      typeof navigator !== 'undefined' ? navigator.language.slice(0, 2).toLowerCase() : '';
-    if (isLocale(browser)) setLocaleState(browser);
-  }, []);
+  }, [initialLocale]);
 
   useEffect(() => {
     const dir = localeMeta[locale].dir;
@@ -47,6 +66,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     } catch {
       /* ignore */
     }
+    writeLocaleCookie(next);
   }, []);
 
   const value = useMemo<LanguageContextValue>(
