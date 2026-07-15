@@ -175,8 +175,9 @@ body {
 }
 
 .footer-curve {
-  border-top-left-radius: 100% 64px;
-  border-top-right-radius: 100% 64px;
+  border-top-left-radius: 100% 130px;
+  border-top-right-radius: 100% 130px;
+  margin-top: -130px;
 }
 
 /* Landing (RainbowInspiredLanding) styles migrated from Astro <style> */
@@ -287,4 +288,18 @@ body {
   transform-origin: bottom center;
   animation: notify-arrow-buzz 1.6s ease-in-out infinite;
   filter: drop-shadow(0 0 6px rgba(255, 210, 74, 0.5));
+}
+
+/* Arabic typography — modern Tajawal for UI, elegant Amiri for the hero accent */
+[dir='rtl'] body,
+[dir='rtl'] .matrix-text,
+[dir='rtl'] .matrix-heading {
+  font-family: 'Tajawal', 'Segoe UI', system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+[dir='rtl'] .hero-serif {
+  font-family: 'Amiri', 'Tajawal', serif;
+  font-style: normal;
+  font-weight: 700;
 }

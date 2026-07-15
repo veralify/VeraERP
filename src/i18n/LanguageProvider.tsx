@@ -7,8 +7,9 @@ import { de } from './locales/de';
 import { type Dictionary, en } from './locales/en';
 import { es } from './locales/es';
 import { fr } from './locales/fr';
+import { it } from './locales/it';
 
-const dictionaries: Record<Locale, Dictionary> = { en, es, fr, de, ar };
+const dictionaries: Record<Locale, Dictionary> = { en, es, fr, de, it, ar };
 
 type LanguageContextValue = {
   locale: Locale;

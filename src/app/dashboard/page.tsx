@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <main
-      className="px-6 pb-20 pt-10"
+      className="px-6 pb-40 pt-10"
       style={{ backgroundColor: 'var(--page-bg)', color: 'var(--text-main)' }}
     >
       <NewsletterControl />

@@ -232,7 +232,7 @@ export function RainbowInspiredLanding() {
 
       <section
         id="waitlist"
-        className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-6 py-16 text-center"
+        className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-6 pb-56 pt-16 text-center"
         style={{ backgroundColor: '#05070f' }}
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden">

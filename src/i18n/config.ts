@@ -1,4 +1,4 @@
-export const locales = ['en', 'es', 'fr', 'de', 'ar'] as const;
+export const locales = ['en', 'es', 'fr', 'de', 'it', 'ar'] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -12,7 +12,8 @@ export const localeMeta: Record<
   es: { label: 'Spanish', nativeLabel: 'Español', flag: '🇪🇸', dir: 'ltr' },
   fr: { label: 'French', nativeLabel: 'Français', flag: '🇫🇷', dir: 'ltr' },
   de: { label: 'German', nativeLabel: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
-  ar: { label: 'Arabic', nativeLabel: 'العربية', flag: '🇸🇦', dir: 'rtl' },
+  it: { label: 'Italian', nativeLabel: 'Italiano', flag: '🇮🇹', dir: 'ltr' },
+  ar: { label: 'Arabic', nativeLabel: 'العربية', flag: '🇵🇸', dir: 'rtl' },
 };
 
 export const STORAGE_KEY = 'veralify-lang';

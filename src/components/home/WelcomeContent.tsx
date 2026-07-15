@@ -18,7 +18,7 @@ export function WelcomeContent({ position, hasPosition, welcomeBack, referralUrl
 
   return (
     <main
-      className="relative flex min-h-[80vh] w-full items-center justify-center overflow-hidden px-6 py-16"
+      className="relative flex min-h-[80vh] w-full items-center justify-center overflow-hidden px-6 pb-48 pt-16"
       style={{ backgroundColor: 'var(--page-bg)', color: 'var(--text-main)' }}
     >
       <div className="pointer-events-none absolute inset-0">

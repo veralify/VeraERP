@@ -8,7 +8,7 @@ export function PrivacyContent() {
 
   return (
     <main
-      className="mx-auto w-full max-w-3xl px-6 py-16"
+      className="mx-auto w-full max-w-3xl px-6 pb-40 pt-16"
       style={{ backgroundColor: 'var(--page-bg)', color: 'var(--text-main)' }}
     >
       <h1 className="matrix-heading text-3xl font-semibold md:text-4xl">{p.title}</h1>
