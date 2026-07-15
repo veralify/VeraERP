@@ -12,6 +12,7 @@ export function RainbowInspiredLanding() {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [consentError, setConsentError] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
   const [errorTick, setErrorTick] = useState(0);
 
   useEffect(() => {
@@ -144,7 +145,6 @@ export function RainbowInspiredLanding() {
     event.preventDefault();
     const form = event.currentTarget;
     const emailInput = form.elements.namedItem('email') as HTMLInputElement | null;
-    const consentInput = form.elements.namedItem('consent') as HTMLInputElement | null;
     const email = emailInput?.value.trim() ?? '';
 
     if (!email) {
@@ -153,7 +153,7 @@ export function RainbowInspiredLanding() {
       return;
     }
 
-    const consent = consentInput?.checked ?? false;
+    const consent = consentChecked;
     if (!consent) {
       setConsentError(true);
       setErrorTick((n) => n + 1);
@@ -182,6 +182,7 @@ export function RainbowInspiredLanding() {
       if (!res.ok) throw new Error(data.error || t.waitlist.genericError);
 
       form.reset();
+      setConsentChecked(false);
       const params = new URLSearchParams();
       if (data.position) params.set('pos', String(data.position));
       if (data.referralCode) params.set('ref', data.referralCode);
@@ -339,10 +340,13 @@ export function RainbowInspiredLanding() {
                 type="checkbox"
                 id="waitlist-consent"
                 name="consent"
+                checked={consentChecked}
                 className={`h-5 w-5 ${consentError ? 'bounce-error' : ''}`}
                 style={{ accentColor: brand.theme.primary }}
                 onChange={(e) => {
-                  if (e.currentTarget.checked) {
+                  const isChecked = e.currentTarget.checked;
+                  setConsentChecked(isChecked);
+                  if (isChecked) {
                     setConsentError(false);
                     setStatus('');
                   }
