@@ -1,3 +1,4 @@
+import type { Locale } from '@i18n/config';
 import {
   Body,
   Container,
@@ -9,6 +10,8 @@ import {
   Section,
   Text,
 } from '@react-email/components';
+import { fmt, getEmailDir, getEmailStrings } from './i18n';
+import { renderRich } from './rich';
 
 type ReferralNotificationEmailProps = {
   brandName?: string;
@@ -19,6 +22,7 @@ type ReferralNotificationEmailProps = {
   position?: number;
   referralCount?: number;
   referralUrl?: string;
+  locale?: Locale;
 };
 
 const main = {
@@ -69,125 +73,121 @@ export const ReferralNotificationEmail = ({
   position = 0,
   referralCount = 1,
   referralUrl = 'https://veralify.com',
-}: ReferralNotificationEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>
-      {`🎉 A friend just joined ${brandName} with your link — you're now #${position}.`}
-    </Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Section style={hero}>
-          <Img
-            src={logoUrl}
-            alt={`${brandName} logo`}
-            width="40"
-            height="40"
-            style={{ borderRadius: '9px', display: 'inline-block' }}
-          />
-          <Text style={heroTitle}>
-            You just moved
-            <br />
-            up the list. 🎉
-          </Text>
-        </Section>
+  locale = 'en',
+}: ReferralNotificationEmailProps) => {
+  const t = getEmailStrings(locale);
+  const dir = getEmailDir(locale);
+  const r = t.referral;
+  const vars = { brand: brandName, position, count: referralCount };
+  return (
+    <Html lang={locale} dir={dir}>
+      <Head />
+      <Preview>{fmt(r.preview, vars)}</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Section style={hero}>
+            <Img
+              src={logoUrl}
+              alt={fmt(t.common.logoAlt, vars)}
+              width="40"
+              height="40"
+              style={{ borderRadius: '9px', display: 'inline-block' }}
+            />
+            <Text style={heroTitle}>
+              {r.heroTitleLine1}
+              <br />
+              {r.heroTitleLine2}
+            </Text>
+          </Section>
 
-        <Text style={paragraph}>Great news 🎉</Text>
+          <Text style={paragraph}>{r.greeting}</Text>
 
-        <Text style={paragraph}>
-          A friend just joined the {brandName} waitlist using <strong>your invite link</strong> —
-          thank you for spreading the word! You've moved up the list.
-        </Text>
+          <Text style={paragraph}>{renderRich(fmt(r.friendJoined, vars))}</Text>
 
-        {/* Position card */}
-        <Section
-          style={{
-            backgroundColor: '#0d1220',
-            border: `1px solid ${primaryColor}40`,
-            borderRadius: '12px',
-            padding: '20px',
-            textAlign: 'center' as const,
-            margin: '0 0 20px',
-          }}
-        >
-          <Text style={{ color: '#94a3b8', fontSize: '13px', margin: '0 0 4px' }}>
-            Your new position on the waitlist
+          {/* Position card */}
+          <Section
+            style={{
+              backgroundColor: '#0d1220',
+              border: `1px solid ${primaryColor}40`,
+              borderRadius: '12px',
+              padding: '20px',
+              textAlign: 'center' as const,
+              margin: '0 0 20px',
+            }}
+          >
+            <Text style={{ color: '#94a3b8', fontSize: '13px', margin: '0 0 4px' }}>
+              {r.positionLabel}
+            </Text>
+            <Text
+              style={{
+                color: primaryColor,
+                fontSize: '34px',
+                fontWeight: 700,
+                lineHeight: '38px',
+                margin: 0,
+              }}
+            >
+              #{position}
+            </Text>
+            <Text style={{ color: '#94a3b8', fontSize: '13px', margin: '6px 0 0' }}>
+              {referralCount === 1 ? r.friendsCountOne : fmt(r.friendsCountMany, vars)}
+            </Text>
+          </Section>
+
+          <Text style={paragraph}>{renderRich(r.keepClimbing)}</Text>
+
+          <Text style={{ ...paragraph, margin: '0 0 6px', color: '#94a3b8', fontSize: '13px' }}>
+            {r.inviteLabel}
           </Text>
           <Text
             style={{
-              color: primaryColor,
-              fontSize: '34px',
-              fontWeight: 700,
-              lineHeight: '38px',
-              margin: 0,
+              margin: '0 0 24px',
+              padding: '12px 16px',
+              backgroundColor: '#0d1220',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '8px',
+              fontSize: '14px',
+              wordBreak: 'break-all' as const,
             }}
           >
-            #{position}
-          </Text>
-          <Text style={{ color: '#94a3b8', fontSize: '13px', margin: '6px 0 0' }}>
-            {referralCount === 1
-              ? '1 friend joined with your link'
-              : `${referralCount} friends joined with your link`}
-          </Text>
-        </Section>
-
-        <Text style={paragraph}>
-          <strong>Keep climbing.</strong> The <strong>top 100</strong> unlock an{' '}
-          <strong>exclusive launch discount code</strong> — every friend who joins with your link
-          bumps you higher.
-        </Text>
-
-        <Text style={{ ...paragraph, margin: '0 0 6px', color: '#94a3b8', fontSize: '13px' }}>
-          Your personal invite link:
-        </Text>
-        <Text
-          style={{
-            margin: '0 0 24px',
-            padding: '12px 16px',
-            backgroundColor: '#0d1220',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: '8px',
-            fontSize: '14px',
-            wordBreak: 'break-all' as const,
-          }}
-        >
-          <Link href={referralUrl} style={{ color: primaryColor, fontWeight: 600 }}>
-            {referralUrl}
-          </Link>
-        </Text>
-
-        <Text style={paragraph}>
-          Talk soon,
-          <br />
-          The {brandName} team ·{' '}
-          <Link href={websiteUrl} style={{ color: primaryColor }}>
-            veralify.com
-          </Link>
-        </Text>
-
-        <Section
-          style={{
-            marginTop: '28px',
-            borderTop: '1px solid rgba(255,255,255,0.08)',
-            paddingTop: '20px',
-          }}
-        >
-          <Text style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: 0 }}>
-            VERALIFY LTD · Company Number 17332341 · Registered in England and Wales.
-          </Text>
-          <Text
-            style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: '6px 0 0' }}
-          >
-            You're receiving this because you joined our waitlist.{' '}
-            <Link href={unsubscribeUrl} style={{ color: '#64748b', textDecoration: 'underline' }}>
-              Unsubscribe
+            <Link href={referralUrl} style={{ color: primaryColor, fontWeight: 600 }}>
+              {referralUrl}
             </Link>
-            .
           </Text>
-        </Section>
-      </Container>
-    </Body>
-  </Html>
-);
+
+          <Text style={paragraph}>
+            {r.signoff}
+            <br />
+            {fmt(r.teamLine, vars)}{' '}
+            <Link href={websiteUrl} style={{ color: primaryColor }}>
+              veralify.com
+            </Link>
+          </Text>
+
+          <Section
+            style={{
+              marginTop: '28px',
+              borderTop: '1px solid rgba(255,255,255,0.08)',
+              paddingTop: '20px',
+            }}
+          >
+            <Text style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: 0 }}>
+              {t.common.company}
+            </Text>
+            <Text
+              style={{ color: '#64748b', fontSize: '12px', lineHeight: '18px', margin: '6px 0 0' }}
+            >
+              {t.common.receiving}{' '}
+              <Link href={unsubscribeUrl} style={{ color: '#64748b', textDecoration: 'underline' }}>
+                {t.common.unsubscribe}
+              </Link>
+              .
+            </Text>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+};
 
 export default ReferralNotificationEmail;

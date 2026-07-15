@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 
 export function RainbowInspiredLanding() {
   const brand = getActiveBrand();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState('');
@@ -175,6 +175,7 @@ export function RainbowInspiredLanding() {
           consent,
           source: 'waitlist',
           ref: new URLSearchParams(window.location.search).get('ref'),
+          locale,
         }),
       });
       const data = await res.json();
@@ -304,27 +305,27 @@ export function RainbowInspiredLanding() {
                 disabled={loading}
                 className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition hover:bg-white/90"
               >
-              {loading && (
-                <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="9"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                    fill="none"
-                    opacity="0.3"
-                  />
-                  <path
-                    d="M21 12a9 9 0 0 0-9-9"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                    fill="none"
-                  />
-                </svg>
-              )}
-              <span>{loading ? t.waitlist.submitting : t.waitlist.submit}</span>
-            </button>
+                {loading && (
+                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9"
+                      stroke="currentColor"
+                      strokeWidth={3}
+                      fill="none"
+                      opacity="0.3"
+                    />
+                    <path
+                      d="M21 12a9 9 0 0 0-9-9"
+                      stroke="currentColor"
+                      strokeWidth={3}
+                      fill="none"
+                    />
+                  </svg>
+                )}
+                <span>{loading ? t.waitlist.submitting : t.waitlist.submit}</span>
+              </button>
             </span>
           </form>
           <label

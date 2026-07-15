@@ -1,6 +1,8 @@
 import { getActiveBrand } from '@config/brands';
+import { fmt, getEmailStrings } from '@emails/i18n';
 import { ReferralNotificationEmail } from '@emails/referral-notification';
 import { WaitlistWelcomeEmail } from '@emails/waitlist-welcome';
+import { defaultLocale, isLocale } from '@i18n/config';
 import { render } from '@react-email/components';
 import { NextResponse } from 'next/server';
 
@@ -23,7 +25,13 @@ export async function POST(request: Request) {
   const resendApiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM || 'Veralify <hello@veralify.com>';
 
-  let payload: { email?: string; consent?: boolean; source?: string; ref?: string };
+  let payload: {
+    email?: string;
+    consent?: boolean;
+    source?: string;
+    ref?: string;
+    locale?: string;
+  };
   try {
     payload = await request.json();
   } catch {
@@ -33,6 +41,7 @@ export async function POST(request: Request) {
   const email = payload.email?.trim().toLowerCase() ?? '';
   const source = payload.source?.trim() || 'waitlist';
   const ref = payload.ref?.trim() || null;
+  const locale = isLocale(payload.locale) ? payload.locale : defaultLocale;
 
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
@@ -78,6 +87,7 @@ export async function POST(request: Request) {
     brand: brand.id,
     source,
     status: 'subscribed',
+    locale,
     consent: true,
     consent_at: now,
     consent_text: CONSENT_TEXT,
@@ -158,6 +168,7 @@ export async function POST(request: Request) {
         unsubscribeUrl,
         position,
         referralUrl,
+        locale,
       });
       const html = await render(element);
       const text = await render(element, { plainText: true });
@@ -171,7 +182,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           from,
           to: email,
-          subject: `Welcome to ${brand.name} — you're on the list`,
+          subject: fmt(getEmailStrings(locale).welcome.subject, { brand: brand.name }),
           html,
           text,
           headers: {
@@ -191,7 +202,7 @@ export async function POST(request: Request) {
   if (isReferredSignup && resendApiKey && resendApiKey !== 're_xxxxxxxxx') {
     try {
       const referrerRes = await fetch(
-        `${supabaseUrl}/rest/v1/newsletter_subscribers?referral_code=eq.${encodeURIComponent(ref as string)}&select=email,referral_count,referral_code,unsubscribe_token,status`,
+        `${supabaseUrl}/rest/v1/newsletter_subscribers?referral_code=eq.${encodeURIComponent(ref as string)}&select=email,referral_count,referral_code,unsubscribe_token,status,locale`,
         {
           headers: {
             apikey: serviceRoleKey,
@@ -223,6 +234,7 @@ export async function POST(request: Request) {
           position: referrerPosition,
           referralCount: Number(referrer.referral_count) || 1,
           referralUrl: `${brand.websiteUrl}/?ref=${referrer.referral_code}`,
+          locale: isLocale(referrer.locale) ? referrer.locale : locale,
         });
         const refHtml = await render(refElement);
         const refText = await render(refElement, { plainText: true });
@@ -236,7 +248,11 @@ export async function POST(request: Request) {
           body: JSON.stringify({
             from,
             to: referrer.email,
-            subject: `🎉 A friend just joined ${brand.name} — you moved up`,
+            subject: fmt(
+              getEmailStrings(isLocale(referrer.locale) ? referrer.locale : locale).referral
+                .subject,
+              { brand: brand.name },
+            ),
             html: refHtml,
             text: refText,
             headers: {
