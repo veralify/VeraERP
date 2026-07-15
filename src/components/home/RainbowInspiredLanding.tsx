@@ -54,12 +54,29 @@ export function RainbowInspiredLanding() {
     };
 
     const resize = () => {
+      const prevWidth = width;
+      const prevHeight = height;
+      const prevDpr = dpr;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.width = Math.floor(window.innerWidth * dpr);
       height = canvas.height = Math.floor(window.innerHeight * dpr);
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
-      makeStars();
+
+      if (stars.length && prevWidth > 0 && prevHeight > 0) {
+        // Rescale existing stars proportionally so they stay put on resize
+        // instead of being randomly regenerated (which looks like a fast jump).
+        const sx = width / prevWidth;
+        const sy = height / prevHeight;
+        const sr = dpr / prevDpr;
+        for (const s of stars) {
+          s.x *= sx;
+          s.y *= sy;
+          s.r *= sr;
+        }
+      } else {
+        makeStars();
+      }
     };
 
     const onMove = (e: MouseEvent) => {
