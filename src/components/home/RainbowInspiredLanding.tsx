@@ -178,14 +178,14 @@ export function RainbowInspiredLanding() {
           locale,
         }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || t.waitlist.genericError);
+      const data = await res.json().catch(() => ({}) as Record<string, unknown>);
+      if (!res.ok) throw new Error((data.error as string) || t.waitlist.genericError);
 
       form.reset();
       setConsentChecked(false);
       const params = new URLSearchParams();
       if (data.position) params.set('pos', String(data.position));
-      if (data.referralCode) params.set('ref', data.referralCode);
+      if (data.referralCode) params.set('ref', String(data.referralCode));
       if (data.alreadySubscribed) params.set('welcome', 'back');
       window.location.href = `/welcome?${params.toString()}`;
     } catch (error) {
