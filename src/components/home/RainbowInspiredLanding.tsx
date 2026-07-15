@@ -9,6 +9,8 @@ export function RainbowInspiredLanding() {
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+  const [consentError, setConsentError] = useState(false);
+  const [errorTick, setErrorTick] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -151,10 +153,13 @@ export function RainbowInspiredLanding() {
 
     const consent = consentInput?.checked ?? false;
     if (!consent) {
+      setConsentError(true);
+      setErrorTick((n) => n + 1);
       setStatus('Please tick the consent box to join the waitlist.');
       return;
     }
 
+    setConsentError(false);
     setLoading(true);
     setStatus('');
 
@@ -299,16 +304,25 @@ export function RainbowInspiredLanding() {
           </form>
           <label
             htmlFor="waitlist-consent"
-            className="matrix-text mx-auto mt-3 flex max-w-md cursor-pointer items-start gap-2 text-left text-xs"
+            className="matrix-text mx-auto mt-3 flex max-w-md cursor-pointer items-center gap-3 text-left text-xs"
             style={{ color: 'var(--text-muted)' }}
           >
-            <input
-              type="checkbox"
-              id="waitlist-consent"
-              name="consent"
-              className="mt-0.5 h-3.5 w-3.5 shrink-0"
-              style={{ accentColor: brand.theme.primary }}
-            />
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center">
+              <input
+                key={`consent-${errorTick}`}
+                type="checkbox"
+                id="waitlist-consent"
+                name="consent"
+                className={`h-5 w-5 ${consentError ? 'bounce-error' : ''}`}
+                style={{ accentColor: brand.theme.primary }}
+                onChange={(e) => {
+                  if (e.currentTarget.checked) {
+                    setConsentError(false);
+                    setStatus('');
+                  }
+                }}
+              />
+            </span>
             <span>
               I agree to receive product and launch updates from Veralify Ltd and accept the{' '}
               <a
@@ -322,7 +336,10 @@ export function RainbowInspiredLanding() {
               .
             </span>
           </label>
-          <p className="mt-3 text-xs" style={{ color: 'var(--text-muted)' }}>
+          <p
+            className="mt-3 text-xs"
+            style={{ color: consentError ? '#ff3b30' : 'var(--text-muted)' }}
+          >
             {status}
           </p>
         </div>
