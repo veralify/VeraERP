@@ -1,10 +1,12 @@
 'use client';
 
 import { getActiveBrand } from '@config/brands';
+import { useLanguage } from '@i18n/LanguageProvider';
 import { useEffect, useRef, useState } from 'react';
 
 export function RainbowInspiredLanding() {
   const brand = getActiveBrand();
+  const { t } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState('');
@@ -155,7 +157,7 @@ export function RainbowInspiredLanding() {
     if (!consent) {
       setConsentError(true);
       setErrorTick((n) => n + 1);
-      setStatus('Please tick the consent box to join the waitlist.');
+      setStatus(t.waitlist.consentError);
       return;
     }
 
@@ -176,7 +178,7 @@ export function RainbowInspiredLanding() {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+      if (!res.ok) throw new Error(data.error || t.waitlist.genericError);
 
       form.reset();
       const params = new URLSearchParams();
@@ -185,7 +187,7 @@ export function RainbowInspiredLanding() {
       if (data.alreadySubscribed) params.set('welcome', 'back');
       window.location.href = `/welcome?${params.toString()}`;
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : 'Something went wrong.');
+      setStatus(error instanceof Error ? error.message : t.waitlist.genericError);
     } finally {
       setLoading(false);
     }
@@ -205,15 +207,15 @@ export function RainbowInspiredLanding() {
 
         <div className="relative z-10 flex flex-col items-center">
           <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-            Good things come
+            {t.hero.line1}
             <br />
-            <span className="hero-serif italic">to those who wait.</span>
+            <span className="hero-serif italic">{t.hero.line2}</span>
           </h1>
         </div>
 
         <a
           href="#waitlist"
-          aria-label="Scroll down"
+          aria-label={t.hero.scrollDown}
           className="scroll-cue absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 transition hover:text-white"
         >
           <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -240,20 +242,20 @@ export function RainbowInspiredLanding() {
 
         <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center justify-center text-center">
           <p className="hero-badge inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium">
-            {brand.copy.heroBadge}
+            {t.waitlist.badge}
           </p>
 
           <h1 className="mt-8 text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-            {brand.copy.heroTitleLine1}
+            {t.waitlist.titleLine1}
             <br />
-            <span className="hero-serif italic">{brand.copy.heroTitleLine2}</span>
+            <span className="hero-serif italic">{t.waitlist.titleLine2}</span>
           </h1>
 
           <p
             className="mx-auto mt-6 max-w-md text-base md:text-lg"
             style={{ color: 'var(--text-muted)' }}
           >
-            {brand.copy.heroDescription}
+            {t.waitlist.description}
           </p>
 
           <form
@@ -269,7 +271,7 @@ export function RainbowInspiredLanding() {
               type="email"
               id="waitlist-email"
               name="email"
-              placeholder="Your Email Address"
+              placeholder={t.waitlist.emailPlaceholder}
               autoComplete="email"
               className="newsletter-input h-11 w-full bg-transparent px-3 text-sm outline-none"
               style={{ color: 'var(--text-main)' }}
@@ -321,7 +323,7 @@ export function RainbowInspiredLanding() {
                   />
                 </svg>
               )}
-              <span>{loading ? 'Joining' : 'Get Notified'}</span>
+              <span>{loading ? t.waitlist.submitting : t.waitlist.submit}</span>
             </button>
             </span>
           </form>
@@ -347,14 +349,14 @@ export function RainbowInspiredLanding() {
               />
             </span>
             <span>
-              I agree to receive product and launch updates from Veralify Ltd and accept the{' '}
+              {t.waitlist.consentBefore}{' '}
               <a
                 href="/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:opacity-80"
               >
-                Privacy Policy
+                {t.waitlist.privacyPolicy}
               </a>
               .
             </span>

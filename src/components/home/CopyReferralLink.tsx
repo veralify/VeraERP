@@ -1,5 +1,6 @@
 'use client';
 
+import { useLanguage } from '@i18n/LanguageProvider';
 import { useState } from 'react';
 
 type Props = {
@@ -8,7 +9,8 @@ type Props = {
 };
 
 export function CopyReferralLink({ referralUrl, primaryColor }: Props) {
-  const [label, setLabel] = useState('Copy');
+  const { t } = useLanguage();
+  const [copied, setCopied] = useState(false);
 
   const copy = async () => {
     try {
@@ -16,8 +18,8 @@ export function CopyReferralLink({ referralUrl, primaryColor }: Props) {
     } catch {
       /* ignore */
     }
-    setLabel('Copied!');
-    setTimeout(() => setLabel('Copy'), 1800);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
   };
 
   return (
@@ -38,7 +40,7 @@ export function CopyReferralLink({ referralUrl, primaryColor }: Props) {
         className="matrix-text inline-flex h-9 shrink-0 items-center justify-center rounded-full px-4 text-xs font-semibold text-white transition hover:brightness-110"
         style={{ backgroundColor: primaryColor }}
       >
-        {label}
+        {copied ? t.welcome.copied : t.welcome.copy}
       </button>
     </div>
   );

@@ -2,6 +2,7 @@ import { BaseFooter } from '@components/layout/BaseFooter';
 import { BaseNavigation } from '@components/layout/BaseNavigation';
 import { getActiveBrand } from '@config/brands';
 import { getSiteUrl } from '@config/site';
+import { LanguageProvider } from '@i18n/LanguageProvider';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
@@ -41,9 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="h-full">
       <body>
-        <BaseNavigation />
-        {children}
-        <BaseFooter />
+        <LanguageProvider>
+          <BaseNavigation />
+          {children}
+          <BaseFooter />
+        </LanguageProvider>
         <Analytics />
         <SpeedInsights />
       </body>

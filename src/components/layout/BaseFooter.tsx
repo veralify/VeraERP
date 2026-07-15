@@ -1,28 +1,30 @@
 'use client';
 
 import { getActiveBrand } from '@config/brands';
+import { useLanguage } from '@i18n/LanguageProvider';
 import { useEffect } from 'react';
 
 type Props = {
   backToTop?: boolean;
 };
 
-const footerColumns: {
-  title: string;
-  links: { label: string; href: string; newTab?: boolean }[];
-}[] = [
-  {
-    title: 'Legal notice',
-    links: [
-      { label: 'Privacy Policy', href: '/privacy', newTab: true },
-      { label: 'Terms of Service', href: '/terms', newTab: true },
-    ],
-  },
-];
-
 export function BaseFooter({ backToTop = false }: Props) {
   const brand = getActiveBrand();
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
+
+  const footerColumns: {
+    title: string;
+    links: { label: string; href: string; newTab?: boolean }[];
+  }[] = [
+    {
+      title: t.footer.legalNotice,
+      links: [
+        { label: t.footer.privacyPolicy, href: '/privacy', newTab: true },
+        { label: t.footer.termsOfService, href: '/terms', newTab: true },
+      ],
+    },
+  ];
 
   useEffect(() => {
     if (!backToTop) return;
@@ -49,7 +51,7 @@ export function BaseFooter({ backToTop = false }: Props) {
         <button
           type="button"
           className="backToTop fixed bottom-[10px] right-[30px] z-50 flex h-10 w-10 border border-black bg-white opacity-0 transition-all duration-300 card-shadow"
-          aria-label="Back to top"
+          aria-label={t.footer.backToTop}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +62,7 @@ export function BaseFooter({ backToTop = false }: Props) {
             strokeWidth={1.5}
             stroke="currentColor"
           >
-            <title>Back to top</title>
+            <title>{t.footer.backToTop}</title>
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
           </svg>
         </button>
@@ -82,7 +84,7 @@ export function BaseFooter({ backToTop = false }: Props) {
                   {brand.name}
                 </span>
               </a>
-              <p className="mt-4 text-sm">Your passport to a borderless world.</p>
+              <p className="mt-4 text-sm">{t.footer.tagline}</p>
             </div>
 
             <nav className="flex flex-wrap gap-x-16 gap-y-8" aria-label="Footer">
@@ -117,9 +119,7 @@ export function BaseFooter({ backToTop = false }: Props) {
           />
 
           <div className="mt-6 flex flex-col gap-4 text-xs sm:flex-row sm:items-center sm:justify-between">
-            <p>
-              © {year} {brand.name} · VERALIFY LTD · Company Number 17332341
-            </p>
+            <p>{t.footer.company.replace('{year}', String(year))}</p>
 
             <div className="flex items-center gap-5">
               <a

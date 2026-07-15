@@ -2,6 +2,7 @@
 
 import { AuthWidget } from '@components/auth/AuthWidget';
 import { getActiveBrand } from '@config/brands';
+import { LanguageSwitcher } from '@i18n/LanguageSwitcher';
 import { useEffect } from 'react';
 
 type Props = {
@@ -67,10 +68,15 @@ export function BaseNavigation({ pageTitle }: Props) {
           </p>
         </a>
         {hasPrivyAppId ? (
-          <div className="absolute right-6">
+          <div className="absolute end-6 flex items-center gap-3">
+            <LanguageSwitcher />
             <AuthWidget />
           </div>
-        ) : null}
+        ) : (
+          <div className="absolute end-6">
+            <LanguageSwitcher />
+          </div>
+        )}
       </div>
     </header>
   );
