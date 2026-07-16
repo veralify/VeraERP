@@ -2,8 +2,11 @@ import type { Dictionary } from './en';
 
 export const es: Dictionary = {
   hero: {
-    line1: 'Las cosas buenas llegan',
-    line2: 'para quienes saben esperar.',
+    quote: 'Las cosas buenas llegan para quienes saben esperar.',
+    headline: 'No estamos de acuerdo. Las mejores cosas llegan a quienes pasan a la acción. 🌍',
+    description:
+      'No te limites a esperar el futuro de los viajes—ayúdanos a construirlo. Únete ahora al Círculo Interno de Veralify para obtener acceso anticipado y exclusivo a la Beta antes del lanzamiento público.',
+    cta: '¡Consigue tu pasaporte a un mundo sin fronteras!',
     scrollDown: 'Desplázate hacia abajo',
   },
   waitlist: {

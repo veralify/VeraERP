@@ -50,7 +50,7 @@ export function BaseNavigation({ pageTitle }: Props) {
       style={{ borderColor: 'rgb(255 255 255 / 8%)', backgroundColor: 'var(--page-bg)' }}
     >
       {pageTitle && <h1 className="hidden">{pageTitle}</h1>}
-      <div className="relative mx-auto flex w-full max-w-6xl items-center justify-center">
+      <div className="relative mx-auto flex w-full max-w-6xl items-center justify-start">
         <a
           href="/"
           className="matrix-text inline-flex items-center gap-3 hover:opacity-80 transition-opacity"

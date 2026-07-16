@@ -1,7 +1,10 @@
 export const en = {
   hero: {
-    line1: 'Good things come',
-    line2: 'to those who wait.',
+    quote: 'Good things come to those who wait.',
+    headline: 'We disagree. Better things come to those who take action. 🌍',
+    description:
+      "Don't just wait for the future of travel—help us build it. Join the Veralify Inner Circle now for early, exclusive Beta access before the public launch.",
+    cta: 'Claim your passport to a borderless world!',
     scrollDown: 'Scroll down',
   },
   waitlist: {

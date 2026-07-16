@@ -2,8 +2,11 @@ import type { Dictionary } from './en';
 
 export const de: Dictionary = {
   hero: {
-    line1: 'Gute Dinge kommen',
-    line2: 'zu denen, die warten können.',
+    quote: 'Gute Dinge kommen zu denen, die warten können.',
+    headline: 'Wir sehen das anders. Bessere Dinge kommen zu denen, die handeln. 🌍',
+    description:
+      'Warte nicht nur auf die Zukunft des Reisens—hilf uns, sie zu gestalten. Tritt jetzt dem Veralify Inner Circle bei und erhalte frühen, exklusiven Beta-Zugang vor dem offiziellen Launch.',
+    cta: 'Sichere dir deinen Pass für eine grenzenlose Welt!',
     scrollDown: 'Nach unten scrollen',
   },
   waitlist: {

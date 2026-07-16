@@ -208,11 +208,22 @@ export function RainbowInspiredLanding() {
         />
 
         <div className="relative z-10 flex flex-col items-center">
-          <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-            {t.hero.line1}
+          <p className="hero-badge inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium">
+            {t.waitlist.badge}
+          </p>
+
+          <h1 className="mt-8 text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
+            {t.waitlist.titleLine1}
             <br />
-            <span className="hero-serif italic">{t.hero.line2}</span>
+            <span className="hero-serif italic">{t.waitlist.titleLine2}</span>
           </h1>
+
+          <p
+            className="mx-auto mt-6 max-w-md text-base md:text-lg"
+            style={{ color: 'var(--text-muted)' }}
+          >
+            {t.waitlist.description}
+          </p>
         </div>
 
         <a
@@ -243,22 +254,19 @@ export function RainbowInspiredLanding() {
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center justify-center text-center">
-          <p className="hero-badge inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium">
-            {t.waitlist.badge}
+          <p className="text-base line-through md:text-lg" style={{ color: 'var(--text-muted)' }}>
+            {t.hero.quote}
           </p>
-
-          <h1 className="mt-8 text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-            {t.waitlist.titleLine1}
-            <br />
-            <span className="hero-serif italic">{t.waitlist.titleLine2}</span>
+          <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight md:text-6xl">
+            {t.hero.headline}
           </h1>
-
           <p
             className="mx-auto mt-6 max-w-md text-base md:text-lg"
             style={{ color: 'var(--text-muted)' }}
           >
-            {t.waitlist.description}
+            {t.hero.description}
           </p>
+          <p className="hero-serif mt-6 text-xl italic md:text-2xl">{t.hero.cta}</p>
 
           <form
             ref={formRef}
