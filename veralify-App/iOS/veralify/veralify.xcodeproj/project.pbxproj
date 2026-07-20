@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B10000012FF6000000683E92 /* AgentSquad in Frameworks */ = {isa = PBXBuildFile; productRef = B10000032FF6000000683E92 /* AgentSquad */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		AA9A856E2FF54D3D00683E92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10000012FF6000000683E92 /* AgentSquad in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = veralify;
 			packageProductDependencies = (
+				B10000032FF6000000683E92 /* AgentSquad */,
 			);
 			productName = veralify;
 			productReference = AA9A85602FF54D3C00683E92 /* veralify.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = AA9A85572FF54D3C00683E92;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B10000022FF6000000683E92 /* XCRemoteSwiftPackageReference "agent-squad" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AA9A85612FF54D3C00683E92 /* Products */;
 			projectDirPath = "";
@@ -267,6 +276,25 @@
 			targetProxy = AA9A85782FF54D3D00683E92 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B10000022FF6000000683E92 /* XCRemoteSwiftPackageReference "agent-squad" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/2FastLabs/agent-squad";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B10000032FF6000000683E92 /* AgentSquad */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000022FF6000000683E92 /* XCRemoteSwiftPackageReference "agent-squad" */;
+			productName = AgentSquad;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA9A857F2FF54D3D00683E92 /* Debug */ = {

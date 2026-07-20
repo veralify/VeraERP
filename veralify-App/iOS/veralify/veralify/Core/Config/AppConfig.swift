@@ -1,6 +1,12 @@
 import Foundation
 
 enum AppConfig {
+    // MARK: - Veralify Backend Gateway
+    // All LLM and partner API calls are routed through this backend.
+    // Never place raw OpenAI, Duffel, or eSIM provider API keys in iOS code.
+    static let backendGatewayBaseURL = "https://api.veralify.com/v1"
+    static let useMockGatewayResponses = true
+
     // MARK: - Supabase
     static let supabaseURL = "https://syehqhcexzgtxzavjpmw.supabase.co"
     static let supabaseAnonKey = "sb_publishable_pMSKTLquLKtd2VVWUYAI2Q_5iHOKn2b"
