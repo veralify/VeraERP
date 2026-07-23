@@ -74,6 +74,7 @@ _Single source of truth for project state and MVP progress. Updated on every mea
 ## Change Log
 
 ### 2026-07-23
+- **Fix (prod crash):** "Application error: a client-side exception" on Vercel preview. Root cause = missing `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` on the deploy; `AuthWidget` (in navbar on every page) threw on mount. Made `createSupabaseBrowserClient()` return `null` when unconfigured and guarded all callers (`AuthWidget`, `AuthModal`, `passkey.ts`) so auth degrades gracefully instead of white-screening. **Action still required:** set both `NEXT_PUBLIC_*` Supabase env vars for the Vercel Preview/branch environment and redeploy.
 - **Created this status file** (`docs/PROJECT_STATUS.md`) as the running project-state + change log.
 - **Fix:** production build failure — made Supabase admin client lazy (`src/lib/supabaseAdmin.ts`) so `next build` no longer throws on missing env vars during page-data collection.
 - **Fix:** React hydration warning — added `suppressHydrationWarning` to `<html>` in `src/app/layout.tsx` (theme no-flash script mutates `data-theme` pre-hydration).

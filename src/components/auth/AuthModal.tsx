@@ -59,6 +59,10 @@ export function AuthModal({ open, onClose }: Props) {
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const oauth = async (provider: 'google' | 'apple', which: Busy) => {
+    if (!supabase) {
+      setError('Authentication is temporarily unavailable.');
+      return;
+    }
     setError(null);
     setLoading(which);
     try {
@@ -101,6 +105,10 @@ export function AuthModal({ open, onClose }: Props) {
   };
 
   const submitPassword = async () => {
+    if (!supabase) {
+      setError('Authentication is temporarily unavailable.');
+      return;
+    }
     if (password.length < 6) {
       setError('Password must be at least 6 characters.');
       return;

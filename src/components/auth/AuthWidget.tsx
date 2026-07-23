@@ -15,6 +15,7 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
 
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
+    if (!supabase) return;
     supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
@@ -24,6 +25,7 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
 
   const signOut = async () => {
     const supabase = createSupabaseBrowserClient();
+    if (!supabase) return;
     await supabase.auth.signOut();
     setUser(null);
   };

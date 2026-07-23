@@ -33,6 +33,7 @@ async function callPasskey(action: string, body: Record<string, unknown>) {
 // Exchange the one-time email OTP returned by the Edge Function for a session.
 async function establishSession(session: { email: string; otp: string }) {
   const supabase = createSupabaseBrowserClient();
+  if (!supabase) throw new Error('Authentication is temporarily unavailable.');
   const { error } = await supabase.auth.verifyOtp({
     email: session.email,
     token: session.otp,
