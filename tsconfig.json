@@ -20,7 +20,8 @@
       "@config/*": ["src/config/*"],
       "@emails/*": ["src/emails/*"],
       "@i18n/*": ["src/i18n/*"],
-      "@lib/*": ["src/lib/*"]
+      "@lib/*": ["src/lib/*"],
+      "@theme/*": ["src/theme/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

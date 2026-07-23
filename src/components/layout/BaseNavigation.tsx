@@ -3,6 +3,7 @@
 import { AuthWidget } from '@components/auth/AuthWidget';
 import { getActiveBrand } from '@config/brands';
 import { LanguageSwitcher } from '@i18n/LanguageSwitcher';
+import { ThemeToggle } from '@theme/ThemeToggle';
 import { useEffect } from 'react';
 
 type Props = {
@@ -69,6 +70,7 @@ export function BaseNavigation({ pageTitle }: Props) {
           </p>
         </a>
         <div className="flex items-center gap-2.5">
+          <ThemeToggle />
           <LanguageSwitcher />
           <AuthWidget />
         </div>

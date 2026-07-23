@@ -2,11 +2,14 @@
 
 import { getActiveBrand } from '@config/brands';
 import { useLanguage } from '@i18n/LanguageProvider';
+import { DaySky } from '@theme/DaySky';
+import { useTheme } from '@theme/ThemeProvider';
 import { useEffect, useRef, useState } from 'react';
 
 export function RainbowInspiredLanding() {
   const brand = getActiveBrand();
   const { t, locale } = useLanguage();
+  const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState('');
@@ -16,6 +19,7 @@ export function RainbowInspiredLanding() {
   const [errorTick, setErrorTick] = useState(0);
 
   useEffect(() => {
+    if (theme !== 'night') return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -139,7 +143,7 @@ export function RainbowInspiredLanding() {
       window.removeEventListener('touchmove', onTouch);
       window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [theme]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -198,14 +202,18 @@ export function RainbowInspiredLanding() {
   return (
     <main
       className="relative w-full overflow-hidden"
-      style={{ backgroundColor: '#000000', color: 'var(--text-main)' }}
+      style={{ backgroundColor: 'var(--page-bg)', color: 'var(--text-main)' }}
     >
       <section className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 text-center">
-        <canvas
-          ref={canvasRef}
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          style={{ zIndex: 0 }}
-        />
+        {theme === 'night' ? (
+          <canvas
+            ref={canvasRef}
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            style={{ zIndex: 0 }}
+          />
+        ) : (
+          <DaySky />
+        )}
 
         <div className="relative z-10 flex max-w-3xl flex-col items-center">
           <p className="hero-badge inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-medium tracking-tight">
@@ -251,12 +259,16 @@ export function RainbowInspiredLanding() {
       <section
         id="waitlist"
         className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-6 pb-56 pt-16 text-center"
-        style={{ backgroundColor: '#000000' }}
+        style={{ backgroundColor: 'var(--page-bg)' }}
       >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="horizon-glow" />
-          <div className="horizon-arc" />
-        </div>
+        {theme === 'night' ? (
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="horizon-glow" />
+            <div className="horizon-arc" />
+          </div>
+        ) : (
+          <DaySky showSun={false} />
+        )}
 
         <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center justify-center text-center">
           <p className="text-base line-through md:text-lg" style={{ color: 'var(--text-muted)' }}>

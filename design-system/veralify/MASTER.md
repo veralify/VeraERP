@@ -225,3 +225,16 @@ Before delivering any UI code, verify:
 - [ ] Responsive: 375px, 768px, 1024px, 1440px
 - [ ] No content hidden behind fixed navbars
 - [ ] No horizontal scroll on mobile
+
+---
+
+## Day / Night Theme (added 2026-07-23)
+
+Dual sky theme driven by `src/theme/ThemeProvider.tsx`:
+- **Night** (default look): true-black `#000` background, canvas starfield + horizon arc, moon toggle icon. Tokens = base `:root`.
+- **Day**: morning-sky gradient (`.day-sky`), glowing `.day-sun`, drifting `.day-cloud*`, sun toggle icon. Tokens = `:root[data-theme='light']`.
+- **Mode:** `auto` (default) follows local clock — day 06:00–18:00, night otherwise; tapping `ThemeToggle` sets an explicit day/night preference (cookie + localStorage `veralify-theme`).
+- **No-flash:** blocking inline script in `layout.tsx <head>` sets `data-theme` before first paint; explicit prefs also resolved server-side from the cookie.
+- Reduced-motion disables sun pulse + cloud drift via the global `prefers-reduced-motion` block.
+
+Files: `src/theme/{ThemeProvider,ThemeToggle,DaySky}.tsx`, `.day-*` CSS in `globals.css`, wired in `layout.tsx`, `BaseNavigation.tsx`, `RainbowInspiredLanding.tsx`.

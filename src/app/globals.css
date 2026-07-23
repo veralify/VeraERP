@@ -295,6 +295,119 @@ body {
     inset 0 3px 40px rgba(147, 197, 253, 0.12);
 }
 
+/* ===== Day mode: morning sky with sun and drifting clouds ===== */
+.day-sky {
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    #6fb7ff 0%,
+    #97cdff 35%,
+    #c7e6ff 65%,
+    #eef7ff 90%,
+    #fff7ec 100%
+  );
+}
+
+.day-sun {
+  position: absolute;
+  top: 12%;
+  right: 12%;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    #ffffff 0%,
+    #fff3c4 38%,
+    #ffe07a 60%,
+    rgba(255, 224, 122, 0) 72%
+  );
+  box-shadow: 0 0 140px 50px rgba(255, 224, 130, 0.55);
+  animation: sun-pulse 6s ease-in-out infinite;
+}
+
+@keyframes sun-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.day-cloud {
+  position: absolute;
+  width: 180px;
+  height: 56px;
+  background: #ffffff;
+  border-radius: 60px;
+  filter: blur(1px);
+  opacity: 0.92;
+  box-shadow: 0 12px 30px rgba(120, 160, 210, 0.25);
+  --s: 1;
+}
+.day-cloud::before,
+.day-cloud::after {
+  content: '';
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+}
+.day-cloud::before {
+  width: 80px;
+  height: 80px;
+  top: -34px;
+  left: 30px;
+}
+.day-cloud::after {
+  width: 56px;
+  height: 56px;
+  top: -22px;
+  left: 96px;
+}
+
+.day-cloud-1 {
+  top: 20%;
+  left: -220px;
+  --s: 1.1;
+  animation: cloud-drift 46s linear infinite;
+}
+.day-cloud-2 {
+  top: 38%;
+  left: -260px;
+  --s: 0.8;
+  opacity: 0.8;
+  animation: cloud-drift 64s linear infinite;
+  animation-delay: -18s;
+}
+.day-cloud-3 {
+  top: 58%;
+  left: -200px;
+  --s: 1.35;
+  animation: cloud-drift 78s linear infinite;
+  animation-delay: -40s;
+}
+.day-cloud-4 {
+  top: 12%;
+  left: -180px;
+  --s: 0.65;
+  opacity: 0.75;
+  animation: cloud-drift 54s linear infinite;
+  animation-delay: -30s;
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translateX(0) scale(var(--s));
+  }
+  to {
+    transform: translateX(calc(100vw + 460px)) scale(var(--s));
+  }
+}
+
 .newsletter-input:focus,
 .newsletter-input:focus-visible {
   outline: none;
