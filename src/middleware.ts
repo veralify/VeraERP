@@ -1,7 +1,8 @@
+import { updateSupabaseSession } from '@lib/supabase/middleware';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')?.toLowerCase() || '';
 
   if (host.startsWith('dashboard.veralify.com') && request.nextUrl.pathname === '/') {
@@ -10,9 +11,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next({ request });
+  return updateSupabaseSession(request, response);
 }
 
 export const config = {
-  matcher: '/',
+  // Run on all paths except static assets and Next internals so the
+  // Supabase session cookie is refreshed across the app.
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 };

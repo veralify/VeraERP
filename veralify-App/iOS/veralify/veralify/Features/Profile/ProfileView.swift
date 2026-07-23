@@ -13,6 +13,7 @@ struct ProfileView: View {
                     profileHeader
                     accountCard
                     activityCard
+                    settingsCard
                     supportCard
                     signOutCard
                 }
@@ -44,9 +45,15 @@ struct ProfileView: View {
                 .foregroundStyle(AppTheme.premiumGradient)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(viewModel.currentUser?.email ?? supabase.currentSession?.user.email ?? "Guest")
-                    .font(.headline)
-                    .lineLimit(1)
+                if let email = viewModel.currentUser?.email ?? supabase.currentSession?.user.email {
+                    Text(email)
+                        .font(.headline)
+                        .lineLimit(1)
+                } else {
+                    Text("Guest")
+                        .font(.headline)
+                        .lineLimit(1)
+                }
                 if let createdAt = viewModel.currentUser?.createdAt {
                     Text("Member since \(formattedDate(createdAt))")
                         .font(.subheadline)
@@ -65,7 +72,7 @@ struct ProfileView: View {
             TextField("Your name", text: $viewModel.displayName)
                 .textFieldStyle(.plain)
                 .padding(12)
-                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .glassEffect(.regular, in: .rect(cornerRadius: 14))
 
             Button {
                 Task { await viewModel.saveProfile() }
@@ -79,10 +86,11 @@ struct ProfileView: View {
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
-                .background(AppTheme.premiumGradient, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .foregroundStyle(.white)
+                .padding(.vertical, 2)
             }
+            .buttonStyle(.glassProminent)
+            .tint(AppTheme.accent)
+            .controlSize(.large)
             .disabled(viewModel.isSaving)
         }
         .premiumCard()
@@ -98,8 +106,21 @@ struct ProfileView: View {
             }
             .buttonStyle(.plain)
 
-            NavigationLink(destination: MyESIMsView()) {
+            NavigationLink(destination: MyESIMsView().hidesFloatingNavBar()) {
                 ProfileRow(icon: "simcard.2.fill", title: "My eSIMs")
+            }
+            .buttonStyle(.plain)
+        }
+        .premiumCard()
+    }
+
+    private var settingsCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Settings")
+                .font(.headline)
+
+            NavigationLink(destination: LanguageSettingsView()) {
+                ProfileRow(icon: "globe", title: "Language")
             }
             .buttonStyle(.plain)
         }
@@ -125,17 +146,22 @@ struct ProfileView: View {
     }
 
     private func formattedDate(_ iso: String) -> String {
-        let df = ISO8601DateFormatter()
-        guard let date = df.date(from: iso) else { return iso }
-        let f = DateFormatter()
-        f.dateStyle = .medium
-        return f.string(from: date)
+        guard let date = Self.isoFormatter.date(from: iso) else { return iso }
+        return Self.displayFormatter.string(from: date)
     }
+
+    private static let isoFormatter = ISO8601DateFormatter()
+
+    private static let displayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
 }
 
 private struct ProfileRow: View {
     let icon: String
-    let title: String
+    let title: LocalizedStringKey
 
     var body: some View {
         HStack(spacing: 10) {

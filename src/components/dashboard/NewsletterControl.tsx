@@ -128,7 +128,11 @@ const NewsletterControlInner = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="matrix-text mt-4 inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-          style={{ borderColor: '#c6a15b', color: '#f3ddad', backgroundColor: '#141414' }}
+          style={{
+            borderColor: 'var(--surface-border)',
+            color: 'var(--text-main)',
+            backgroundColor: 'var(--surface)',
+          }}
         >
           Open Twenty CRM
         </a>
@@ -158,7 +162,11 @@ const NewsletterControlInner = () => {
         <button
           type="button"
           className="matrix-text mt-4 inline-flex rounded-xl border px-4 py-2 text-xs font-semibold"
-          style={{ borderColor: '#c6a15b', color: '#f3ddad', backgroundColor: '#141414' }}
+          style={{
+            borderColor: 'var(--surface-border)',
+            color: 'var(--text-main)',
+            backgroundColor: 'var(--surface)',
+          }}
           onClick={() => void sendCampaign()}
           disabled={sending}
         >

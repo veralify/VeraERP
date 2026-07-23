@@ -15,27 +15,36 @@ struct OrderHistoryView: View {
                     description: Text("Your purchase history will appear here.")
                 )
             } else {
-                List(orders) { order in
-                    NavigationLink(destination: ESIMDetailView(order: order)) {
-                        HStack(spacing: 12) {
-                            Text(order.flagEmoji).font(.title2)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(order.countryName).font(.subheadline.bold())
-                                Text(order.dataText + " · " + order.formattedDate)
-                                    .font(.caption).foregroundStyle(.secondary)
+                ScrollView {
+                    LazyVStack(spacing: 12) {
+                        ForEach(orders) { order in
+                            NavigationLink(destination: ESIMDetailView(order: order)) {
+                                HStack(spacing: 12) {
+                                    Text(order.flagEmoji).font(.title2)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(order.countryName).font(.subheadline.bold())
+                                        Text(order.dataText + " · " + order.formattedDate)
+                                            .font(.caption).foregroundStyle(.secondary)
+                                    }
+                                    Spacer()
+                                    Text(order.formattedPrice)
+                                        .font(.subheadline.bold())
+                                        .foregroundStyle(.tint)
+                                }
+                                .padding(.vertical, 4)
+                                .premiumCard()
                             }
-                            Spacer()
-                            Text(order.formattedPrice)
-                                .font(.subheadline.bold())
-                                .foregroundStyle(.tint)
+                            .buttonStyle(.plain)
                         }
-                        .padding(.vertical, 4)
                     }
+                    .padding()
                 }
             }
         }
+        .background(AppTheme.screenBackground.ignoresSafeArea())
         .navigationTitle("Order History")
         .onAppear { orders = LocalOrderStore.shared.all(for: userID) }
+        .hidesFloatingNavBar()
     }
 }
 

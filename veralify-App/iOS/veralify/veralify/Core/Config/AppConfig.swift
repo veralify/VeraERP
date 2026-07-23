@@ -4,7 +4,12 @@ enum AppConfig {
     // MARK: - Veralify Backend Gateway
     // All LLM and partner API calls are routed through this backend.
     // Never place raw OpenAI, Duffel, or eSIM provider API keys in iOS code.
+    #if DEBUG
+    // Local Next.js gateway for simulator testing (pnpm dev on port 3000).
+    static let backendGatewayBaseURL = "http://127.0.0.1:3000/api/v1"
+    #else
     static let backendGatewayBaseURL = "https://api.veralify.com/v1"
+    #endif
     static let useMockGatewayResponses = true
 
     // MARK: - Supabase

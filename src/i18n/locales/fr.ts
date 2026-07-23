@@ -3,7 +3,7 @@ import type { Dictionary } from './en';
 export const fr: Dictionary = {
   hero: {
     quote: 'Les bonnes choses arrivent à qui sait attendre.',
-    headline: 'Nous ne sommes pas d\'accord. Les meilleures choses arrivent à ceux qui agissent. 🌍',
+    headline: "Nous ne sommes pas d'accord. Les meilleures choses arrivent à ceux qui agissent. 🌍",
     description:
       "Ne vous contentez pas d'attendre le futur du voyage—aidez-nous à le construire. Rejoignez dès maintenant le Cercle Privé Veralify pour un accès anticipé et exclusif à la Bêta avant le lancement public.",
     cta: 'Obtenez votre passeport vers un monde sans frontières !',

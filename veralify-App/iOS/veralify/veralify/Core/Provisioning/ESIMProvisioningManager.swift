@@ -304,7 +304,7 @@ struct ESIMInstantSetupCard: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(installGradient)
-                    .shadow(color: .purple.opacity(reduceMotion ? 0 : (isPulsing ? 0.55 : 0.25)), radius: isPulsing ? 16 : 8)
+                    .shadow(color: AppTheme.accent.opacity(reduceMotion ? 0 : (isPulsing ? 0.55 : 0.25)), radius: isPulsing ? 16 : 8)
 
                 if manager.state.isInstalling {
                     ProgressView()
@@ -331,7 +331,7 @@ struct ESIMInstantSetupCard: View {
 
     private var installGradient: LinearGradient {
         LinearGradient(
-            colors: [Color.indigo, Color.purple, Color.cyan],
+            colors: [AppTheme.accent, AppTheme.accent.opacity(0.75)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )

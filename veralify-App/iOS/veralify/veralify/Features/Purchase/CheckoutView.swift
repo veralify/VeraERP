@@ -81,20 +81,20 @@ struct CheckoutView: View {
                 } label: {
                     Group {
                         if viewModel.isLoading {
-                            ProgressView().tint(.white)
+                            ProgressView()
                         } else {
                             Text("Confirm Purchase · \(package.formattedPrice)")
                                 .font(.headline)
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(AppTheme.premiumGradient, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .foregroundStyle(.white)
+                    .padding(.vertical, 4)
                 }
+                .buttonStyle(.glassProminent)
+                .tint(AppTheme.accent)
+                .controlSize(.large)
                 .disabled(viewModel.isLoading)
                 .padding()
-                .background(.ultraThinMaterial)
             }
             .navigationDestination(item: $viewModel.completedOrder) { order in
                 ESIMInstallView(order: order)
@@ -104,7 +104,7 @@ struct CheckoutView: View {
 }
 
 private struct PriceRow: View {
-    let label: String
+    let label: LocalizedStringKey
     let value: String
     var isTotal = false
 
@@ -113,7 +113,7 @@ private struct PriceRow: View {
             Text(label)
                 .fontWeight(isTotal ? .bold : .regular)
             Spacer()
-            Text(value)
+            Text(LocalizedStringKey(value))
                 .fontWeight(isTotal ? .bold : .regular)
                 .foregroundStyle(isTotal ? .primary : .secondary)
         }

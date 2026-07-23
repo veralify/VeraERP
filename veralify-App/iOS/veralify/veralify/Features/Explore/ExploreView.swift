@@ -14,7 +14,9 @@ struct ExploreView: View {
                     TextField("Where are you going?", text: $viewModel.searchText)
                         .textInputAutocapitalization(.never)
                 }
-                .premiumCard()
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .glassEffect(.regular, in: .rect(cornerRadius: 16))
                 .padding(.horizontal)
                 .padding(.top, 8)
 

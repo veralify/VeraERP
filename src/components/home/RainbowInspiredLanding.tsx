@@ -198,7 +198,7 @@ export function RainbowInspiredLanding() {
   return (
     <main
       className="relative w-full overflow-hidden"
-      style={{ backgroundColor: '#05070f', color: 'var(--text-main)' }}
+      style={{ backgroundColor: '#000000', color: 'var(--text-main)' }}
     >
       <section className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 text-center">
         <canvas
@@ -207,31 +207,36 @@ export function RainbowInspiredLanding() {
           style={{ zIndex: 0 }}
         />
 
-        <div className="relative z-10 flex flex-col items-center">
-          <p className="hero-badge inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium">
+        <div className="relative z-10 flex max-w-3xl flex-col items-center">
+          <p className="hero-badge inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-medium tracking-tight">
             {t.waitlist.badge}
           </p>
 
-          <h1 className="mt-8 text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
+          <h1 className="mt-8 text-[2.75rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-6xl md:text-7xl">
             {t.waitlist.titleLine1}
             <br />
             <span className="hero-serif italic">{t.waitlist.titleLine2}</span>
           </h1>
 
           <p
-            className="mx-auto mt-6 max-w-md text-base md:text-lg"
+            className="mx-auto mt-6 max-w-lg text-lg leading-relaxed md:text-xl"
             style={{ color: 'var(--text-muted)' }}
           >
             {t.waitlist.description}
           </p>
+
+          <a href="#waitlist" className="btn-apple mt-10">
+            {t.waitlist.submit}
+          </a>
         </div>
 
         <a
           href="#waitlist"
-          aria-label={t.hero.scrollDown}
-          className="scroll-cue absolute bottom-10 left-1/2 -translate-x-1/2 text-white/60 transition hover:text-white"
+          className="scroll-cue absolute bottom-10 left-1/2 -translate-x-1/2 transition-opacity hover:opacity-100"
+          style={{ color: 'var(--text-muted)', opacity: 0.7 }}
         >
-          <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <span className="sr-only">{t.hero.scrollDown}</span>
+          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M6 9l6 6 6-6"
               stroke="currentColor"
@@ -246,7 +251,7 @@ export function RainbowInspiredLanding() {
       <section
         id="waitlist"
         className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center px-6 pb-56 pt-16 text-center"
-        style={{ backgroundColor: '#05070f' }}
+        style={{ backgroundColor: '#000000' }}
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="horizon-glow" />
@@ -257,11 +262,11 @@ export function RainbowInspiredLanding() {
           <p className="text-base line-through md:text-lg" style={{ color: 'var(--text-muted)' }}>
             {t.hero.quote}
           </p>
-          <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight md:text-6xl">
+          <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-[-0.03em] md:text-6xl">
             {t.hero.headline}
           </h1>
           <p
-            className="mx-auto mt-6 max-w-md text-base md:text-lg"
+            className="mx-auto mt-6 max-w-md text-lg leading-relaxed md:text-xl"
             style={{ color: 'var(--text-muted)' }}
           >
             {t.hero.description}
@@ -271,10 +276,10 @@ export function RainbowInspiredLanding() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="mx-auto mt-10 flex w-full max-w-md items-center gap-2 rounded-xl border p-2"
+            className="mx-auto mt-10 flex w-full max-w-md items-center gap-2 rounded-full border p-2"
             style={{
-              borderColor: 'rgba(255,255,255,0.12)',
-              backgroundColor: 'rgba(255,255,255,0.04)',
+              borderColor: 'var(--surface-border)',
+              backgroundColor: 'var(--surface)',
             }}
           >
             <input
@@ -283,74 +288,47 @@ export function RainbowInspiredLanding() {
               name="email"
               placeholder={t.waitlist.emailPlaceholder}
               autoComplete="email"
-              className="newsletter-input h-11 w-full bg-transparent px-3 text-sm outline-none"
+              className="newsletter-input h-11 w-full bg-transparent px-4 text-[15px] outline-none"
               style={{ color: 'var(--text-main)' }}
               required
             />
-            <span className="relative shrink-0">
-              <svg
-                className="notify-arrow pointer-events-none absolute -top-14 left-1/2 h-14 w-16 -translate-x-1/2"
-                viewBox="0 0 64 56"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M6 6C20 2 46 6 52 26c2 7-1 16-8 21"
-                  stroke="#ffd24a"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeDasharray="1 7"
-                />
-                <path
-                  d="M52 26c2 7-1 16-8 21M43 46l1 1M44 47c3-2 8-3 12-2M44 47c-1-4-3-8-6-11"
-                  stroke="#ffd24a"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <button
-                type="submit"
-                disabled={loading}
-                className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition hover:bg-white/90"
-              >
-                {loading && (
-                  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="9"
-                      stroke="currentColor"
-                      strokeWidth={3}
-                      fill="none"
-                      opacity="0.3"
-                    />
-                    <path
-                      d="M21 12a9 9 0 0 0-9-9"
-                      stroke="currentColor"
-                      strokeWidth={3}
-                      fill="none"
-                    />
-                  </svg>
-                )}
-                <span>{loading ? t.waitlist.submitting : t.waitlist.submit}</span>
-              </button>
-            </span>
+            <button type="submit" disabled={loading} className="btn-apple shrink-0">
+              {loading && (
+                <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                    fill="none"
+                    opacity="0.3"
+                  />
+                  <path
+                    d="M21 12a9 9 0 0 0-9-9"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                    fill="none"
+                  />
+                </svg>
+              )}
+              <span>{loading ? t.waitlist.submitting : t.waitlist.submit}</span>
+            </button>
           </form>
           <label
             htmlFor="waitlist-consent"
-            className="matrix-text mx-auto mt-3 flex max-w-md cursor-pointer items-center gap-3 text-left text-xs"
+            className="mx-auto mt-4 flex max-w-md cursor-pointer items-center gap-3 text-left text-[13px]"
             style={{ color: 'var(--text-muted)' }}
           >
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center">
               <input
                 key={`consent-${errorTick}`}
                 type="checkbox"
                 id="waitlist-consent"
                 name="consent"
                 checked={consentChecked}
-                className={`h-5 w-5 ${consentError ? 'bounce-error' : ''}`}
-                style={{ accentColor: brand.theme.primary }}
+                className={`h-[18px] w-[18px] ${consentError ? 'bounce-error' : ''}`}
+                style={{ accentColor: 'var(--brand-primary)' }}
                 onChange={(e) => {
                   const isChecked = e.currentTarget.checked;
                   setConsentChecked(isChecked);
@@ -367,7 +345,8 @@ export function RainbowInspiredLanding() {
                 href="/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:opacity-80"
+                className="underline underline-offset-2 hover:opacity-80"
+                style={{ color: 'var(--brand-primary)' }}
               >
                 {t.waitlist.privacyPolicy}
               </a>
@@ -375,8 +354,8 @@ export function RainbowInspiredLanding() {
             </span>
           </label>
           <p
-            className="mt-3 text-xs"
-            style={{ color: consentError ? '#ff3b30' : 'var(--text-muted)' }}
+            className="mt-3 text-[13px]"
+            style={{ color: consentError ? '#ff453a' : 'var(--text-muted)' }}
           >
             {status}
           </p>

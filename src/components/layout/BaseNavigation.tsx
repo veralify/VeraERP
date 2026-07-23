@@ -9,8 +9,6 @@ type Props = {
   pageTitle?: string;
 };
 
-const hasPrivyAppId = Boolean(process.env.NEXT_PUBLIC_PRIVY_APP_ID);
-
 export function BaseNavigation({ pageTitle }: Props) {
   const brand = getActiveBrand();
 
@@ -46,37 +44,34 @@ export function BaseNavigation({ pageTitle }: Props) {
   return (
     <header
       id="site-nav"
-      className="sticky top-0 z-40 border-b px-6 py-4 transition-transform duration-300 will-change-transform"
-      style={{ borderColor: 'rgb(255 255 255 / 8%)', backgroundColor: 'var(--page-bg)' }}
+      className="glass sticky top-0 z-40 transition-transform duration-300 will-change-transform"
+      style={{ borderLeft: 'none', borderRight: 'none', borderTop: 'none' }}
     >
       {pageTitle && <h1 className="hidden">{pageTitle}</h1>}
-      <div className="relative mx-auto flex w-full max-w-6xl items-center justify-start">
+      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-6">
         <a
           href="/"
-          className="matrix-text inline-flex items-center gap-3 hover:opacity-80 transition-opacity"
+          className="inline-flex items-center gap-2.5 transition-opacity hover:opacity-80"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={brand.assets.logoPath}
             alt={`${brand.name} logo`}
-            width={40}
-            height={40}
+            width={30}
+            height={30}
             loading="eager"
           />
-          <p className="matrix-heading text-xl font-semibold tracking-tight md:text-2xl">
+          <p
+            className="text-[17px] font-semibold tracking-tight"
+            style={{ color: 'var(--text-main)' }}
+          >
             {brand.shortName}
           </p>
         </a>
-        {hasPrivyAppId ? (
-          <div className="absolute end-6 flex items-center gap-3">
-            <LanguageSwitcher />
-            <AuthWidget />
-          </div>
-        ) : (
-          <div className="absolute end-6">
-            <LanguageSwitcher />
-          </div>
-        )}
+        <div className="flex items-center gap-2.5">
+          <LanguageSwitcher />
+          <AuthWidget />
+        </div>
       </div>
     </header>
   );

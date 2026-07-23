@@ -37,6 +37,7 @@ struct CountryDetailView: View {
         .navigationTitle("\(country.flagEmoji) \(country.name)")
         .navigationBarTitleDisplayMode(.large)
         .task { await viewModel.load(countryCode: country.code) }
+        .hidesFloatingNavBar()
     }
 }
 

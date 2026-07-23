@@ -14,8 +14,10 @@
     "email": "email dev --dir src/emails --port 3030"
   },
   "dependencies": {
-    "@privy-io/react-auth": "^3.23.1",
     "@react-email/components": "^1.0.12",
+    "@simplewebauthn/browser": "^13.3.0",
+    "@supabase/ssr": "^0.12.3",
+    "@supabase/supabase-js": "^2.110.7",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.16",
     "@vercel/analytics": "^2.0.1",

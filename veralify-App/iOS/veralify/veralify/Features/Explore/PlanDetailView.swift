@@ -62,16 +62,17 @@ struct PlanDetailView: View {
                         .fontWeight(.bold)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(AppTheme.premiumGradient, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .foregroundStyle(.white)
+                .padding(.vertical, 4)
             }
+            .buttonStyle(.glassProminent)
+            .tint(AppTheme.accent)
+            .controlSize(.large)
             .padding()
-            .background(.ultraThinMaterial)
         }
         .sheet(isPresented: $showCheckout) {
             CheckoutView(package: package, country: country)
         }
+        .hidesFloatingNavBar()
     }
 
     private var coverageText: String {
@@ -84,7 +85,7 @@ struct PlanDetailView: View {
 
 private struct DetailRow: View {
     let icon: String
-    let label: String
+    let label: LocalizedStringKey
     let value: String
 
     var body: some View {
@@ -95,7 +96,7 @@ private struct DetailRow: View {
             Text(label)
                 .foregroundStyle(.secondary)
             Spacer()
-            Text(value)
+            Text(LocalizedStringKey(value))
                 .fontWeight(.medium)
         }
         .padding()

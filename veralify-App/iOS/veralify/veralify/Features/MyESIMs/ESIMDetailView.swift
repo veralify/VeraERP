@@ -104,11 +104,12 @@ struct ESIMDetailView: View {
                     }
             }
         }
+        .hidesFloatingNavBar()
     }
 }
 
 private struct InfoRow: View {
-    let label: String
+    let label: LocalizedStringKey
     let value: String
     var mono = false
 
@@ -116,7 +117,7 @@ private struct InfoRow: View {
         HStack {
             Text(label).foregroundStyle(.secondary)
             Spacer()
-            Text(value)
+            Text(LocalizedStringKey(value))
                 .fontWeight(.medium)
                 .font(mono ? .system(.caption, design: .monospaced) : .body)
                 .textSelection(.enabled)

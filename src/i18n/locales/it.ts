@@ -3,9 +3,9 @@ import type { Dictionary } from './en';
 export const it: Dictionary = {
   hero: {
     quote: 'Le cose belle arrivano a chi sa aspettare.',
-    headline: 'Non siamo d\'accordo. Le cose migliori arrivano a chi passa all\'azione. 🌍',
+    headline: "Non siamo d'accordo. Le cose migliori arrivano a chi passa all'azione. 🌍",
     description:
-      'Non limitarti ad aspettare il futuro dei viaggi—aiutaci a costruirlo. Unisciti ora all\'Inner Circle di Veralify per un accesso anticipato ed esclusivo alla Beta prima del lancio pubblico.',
+      "Non limitarti ad aspettare il futuro dei viaggi—aiutaci a costruirlo. Unisciti ora all'Inner Circle di Veralify per un accesso anticipato ed esclusivo alla Beta prima del lancio pubblico.",
     cta: 'Ottieni il tuo passaporto per un mondo senza confini!',
     scrollDown: 'Scorri verso il basso',
   },

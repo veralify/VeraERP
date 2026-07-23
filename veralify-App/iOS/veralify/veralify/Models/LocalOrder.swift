@@ -21,10 +21,25 @@ struct LocalOrder: Codable, Identifiable, Hashable {
     let createdAt: Date
 
     var formattedDate: String {
-        let f = DateFormatter()
-        f.dateStyle = .medium
-        return f.string(from: createdAt)
+        Self.dateFormatter.string(from: createdAt)
     }
     var formattedPrice: String { String(format: "$%.2f", price) }
     var flagEmoji: String { countryCode.toFlagEmoji() }
+
+    /// Best-effort expiry: purchase date + plan validity. Used for the
+    /// compact history rows on the My eSIMs screen.
+    var expiryDate: Date {
+        Calendar.current.date(byAdding: .day, value: validityDays, to: createdAt) ?? createdAt
+    }
+    var isExpired: Bool { expiryDate < Date() }
+    var formattedExpiry: String {
+        let prefix = isExpired ? "Expired" : "Expires"
+        return "\(prefix) \(Self.dateFormatter.string(from: expiryDate))"
+    }
+
+    private static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
 }
