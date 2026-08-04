@@ -1,0 +1,147 @@
+{
+  "identifier" : "8A3F2D1E-4B5C-6D7E-8F9A-0B1C2D3E4F5A",
+  "nonConsumableProducts" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "5A3F2D1E-4B5C-6D7E-8F9A-000000000001",
+      "localizations" : [
+        {
+          "description" : "Create a film for up to 5 people. One-time purchase.",
+          "displayName" : "Film · Up to 5 People",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.veralify.app.film.5",
+      "referenceName" : "Film 5",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "5A3F2D1E-4B5C-6D7E-8F9A-000000000002",
+      "localizations" : [
+        {
+          "description" : "Create a film for up to 10 people. One-time purchase.",
+          "displayName" : "Film · Up to 10 People",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.veralify.app.film.10",
+      "referenceName" : "Film 10",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "5A3F2D1E-4B5C-6D7E-8F9A-000000000003",
+      "localizations" : [
+        {
+          "description" : "Create a film for up to 25 people. One-time purchase.",
+          "displayName" : "Film · Up to 25 People",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.veralify.app.film.25",
+      "referenceName" : "Film 25",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "7.99",
+      "familyShareable" : false,
+      "internalID" : "5A3F2D1E-4B5C-6D7E-8F9A-000000000004",
+      "localizations" : [
+        {
+          "description" : "Create a film for up to 50 people. One-time purchase.",
+          "displayName" : "Film · Up to 50 People",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.veralify.app.film.50",
+      "referenceName" : "Film 50",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "12.99",
+      "familyShareable" : false,
+      "internalID" : "5A3F2D1E-4B5C-6D7E-8F9A-000000000005",
+      "localizations" : [
+        {
+          "description" : "Create a film for up to 100 people. One-time purchase.",
+          "displayName" : "Film · Up to 100 People",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.veralify.app.film.100",
+      "referenceName" : "Film 100",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "17.99",
+      "familyShareable" : false,
+      "internalID" : "5A3F2D1E-4B5C-6D7E-8F9A-000000000006",
+      "localizations" : [
+        {
+          "description" : "Create a film for up to 150 people. One-time purchase.",
+          "displayName" : "Film · Up to 150 People",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.veralify.app.film.150",
+      "referenceName" : "Film 150",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "22.99",
+      "familyShareable" : false,
+      "internalID" : "5A3F2D1E-4B5C-6D7E-8F9A-000000000007",
+      "localizations" : [
+        {
+          "description" : "Create a film for up to 200 people. One-time purchase.",
+          "displayName" : "Film · Up to 200 People",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.veralify.app.film.200",
+      "referenceName" : "Film 200",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_interruptedPurchasesEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Fetch Offers"
+      }
+    ]
+  },
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

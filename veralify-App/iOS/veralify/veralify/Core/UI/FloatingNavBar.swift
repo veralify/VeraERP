@@ -34,6 +34,7 @@ struct FloatingNavBar: View {
 enum AppTab: CaseIterable, Identifiable {
     case home
     case explore
+    case films
     case esims
     case profile
 
@@ -41,18 +42,20 @@ enum AppTab: CaseIterable, Identifiable {
 
     var titleKey: LocalizedStringKey {
         switch self {
-        case .home: return "Home"
+        case .home:    return "Home"
         case .explore: return "Explore"
-        case .esims: return "My eSIMs"
+        case .films:   return "Films"
+        case .esims:   return "My eSIMs"
         case .profile: return "Profile"
         }
     }
 
     var systemImage: String {
         switch self {
-        case .home: return "house.fill"
+        case .home:    return "house.fill"
         case .explore: return "globe"
-        case .esims: return "simcard.2.fill"
+        case .films:   return "camera.aperture"
+        case .esims:   return "simcard.2.fill"
         case .profile: return "person.crop.circle.fill"
         }
     }

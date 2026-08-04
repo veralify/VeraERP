@@ -128,6 +128,25 @@ final class SupabaseClient: ObservableObject {
         return first
     }
 
+    /// Insert a row. `Input` is the write payload; `Output` is the full returned row type.
+    func insert<Input: Encodable, Output: Decodable>(
+        into table: String,
+        data: Input,
+        returning: Output.Type = Output.self
+    ) async throws -> Output {
+        let url = URL(string: "\(baseURL)/rest/v1/\(table)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        authHeaders.forEach { request.setValue($1, forHTTPHeaderField: $0) }
+        request.setValue("return=representation", forHTTPHeaderField: "Prefer")
+        request.httpBody = try JSONEncoder().encode(data)
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        try validateResponse(response, data: responseData)
+        let items = try decodeArray(Output.self, from: responseData)
+        guard let first = items.first else { throw APIError.notFound }
+        return first
+    }
+
     /// Update rows. `Input` is the patch payload; `Output` is the full returned row type.
     func update<Input: Encodable, Output: Decodable>(
         table: String,

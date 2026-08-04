@@ -12,6 +12,38 @@ create table if not exists public.profiles (
   constraint profiles_subscription_tier_check check (subscription_tier in ('free', 'veralify_plus'))
 );
 
+-- Ensure all columns exist when the table was created by an earlier migration
+-- that predates this one (ADD COLUMN IF NOT EXISTS is a no-op if already present).
+alter table public.profiles
+  add column if not exists subscription_tier text not null default 'free';
+
+alter table public.profiles
+  add column if not exists monthly_ai_credits integer not null default 50;
+
+alter table public.profiles
+  add column if not exists stripe_customer_id text;
+
+alter table public.profiles
+  add column if not exists created_at timestamptz not null default now();
+
+alter table public.profiles
+  add column if not exists updated_at timestamptz not null default now();
+
+-- Add the subscription_tier check constraint only if it doesn't already exist.
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint
+    where conrelid = 'public.profiles'::regclass
+      and conname = 'profiles_subscription_tier_check'
+  ) then
+    alter table public.profiles
+      add constraint profiles_subscription_tier_check
+      check (subscription_tier in ('free', 'veralify_plus'));
+  end if;
+end
+$$;
+
 -- AI usage logs for analytics and guardrails
 create table if not exists public.ai_usage_logs (
   id uuid default gen_random_uuid() primary key,

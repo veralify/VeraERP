@@ -25,6 +25,33 @@ enum AppConfig {
     // Optional: set if you manage multiple branding profiles in eSIM Go
     static let esimGoBrandingProfileID = ""
 
+    // MARK: - Film StoreKit Product IDs
+    // One-time purchase per film. Tiers are based on maximum group size.
+    // Configure matching products in App Store Connect before shipping.
+    enum FilmProductID {
+        static let upTo5   = "com.veralify.app.film.5"
+        static let upTo10  = "com.veralify.app.film.10"
+        static let upTo25  = "com.veralify.app.film.25"
+        static let upTo50  = "com.veralify.app.film.50"
+        static let upTo100 = "com.veralify.app.film.100"
+        static let upTo150 = "com.veralify.app.film.150"
+        static let upTo200 = "com.veralify.app.film.200"
+
+        static let all: [String] = [upTo5, upTo10, upTo25, upTo50, upTo100, upTo150, upTo200]
+
+        static func productID(for memberLimit: Int) -> String {
+            switch memberLimit {
+            case ...5:   return upTo5
+            case ...10:  return upTo10
+            case ...25:  return upTo25
+            case ...50:  return upTo50
+            case ...100: return upTo100
+            case ...150: return upTo150
+            default:     return upTo200
+            }
+        }
+    }
+
     // MARK: - App
     static let appName = "Veralify"
     static let appTagline = "Stay Connected Everywhere"

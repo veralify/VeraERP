@@ -12,6 +12,9 @@ final class KeychainManager {
         case refreshToken
         case airaloToken
         case airaloTokenExpiry
+        /// Device-bound token used to identify guest film participants who
+        /// haven't created a full Veralify account.
+        case filmGuestToken
     }
 
     func save(_ value: String, for key: Key) {

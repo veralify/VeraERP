@@ -1,4154 +1,4282 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "%@ %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@ %2$@"
+  "sourceLanguage" : "en",
+  "strings" : {
+    ":" : {
+
+    },
+    "/ %lld" : {
+
+    },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
           }
         }
       }
     },
-    "%@ • %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@ • %2$@"
+    "%@ • %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ • %2$@"
           }
         }
       }
     },
-    "%@ → %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@ → %2$@"
+    "%@ → %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ → %2$@"
           }
         }
       }
     },
-    "%@ eSIM plan, %@, valid for %lld days, %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@ eSIM plan, %2$@, valid for %3$lld days, %4$@"
+    "%@ eSIM plan, %@, valid for %lld days, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ eSIM plan, %2$@, valid for %3$lld days, %4$@"
           }
         }
       }
+    },
+    "%lld" : {
+
+    },
+    "%lld moments" : {
+
     },
-    "%lld": {},
-    "%lld stop%@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$lld stop%2$@"
+    "%lld shots" : {
+
+    },
+    "%lld stop%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld stop%2$@"
           }
         }
       }
+    },
+    "≤%lld" : {
+
     },
-    "⚡️ 1-Tap Instant Setup": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "⚡️ Configuración instantánea en 1 toque"
+    "⚡️ 1-Tap Instant Setup" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚡️ إعداد فوري بلمسة واحدة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "⚡️ Configuration instantanée en 1 clic"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚡️ 1-Tipp-Soforteinrichtung"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "⚡️ 1-Tipp-Soforteinrichtung"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚡️ Configuración instantánea en 1 toque"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "⚡️ Configurazione istantanea in 1 tocco"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚡️ Configuration instantanée en 1 clic"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "⚡️ إعداد فوري بلمسة واحدة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚡️ Configurazione istantanea in 1 tocco"
           }
         }
       }
     },
-    "Activation Code: **%@**": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Código de activación: **%@**"
+    "Activation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التفعيل"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Code d'activation : **%@**"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivierung"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aktivierungscode: **%@**"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activation"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Codice di attivazione: **%@**"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activación"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "رمز التفعيل: **%@**"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activation"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attivazione"
+          }
         }
       }
     },
-    "Activity": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Actividad"
+    "Activation Code: **%@**" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمز التفعيل: **%@**"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Activité"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivierungscode: **%@**"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aktivität"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de activación: **%@**"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Attività"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code d'activation : **%@**"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "النشاط"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Codice di attivazione: **%@**"
           }
         }
       }
     },
-    "Add attachment": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Añadir archivo adjunto"
+    "Activity" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النشاط"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajouter une pièce jointe"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivität"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anhang hinzufügen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actividad"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aggiungi allegato"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activité"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إضافة مرفق"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attività"
           }
         }
       }
     },
-    "Already have an account? Sign in": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Ya tienes una cuenta? Inicia sesión"
+    "Add attachment" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إضافة مرفق"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vous avez déjà un compte ? Connectez-vous"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anhang hinzufügen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bereits ein Konto? Anmelden"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir archivo adjunto"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hai già un account? Accedi"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter une pièce jointe"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لديك حساب بالفعل؟ سجّل الدخول"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi allegato"
           }
         }
       }
+    },
+    "Allow camera access in Settings to shoot with this film." : {
+
     },
-    "Ask about flights, eSIM plans, or destinations…": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pregunta sobre vuelos, planes eSIM o destinos…"
+    "Already have an account? Sign in" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لديك حساب بالفعل؟ سجّل الدخول"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Posez des questions sur les vols, forfaits eSIM ou destinations…"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bereits ein Konto? Anmelden"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Frag nach Flügen, eSIM-Tarifen oder Reisezielen…"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Ya tienes una cuenta? Inicia sesión"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chiedi di voli, piani eSIM o destinazioni…"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous avez déjà un compte ? Connectez-vous"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اسأل عن الرحلات أو باقات eSIM أو الوجهات…"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hai già un account? Accedi"
           }
         }
       }
     },
-    "Buy for": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Comprar por"
+    "Anyone with an iPhone can scan the QR code or tap the link to join **%@**." : {
+
+    },
+    "Ask about flights, eSIM plans, or destinations…" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسأل عن الرحلات أو باقات eSIM أو الوجهات…"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acheter pour"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frag nach Flügen, eSIM-Tarifen oder Reisezielen…"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kaufen für"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pregunta sobre vuelos, planes eSIM o destinos…"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acquista per"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posez des questions sur les vols, forfaits eSIM ou destinations…"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "شراء مقابل"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiedi di voli, piani eSIM o destinazioni…"
           }
         }
       }
     },
-    "Buy your first eSIM in Explore.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compra tu primera eSIM en Explorar."
+    "Ask Concierge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسأل الكونسيرج"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concierge fragen"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Achetez votre première eSIM dans Explorer."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask Concierge"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kaufe deine erste eSIM in Entdecken."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preguntar al conserje"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acquista la tua prima eSIM in Esplora."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demander au concierge"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اشترِ أول شريحة eSIM من تبويب استكشاف."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiedi al concierge"
           }
         }
       }
     },
-    "Cancel": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إلغاء"
+    "Best data packages for where you're headed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أفضل باقات البيانات لوجهتك"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abbrechen"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die besten Datenpakete für dein Reiseziel"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best data packages for where you're headed"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancelar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los mejores paquetes de datos para tu destino"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Annuler"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les meilleurs forfaits data pour votre destination"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Annulla"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I migliori pacchetti dati per la tua destinazione"
           }
         }
       }
     },
-    "Category": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Categoría"
+    "Buy for" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شراء مقابل"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Catégorie"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaufen für"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kategorie"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprar por"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Categoria"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acheter pour"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الفئة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acquista per"
           }
         }
       }
     },
-    "Checkout": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pago"
+    "Buy your first eSIM in Explore." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشترِ أول شريحة eSIM من تبويب استكشاف."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paiement"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaufe deine erste eSIM in Entdecken."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kasse"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compra tu primera eSIM en Explorar."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Checkout"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achetez votre première eSIM dans Explorer."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إتمام الشراء"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acquista la tua prima eSIM in Esplora."
           }
         }
       }
     },
-    "Choose the language you'd like to use throughout Veralify.": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اختر اللغة التي ترغب في استخدامها في جميع أنحاء تطبيق Veralify."
+    "Calls & SMS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المكالمات والرسائل"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wähle die Sprache, die du in der gesamten Veralify-App verwenden möchtest."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anrufe & SMS"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choose the language you'd like to use throughout Veralify."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calls & SMS"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Elige el idioma que quieres usar en toda la app de Veralify."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Llamadas y SMS"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choisissez la langue que vous souhaitez utiliser dans toute l'application Veralify."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appels et SMS"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scegli la lingua che vuoi usare in tutta l'app Veralify."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiamate e SMS"
           }
         }
       }
+    },
+    "Camera Access Required" : {
+
     },
-    "Click here to view manual QR Code setup.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haz clic aquí para ver la configuración manual con código QR."
+    "Cancel" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلغاء"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cliquez ici pour la configuration manuelle par code QR."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hier klicken für die manuelle QR-Code-Einrichtung."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clicca qui per la configurazione manuale con codice QR."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اضغط هنا لعرض الإعداد اليدوي برمز QR."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
+          }
         }
       }
     },
-    "Confirm Purchase · %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Confirmar compra · %@"
+    "Category" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الفئة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Confirmer l'achat · %@"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kategorie"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kauf bestätigen · %@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categoría"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Conferma acquisto · %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catégorie"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تأكيد الشراء · %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categoria"
           }
         }
       }
     },
-    "Continue": {
-      "extractionState": "stale",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "متابعة"
+    "Checkout" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إتمام الشراء"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Weiter"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kasse"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pago"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continuar"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paiement"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continuer"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checkout"
           }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continua"
-          }
         }
       }
     },
-    "Couldn't Load Plans": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No se pudieron cargar los planes"
+    "Choose the language you'd like to use throughout Veralify." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر اللغة التي ترغب في استخدامها في جميع أنحاء تطبيق Veralify."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle die Sprache, die du in der gesamten Veralify-App verwenden möchtest."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Impossible de charger les forfaits"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose the language you'd like to use throughout Veralify."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tarife konnten nicht geladen werden"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige el idioma que quieres usar en toda la app de Veralify."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Impossibile caricare i piani"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez la langue que vous souhaitez utiliser dans toute l'application Veralify."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تعذّر تحميل الباقات"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli la lingua che vuoi usare in tutta l'app Veralify."
           }
         }
       }
     },
-    "Create Account": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crear cuenta"
+    "Click here to view manual QR Code setup." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اضغط هنا لعرض الإعداد اليدوي برمز QR."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Créer un compte"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hier klicken für die manuelle QR-Code-Einrichtung."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Konto erstellen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haz clic aquí para ver la configuración manual con código QR."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crea account"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquez ici pour la configuration manuelle par code QR."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إنشاء حساب"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clicca qui per la configurazione manuale con codice QR."
           }
         }
       }
+    },
+    "Close" : {
+
     },
-    "Data Usage": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uso de datos"
+    "Close camera" : {
+
+    },
+    "Compare fares to your next destination" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قارن الأسعار إلى وجهتك القادمة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vergleiche Preise für dein nächstes Reiseziel"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utilisation des données"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compare fares to your next destination"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Datennutzung"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compara tarifas a tu próximo destino"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utilizzo dati"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparez les tarifs vers votre prochaine destination"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "استخدام البيانات"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confronta le tariffe per la tua prossima destinazione"
           }
         }
       }
     },
-    "Display Name": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nombre para mostrar"
+    "Confirm Purchase · %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تأكيد الشراء · %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nom affiché"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kauf bestätigen · %@"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anzeigename"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar compra · %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nome visualizzato"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmer l'achat · %@"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الاسم الظاهر"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conferma acquisto · %@"
           }
         }
       }
     },
-    "Don't have an account? Sign up": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿No tienes una cuenta? Regístrate"
+    "Contact Us" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تواصل معنا"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontakt"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vous n'avez pas de compte ? Inscrivez-vous"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact Us"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch kein Konto? Registrieren"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contáctanos"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Non hai un account? Registrati"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nous contacter"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ليس لديك حساب؟ أنشئ حسابًا"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contattaci"
           }
         }
       }
     },
-    "Done": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Listo"
+    "Continue" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متابعة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terminé"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fertig"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fatto"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تم"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continua"
           }
         }
       }
     },
-    "Email": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Correo electrónico"
+    "Couldn't Load Plans" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر تحميل الباقات"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "E-mail"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarife konnten nicht geladen werden"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "E-Mail"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron cargar los planes"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Email"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de charger les forfaits"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "البريد الإلكتروني"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile caricare i piani"
           }
         }
       }
     },
-    "Error": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Error"
+    "Coverage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التغطية"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erreur"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abdeckung"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fehler"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coverage"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Errore"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobertura"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "خطأ"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couverture"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copertura"
+          }
         }
       }
     },
-    "eSIM Details": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Detalles de la eSIM"
+    "Create & Pay" : {
+
+    },
+    "Create a film, invite your group, and\ndiscover the shots together at reveal." : {
+
+    },
+    "Create Account" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء حساب"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Détails de l'eSIM"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto erstellen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM-Details"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear cuenta"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dettagli eSIM"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer un compte"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تفاصيل eSIM"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea account"
           }
         }
       }
+    },
+    "Create your first film" : {
+
     },
-    "eSIM installed successfully!": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡eSIM instalada correctamente!"
+    "Data only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بيانات فقط"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM installée avec succès !"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Daten"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM erfolgreich installiert!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data only"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM installata con successo!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo datos"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تم تثبيت eSIM بنجاح!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Données uniquement"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo dati"
+          }
         }
       }
     },
-    "eSIM Ready!": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡eSIM lista!"
+    "Data Usage" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استخدام البيانات"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM prête !"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datennutzung"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM bereit!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uso de datos"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM pronta!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisation des données"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "شريحة eSIM جاهزة!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilizzo dati"
           }
         }
       }
     },
-    "Explore": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "استكشاف"
+    "Display Name" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاسم الظاهر"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entdecken"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzeigename"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explore"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre para mostrar"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explorar"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom affiché"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explorer"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome visualizzato"
           }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Esplora"
-          }
         }
       }
     },
-    "Follow on-screen prompts to complete installation": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sigue las instrucciones en pantalla para completar la instalación"
+    "Don't have an account? Sign up" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ليس لديك حساب؟ أنشئ حسابًا"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suivez les instructions à l'écran pour terminer l'installation"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch kein Konto? Registrieren"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Folge den Anweisungen auf dem Bildschirm, um die Installation abzuschließen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿No tienes una cuenta? Regístrate"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Segui le istruzioni a schermo per completare l'installazione"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous n'avez pas de compte ? Inscrivez-vous"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اتبع التعليمات على الشاشة لإكمال التثبيت"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non hai un account? Registrati"
           }
         }
       }
     },
-    "Get Data": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "احصل على بيانات"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Daten erhalten"
+    "Done" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Get Data"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertig"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obtener datos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obtenir des données"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminé"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ottieni dati"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatto"
           }
         }
       }
+    },
+    "e.g. Sarah's Wedding" : {
+
     },
-    "Go to **Settings → Cellular → Add Cellular Plan** and scan this QR code.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ve a **Ajustes → Datos móviles → Añadir plan móvil** y escanea este código QR."
+    "Email" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "البريد الإلكتروني"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Allez dans **Réglages → Cellulaire → Ajouter un forfait cellulaire** et scannez ce code QR."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gehe zu **Einstellungen → Mobilfunk → Mobilfunktarif hinzufügen** und scanne diesen QR-Code."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correo electrónico"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vai su **Impostazioni → Cellulare → Aggiungi piano cellulare** e scansiona questo codice QR."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-mail"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اذهب إلى **الإعدادات ← الجوال ← إضافة خطة جوال** وامسح رمز QR هذا."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
           }
         }
       }
     },
-    "Help": {
-      "extractionState": "stale",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مساعدة"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hilfe"
+    "Enter your name so other members know who's shooting." : {
+
+    },
+    "Error" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خطأ"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Help"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ayuda"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aide"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aiuto"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Errore"
           }
         }
       }
     },
-    "Hey there!": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡Hola!"
+    "eSIM Details" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفاصيل eSIM"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salut !"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM-Details"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hallo!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalles de la eSIM"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ciao!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Détails de l'eSIM"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مرحبًا!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dettagli eSIM"
           }
         }
       }
     },
-    "Home": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الرئيسية"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
+    "eSIM installed successfully!" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم تثبيت eSIM بنجاح!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM erfolgreich installiert!"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inicio"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡eSIM instalada correctamente!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accueil"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM installée avec succès !"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM installata con successo!"
           }
         }
       }
     },
-    "ICCID": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ICCID"
+    "eSIM Ready!" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شريحة eSIM جاهزة!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ICCID"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM bereit!"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ICCID"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡eSIM lista!"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ICCID"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM prête !"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ICCID"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM pronta!"
           }
         }
       }
     },
-    "In-App Setup Unavailable": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configuración en la app no disponible"
+    "Explore" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استكشاف"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entdecken"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configuration dans l'app indisponible"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einrichtung in der App nicht verfügbar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorar"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configurazione in-app non disponibile"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explorer"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الإعداد داخل التطبيق غير متاح"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esplora"
           }
         }
       }
     },
-    "Install eSIM": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Instalar eSIM"
+    "Film price" : {
+
+    },
+    "Films" : {
+
+    },
+    "Find eSIM Plans" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "البحث عن باقات eSIM"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM-Tarife finden"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installer l'eSIM"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find eSIM Plans"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM installieren"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar planes eSIM"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installa eSIM"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trouver des forfaits eSIM"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تثبيت eSIM"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trova piani eSIM"
           }
         }
       }
     },
-    "Install on This iPhone": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Instalar en este iPhone"
+    "Flip camera" : {
+
+    },
+    "Follow on-screen prompts to complete installation" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اتبع التعليمات على الشاشة لإكمال التثبيت"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installer sur cet iPhone"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folge den Anweisungen auf dem Bildschirm, um die Installation abzuschließen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Auf diesem iPhone installieren"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sigue las instrucciones en pantalla para completar la instalación"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installa su questo iPhone"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivez les instructions à l'écran pour terminer l'installation"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "التثبيت على هذا الآيفون"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segui le istruzioni a schermo per completare l'installazione"
           }
         }
       }
     },
-    "Instant delivery": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entrega instantánea"
+    "Get Data" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "احصل على بيانات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daten erhalten"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Livraison instantanée"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Data"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sofortige Lieferung"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtener datos"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Consegna istantanea"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtenir des données"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تسليم فوري"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ottieni dati"
           }
         }
       }
     },
-    "Instant Setup Available": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configuración instantánea disponible"
+    "Go to **Settings → Cellular → Add Cellular Plan** and scan this QR code." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اذهب إلى **الإعدادات ← الجوال ← إضافة خطة جوال** وامسح رمز QR هذا."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configuration instantanée disponible"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gehe zu **Einstellungen → Mobilfunk → Mobilfunktarif hinzufügen** und scanne diesen QR-Code."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sofortige Einrichtung verfügbar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ve a **Ajustes → Datos móviles → Añadir plan móvil** y escanea este código QR."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configurazione istantanea disponibile"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allez dans **Réglages → Cellulaire → Ajouter un forfait cellulaire** et scannez ce code QR."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الإعداد الفوري متاح"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vai su **Impostazioni → Cellulare → Aggiungi piano cellulare** e scansiona questo codice QR."
           }
         }
       }
     },
-    "Language": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اللغة"
+    "Guest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ضيف"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sprache"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gast"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Language"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guest"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Idioma"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invitado"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Langue"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invité"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lingua"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ospite"
           }
         }
       }
     },
-    "Loading plans…": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cargando planes…"
+    "Help" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مساعدة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hilfe"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chargement des forfaits…"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tarife werden geladen…"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayuda"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Caricamento piani…"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "جارٍ تحميل الباقات…"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aiuto"
           }
         }
       }
     },
-    "Manual Installation": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Instalación manual"
+    "Help Center" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مركز المساعدة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installation manuelle"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hilfe-Center"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Manuelle Installation"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help Center"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installazione manuale"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centro de ayuda"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "التثبيت اليدوي"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centre d'aide"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centro assistenza"
+          }
         }
       }
     },
-    "Member since %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Miembro desde %@"
+    "Hey there!" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مرحبًا!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Membre depuis %@"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hallo!"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mitglied seit %@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Hola!"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Membro dal %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salut !"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عضو منذ %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ciao!"
           }
         }
       }
     },
-    "My eSIM": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mi eSIM"
+    "Home" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الرئيسية"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mon eSIM"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meine eSIM"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicio"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La mia eSIM"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accueil"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "شريحة eSIM الخاصة بي"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
           }
         }
       }
     },
-    "My eSIMs": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "شرائح eSIM الخاصة بي"
+    "ICCID" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ICCID"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meine eSIMs"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ICCID"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My eSIMs"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ICCID"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mis eSIM"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ICCID"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mes eSIM"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ICCID"
           }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Le mie eSIM"
-          }
         }
       }
     },
-    "No eSIM plans are available for %@ right now.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No hay planes eSIM disponibles para %@ en este momento."
+    "In-App Setup Unavailable" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإعداد داخل التطبيق غير متاح"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucun forfait eSIM n'est disponible pour %@ pour le moment."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einrichtung in der App nicht verfügbar"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Für %@ sind derzeit keine eSIM-Tarife verfügbar."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuración en la app no disponible"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Al momento non sono disponibili piani eSIM per %@."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration dans l'app indisponible"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا توجد باقات eSIM متاحة لـ %@ حاليًا."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurazione in-app non disponibile"
           }
         }
       }
     },
-    "No eSIMs Yet": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aún no hay eSIMs"
+    "Included" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مشمول"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucune eSIM pour le moment"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inbegriffen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch keine eSIMs"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Included"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nessuna eSIM ancora"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluido"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا توجد شرائح eSIM بعد"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclus"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluso"
+          }
         }
       }
     },
-    "No Orders Yet": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aún no hay pedidos"
+    "Install eSIM" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تثبيت eSIM"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucune commande pour le moment"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM installieren"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch keine Bestellungen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar eSIM"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nessun ordine ancora"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer l'eSIM"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا توجد طلبات بعد"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installa eSIM"
           }
         }
       }
     },
-    "No Plans Available": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No hay planes disponibles"
+    "Install on This iPhone" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التثبيت على هذا الآيفون"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucun forfait disponible"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf diesem iPhone installieren"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Tarife verfügbar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalar en este iPhone"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nessun piano disponibile"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installer sur cet iPhone"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا توجد باقات متاحة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installa su questo iPhone"
           }
         }
       }
     },
-    "No plans available right now.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No hay planes disponibles en este momento."
+    "Instant delivery" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تسليم فوري"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucun forfait disponible pour le moment."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sofortige Lieferung"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Derzeit sind keine Tarife verfügbar."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrega instantánea"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Al momento non ci sono piani disponibili."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Livraison instantanée"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا توجد باقات متاحة حاليًا."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consegna istantanea"
           }
         }
       }
     },
-    "Non-stop": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Directo"
+    "Instant Setup Available" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإعداد الفوري متاح"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Direct"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sofortige Einrichtung verfügbar"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nonstop"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuración instantánea disponible"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diretto"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration instantanée disponible"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مباشر"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurazione istantanea disponibile"
           }
         }
       }
+    },
+    "Invite" : {
+
     },
-    "of %@": {},
-    "OK": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aceptar"
+    "Invite People" : {
+
+    },
+    "Join" : {
+
+    },
+    "Join a Film" : {
+
+    },
+    "Join Film" : {
+
+    },
+    "Language" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللغة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprache"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idioma"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Langue"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "حسنًا"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lingua"
           }
         }
       }
     },
-    "Open **Settings → Cellular → Add Cellular Plan**": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abre **Ajustes → Datos móviles → Añadir plan móvil**"
+    "Loading plans…" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ تحميل الباقات…"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ouvrez **Réglages → Cellulaire → Ajouter un forfait cellulaire**"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarife werden geladen…"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Öffne **Einstellungen → Mobilfunk → Mobilfunktarif hinzufügen**"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando planes…"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apri **Impostazioni → Cellulare → Aggiungi piano cellulare**"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des forfaits…"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "افتح **الإعدادات ← الجوال ← إضافة خطة جوال**"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caricamento piani…"
           }
         }
       }
     },
-    "Order History": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Historial de pedidos"
+    "Manual Installation" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التثبيت اليدوي"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Historique des commandes"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manuelle Installation"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bestellverlauf"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instalación manual"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cronologia ordini"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installation manuelle"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "سجل الطلبات"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installazione manuale"
           }
         }
       }
     },
-    "Password": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Contraseña"
+    "Member since %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عضو منذ %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mot de passe"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitglied seit %@"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passwort"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miembro desde %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Password"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Membre depuis %@"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "كلمة المرور"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Membro dal %@"
           }
         }
       }
+    },
+    "Members (%lld)" : {
+
     },
-    "Pick a country and activate in minutes.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Elige un país y actívalo en minutos."
+    "My eSIM" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شريحة eSIM الخاصة بي"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choisissez un pays et activez en quelques minutes."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meine eSIM"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wähle ein Land und aktiviere es in Minuten."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi eSIM"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scegli un paese e attiva in pochi minuti."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon eSIM"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اختر دولة وفعّلها خلال دقائق."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La mia eSIM"
           }
         }
       }
     },
-    "Plan Details": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Detalles del plan"
+    "My eSIMs" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرائح eSIM الخاصة بي"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Détails du forfait"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meine eSIMs"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tarifdetails"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My eSIMs"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dettagli piano"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mis eSIM"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تفاصيل الباقة"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mes eSIM"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mie eSIM"
+          }
         }
       }
+    },
+    "New Film" : {
+
     },
-    "Popular Destinations": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Destinos populares"
+    "No eSIM plans are available for %@ right now." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد باقات eSIM متاحة لـ %@ حاليًا."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Destinations populaires"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für %@ sind derzeit keine eSIM-Tarife verfügbar."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beliebte Reiseziele"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay planes eSIM disponibles para %@ en este momento."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Destinazioni popolari"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun forfait eSIM n'est disponible pour %@ pour le moment."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الوجهات الشائعة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al momento non sono disponibili piani eSIM per %@."
           }
         }
       }
     },
-    "Profile": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الملف الشخصي"
+    "No eSIMs Yet" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد شرائح eSIM بعد"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profil"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine eSIMs"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profile"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay eSIMs"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Perfil"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune eSIM pour le moment"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profil"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessuna eSIM ancora"
           }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Profilo"
-          }
         }
       }
     },
-    "Purchased %@": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Comprado %@"
+    "No films yet" : {
+
+    },
+    "No Orders Yet" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد طلبات بعد"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acheté %@"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch keine Bestellungen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gekauft %@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay pedidos"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acquistato %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune commande pour le moment"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تم الشراء %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun ordine ancora"
           }
         }
       }
     },
-    "Recent prompts": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solicitudes recientes"
+    "No Plans Available" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد باقات متاحة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Requêtes récentes"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Tarife verfügbar"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Letzte Anfragen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay planes disponibles"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Richieste recenti"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun forfait disponible"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الطلبات الأخيرة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun piano disponibile"
           }
         }
       }
     },
-    "Reinstall eSIM": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reinstalar eSIM"
+    "No plans available right now." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد باقات متاحة حاليًا."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réinstaller l'eSIM"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Derzeit sind keine Tarife verfügbar."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM neu installieren"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay planes disponibles en este momento."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reinstalla eSIM"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun forfait disponible pour le moment."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إعادة تثبيت eSIM"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al momento non ci sono piani disponibili."
           }
         }
       }
+    },
+    "No shots left" : {
+
     },
-    "Requires iOS 17.4+": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Requiere iOS 17.4+"
+    "Non-stop" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مباشر"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nécessite iOS 17.4+"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nonstop"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erfordert iOS 17.4+"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Directo"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Richiede iOS 17.4+"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direct"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "يتطلب iOS 17.4+"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diretto"
           }
         }
       }
     },
-    "Save": {
-      "extractionState": "stale",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "حفظ"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Speichern"
+    "of %@" : {
+
+    },
+    "OK" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حسنًا"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Save"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Guardar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enregistrer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salva"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
     },
-    "Save Changes": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Guardar cambios"
+    "On first use" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عند أول استخدام"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei erster Nutzung"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enregistrer les modifications"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On first use"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Änderungen speichern"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En el primer uso"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salva modifiche"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À la première utilisation"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "حفظ التغييرات"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al primo utilizzo"
           }
         }
       }
     },
-    "Saved!": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡Guardado!"
+    "One-time purchase · no subscription" : {
+
+    },
+    "Open **Settings → Cellular → Add Cellular Plan**" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افتح **الإعدادات ← الجوال ← إضافة خطة جوال**"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enregistré !"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffne **Einstellungen → Mobilfunk → Mobilfunktarif hinzufügen**"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gespeichert!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre **Ajustes → Datos móviles → Añadir plan móvil**"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salvato!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrez **Réglages → Cellulaire → Ajouter un forfait cellulaire**"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تم الحفظ!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri **Impostazioni → Cellulare → Aggiungi piano cellulare**"
           }
         }
       }
+    },
+    "Open Camera" : {
+
     },
-    "Scan with a second device": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Escanea con un segundo dispositivo"
+    "Open Settings" : {
+
+    },
+    "Operator" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المشغل"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anbieter"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scannez avec un second appareil"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operator"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mit einem zweiten Gerät scannen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operador"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scansiona con un secondo dispositivo"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opérateur"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "امسح باستخدام جهاز آخر"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operatore"
           }
         }
       }
     },
-    "Search": {
-      "extractionState": "stale",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بحث"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suchen"
+    "Order History" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سجل الطلبات"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestellverlauf"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buscar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de pedidos"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rechercher"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historique des commandes"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cerca"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronologia ordini"
           }
         }
       }
     },
-    "Select Plan": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seleccionar plan"
+    "Password" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كلمة المرور"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sélectionner le forfait"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tarif auswählen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraseña"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seleziona piano"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اختيار الباقة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
           }
         }
       }
+    },
+    "people" : {
+
+    },
+    "Photos reveal on" : {
+
     },
-    "Send message": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enviar mensaje"
+    "Pick a country and activate in minutes." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر دولة وفعّلها خلال دقائق."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Envoyer le message"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle ein Land und aktiviere es in Minuten."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nachricht senden"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige un país y actívalo en minutos."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Invia messaggio"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez un pays et activez en quelques minutes."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إرسال رسالة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli un paese e attiva in pochi minuti."
           }
         }
       }
     },
-    "Settings": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الإعدادات"
+    "Plan" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الباقة"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einstellungen"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarif"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ajustes"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plan"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réglages"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forfait"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Impostazioni"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Piano"
           }
         }
       }
     },
-    "Show QR Code": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mostrar código QR"
+    "Plan Details" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفاصيل الباقة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Afficher le code QR"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarifdetails"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "QR-Code anzeigen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detalles del plan"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mostra codice QR"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Détails du forfait"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عرض رمز QR"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dettagli piano"
           }
         }
       }
     },
-    "Sign In": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Iniciar sesión"
+    "Popular Destinations" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الوجهات الشائعة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Connexion"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beliebte Reiseziele"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anmelden"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destinos populares"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accedi"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destinations populaires"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تسجيل الدخول"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destinazioni popolari"
           }
         }
       }
     },
-    "Sign Out": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تسجيل الخروج"
+    "Price Paid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "السعر المدفوع"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abmelden"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bezahlter Preis"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign Out"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price Paid"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cerrar sesión"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precio pagado"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Se déconnecter"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prix payé"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Disconnetti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prezzo pagato"
           }
         }
       }
     },
-    "Skip the QR code — activate in one tap.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Omite el código QR: activa con un solo toque."
+    "Profile" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الملف الشخصي"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passez le code QR — activez en un clic."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "QR-Code überspringen — mit einem Tipp aktivieren."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Salta il codice QR: attiva con un solo tocco."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تخطَّ رمز QR — فعّل بلمسة واحدة."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profilo"
+          }
         }
       }
     },
-    "SM-DP+ Address: **%@**": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dirección SM-DP+: **%@**"
+    "Purchased" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاريخ الشراء"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gekauft"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adresse SM-DP+ : **%@**"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchased"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "SM-DP+-Adresse: **%@**"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprado"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Indirizzo SM-DP+: **%@**"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acheté"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عنوان SM-DP+: **%@**"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acquistato"
           }
         }
       }
     },
-    "Suggested for you": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sugerido para ti"
+    "Purchased %@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم الشراء %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suggéré pour vous"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gekauft %@"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Für dich vorgeschlagen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprado %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suggerito per te"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acheté %@"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مقترح لك"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acquistato %@"
           }
         }
       }
     },
-    "Support": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Soporte"
+    "Recent prompts" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الطلبات الأخيرة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Assistance"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzte Anfragen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Support"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solicitudes recientes"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Assistenza"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requêtes récentes"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الدعم"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Richieste recenti"
           }
         }
       }
     },
-    "Talking to your carrier — this usually takes a few seconds…": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Contactando con tu operador. Esto suele tardar unos segundos…"
+    "Reinstall eSIM" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة تثبيت eSIM"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Contact avec votre opérateur — cela prend généralement quelques secondes…"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eSIM neu installieren"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verbindung zu deinem Mobilfunkanbieter — dies dauert normalerweise ein paar Sekunden…"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstalar eSIM"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Contatto con il tuo operatore — di solito richiede alcuni secondi…"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinstaller l'eSIM"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "جارٍ التواصل مع مشغّل شبكتك — يستغرق هذا عادةً بضع ثوانٍ…"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reinstalla eSIM"
           }
         }
       }
     },
-    "Tap **Enter Details Manually**": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toca **Introducir detalles manualmente**"
+    "Requires iOS 17.4+" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتطلب iOS 17.4+"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Appuyez sur **Saisir les détails manuellement**"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfordert iOS 17.4+"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tippe auf **Details manuell eingeben**"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requiere iOS 17.4+"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tocca **Inserisci i dettagli manualmente**"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nécessite iOS 17.4+"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اضغط على **إدخال التفاصيل يدويًا**"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Richiede iOS 17.4+"
+          }
+        }
+      }
+    },
+    "Reveal Date" : {
+
+    },
+    "Revealed" : {
+
+    },
+    "Revealing %lld of %lld shots…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Revealing %1$lld of %2$lld shots…"
           }
         }
       }
     },
-    "Usage data unavailable": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Datos de uso no disponibles"
+    "Save" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Données d'utilisation indisponibles"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nutzungsdaten nicht verfügbar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dati di utilizzo non disponibili"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بيانات الاستخدام غير متاحة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salva"
           }
         }
       }
     },
-    "Veralify": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Veralify"
+    "Save Changes" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ التغييرات"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Veralify"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Änderungen speichern"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Veralify"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar cambios"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Veralify"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer les modifications"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Veralify"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salva modifiche"
           }
         }
       }
     },
-    "Verify. Trust. Simplify.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verifica. Confía. Simplifica."
+    "Saved!" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم الحفظ!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vérifiez. Faites confiance. Simplifiez."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeichert!"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verifizieren. Vertrauen. Vereinfachen."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Guardado!"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verifica. Fidati. Semplifica."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistré !"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحقّق. ثِق. بسّط."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvato!"
           }
         }
       }
     },
-    "View manual QR Code setup instead": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ver configuración manual con código QR"
+    "Scan with a second device" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "امسح باستخدام جهاز آخر"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voir la configuration manuelle par code QR"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit einem zweiten Gerät scannen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stattdessen manuelle QR-Code-Einrichtung anzeigen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escanea con un segundo dispositivo"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Visualizza la configurazione manuale con codice QR"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scannez avec un second appareil"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عرض الإعداد اليدوي برمز QR بدلاً من ذلك"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scansiona con un secondo dispositivo"
           }
         }
       }
     },
-    "Voice input": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entrada de voz"
+    "Search" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بحث"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suchen"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saisie vocale"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spracheingabe"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Input vocale"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إدخال صوتي"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca"
           }
         }
       }
     },
-    "What are you planning today?": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Qué estás planeando hoy?"
+    "Search Flights" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "البحث عن رحلات"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Que planifiez-vous aujourd'hui ?"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flüge suchen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Was planst du heute?"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Flights"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cosa stai pianificando oggi?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar vuelos"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ما الذي تخطط له اليوم؟"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher des vols"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca voli"
+          }
         }
       }
     },
-    "Where are you going?": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إلى أين أنت ذاهب؟"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wohin gehst du?"
+    "See all %lld shots" : {
+
+    },
+    "Select Plan" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختيار الباقة"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Where are you going?"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarif auswählen"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿A dónde vas?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar plan"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Où allez-vous ?"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner le forfait"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dove stai andando?"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleziona piano"
           }
         }
       }
     },
-    "Your %@ plan for %@ %@ is ready to install.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Your %1$@ plan for %2$@ %3$@ is ready to install."
+    "Send message" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إرسال رسالة"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu plan %@ para %@ %@ está listo para instalar."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachricht senden"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Votre forfait %@ pour %@ %@ est prêt à installer."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar mensaje"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dein %@-Tarif für %@ %@ ist bereit zur Installation."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer le message"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Il tuo piano %@ per %@ %@ è pronto per l'installazione."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia messaggio"
           }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "باقتك %@ لـ %@ %@ جاهزة للتثبيت."
-          }
         }
       }
     },
-    "Your eSIM will be ready to install immediately after purchase.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu eSIM estará lista para instalar inmediatamente después de la compra."
+    "Settings" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإعدادات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Votre eSIM sera prête à installer immédiatement après l'achat."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine eSIM ist sofort nach dem Kauf zur Installation bereit."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La tua eSIM sarà pronta per l'installazione subito dopo l'acquisto."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ستكون شريحة eSIM جاهزة للتثبيت فور الشراء."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impostazioni"
           }
         }
       }
     },
-    "Your name": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu nombre"
+    "Share Invite Link" : {
+
+    },
+    "Share this with your group" : {
+
+    },
+    "Show QR Code" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض رمز QR"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Votre nom"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR-Code anzeigen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dein Name"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar código QR"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Il tuo nome"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le code QR"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اسمك"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra codice QR"
           }
         }
       }
     },
-    "Your purchase history will appear here.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu historial de compras aparecerá aquí."
+    "Sign In" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تسجيل الدخول"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Votre historique d'achats apparaîtra ici."
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anmelden"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dein Kaufverlauf wird hier angezeigt."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La cronologia degli acquisti apparirà qui."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "سيظهر سجل مشترياتك هنا."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accedi"
           }
         }
       }
     },
-    "Guest": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Guest"
+    "Sign Out" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تسجيل الخروج"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Invitado"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abmelden"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Invité"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gast"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar sesión"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ospite"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ضيف"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnetti"
           }
         }
       }
     },
-    "Help Center": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Help Center"
+    "Skip the QR code — activate in one tap." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تخطَّ رمز QR — فعّل بلمسة واحدة."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Centro de ayuda"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR-Code überspringen — mit einem Tipp aktivieren."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Centre d'aide"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omite el código QR: activa con un solo toque."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hilfe-Center"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passez le code QR — activez en un clic."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Centro assistenza"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salta il codice QR: attiva con un solo tocco."
           }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مركز المساعدة"
-          }
         }
       }
     },
-    "Contact Us": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Contact Us"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Contáctanos"
+    "SM-DP+ Address: **%@**" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوان SM-DP+: **%@**"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nous contacter"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SM-DP+-Adresse: **%@**"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kontakt"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección SM-DP+: **%@**"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Contattaci"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse SM-DP+ : **%@**"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تواصل معنا"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo SM-DP+: **%@**"
           }
         }
       }
     },
-    "Ask Concierge": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ask Concierge"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Preguntar al conserje"
+    "Suggested for you" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مقترح لك"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Demander au concierge"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für dich vorgeschlagen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concierge fragen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sugerido para ti"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chiedi al concierge"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggéré pour vous"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اسأل الكونسيرج"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggerito per te"
           }
         }
       }
     },
-    "Voice Search": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voice Search"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Búsqueda por voz"
+    "Support" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الدعم"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recherche vocale"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sprachsuche"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soporte"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ricerca vocale"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assistance"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بحث صوتي"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assistenza"
           }
         }
       }
     },
-    "Search Flights": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search Flights"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buscar vuelos"
+    "Take shot" : {
+
+    },
+    "Talking to your carrier — this usually takes a few seconds…" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ التواصل مع مشغّل شبكتك — يستغرق هذا عادةً بضع ثوانٍ…"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rechercher des vols"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung zu deinem Mobilfunkanbieter — dies dauert normalerweise ein paar Sekunden…"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Flüge suchen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contactando con tu operador. Esto suele tardar unos segundos…"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cerca voli"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact avec votre opérateur — cela prend généralement quelques secondes…"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "البحث عن رحلات"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contatto con il tuo operatore — di solito richiede alcuni secondi…"
           }
         }
       }
     },
-    "Compare fares to your next destination": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compare fares to your next destination"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compara tarifas a tu próximo destino"
+    "Tap **Enter Details Manually**" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اضغط على **إدخال التفاصيل يدويًا**"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Comparez les tarifs vers votre prochaine destination"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippe auf **Details manuell eingeben**"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vergleiche Preise für dein nächstes Reiseziel"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca **Introducir detalles manualmente**"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Confronta le tariffe per la tua prossima destinazione"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appuyez sur **Saisir les détails manuellement**"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "قارن الأسعار إلى وجهتك القادمة"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tocca **Inserisci i dettagli manualmente**"
           }
         }
       }
     },
-    "Find eSIM Plans": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Find eSIM Plans"
+    "Tax & Fees" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الضرائب والرسوم"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buscar planes eSIM"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steuern & Gebühren"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trouver des forfaits eSIM"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tax & Fees"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eSIM-Tarife finden"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impuestos y tasas"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trova piani eSIM"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taxes et frais"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "البحث عن باقات eSIM"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tasse e commissioni"
           }
         }
       }
     },
-    "Best data packages for where you're headed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Best data packages for where you're headed"
+    "Total" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإجمالي"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los mejores paquetes de datos para tu destino"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesamt"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Les meilleurs forfaits data pour votre destination"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die besten Datenpakete für dein Reiseziel"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I migliori pacchetti dati per la tua destinazione"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "أفضل باقات البيانات لوجهتك"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Totale"
           }
         }
       }
     },
-    "Operator": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Operator"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Operador"
+    "Usage data unavailable" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بيانات الاستخدام غير متاحة"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Opérateur"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzungsdaten nicht verfügbar"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anbieter"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos de uso no disponibles"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Operatore"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Données d'utilisation indisponibles"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "المشغل"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dati di utilizzo non disponibili"
           }
         }
       }
     },
-    "Validity": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Validity"
+    "Validity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصلاحية"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Validez"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gültigkeit"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Validité"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validity"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gültigkeit"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validez"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Validità"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validité"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الصلاحية"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validità"
           }
         }
       }
     },
-    "Coverage": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coverage"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cobertura"
+    "Veralify" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veralify"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Couverture"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veralify"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abdeckung"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veralify"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Copertura"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veralify"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "التغطية"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veralify"
           }
         }
       }
     },
-    "Activation": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Activation"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Activación"
+    "Verify. Trust. Simplify." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحقّق. ثِق. بسّط."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Activation"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifizieren. Vertrauen. Vereinfachen."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aktivierung"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifica. Confía. Simplifica."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Attivazione"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifiez. Faites confiance. Simplifiez."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "التفعيل"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifica. Fidati. Semplifica."
           }
         }
       }
     },
-    "Calls & SMS": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calls & SMS"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Llamadas y SMS"
+    "View manual QR Code setup instead" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض الإعداد اليدوي برمز QR بدلاً من ذلك"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Appels et SMS"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stattdessen manuelle QR-Code-Einrichtung anzeigen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anrufe & SMS"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver configuración manual con código QR"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chiamate e SMS"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir la configuration manuelle par code QR"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "المكالمات والرسائل"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visualizza la configurazione manuale con codice QR"
           }
         }
       }
     },
-    "On first use": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On first use"
+    "Voice input" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إدخال صوتي"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En el primer uso"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spracheingabe"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "À la première utilisation"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrada de voz"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bei erster Nutzung"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisie vocale"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Al primo utilizzo"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Input vocale"
           }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عند أول استخدام"
-          }
         }
       }
     },
-    "Data only": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Data only"
+    "Voice Search" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بحث صوتي"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solo datos"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprachsuche"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Données uniquement"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice Search"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nur Daten"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Búsqueda por voz"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solo dati"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recherche vocale"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بيانات فقط"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricerca vocale"
           }
         }
       }
     },
-    "Plan": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan"
+    "What are you planning today?" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ما الذي تخطط له اليوم؟"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plan"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Was planst du heute?"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Forfait"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Qué estás planeando hoy?"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tarif"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Que planifiez-vous aujourd'hui ?"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Piano"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cosa stai pianificando oggi?"
           }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الباقة"
-          }
         }
       }
     },
-    "Tax & Fees": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tax & Fees"
+    "Where are you going?" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلى أين أنت ذاهب؟"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Impuestos y tasas"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wohin gehst du?"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Taxes et frais"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Where are you going?"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Steuern & Gebühren"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿A dónde vas?"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tasse e commissioni"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Où allez-vous ?"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الضرائب والرسوم"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dove stai andando?"
           }
         }
       }
     },
-    "Total": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total"
+    "Your %@ plan for %@ %@ is ready to install." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "باقتك %@ لـ %@ %@ جاهزة للتثبيت."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein %@-Tarif für %@ %@ ist bereit zur Installation."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total"
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your %1$@ plan for %2$@ %3$@ is ready to install."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gesamt"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu plan %@ para %@ %@ está listo para instalar."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Totale"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre forfait %@ pour %@ %@ est prêt à installer."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الإجمالي"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il tuo piano %@ per %@ %@ è pronto per l'installazione."
           }
         }
       }
     },
-    "Purchased": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchased"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Comprado"
+    "Your eSIM will be ready to install immediately after purchase." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ستكون شريحة eSIM جاهزة للتثبيت فور الشراء."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acheté"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine eSIM ist sofort nach dem Kauf zur Installation bereit."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gekauft"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu eSIM estará lista para instalar inmediatamente después de la compra."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acquistato"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre eSIM sera prête à installer immédiatement après l'achat."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تاريخ الشراء"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La tua eSIM sarà pronta per l'installazione subito dopo l'acquisto."
           }
         }
       }
     },
-    "Price Paid": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Price Paid"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Precio pagado"
+    "Your name" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسمك"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prix payé"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Name"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bezahlter Preis"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu nombre"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prezzo pagato"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre nom"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "السعر المدفوع"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il tuo nome"
           }
         }
       }
     },
-    "Included": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Included"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Incluido"
+    "Your purchase history will appear here." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سيظهر سجل مشترياتك هنا."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclus"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein Kaufverlauf wird hier angezeigt."
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inbegriffen"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu historial de compras aparecerá aquí."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Incluso"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre historique d'achats apparaîtra ici."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مشمول"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La cronologia degli acquisti apparirà qui."
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
