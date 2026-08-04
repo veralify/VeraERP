@@ -16,7 +16,9 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Run on all paths except static assets and Next internals so the
-  // Supabase session cookie is refreshed across the app.
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+  // Run on non-API app paths only (excluding static assets and Next internals)
+  // so auth-session refresh middleware never blocks public API endpoints.
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };

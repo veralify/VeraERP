@@ -74,15 +74,25 @@ export async function POST(request: Request) {
 
   // Detect whether this is a brand-new signup (so referral credit is only
   // given once, never on a re-submit of an existing email).
-  const existingRes = await log.fetch(
-    `${supabaseUrl}/rest/v1/newsletter_subscribers?email=eq.${encodeURIComponent(email)}&select=referral_code,status`,
-    {
-      headers: {
-        apikey: serviceRoleKey,
-        Authorization: `Bearer ${serviceRoleKey}`,
+  let existingRes: Response;
+  try {
+    existingRes = await log.fetch(
+      `${supabaseUrl}/rest/v1/newsletter_subscribers?email=eq.${encodeURIComponent(email)}&select=referral_code,status`,
+      {
+        headers: {
+          apikey: serviceRoleKey,
+          Authorization: `Bearer ${serviceRoleKey}`,
+        },
       },
-    },
-  );
+    );
+  } catch (err) {
+    log.error('db lookup failed', err instanceof Error ? err.message : String(err));
+    log.done(503);
+    return NextResponse.json(
+      { error: 'Waitlist service is temporarily unavailable. Please try again in a minute.' },
+      { status: 503 },
+    );
+  }
   const existing = (await existingRes.json().catch(() => []))?.[0];
   const isNewSignup = !existing;
   // Someone is "already subscribed" only if a record exists AND it is still
@@ -110,16 +120,26 @@ export async function POST(request: Request) {
     record.referred_by = ref;
   }
 
-  const dbRes = await log.fetch(`${supabaseUrl}/rest/v1/newsletter_subscribers?on_conflict=email`, {
-    method: 'POST',
-    headers: {
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`,
-      'Content-Type': 'application/json',
-      Prefer: 'resolution=merge-duplicates,return=representation',
-    },
-    body: JSON.stringify(record),
-  });
+  let dbRes: Response;
+  try {
+    dbRes = await log.fetch(`${supabaseUrl}/rest/v1/newsletter_subscribers?on_conflict=email`, {
+      method: 'POST',
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates,return=representation',
+      },
+      body: JSON.stringify(record),
+    });
+  } catch (err) {
+    log.error('db upsert request failed', err instanceof Error ? err.message : String(err));
+    log.done(503);
+    return NextResponse.json(
+      { error: 'Waitlist service is temporarily unavailable. Please try again in a minute.' },
+      { status: 503 },
+    );
+  }
 
   if (!dbRes.ok) {
     const detail = await dbRes.text();
