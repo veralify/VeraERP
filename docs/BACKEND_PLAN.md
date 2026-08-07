@@ -5,7 +5,7 @@ _Last updated: 2026-07-23_
 ## Verdict
 
 **Yes, use your existing Supabase instance.** It serves as the single source of
-truth for both the iOS App (SwiftUI) and the Web Platform (Next.js / Vercel).
+truth for both the iOS App (SwiftUI) anwawzd the Web Platform (Next.js / Vercel).
 The core task is architectural **consolidation and hardening**, not a rebuild.
 
 Retiring Privy and standardizing fully on Supabase Auth removes user-syncing
