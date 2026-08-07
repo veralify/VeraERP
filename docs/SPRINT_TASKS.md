@@ -8,11 +8,11 @@ _AI-agent ready execution plan. Feed each task directly to Cursor / Claude Code 
 
 ## Sprint Progression
 
-| Sprint | Focus Area | ✅ Done when… |
-|--------|-----------|--------------|
-| **Sprint 1** | Payments & DB | Real credit card charge → row in `esim_orders` + `stripe_events` |
-| **Sprint 2** | Live eSIM Go & AI Concierge | AI chat returns real live eSIM catalog for a given destination |
-| **Sprint 3** | Flight Search & TestFlight | AI chat shows live Duffel flights; TestFlight build submitted |
+| Sprint       | Focus Area                  | ✅ Done when…                                                    |
+|--------------|-----------------------------|------------------------------------------------------------------|
+| **Sprint 1** | Payments & DB               | Real credit card charge → row in `esim_orders` + `stripe_events` |
+| **Sprint 2** | Live eSIM Go & AI Concierge | AI chat returns real live eSIM catalog for a given destination   |
+| **Sprint 3** | Flight Search & TestFlight  | AI chat shows live Duffel flights; TestFlight build submitted    |
 
 ---
 
