@@ -2,7 +2,7 @@
 
 _Single source of truth for project state and MVP progress. Updated on every meaningful change._
 
-**Last updated:** 2026-08-07 14:45 (local)
+**Last updated:** 2026-08-07 14:57 (local)
 
 ---
 
@@ -175,9 +175,119 @@ Ordered by priority (blockers first). Every item here is **required** before a r
 
 ---
 
+## 🧠 Product Strategy — Phase 1–3 (2026-08-07)
+
+---
+
+### Phase 1 — What Veralify Is
+
+**Travel & telecom super-app.** AI concierge (Vera) that books flights (Duffel), activates global eSIMs (eSIM Go), and wraps everything in one native iOS experience.
+> *"Your passport to a borderless world."*
+
+#### ✅ 3 Core Value Propositions
+1. **One-tap global connectivity** — Buy + natively install an eSIM for 190+ countries in seconds. No QR scanning, no physical SIM swaps. Apple `CTCellularPlanProvisioning` built in.
+2. **AI concierge as the UI** — Users talk to Vera instead of filling forms. She finds flights, recommends eSIMs for the destination, and handles checkout in one conversational flow.
+3. **Unified trip wallet** — Flights + eSIM + order history in one app, with offline access to QR codes and boarding passes. No juggling 3 apps at the airport.
+
+#### 👤 Ideal Customer Profile
+**"The Frequent Independent Traveler"** — age 25–40, digital-native professional or remote worker, 4–12 trips/year across multiple countries. Pain: roaming charges + app fragmentation. Device: iPhone. Willingness to pay: high for convenience.
+
+#### ⚔️ Competitors & Unfair Advantage
+
+| Competitor | Gap | Veralify edge |
+|---|---|---|
+| **Airalo** | eSIM store only, no AI, no flights | Veralify adds AI concierge + flights + unified wallet |
+| **Google Flights** | No eSIM, no concierge, no post-booking connectivity | Veralify covers the full trip lifecycle |
+| **Hopper** | Price prediction only, no eSIM, no concierge | Veralify's moat = combined workflow, not one feature |
+
+---
+
+### Phase 2 — Scoped PRD
+
+**Core problem:** Frequent travelers waste time juggling 3–5 apps to plan, book, and stay connected abroad. Veralify gives them one AI-powered iOS app that activates their eSIM, assists with flights, and keeps everything offline-accessible — in under 2 minutes.
+
+#### ✅ Must-Have MVP Features (3-week window)
+
+| # | Feature | Status |
+|---|---------|--------|
+| 1 | **AI Concierge Chat** — natural language → flight results + eSIM cards | ✅ Built (mock data) → needs live APIs |
+| 2 | **eSIM Purchase + Native 1-tap Install** — browse by country, buy, install | ✅ Built → needs live eSIM Go key |
+| 3 | **Stripe Checkout** — single payment for eSIM (flight booking deferred) | ⚠️ Schema only → needs PaymentSheet + webhook |
+| 4 | **My eSIMs + Order History** — offline QR backup, usage meter | ✅ Built → needs Realtime polish |
+
+#### 🚫 Out of Scope for MVP (v2)
+- Live Duffel flight booking (keep as AI suggestion → link to airline)
+- Lounge access, chauffeur, hotels
+- Web checkout UI (iOS-first)
+- APNs push notifications
+- Dashboard depth on web
+
+#### 🗺️ Core User Flow: Landing → Value
+
+```
+1. Open app  →  Apple/Google sign-in (1 tap)
+2. ChatHomeView  →  "I'm flying to Tokyo next week"
+3. Vera responds:
+     → FlightCardView  (results, tap → airline link)
+     → eSIMCardView    ("Japan 5GB/15 days — £16.99")
+4. Tap eSIM card  →  PlanDetailView
+5. Tap "Buy"      →  CheckoutView (Stripe PaymentSheet)
+6. Payment OK     →  ESIMInstallView (1-tap Apple native install)
+7. MyESIMs tab    →  active eSIM · usage meter · offline QR backup
+```
+
+#### 📊 MVP Success KPIs
+
+| KPI | 30-day target |
+|-----|--------------|
+| eSIM purchase conversion (view plan → checkout complete) | ≥ 8% |
+| AI concierge engagement (DAU sending ≥1 message) | ≥ 60% |
+
+---
+
+### Phase 3 — Technical Architecture
+
+#### 🛠️ Stack (Current + What's Missing)
+
+| Layer | Choice | Status |
+|-------|--------|--------|
+| iOS App | Swift / SwiftUI | ✅ 142 files, all screens built |
+| Web (marketing) | Next.js 15 + Tailwind + Vercel | ✅ Live at veralify.com |
+| Database + Auth | Supabase (Postgres + RLS + Auth) | ✅ 17 migrations, 7 Edge Functions |
+| Payments | Stripe iOS SDK + webhook | ⚠️ Schema only — needs PaymentSheet + `vera-stripe-webhook` |
+| eSIM | eSIM Go API | ⚠️ Client built — needs live key + server-side proxy |
+| Flights (v1 display) | Duffel API | ❌ Needs `vera-duffel-search` Edge Function |
+| AI | OpenAI GPT-4o-mini streaming | ⚠️ Mock gateway built — needs real key wired in |
+| Email | Resend + React Email | ✅ Live |
+
+#### 🗃️ DB Schema — What Exists vs. What's Needed
+
+```
+✅ profiles          id, email, subscription_tier, monthly_ai_credits, stripe_customer_id
+✅ esim_orders       id, user_id, package_id, order_reference, smdp_address, matching_id, status
+✅ user_orders       id, user_id, order_type, reference_code, amount, currency, status
+✅ ai_usage_logs     id, user_id, model_used, prompt_tokens, completion_tokens
+✅ newsletter_subs   id, email, referral_code, referral_count, unsubscribe_token, locale
+✅ webauthn_creds    id, user_id, credential_id, public_key
+
+❌ stripe_events     id, stripe_event_id (UNIQUE), type, processed_at   ← idempotency, NEEDED
+❌ user_push_tokens  id, user_id, apns_token, created_at                ← APNs, v2
+```
+
+#### ⚡ 3-Week Sprint to MVP
+
+| Week | Focus | Done when |
+|------|-------|-----------|
+| **Week 1** | `stripe_events` table + `vera-stripe-webhook` Edge Function + iOS `PaymentSheet` wired to `CheckoutViewModel` | Users can pay for an eSIM |
+| **Week 2** | eSIM Go live key + replace `fetch_eSIM_Catalog` mock + server-side order proxy Edge Function + OpenAI real key in AI gateway | Real eSIMs delivered after real payment |
+| **Week 3** | `vera-duffel-search` Edge Function (display only) + replace `searchFlights` mock in iOS + TestFlight build | Shippable MVP on TestFlight |
+
+---
+
 ## Change Log
 
 ### 2026-08-07
+- **Product strategy added:** Phase 1–3 (value props, ICP, PRD, architecture) appended to status file.
 - **Status audit:** Full repo-derived progress breakdown added. Audited all 277 tracked files. Corrected Duffel 80%→20%, Stripe 100%→40%, eSIM Go confirmed 70%. Overall MVP ~68%.
 - **MVP To-Do added:** Full prioritised checklist of remaining work to reach MVP — covering Stripe (payments + webhooks), Duffel (live Edge Functions + iOS wiring), eSIM Go (live key + server-side proxy), APNs, Realtime, Auth polish, and Dashboard.
 
