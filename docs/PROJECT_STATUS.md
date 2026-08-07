@@ -2,13 +2,111 @@
 
 _Single source of truth for project state and MVP progress. Updated on every meaningful change._
 
-**Last updated:** 2026-08-07 14:42 (local)
+**Last updated:** 2026-08-07 14:45 (local)
 
-## Overall Build Status (Repo-Derived)
+---
 
-**VERALIFY Project Build Status:** **[███████░░░] 68%**
+## Overall Build Status (Repo-Derived · 2026-08-07)
 
-> Based on implemented code and integrations across `src/`, `supabase/`, and `veralify-App/` (not only planning text).
+**`[███████░░░] 68%`** — Core infrastructure built; payments and live API integrations remaining.
+
+> Derived from actual code files across `src/` (57 files), `supabase/` (34 files), and `veralify-App/iOS/` (142 files). 277 total tracked files.
+
+| Area | Progress Bar | % | Repo Reality |
+|------|-------------|:-:|--------------|
+| 🏛️ Legal / Corporate | `[██████████]` | **100%** | All PDFs committed: incorporation, UTR, HMRC dormant filing, M&A |
+| 🏦 Banking / Stripe | `[████░░░░░░]` | **40%** | `stripe_customer_id` in schema only — no checkout code, no webhook function |
+| ✈️ Duffel / Flights | `[██░░░░░░░░]` | **20%** | `searchFlights()` is hardcoded mock data — no `DuffelClient` exists |
+| 📡 eSIM Go | `[███████░░░]` | **70%** | Real `ESIMGoClient.swift` + provisioning manager built; no live API key yet |
+| 📱 iOS App | `[███████░░░]` | **70%** | All core screens built; missing Stripe SDK, APNs, Realtime, Passkeys |
+| 🌐 Web Platform | `[████████░░]` | **75%** | Waitlist + auth + i18n live; missing Stripe UI + dashboard depth |
+| ⚙️ Backend (Supabase) | `[██████░░░░]` | **60%** | 17 migrations + 7 edge functions; missing Stripe webhook, APNs, Realtime |
+
+### ⚠️ Biggest Gaps vs. Previous Estimates
+- **Duffel is 20%, not 80%** — `VeralifyToolRegistry.swift` returns hardcoded Emirates/Qatar/Turkish flights; no Duffel HTTP client exists anywhere in the repo.
+- **Stripe is 40%, not 100%** — `stripe_customer_id` column exists in the DB, but `CheckoutViewModel` calls a simulated `checkoutService()` mock. No Stripe SDK, no webhook Edge Function.
+- **eSIM Go catalog tool in AI concierge is still mocked** — `fetch_eSIM_Catalog` in `VeralifyToolRegistry` returns hardcoded bundles; `ESIMGoClient` (real) is used only in Explore/Purchase views.
+
+---
+
+## 🗺️ MVP To-Do — What Remains to Ship
+
+Ordered by priority (blockers first). Every item here is **required** before a real paying user can complete a transaction.
+
+### 🔴 CRITICAL — Blockers (App cannot take money without these)
+
+#### Stripe — Payments
+- [ ] **Backend:** Create `stripe_events` idempotency table (`supabase/migrations/`)
+- [ ] **Backend:** Create `vera-stripe-webhook` Edge Function — verify signature, toggle `subscription_tier`, provision eSIM on payment success
+- [ ] **iOS:** Replace mock `checkoutService()` in `VeralifyToolRegistry.swift` with real Stripe iOS SDK `PaymentSheet`
+- [ ] **iOS:** Wire `CheckoutViewModel` to create a PaymentIntent via backend, handle result states
+- [ ] **Web:** Build Stripe checkout UI in `src/app/` — PaymentElement or redirect to Stripe-hosted checkout
+- [ ] **Web:** Add `/api/stripe/webhook` route handler for server-side event processing
+
+#### Duffel — Live Flight Search
+- [ ] **Backend:** Create `vera-duffel-search` Edge Function — proxy `offer_requests` to Duffel API with live token (keep key server-side)
+- [ ] **Backend:** Create `vera-duffel-book` Edge Function — `orders` creation + Veralify 8–10% markup applied
+- [ ] **iOS:** Replace mock `searchFlights()` in `VeralifyToolRegistry.swift` with real call to `vera-duffel-search` Edge Function
+- [ ] **iOS:** Wire `FlightCardView` "Book" action → `vera-duffel-book` → Stripe checkout flow
+- [ ] **Web:** Add flight search UI or wire AI concierge on web to call real Duffel Edge Function
+
+#### eSIM Go — Live Credentials
+- [ ] **Config:** Set live `ESIM_GO_API_KEY` in `AppConfig.swift` (or inject via build scheme / Supabase secret)
+- [ ] **iOS:** Replace mock `fetch_eSIM_Catalog` in `VeralifyToolRegistry` with real `ESIMGoClient.getPackages()` call
+- [ ] **Backend:** Move `ESIMGoClient` order placement server-side (Edge Function) to protect API key — iOS should call backend, not eSIM Go directly
+
+---
+
+### 🟡 IMPORTANT — Core UX gaps (needed for a polished launch)
+
+#### Auth Polish
+- [ ] **iOS:** Passkey (Face ID / WebAuthn) enrollment flow in `LoginView`
+- [ ] **iOS:** OTP auto-fill (`.textContentType(.oneTimeCode)`) on email OTP field
+- [ ] **Web:** Passkey enrollment UX polish in `AuthModal`
+
+#### Push Notifications (APNs)
+- [ ] **Backend:** Create `user_push_tokens` table + RLS policy
+- [ ] **Backend:** Create `vera-apns-push` Edge Function triggered by DB webhook on `user_orders.status` change
+- [ ] **iOS:** Register device for APNs on app launch, `POST` token to backend
+- [ ] **iOS:** Handle incoming push payloads in `AppDelegate` / `UNUserNotificationCenter`
+
+#### Supabase Realtime
+- [ ] **Backend:** Enable Realtime publication on `user_orders` and `esim_orders` tables
+- [ ] **iOS:** Replace polling in `MyESIMsViewModel` with Supabase Realtime channel subscription
+
+#### Dashboard (Web)
+- [ ] **Web:** Authenticated dashboard — orders list, eSIM management, profile editor (`src/app/dashboard/`)
+- [ ] **Web:** Connect dashboard to `user_orders` + `esim_orders` Supabase tables
+
+---
+
+### 🟢 NICE TO HAVE — Polish & scalability (post-MVP)
+
+#### Data & Performance
+- [ ] **Backend:** Consolidate legacy `vera_users` table → `profiles` (migrate rows, drop table)
+- [ ] **Backend:** Edge caching for eSIM Go catalogue and Duffel airport codes (~24h TTL)
+- [ ] **Backend:** Rate limiting on AI gateway and booking Edge Functions
+
+#### iOS
+- [ ] **iOS:** SwiftData / CoreData offline persistence of eSIM QR codes (`LPA:1$...`) + flight tickets
+- [ ] **iOS:** Supabase Realtime for live concierge streaming (replace polling in `ChatViewModel`)
+
+#### AI Concierge
+- [ ] **Web + iOS:** Replace mock SSE stream in `/api/v1/chat/completions` with real OpenAI streaming call
+- [ ] **iOS:** Connect `VeralifyAgentManager` tool calls to live backend Edge Functions instead of `VeralifyToolRegistry` mocks
+
+---
+
+### 📊 MVP Completion Estimate by Area After All TODOs Done
+
+| Area | Current | After TODOs | Key unlock |
+|------|:-------:|:-----------:|------------|
+| 🏦 Stripe | 40% | 100% | Webhook function + iOS PaymentSheet + web checkout |
+| ✈️ Duffel | 20% | 100% | Edge Function + live token + iOS wiring |
+| 📡 eSIM Go | 70% | 100% | Live API key + server-side proxy + AI tool wiring |
+| 📱 iOS App | 70% | 95% | Stripe SDK + APNs + Passkeys + Realtime |
+| 🌐 Web | 75% | 95% | Stripe UI + dashboard depth |
+| ⚙️ Backend | 60% | 95% | Stripe webhook + APNs + Realtime + cleanup |
 
 ---
 
@@ -78,6 +176,10 @@ _Single source of truth for project state and MVP progress. Updated on every mea
 ---
 
 ## Change Log
+
+### 2026-08-07
+- **Status audit:** Full repo-derived progress breakdown added. Audited all 277 tracked files. Corrected Duffel 80%→20%, Stripe 100%→40%, eSIM Go confirmed 70%. Overall MVP ~68%.
+- **MVP To-Do added:** Full prioritised checklist of remaining work to reach MVP — covering Stripe (payments + webhooks), Duffel (live Edge Functions + iOS wiring), eSIM Go (live key + server-side proxy), APNs, Realtime, Auth polish, and Dashboard.
 
 ### 2026-07-23
 - **Fix (prod crash):** "Application error: a client-side exception" on Vercel preview. Root cause = missing `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` on the deploy; `AuthWidget` (in navbar on every page) threw on mount. Made `createSupabaseBrowserClient()` return `null` when unconfigured and guarded all callers (`AuthWidget`, `AuthModal`, `passkey.ts`) so auth degrades gracefully instead of white-screening. **Action still required:** set both `NEXT_PUBLIC_*` Supabase env vars for the Vercel Preview/branch environment and redeploy.
