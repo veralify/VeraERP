@@ -2,7 +2,13 @@
 
 _Single source of truth for project state and MVP progress. Updated on every meaningful change._
 
-**Last updated:** 2026-07-23 12:08 (local)
+**Last updated:** 2026-08-07 14:42 (local)
+
+## Overall Build Status (Repo-Derived)
+
+**VERALIFY Project Build Status:** **[███████░░░] 68%**
+
+> Based on implemented code and integrations across `src/`, `supabase/`, and `veralify-App/` (not only planning text).
 
 ---
 
