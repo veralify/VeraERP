@@ -2,7 +2,9 @@
 
 _Single source of truth for project state and MVP progress. Updated on every meaningful change._
 
-**Last updated:** 2026-08-07 14:57 (local)
+**Last updated:** 2026-08-07 15:12 (local)
+
+> 📋 **Sprint task breakdown (agent-ready prompts):** [`docs/SPRINT_TASKS.md`](./SPRINT_TASKS.md)
 
 ---
 
