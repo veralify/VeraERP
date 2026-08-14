@@ -1,0 +1,2 @@
+# veraERP branding addon scaffold
+

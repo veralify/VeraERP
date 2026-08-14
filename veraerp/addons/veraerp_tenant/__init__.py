@@ -1,0 +1,2 @@
+# veraERP tenant addon scaffold
+
