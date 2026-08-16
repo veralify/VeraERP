@@ -1,2 +1,0 @@
-# veraERP provisioning addon scaffold
-

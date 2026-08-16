@@ -1,2 +1,0 @@
-# veraERP Stripe sync addon
-

@@ -1,2 +1,0 @@
-# veraERP theme addon
-

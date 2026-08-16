@@ -1,2 +1,0 @@
-# veraERP billing addon scaffold
-
