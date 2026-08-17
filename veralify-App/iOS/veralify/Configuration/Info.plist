@@ -47,7 +47,7 @@
 
     <!-- ── Camera permission ── -->
     <key>NSCameraUsageDescription</key>
-    <string>Veralify uses the camera to capture shots for your group film and to scan meals or barcodes for calorie tracking.</string>
+    <string>Veralify uses the camera to capture shots for your group film. Photos are uploaded directly and only revealed on the date you set — no previews, no deletions.</string>
 
     <!-- ── UI configuration ── -->
     <key>UIApplicationSceneManifest</key>

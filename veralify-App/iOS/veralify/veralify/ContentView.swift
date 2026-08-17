@@ -20,8 +20,6 @@ struct ContentView: View {
                     ChatHomeView(path: $homePath)
                 case .explore:
                     ExploreView()
-                case .calories:
-                    CaloriesHomeView()
                 case .films:
                     FilmsHomeView()
                 case .esims:
