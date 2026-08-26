@@ -14,8 +14,8 @@
 **Web:** Next.js 15+ / TypeScript / Vercel  
 **Mobile:** Swift / SwiftUI
 
-**Specification status:** Production architecture  
-**Specification version:** 2.1 (supersedes Pivot Plan v1 and Master Spec v2.0)  
+**Specification status:** Production architecture — **frozen for Phase 0**  
+**Specification version:** 2.3 (v2.2 review approved 9.2/10; incorporates final production-hardening contract details A–G)  
 **Date:** August 26, 2026
 
 ---
@@ -212,13 +212,14 @@ Supabase provides a full PostgreSQL database underneath Auth, Storage, Realtime 
 
 ## Payments
 
-- Stripe Billing
-- Stripe Checkout
-- Stripe Customer Portal
-- Stripe Entitlements
-- Stripe webhooks
+Dual commerce (see §34 — launch-blocking):
 
-Stripe's current Entitlements system maps internal features to products and automatically creates/revokes customer entitlements as subscription state changes. Stripe recommends persisting active entitlements internally for fast access checks.
+- **Apple IAP / StoreKit 2** — digital features in the iOS app (Pro/Coach digital tiers)
+- **Stripe Billing / Checkout / Customer Portal / Entitlements / webhooks** — web subscriptions
+- **Stripe Connect** — coach marketplace payments & payouts (1:1 person-to-person services)
+- **App Store Server Notifications V2** — Apple subscription lifecycle
+
+Stripe's current Entitlements system maps internal features to products and automatically creates/revokes customer entitlements as subscription state changes. Stripe recommends persisting active entitlements internally for fast access checks. Apple and Stripe both normalize into `user_entitlements`.
 
 ## Monitoring
 
@@ -230,7 +231,22 @@ Stripe's current Entitlements system maps internal features to products and auto
 
 ---
 
-# 4. Exact OpenRouter Model Lineup
+# 4. Production Model Policy — August 2026
+
+Model IDs are **configuration, not code**. Each AI role is defined as a policy record:
+
+```text
+role
+primary_model
+fallback_models[]
+allowed_providers[]
+max_cost_per_request
+latency_target_ms
+benchmark_version
+```
+
+The lineup below is the August 2026 configuration of that policy. It will change;
+feature code must never hard-code any model ID.
 
 ## Production model roles
 
@@ -567,6 +583,77 @@ created_at
 
 # 9. Nutrition
 
+## Food data strategy (provenance-first)
+
+The flagship feature depends on where food data comes from. This is formal
+architecture, not an implementation detail:
+
+```text
+Barcode / search / photo
+ ↓
+Internal food cache (foods)
+ ↓ (miss)
+External food provider(s)
+ ↓
+Normalize
+ ↓
+Deduplicate
+ ↓
+Store provenance
+ ↓
+AI interpretation
+```
+
+Every nutrition number must answer: **"Where did this number come from?"**
+This matters when an AI estimate is wrong and the user corrects it.
+
+### `food_sources`
+
+```text
+id uuid PK
+code text UNIQUE              -- usda | openfoodfacts | verified_internal | user_submitted | ai_estimated
+name text
+priority integer              -- dedupe/conflict resolution order
+is_active boolean
+created_at
+```
+
+### `food_external_mappings`
+
+```text
+id uuid PK
+food_id uuid FK
+food_source_id uuid FK
+external_id text
+last_synced_at timestamptz
+UNIQUE (food_source_id, external_id)
+```
+
+### `food_nutrition_versions`
+
+```text
+id uuid PK
+food_id uuid FK
+version integer
+nutrition jsonb               -- full macro/micro snapshot
+change_reason text            -- provider_sync | user_correction | admin_fix | ai_estimate
+changed_by uuid FK NULL
+created_at
+```
+
+**Immutable historical nutrition:** three concepts are distinct and must never
+be conflated:
+
+```text
+food identity  ≠  food nutrition version  ≠  user food estimate
+```
+
+A user's historical food log records the nutrition values **as logged**
+(snapshot referencing the nutrition version used). If a provider later corrects
+Chicken Breast from 310 → 295 kcal, entries logged at 310 stay 310 unless the
+user deliberately reprocesses them. Nutrition version changes never silently
+rewrite history.
+
 ### `foods`
 
 ```text
@@ -855,6 +942,20 @@ created_at
 
 # 12. Social Feed
 
+### `follows`
+
+Backs the `followers` privacy level (§70). Without this table the privacy
+vocabulary and database would not match.
+
+```text
+id uuid PK
+follower_id uuid FK
+followed_id uuid FK
+status text DEFAULT 'active'   -- active | pending | blocked
+created_at
+UNIQUE (follower_id, followed_id)
+```
+
 ### `posts`
 
 ```text
@@ -1023,9 +1124,38 @@ room_id uuid FK
 user_id uuid FK
 joined_at timestamptz
 left_at timestamptz NULL
-role text
+role text                     -- host | moderator | speaker | listener
+speak_state text DEFAULT 'listener'
+                              -- listener | request_to_speak | approved_speaker | speaking
+hand_raised_at timestamptz NULL
 PRIMARY KEY(room_id, user_id)
 ```
+
+### `room_banned_users`
+
+```text
+room_id uuid FK
+user_id uuid FK
+banned_by uuid FK
+reason text NULL
+created_at
+PRIMARY KEY(room_id, user_id)
+```
+
+### `room_moderation_events`
+
+```text
+id uuid PK
+room_id uuid FK
+moderator_id uuid FK
+target_user_id uuid FK
+action text                   -- mute | remove | ban | approve_speaker | revoke_speaker | dismiss_hand
+metadata jsonb
+created_at
+```
+
+These tables make rooms a **live social room system** (Clubhouse-grade:
+raise-hand → approval → stage), not merely group video calls.
 
 ### `live_room_events`
 
@@ -1138,12 +1268,30 @@ updated_at
 id uuid PK
 session_id uuid FK
 client_id uuid FK
-status text
+status text                   -- see state machine below
 booked_at timestamptz
 cancelled_at timestamptz NULL
 created_at
 updated_at
 ```
+
+Booking payment state machine (payment state is explicit — a booking must never
+appear confirmed while payment failed):
+
+```text
+pending
+  ↓
+payment_required
+  ↓
+paid ──────────────→ refunded
+  ↓
+confirmed ─────────→ cancelled
+  ↓
+completed
+```
+
+Allowed transitions only; every transition is written by the server (never the
+client) and audited.
 
 ### `session_notes`
 
@@ -1218,6 +1366,10 @@ id uuid PK
 ai_request_id uuid FK
 model text
 provider text
+model_policy_version text     -- which routing policy produced this run (§4)
+prompt_version text
+tool_schema_version text
+safety_policy_version text
 input_tokens bigint
 output_tokens bigint
 reasoning_tokens bigint NULL
@@ -1227,6 +1379,10 @@ success boolean
 structured_output_valid boolean
 created_at
 ```
+
+Every run records **which policy, prompt, tool schema and safety policy** it ran
+under — "model X produced this answer" is insufficient for regression analysis
+and AI debugging six months later.
 
 ### `ai_tool_calls`
 
@@ -1306,10 +1462,33 @@ id uuid PK
 code text UNIQUE
 name text
 description text
-stripe_product_id text UNIQUE
 is_active boolean DEFAULT true
 created_at
 updated_at
+```
+
+### `billing_products`
+
+Commerce-provider identifiers live here — never inside `plans`:
+
+```text
+id uuid PK
+plan_id uuid FK
+provider text                 -- apple | stripe
+provider_product_id text      -- StoreKit product ID or Stripe product ID
+billing_period text           -- monthly | annual
+is_active boolean DEFAULT true
+created_at
+UNIQUE (provider, provider_product_id)
+```
+
+Example rows for VERALIFY_PRO:
+
+```text
+(pro, apple,  com.veralify.pro.monthly, monthly)
+(pro, apple,  com.veralify.pro.annual,  annual)
+(pro, stripe, prod_XXXX,                monthly)
+(pro, stripe, prod_XXXX,                annual)
 ```
 
 ### `plan_entitlements`
@@ -1351,20 +1530,42 @@ created_at
 processed_at timestamptz NULL
 ```
 
+### `iap_transactions`
+
+```text
+id uuid PK
+user_id uuid FK
+apple_original_transaction_id text UNIQUE
+apple_transaction_id text UNIQUE
+product_id text
+plan_id uuid FK
+status text                    -- active | expired | revoked | grace_period
+purchased_at timestamptz
+expires_at timestamptz NULL
+environment text               -- production | sandbox
+raw_payload jsonb
+created_at
+updated_at
+```
+
 ### `user_entitlements`
 
 ```text
 id uuid PK
 user_id uuid FK
 lookup_key text
-source text
+source text                    -- apple | stripe | admin | promo
 active boolean
 limit_value numeric NULL
 expires_at timestamptz NULL
 updated_at
 ```
 
-Stripe should remain authoritative for subscription status; the internal entitlement table is a fast application cache. Stripe specifically recommends persisting active entitlements internally for faster resolution.
+`user_entitlements` is the **only** entitlement surface the application reads.
+Apple (via `iap_transactions`) and Stripe (via `subscriptions`) both normalize
+into it. Stripe remains authoritative for Stripe subscription status; Apple App
+Store Server API remains authoritative for IAP status; the internal table is a
+fast normalized cache.
 
 ---
 
@@ -1396,6 +1597,133 @@ goals boolean
 marketing boolean
 created_at
 updated_at
+```
+
+### `notification_jobs`
+
+Durable push queue/outbox with retry behavior (SERVER-ONLY):
+
+```text
+id uuid PK
+notification_id uuid FK
+user_id uuid FK
+provider text                 -- apns | email | web
+attempts integer DEFAULT 0
+scheduled_at timestamptz
+sent_at timestamptz NULL
+failed_at timestamptz NULL
+last_error text NULL
+created_at
+```
+
+Flow: `notification record → notification_jobs → worker → APNs/Resend`,
+with exponential backoff on `attempts`.
+
+**Worker definition (initial implementation — not left to chance):**
+
+```text
+notification_jobs (Postgres outbox)
+        ↓
+pg_cron (every minute)
+        ↓
+Supabase Edge Function (notification-worker)
+        ↓
+Claim batch: UPDATE ... SET status='processing'
+             WHERE id IN (SELECT ... FOR UPDATE SKIP LOCKED LIMIT 50)
+        ↓
+Send (APNs via provider token / Resend)
+        ↓
+Update sent_at / failed_at / attempts / last_error
+        ↓
+Retry with exponential backoff (max 5 attempts → dead-letter status)
+```
+
+Supabase does not operate a durable background worker implicitly — this
+pg_cron + Edge Function loop **is** the worker. At higher scale it may be
+replaced by a dedicated queue without changing the outbox contract.
+
+---
+
+# 18b. Security & Compliance Infrastructure
+
+These tables are **required** by the security/launch policy and must exist from
+Phase 1.
+
+### `audit_logs`
+
+```text
+id uuid PK
+actor_id uuid FK NULL
+action text
+target_type text
+target_id uuid NULL
+ip_hash text NULL
+request_metadata jsonb NULL
+metadata jsonb NULL
+created_at
+```
+
+Mandatory audit events:
+
+```text
+coach viewing client data
+permission changes
+admin actions
+subscription changes
+sensitive profile access
+AI tool mutations
+data export/deletion requests
+```
+
+### `idempotency_keys`
+
+```text
+id uuid PK
+key text UNIQUE
+scope text                    -- payment | ai_write | booking | food_log | webhook | notification
+request_hash text
+response jsonb NULL
+status text                   -- pending | completed | failed
+created_at
+expires_at
+```
+
+Required for: payments, AI writes, bookings, food-log creation, notifications,
+Stripe/Apple webhooks.
+
+### `data_deletion_requests`
+
+```text
+id uuid PK
+user_id uuid FK
+reason text NULL
+status text                   -- pending | scheduled | processing | completed | cancelled
+requested_at timestamptz
+scheduled_for timestamptz
+completed_at timestamptz NULL
+```
+
+### `data_exports`
+
+```text
+id uuid PK
+user_id uuid FK
+status text                   -- pending | processing | ready | expired | failed
+artifact_path text NULL      -- signed download artifact in private storage
+requested_at timestamptz
+completed_at timestamptz NULL
+expires_at timestamptz NULL
+```
+
+### `consent_records`
+
+```text
+id uuid PK
+user_id uuid FK
+consent_type text             -- terms | privacy | health_data | marketing
+version text
+granted boolean
+created_at
 ```
 
 ---
@@ -1482,38 +1810,69 @@ user_entitlements(user_id, lookup_key, active)
 
 ---
 
-# 21. RLS Architecture
+# 21. RLS Architecture — Policy Matrix + Helper Functions
 
 RLS must be enabled on all client-exposed tables.
 
 Supabase's security model combines Postgres grants and RLS policies; exposed tables should have RLS enabled and policies explicitly define what authenticated users can access.
 
+**Enforcement rule:** the QA/Security agent may **reject** a migration that
+violates this matrix — not merely review it afterward.
+
 ## Policy classes
 
+Every table must be classified as exactly one of:
+
 ```text
-OWN
-MEMBER
-ROLE
-SHARED
-PRIVATE
-PUBLIC
-SERVER_ONLY
+SELF              -- row has user_id owned by requester
+PARENT-OWNED      -- ownership derived through a parent row
+GROUP-MEMBER      -- access via group membership
+COACH-PERMISSION  -- access via explicit coach_clients grant
+PARTICIPANT       -- access via conversation/room participation
+SERVER-ONLY       -- no client access; Edge Functions / service role only
+ADMIN             -- platform admin role only
+PUBLIC            -- readable by anyone (rare, explicit)
 ```
 
----
+## Helper functions
 
-## 21.1 Own-data policy
+Centralize complex checks in `SECURITY DEFINER` functions instead of
+duplicating joins in every policy. **Every SECURITY DEFINER helper must satisfy
+all of the following (enforced in review):**
 
-Applies to:
+```text
+- fixed search_path (SET search_path = public, pg_temp)
+- explicit EXECUTE grants (revoke from PUBLIC)
+- no caller-controlled schema/table parameters
+- owned by a dedicated non-login role where practical
+- regression tests for privilege escalation
+```
+
+Required helpers:
+
+```text
+is_group_member(group_id)
+is_group_admin(group_id)
+is_conversation_member(conversation_id)
+is_room_participant(room_id)
+coach_can_access_client(coach_id, client_id)
+owns_food_log(food_log_id)
+owns_post(post_id)
+is_platform_admin()
+```
+
+## 21.1 SELF policy
+
+Applies to tables that carry `user_id` directly:
 
 - food_logs
-- food_log_items
 - weight_entries
-- measurements
-- mood
-- activity
+- body_measurements
+- mood_entries
+- activity_entries
 - goals
-- progress photos
+- progress_photos
+- notifications
 
 Rule:
 
@@ -1529,6 +1888,56 @@ INSERT own
 UPDATE own
 DELETE own
 ```
+
+## 21.2 PARENT-OWNED policy
+
+Child tables do **not** carry `user_id`; ownership is derived through the parent.
+Never write `auth.uid() = user_id` against a table that has no `user_id` column.
+
+`food_log_items` (parent: `food_logs`):
+
+```sql
+USING (
+  EXISTS (
+    SELECT 1 FROM food_logs fl
+    WHERE fl.id = food_log_items.food_log_id
+      AND fl.user_id = auth.uid()
+  )
+)
+```
+
+Equivalent parent chains (all use helper functions):
+
+```text
+food_log_items        → food_logs.user_id
+goal_targets          → goals.user_id
+goal_milestones       → goals.user_id
+post_media            → posts → author / group visibility
+comments              → posts → group visibility
+message_attachments   → messages → conversations → members
+session_notes         → sessions → coach_clients grant
+ai_model_runs         → ai_requests.user_id
+```
+
+## 21.3 Matrix (required in every schema PR)
+
+| Table | Class |
+|---|---|
+| profiles | SELF (+ PUBLIC subset via view) |
+| food_logs, weight_entries, goals, progress_photos | SELF |
+| food_log_items, goal_targets, goal_milestones | PARENT-OWNED |
+| groups | PUBLIC (discoverable) / GROUP-MEMBER (private) |
+| group_members, posts, comments, post_likes | GROUP-MEMBER |
+| conversations, messages, message_reads | PARTICIPANT |
+| live_rooms, live_room_participants | PARTICIPANT |
+| coach_clients, sessions, session_notes | COACH-PERMISSION |
+| subscriptions, iap_transactions, subscription_events | SERVER-ONLY |
+| coach_stripe_accounts, session_payment_intents, coach_transactions, coach_payouts, refunds | SERVER-ONLY |
+| audit_logs, idempotency_keys, notification_jobs | SERVER-ONLY |
+| data_deletion_requests, data_exports | SELF (create/read) + SERVER-ONLY (process) |
+| reports, moderation_actions | ADMIN (+ SELF create for reports) |
+| foods, food_servings, food_sources | PUBLIC read / SERVER-ONLY write |
+| follows | SELF (both directions readable by involved users) |
 
 ---
 
@@ -1737,6 +2146,25 @@ Agora RTC
 
 Never expose the Agora App Certificate.
 
+**Server-authorized role changes (mandatory):** Agora privileges always derive
+from server-side room state — never client assertion:
+
+```text
+listener
+ ↓
+request_to_speak (client requests)
+ ↓
+moderator approves (server validates moderator)
+ ↓
+database changes speak_state
+ ↓
+new token / Agora privilege issued
+```
+
+The iOS/Web client can never decide "I'm now a speaker." A client with a
+listener token that publishes audio is a protocol violation — tokens are scoped
+to the database role at issuance.
+
 ---
 
 # 30. Agora Room Naming
@@ -1855,7 +2283,74 @@ Use Agora Chat later if:
 
 ---
 
-# 34. Stripe Products
+# 34. Commerce Architecture — Dual Billing
+
+**Launch-blocking rule:** digital app features unlocked inside the iOS app
+(Pro AI, premium nutrition, unlimited groups, advanced progress/trends) must be
+sold through **Apple In-App Purchase**. Apple's App Review Guidelines require IAP
+for unlocking app functionality and digital subscriptions. Apple permits
+alternative payments only for **real-time person-to-person services between two
+individuals** (e.g., 1:1 fitness training) — one-to-many services remain IAP.
+
+```text
+                 VERALIFY BILLING
+                        │
+          ┌─────────────┴─────────────┐
+          │                           │
+        DIGITAL                    HUMAN SERVICE
+       FEATURES                     PAYMENTS
+          │                           │
+   ┌──────┴──────┐                Stripe / Connect
+   │             │                    │
+ iOS app       Web                1:1 coach session
+   │             │                Coach payouts
+Apple IAP    Stripe Billing
+(StoreKit 2) (Checkout/Portal)
+   │             │
+   └──────┬──────┘
+          ↓
+   user_entitlements   ← single normalized source
+```
+
+Rules:
+
+1. iOS Pro/Coach digital features → StoreKit 2 subscriptions.
+2. Web Pro/Coach subscriptions → Stripe Billing.
+3. 1:1 coach sessions (person-to-person, real-time) → Stripe, allowed outside IAP.
+4. Group coaching (one-to-many) consumed in-app → treat as IAP-gated digital content.
+5. The application only ever reads `user_entitlements` — it never cares whether
+   an entitlement came from Apple or Stripe.
+6. Never trust client-side subscription state.
+
+## Apple IAP layer
+
+- StoreKit 2 products mirroring `VERALIFY_PRO` / `VERALIFY_COACH` (monthly/annual)
+- App Store Server Notifications V2 → `POST /api/apple/notifications`
+- Server-side receipt/transaction verification via App Store Server API
+- `iap_transactions` table (see §17) feeding `user_entitlements` with `source = 'apple'`
+
+**Account linking (mandatory):** every StoreKit subscription purchase must be
+associated with a Veralify user through Apple's `appAccountToken`:
+
+```text
+Authenticated Veralify user
+        ↓
+StoreKit purchase (appAccountToken = veralify user uuid)
+        ↓
+Apple transaction
+        ↓
+iap_transactions (user resolved via appAccountToken)
+        ↓
+user_entitlements
+```
+
+The backend must never guess which Veralify account owns an Apple transaction.
+
+**Restore purchases:** the iOS app restores access using StoreKit 2
+`Transaction.currentEntitlements` — Apple's recommended mechanism for restoring
+previously purchased functionality.
+
+## Stripe products (web)
 
 Create three products.
 
@@ -1886,6 +2381,115 @@ Annual
 ```
 
 Pricing is intentionally configuration, not hard-coded into the application.
+
+---
+
+# 34b. Coach Marketplace Payments — Stripe Connect
+
+Coaching is a **marketplace**, not just scheduling + video. Money flow:
+
+```text
+Client
+  ↓ pays
+Veralify (Stripe Connect platform)
+  ↓
+session_payment_intents
+  ↓
+Platform fee retained
+  ↓
+Coach payout (connected account)
+```
+
+### `coach_stripe_accounts`
+
+```text
+id uuid PK
+coach_id uuid FK UNIQUE
+stripe_account_id text UNIQUE
+onboarding_status text        -- pending | complete | restricted
+charges_enabled boolean
+payouts_enabled boolean
+created_at
+updated_at
+```
+
+### `session_payment_intents`
+
+```text
+id uuid PK
+session_id uuid FK UNIQUE     -- exactly one payment intent per session
+client_id uuid FK
+coach_id uuid FK
+stripe_payment_intent_id text UNIQUE
+amount_cents integer
+currency text
+platform_fee_cents integer    -- IMMUTABLE once created (frozen transaction value)
+status text                   -- requires_payment | succeeded | refunded | failed
+created_at
+updated_at
+```
+
+The `percentage` in `coach_platform_fees` is the **configuration that produced**
+`platform_fee_cents` — it is never recalculated against historical transactions.
+
+### `coach_transactions`
+
+```text
+id uuid PK
+coach_id uuid FK
+session_payment_intent_id uuid FK NULL
+type text                     -- charge | refund | payout | fee | adjustment
+amount_cents integer
+currency text
+stripe_ref text
+created_at
+```
+
+### `coach_payouts`
+
+```text
+id uuid PK
+coach_id uuid FK
+stripe_payout_id text UNIQUE
+amount_cents integer
+currency text
+status text
+period_start timestamptz
+period_end timestamptz
+created_at
+```
+
+### `coach_platform_fees`
+
+```text
+id uuid PK
+coach_id uuid FK
+percentage numeric            -- platform take rate (config, not code)
+effective_from timestamptz
+created_at
+```
+
+### `refunds`
+
+```text
+id uuid PK
+session_payment_intent_id uuid FK
+stripe_refund_id text UNIQUE
+amount_cents integer
+reason text
+status text
+requested_by uuid FK
+created_at
+```
+
+Rules:
+
+1. All marketplace tables are SERVER-ONLY (no client RLS access; coaches read
+   their own transactions via views/API).
+2. Payments, refunds and payouts require `idempotency_keys` (§18b).
+3. Coach onboarding uses Stripe Connect hosted onboarding.
+4. 1:1 session charges qualify for the Apple person-to-person exception; keep
+   the purchase flow compliant (service consumed person-to-person in real time).
 
 ---
 
@@ -1957,6 +2561,26 @@ premium_live_rooms
 
 # 38. Coach Entitlements
 
+**"Coach" is three separable concepts — do not tangle them:**
+
+```text
+1. Coach Account          -- role/identity: verified coach profile, discoverable
+2. Coach Pro Tools        -- digital subscription: dashboard, client management,
+                             coaching tools (IAP on iOS / Stripe on web)
+3. Coach Marketplace      -- Stripe Connect services: selling 1:1 sessions,
+   Services                  receiving payouts
+```
+
+A user may hold any combination simultaneously: a coach using Veralify tools,
+a user purchasing coaching, a coach selling 1:1 services — or all three. The
+entitlement model treats each independently:
+
+```text
+coach account   → coach_profiles row (+ verification)
+coach pro tools → user_entitlements (coach_* keys, source apple|stripe)
+marketplace     → coach_stripe_accounts (onboarded, payouts enabled)
+```
+
 Coach is a role/product combination.
 
 ```text
@@ -1983,7 +2607,11 @@ Stripe's Entitlements model is specifically designed to map features to products
 
 ---
 
-# 39. Stripe Webhook Architecture
+# 39. Billing Webhook Architecture
+
+Two inbound billing webhooks, one normalized outcome.
+
+## Stripe
 
 Endpoint:
 
@@ -2026,6 +2654,38 @@ entitlements.active_entitlement_summary.updated
 ```
 
 Stripe does not guarantee webhook event ordering, so handlers must be idempotent and able to retrieve authoritative objects when necessary.
+
+## Apple App Store Server Notifications V2
+
+Endpoint:
+
+```text
+POST /api/apple/notifications
+```
+
+Process:
+
+```text
+Receive signedPayload (JWS)
+ ↓
+Verify signature chain
+ ↓
+Decode transaction / renewal info
+ ↓
+Check idempotency (notificationUUID)
+ ↓
+Upsert iap_transactions
+ ↓
+Refresh user_entitlements (source = apple)
+ ↓
+Commit
+```
+
+Key notification types: `SUBSCRIBED`, `DID_RENEW`, `DID_FAIL_TO_RENEW`,
+`EXPIRED`, `GRACE_PERIOD_EXPIRED`, `REVOKE`, `REFUND`.
+
+Both webhooks write through `idempotency_keys` (§18b) and converge on
+`user_entitlements`.
 
 ---
 
@@ -2726,6 +3386,10 @@ Tool permissions are user-scoped.
 
 # 62. AI Food Pipeline
 
+**Rule: the AI never computes final nutrition numbers.** The vision model
+identifies foods and estimates portions; the deterministic Nutrition Engine
+computes nutrition from the canonical database.
+
 ```text
 iOS Camera
  ↓
@@ -2733,21 +3397,25 @@ Image compression
  ↓
 Supabase private storage
  ↓
-AI Food Estimate
+VISION MODEL (Gemini 3.7 Flash)
  ↓
-Gemini 3.7 Flash
+Food identification
  ↓
-Food candidates
+Portion estimate ("Chicken breast ≈ 180g")
  ↓
-Nutrition database lookup
+VERALIFY NUTRITION ENGINE (deterministic)
  ↓
-Portion reasoning
+Canonical nutrition database lookup (foods + provenance §9)
  ↓
-Confidence
+Deterministic calculation (grams × per-gram macros)
+ ↓
+Confidence score
+ ↓
+AI verification pass
  ↓
 User confirmation
  ↓
-food_logs
+food_logs (nutrition provenance recorded)
 ```
 
 If confidence is below threshold:
@@ -2821,6 +3489,40 @@ recommend dangerous dieting
 encourage self-harm
 pretend to be a doctor
 ```
+
+## Health Safety Layer (architecture, not just prompts)
+
+Safety is enforced as pipeline stages, not prompt instructions:
+
+```text
+User request
+ ↓
+Safety classifier (pre-check)
+ ↓
+Allowed? ──no──→ safe refusal + support resources
+ ↓ yes
+Domain AI
+ ↓
+Output validator (structured contract §63)
+ ↓
+Safety post-check
+ ↓
+User
+```
+
+The classifier must specifically detect:
+
+```text
+eating-disorder-adjacent queries
+extreme calorie restriction
+medication questions
+medical conditions
+rapid weight loss requests
+body-image distress
+```
+
+Blocked/flagged requests are logged to `audit_logs` (action = ai_safety_block)
+for pattern review. Post-check failures are never shown to the user.
 
 ---
 
@@ -3015,6 +3717,31 @@ weight = private
 progress = private
 ```
 
+## Data Retention Policy Matrix (required)
+
+Veralify handles fitness/health-related data. Retention is specification, not
+an implementation detail — data deletion is already a launch criterion.
+
+| Domain | Retention | On account deletion | Backups | Derived AI data | Anonymized analytics |
+|---|---|---|---|---|---|
+| Food logs | While account active | Deleted | Purged ≤ 30 days | Deleted | May survive |
+| Weight / measurements | While account active | Deleted | Purged ≤ 30 days | Deleted | May survive |
+| Mood entries | While account active | Deleted | Purged ≤ 30 days | Deleted | No |
+| HealthKit imports | While account active | Deleted | Purged ≤ 30 days | Deleted | No |
+| Progress photos/videos | While account active | Deleted (storage + rows) | Purged ≤ 30 days | Deleted | No |
+| AI conversations | 12 months rolling | Deleted | Purged ≤ 30 days | Deleted | May survive |
+| AI execution logs (raw prompts/outputs) | **90 days** then purged | Deleted | Purged ≤ 30 days | n/a | Aggregates only |
+| Coach notes | While relationship active + 12 months | Deleted | Purged ≤ 30 days | Deleted | No |
+| Messages | While account active | Deleted; peer copies anonymized | Purged ≤ 30 days | Deleted | No |
+| Audit logs | 24 months (compliance) | Retained, actor pseudonymized | Standard | n/a | Yes |
+| Billing records | Legal minimum (tax/accounting) | Retained as required by law | Standard | n/a | Yes |
+
+**AI observability retention:** conversation history (product feature) is
+distinct from AI execution logs (debugging). Raw prompts may contain sensitive
+health information and must not be stored indefinitely — 90-day purge is
+mandatory; long-term AI quality analysis uses aggregated/anonymized metrics
+only.
+
 ---
 
 # 71. Security Requirements
@@ -3167,8 +3894,8 @@ Cannot modify application code without approval.
 Owns:
 
 ```text
-supabase/
-packages/api-contracts
+supabase/            (migrations, seed)
+src/lib/api/         (API contracts & server logic)
 ```
 
 ## Agent C — AI
@@ -3176,8 +3903,8 @@ packages/api-contracts
 Owns:
 
 ```text
-packages/ai
-supabase/functions/ai*
+supabase/functions/  (ai-gateway, food-scan, insights, agora-token)
+src/lib/ai/
 ```
 
 ## Agent D — iOS
@@ -3185,7 +3912,7 @@ supabase/functions/ai*
 Owns:
 
 ```text
-apps/ios
+veralify-App/
 ```
 
 ## Agent E — Web
@@ -3193,8 +3920,12 @@ apps/ios
 Owns:
 
 ```text
-apps/web
+src/                 (Next.js app — pages, components, emails)
 ```
+
+Paths match the **current repository layout** (§72). If the repo later evolves
+into a monorepo (post-Phase-13), remap ownership in the same PR that moves the
+code — ownership must never reference directories that do not exist.
 
 ## Agent F — QA/Security
 
@@ -3204,7 +3935,38 @@ Cannot make architectural changes without an issue/approval.
 
 ---
 
-# 75. Implementation Order
+# 75. Implementation Order — Parallel Workstreams
+
+The build is **not sequential**. After the contracts are frozen
+(schema + RLS matrix + API contracts + AI tool contract + entitlement keys),
+workstreams run in parallel:
+
+```text
+               ARCHITECTURE (contracts frozen)
+                    │
+          ┌─────────┼──────────┐
+          ↓         ↓          ↓
+       Backend      AI        Design
+     (DB, RLS,   (gateway,   (design
+      auth,       food        system,
+      billing)    pipeline,   screens)
+          │       insights)     │
+          └────┬────┴──────┬───┘
+               ↓           ↓
+             iOS          Web
+               │           │
+               └─────┬─────┘
+                     ↓
+               Integration
+                     ↓
+              Security / QA
+                     ↓
+                  Launch
+```
+
+Phases 1–13 below define scope and acceptance per workstream — they are
+dependency groups, not a strict serial order. A workstream may start as soon as
+the contracts it consumes are frozen.
 
 ## Phase 0 — Repository
 
@@ -3278,22 +4040,23 @@ Authentication must be complete before social functionality.
 
 # 78. Phase 3 — Entitlements
 
-Build Stripe integration before premium features.
+Build **both commerce rails** before premium features.
 
 Order:
 
 ```text
-Stripe products
+Stripe products + StoreKit products (mirrored)
 → features
 → product-feature mapping
-→ checkout
-→ webhook
-→ local subscription
-→ local entitlements
-→ entitlement middleware
+→ Stripe checkout (web) + StoreKit purchase flow (iOS)
+→ Stripe webhook + Apple App Store Server Notifications
+→ local subscription + iap_transactions
+→ normalized user_entitlements (source: apple | stripe)
+→ entitlement middleware (server) + entitlement client state
 ```
 
 Do not build Pro-only screens before entitlement infrastructure works.
+Never bill iOS digital features through Stripe (§34).
 
 ---
 
@@ -3428,29 +4191,31 @@ coach profiles
 
 # 86. Phase 11 — iOS
 
-Build in this order:
+Build in this order (entitlements early — premium gating affects AI usage,
+groups, progress, analytics, coaching and live features; it must not be bolted
+on at the end):
 
 ```text
 1. App shell
 2. Auth
-3. Onboarding
-4. Home
-5. Track
-6. Food
-7. AI food camera
-8. Goals
-9. Progress
-10. Connect
-11. Groups
-12. Posts
-13. Chat
-14. Live
-15. Coaching
-16. Camera/Create
-17. Profile
-18. Notifications
-19. HealthKit
-20. Subscription
+3. Entitlements + StoreKit subscription layer
+4. Onboarding
+5. Home
+6. Track
+7. Food
+8. AI food camera
+9. Goals
+10. Progress
+11. Connect
+12. Groups
+13. Posts
+14. Chat
+15. Live
+16. Coaching
+17. Camera/Create
+18. Profile
+19. Notifications
+20. HealthKit
 ```
 
 ---
@@ -3804,6 +4569,8 @@ Vercel
 ```text
 OpenRouter
 Agora RTC
+StoreKit 2 (iOS digital subscriptions)
+Stripe Connect (coach marketplace)
 Sentry
 PostHog
 pgvector
@@ -3841,6 +4608,8 @@ use Agora as the application database
 allow AI direct SQL access
 bypass RLS
 trust client-side subscription state
+sell iOS digital features through Stripe (IAP required)
+let AI compute final nutrition numbers (nutrition engine does)
 expose secrets
 make progress/health data public by default
 ```
