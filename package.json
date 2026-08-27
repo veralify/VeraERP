@@ -11,7 +11,8 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check . && tsc --noEmit",
-    "email": "email dev --dir src/emails --port 3030"
+    "email": "email dev --dir src/emails --port 3030",
+    "validate:env": "node scripts/validate-env.mjs"
   },
   "dependencies": {
     "@react-email/components": "^1.0.12",

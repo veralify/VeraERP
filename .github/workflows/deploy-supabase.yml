@@ -1,0 +1,44 @@
+name: Deploy Supabase
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Push database and deploy functions
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Require deployment secrets
+        run: |
+          missing=0
+          for name in SUPABASE_ACCESS_TOKEN SUPABASE_DB_PASSWORD SUPABASE_PROJECT_REF; do
+            if [ -z "${!name}" ]; then
+              echo "Missing required GitHub secret: $name"
+              missing=1
+            fi
+          done
+          exit "$missing"
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+
+      - name: Link project
+        run: supabase link --project-ref "$SUPABASE_PROJECT_REF"
+
+      - name: Push database migrations
+        run: supabase db push --password "$SUPABASE_DB_PASSWORD"
+
+      - name: Deploy Edge Functions
+        run: |
+          for dir in supabase/functions/*; do
+            if [ -f "$dir/index.ts" ]; then
+              supabase functions deploy "$(basename "$dir")"
+            fi
+          done

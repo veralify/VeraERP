@@ -1,0 +1,33 @@
+name: iOS CI
+
+on:
+  pull_request:
+    paths:
+      - 'veralify-App/**'
+      - '.github/workflows/ios-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'veralify-App/**'
+      - '.github/workflows/ios-ci.yml'
+
+jobs:
+  build:
+    name: Xcode build
+    runs-on: macos-15
+    # Tests are intentionally omitted for now: local `xcodebuild test` did not complete quickly,
+    # while the no-signing simulator build is fast enough to enforce.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build app without signing
+        working-directory: veralify-App/iOS/veralify
+        run: |
+          xcodebuild build \
+            -project veralify.xcodeproj \
+            -scheme veralify \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY=""

@@ -1,0 +1,48 @@
+name: Database CI
+
+on:
+  pull_request:
+    paths:
+      - 'supabase/**'
+      - '.github/workflows/db-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/**'
+      - '.github/workflows/db-ci.yml'
+
+jobs:
+  migrations:
+    name: Supabase migrations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+
+      - name: Start local database
+        run: supabase db start
+
+      - name: Reset local database from migrations
+        run: supabase db reset --local
+
+      - name: Run database tests when present
+        run: |
+          if [ -d supabase/tests ] && find supabase/tests -type f | grep -q .; then
+            supabase test db
+          else
+            echo "No supabase/tests files found; skipping database tests."
+          fi
+
+      - name: Lint database schema
+        run: |
+          set +e
+          supabase db lint --local --level warning
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            echo "Warning-level lint returned non-zero; enforcing error-level lint so warnings stay non-blocking."
+            supabase db lint --local --level error
+          fi

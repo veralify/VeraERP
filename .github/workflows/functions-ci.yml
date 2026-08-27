@@ -1,0 +1,39 @@
+name: Edge Functions CI
+
+on:
+  pull_request:
+    paths:
+      - 'supabase/functions/**'
+      - '.github/workflows/functions-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/functions/**'
+      - '.github/workflows/functions-ci.yml'
+
+jobs:
+  functions:
+    name: Deno checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Format check
+        run: deno fmt --check supabase/functions
+
+      - name: Lint functions
+        run: deno lint supabase/functions
+
+      - name: Run function tests when present
+        run: |
+          if find supabase/functions -type f \( -name '*_test.ts' -o -name '*.test.ts' \) | grep -q .; then
+            deno test --allow-env --allow-net --allow-read supabase/functions
+          else
+            echo "No Edge Function test files found; skipping deno test."
+          fi
