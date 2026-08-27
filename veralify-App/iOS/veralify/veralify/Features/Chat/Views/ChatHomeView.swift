@@ -39,7 +39,7 @@ struct ChatHomeView: View {
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.sparkleGradient)
 
-            Text("What are you planning today?")
+            Text("What are you building today?")
                 .font(.title3)
                 .foregroundStyle(.secondary)
         }
@@ -48,10 +48,10 @@ struct ChatHomeView: View {
     private var quickActions: some View {
         GlassEffectContainer(spacing: 10) {
             HStack(spacing: 10) {
-                QuickActionPill(icon: "message.fill", tint: AppTheme.ink, title: "Ask Concierge") {
+                QuickActionPill(icon: "message.fill", tint: AppTheme.ink, title: "Ask Coach") {
                     path.append("")
                 }
-                QuickActionPill(icon: "mic.fill", tint: AppTheme.accent, title: "Voice Search") {
+                QuickActionPill(icon: "mic.fill", tint: AppTheme.accent, title: "Voice Note") {
                     path.append("")
                 }
             }
@@ -95,14 +95,14 @@ struct ChatHomeView: View {
     }
 
     private static let suggestionCards: [SuggestionCard] = [
-        SuggestionCard(icon: "airplane", tint: AppTheme.ink, title: "Search Flights", subtitle: "Compare fares to your next destination", prompt: "Search flights to Lisbon"),
-        SuggestionCard(icon: "simcard.2.fill", tint: AppTheme.accent, title: "Find eSIM Plans", subtitle: "Best data packages for where you're headed", prompt: "Find eSIM plans for Japan")
+        SuggestionCard(icon: "figure.strengthtraining.traditional", tint: AppTheme.ink, title: "Plan a Workout", subtitle: "Training guidance lands later", prompt: "Plan a strength workout"),
+        SuggestionCard(icon: "fork.knife", tint: AppTheme.accent, title: "Improve Nutrition", subtitle: "Food and macro coaching lands later", prompt: "Help me hit my protein goal")
     ]
 
     private static let recentPromptExamples = [
-        "Best data plan for a Europe road trip",
-        "Compare eSIM prices for Southeast Asia",
-        "Find me a cheap flight to Barcelona next month"
+        "How should I start tracking meals?",
+        "What progress photos should I take?",
+        "How can I build consistency this week?"
     ]
 }
 

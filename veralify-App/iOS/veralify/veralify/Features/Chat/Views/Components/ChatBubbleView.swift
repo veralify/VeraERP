@@ -43,10 +43,6 @@ struct ChatBubbleView: View, Equatable {
                     }
                 }
 
-                ForEach(message.attachments) { attachment in
-                    attachmentView(for: attachment)
-                }
-
                 if message.isStreaming {
                     HStack(spacing: 6) {
                         Image("VeralifyLogo")
@@ -72,16 +68,6 @@ struct ChatBubbleView: View, Equatable {
             if !isUser { Spacer(minLength: 24) }
         }
         .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
-    }
-
-    @ViewBuilder
-    private func attachmentView(for attachment: ChatAttachment) -> some View {
-        switch attachment.kind {
-        case .flight(let flight):
-            FlightCardView(flight: flight)
-        case .esim(let esim):
-            eSIMCardView(plan: esim)
-        }
     }
 
     private func markdownText(from source: String) -> AttributedString {

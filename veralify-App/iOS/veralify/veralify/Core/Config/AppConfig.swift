@@ -2,13 +2,11 @@ import Foundation
 
 enum AppConfig {
     // MARK: - Veralify Backend Gateway
-    // All LLM and partner API calls are routed through this backend.
-    // Never place raw OpenAI, Duffel, or eSIM provider API keys in iOS code.
+    // All LLM, purchase validation, and partner API calls route through the backend.
     #if DEBUG
-    // Local Next.js gateway for simulator testing (pnpm dev on port 3000).
     static let backendGatewayBaseURL = "http://127.0.0.1:3000/api/v1"
     #else
-    static let backendGatewayBaseURL = "https://api.veralify.com/v1"
+    static let backendGatewayBaseURL = "https://api.veralify.com/api/v1"
     #endif
     static let useMockGatewayResponses = true
 
@@ -17,17 +15,19 @@ enum AppConfig {
     static let supabaseAnonKey = "sb_publishable_pMSKTLquLKtd2VVWUYAI2Q_5iHOKn2b"
     static let appBundleID = "com.veralify.app"
 
-    // MARK: - eSIM Go API
-    // Docs: https://docs.esim-go.com
-    // Create your account and API key in https://portal.esim-go.com
-    static let esimGoBaseURL = "https://api.esim-go.com/v2.4"
-    static let esimGoAPIKey = "YOUR_ESIMGO_API_KEY"
-    // Optional: set if you manage multiple branding profiles in eSIM Go
-    static let esimGoBrandingProfileID = ""
+    // MARK: - StoreKit Subscriptions
+    // Configure matching auto-renewable subscriptions in App Store Connect before release.
+    enum SubscriptionProductID {
+        static let proWeekly = "veralify.pro.weekly"
+        static let proMonthly = "veralify.pro.monthly"
+        static let proAnnual = "veralify.pro.annual"
+        static let coachMonthly = "veralify.coach.monthly"
+
+        static let pro: [String] = [proWeekly, proMonthly, proAnnual]
+        static let all: [String] = [proWeekly, proMonthly, proAnnual, coachMonthly]
+    }
 
     // MARK: - Film StoreKit Product IDs
-    // One-time purchase per film. Tiers are based on maximum group size.
-    // Configure matching products in App Store Connect before shipping.
     enum FilmProductID {
         static let upTo5   = "com.veralify.app.film.5"
         static let upTo10  = "com.veralify.app.film.10"
@@ -54,9 +54,5 @@ enum AppConfig {
 
     // MARK: - App
     static let appName = "Veralify"
-    static let appTagline = "Stay Connected Everywhere"
-
-    // MARK: - eSIM Branding
-    // This name appears on the eSIM profile in iOS Settings after installation.
-    static let eSIMBrandName = "Veralify"
+    static let appTagline = "Track. Connect. Transform."
 }

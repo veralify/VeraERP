@@ -79,25 +79,49 @@ actor BackendService {
         }
     }
 
+    func validateIAPTransaction(_ payload: IAPValidationPayload) async throws {
+        var request = URLRequest(url: baseURL.appending(path: "iap/validate"))
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try encoder.encode(payload)
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        try validateResponse(response, data: responseData)
+    }
+
     private func streamMockResponse(
         prompt: String,
         agentID: String,
         continuation: AsyncThrowingStream<String, Error>.Continuation
     ) async throws {
+        _ = agentID
         let lowerPrompt = prompt.lowercased()
         let mockText: String
 
-        if agentID == VeralifyAgentID.flightOTA.rawValue || lowerPrompt.contains("flight") {
-            mockText = "I can help compare premium fares and highlight the best-value itinerary for your trip."
-        } else if agentID == VeralifyAgentID.esim.rawValue || lowerPrompt.contains("esim") {
-            mockText = "I found flexible eSIM data packages with instant activation and strong roaming coverage."
+        if lowerPrompt.contains("food") || lowerPrompt.contains("meal") {
+            mockText = "Food logging arrives in a later phase. For now, your nutrition data will appear in Track after implementation."
+        } else if lowerPrompt.contains("coach") || lowerPrompt.contains("progress") {
+            mockText = "Veralify Coach and progress insights are planned for later phases. Entitlements are already wired to the backend source of truth."
         } else {
-            mockText = "Welcome to Veralify Concierge. Ask me for flights, eSIM plans, or local travel tips."
+            mockText = "Welcome to Veralify. Track, connect, and transform with fitness insights as upcoming phases come online."
         }
 
         for token in mockText.split(separator: " ", omittingEmptySubsequences: true) {
             continuation.yield(String(token) + " ")
             try await Task.sleep(for: .milliseconds(55))
+        }
+    }
+
+    private func validateResponse(_ response: URLResponse, data: Data) throws {
+        guard let http = response as? HTTPURLResponse else { throw APIError.unknown }
+        switch http.statusCode {
+        case 200...299:
+            return
+        case 401:
+            throw APIError.unauthorized
+        case 404:
+            throw APIError.notFound
+        default:
+            throw APIError.httpError(statusCode: http.statusCode, message: String(data: data, encoding: .utf8))
         }
     }
 }

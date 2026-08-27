@@ -1,13 +1,13 @@
 import Foundation
 import Combine
 
-// Extracted from ProfileViewModel to avoid Swift type-checker issues in async context
 private struct DisplayNamePayload: Encodable {
     let display_name: String
 }
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
+    @Published var authUser: AuthUser?
     @Published var currentUser: VeraUser?
     @Published var displayName = ""
     @Published var isLoading = false
@@ -18,10 +18,12 @@ final class ProfileViewModel: ObservableObject {
     private let supabase = SupabaseClient.shared
 
     func load() async {
-        guard let authUser = try? await supabase.getUser() else { return }
         isLoading = true
+        defer { isLoading = false }
 
         do {
+            let authUser = try await supabase.getUser()
+            self.authUser = authUser
             let users: [VeraUser] = try await supabase.select(
                 from: "vera_users",
                 filters: ["id": authUser.id]
@@ -33,13 +35,12 @@ final class ProfileViewModel: ObservableObject {
         } catch {
             errorMessage = error.localizedDescription
         }
-
-        isLoading = false
     }
 
     func saveProfile() async {
         guard let user = currentUser else { return }
         isSaving = true
+        defer { isSaving = false }
 
         do {
             let payload = DisplayNamePayload(display_name: displayName)
@@ -56,8 +57,6 @@ final class ProfileViewModel: ObservableObject {
         } catch {
             errorMessage = error.localizedDescription
         }
-
-        isSaving = false
     }
 
     func signOut() async {

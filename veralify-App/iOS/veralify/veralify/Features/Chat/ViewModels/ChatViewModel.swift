@@ -52,15 +52,6 @@ final class ChatViewModel: ObservableObject {
         switch event {
         case .textDelta(let delta):
             appendText(delta, to: assistantID)
-        case .flightOptions(let flights):
-            appendAttachments(flights.map(ChatAttachment.flight), to: assistantID)
-        case .esimCatalog(let catalog):
-            appendAttachments(catalog.map(ChatAttachment.esim), to: assistantID)
-        case .checkout(let receipt):
-            appendText(
-                "\n\n✅ Checkout authorized: **\(receipt.formattedAmount) \(receipt.currency)** (\(receipt.serviceType)).",
-                to: assistantID
-            )
         }
     }
 
@@ -77,11 +68,6 @@ final class ChatViewModel: ObservableObject {
         }
     }
 
-    private func appendAttachments(_ attachments: [ChatAttachment], to id: UUID) {
-        updateMessage(id: id) { message in
-            message.attachments.append(contentsOf: attachments)
-        }
-    }
 
     private func updateMessage(id: UUID, mutate: (inout ChatMessage) -> Void) {
         guard let index = messages.firstIndex(where: { $0.id == id }) else { return }

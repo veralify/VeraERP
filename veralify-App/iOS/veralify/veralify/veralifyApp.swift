@@ -1,16 +1,15 @@
-//
-//  veralifyApp.swift
-//  veralify
-//
-//  Created by Abdelrahman Abdelwahab on 01/07/2026.
-//
-
 import SwiftUI
 
 @main
 struct veralifyApp: App {
     @StateObject private var localization = LocalizationManager.shared
     @StateObject private var filmViewModel = FilmViewModel()
+
+    init() {
+        Task { @MainActor in
+            StoreKitManager.shared.startTransactionListener()
+        }
+    }
 
     var body: some Scene {
         WindowGroup {

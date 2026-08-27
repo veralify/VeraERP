@@ -1,61 +1,79 @@
 import SwiftUI
 
-/// Floating pill-shaped bottom navigation bar. Replaces the old hamburger
-/// side drawer with a single persistent surface for switching between the
-/// app's main destinations, similar to modern AI-assistant apps.
 struct FloatingNavBar: View {
     @Binding var selection: AppTab
+    let createAction: () -> Void
 
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(AppTab.allCases) { tab in
-                Button(action: { selection = tab }) {
-                    VStack(spacing: 4) {
-                        Image(systemName: tab.systemImage)
-                            .font(.system(size: 18, weight: .semibold))
-                        Text(tab.titleKey)
-                            .font(.caption2.weight(.medium))
-                    }
-                    .foregroundStyle(selection == tab ? AppTheme.accent : .secondary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel(Text(tab.titleKey))
-            }
+            tabButton(.home)
+            tabButton(.track)
+            createButton
+            tabButton(.connect)
+            tabButton(.profile)
         }
-        .padding(.horizontal, 8)
-        .glassEffect(.regular, in: .capsule)
-        .padding(.horizontal, 20)
+        .padding(.horizontal, VeraTokens.Spacing._2)
+        .padding(.vertical, VeraTokens.Spacing._2)
+        .background(.ultraThinMaterial, in: Capsule())
+        .overlay(Capsule().stroke(VeraTokens.Colors.glassBorder, lineWidth: VeraTokens.Borders.`default`))
+        .shadow(color: .black.opacity(0.12), radius: 20, x: 0, y: 10)
+        .padding(.horizontal, VeraTokens.Spacing._5)
+    }
+
+    private func tabButton(_ tab: AppTab) -> some View {
+        Button { selection = tab } label: {
+            VStack(spacing: 4) {
+                Image(systemName: tab.systemImage)
+                    .font(.system(size: 18, weight: .semibold))
+                Text(tab.title)
+                    .font(.caption2.weight(.medium))
+            }
+            .foregroundStyle(selection == tab ? VeraTokens.Colors.primary : VeraTokens.Colors.fgMuted)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: VeraTokens.SafeArea.minimumHitTarget)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(tab.title))
+    }
+
+    private var createButton: some View {
+        Button(action: createAction) {
+            Image(systemName: "plus")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundStyle(VeraTokens.Colors.onPrimary)
+                .frame(width: 56, height: 56)
+                .background(Circle().fill(VeraTokens.Colors.primary.gradient))
+                .overlay(Circle().stroke(VeraTokens.Colors.glassBorder, lineWidth: VeraTokens.Borders.`default`))
+                .shadow(color: VeraTokens.Colors.primary.opacity(0.3), radius: 12, x: 0, y: 6)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Create")
     }
 }
 
 enum AppTab: CaseIterable, Identifiable {
     case home
-    case explore
-    case films
-    case esims
+    case track
+    case connect
     case profile
 
     var id: Self { self }
 
-    var titleKey: LocalizedStringKey {
+    var title: LocalizedStringKey {
         switch self {
-        case .home:    return "Home"
-        case .explore: return "Explore"
-        case .films:   return "Films"
-        case .esims:   return "My eSIMs"
+        case .home: return "Home"
+        case .track: return "Track"
+        case .connect: return "Connect"
         case .profile: return "Profile"
         }
     }
 
     var systemImage: String {
         switch self {
-        case .home:    return "house.fill"
-        case .explore: return "globe"
-        case .films:   return "camera.aperture"
-        case .esims:   return "simcard.2.fill"
+        case .home: return "house.fill"
+        case .track: return "chart.line.uptrend.xyaxis"
+        case .connect: return "person.2.fill"
         case .profile: return "person.crop.circle.fill"
         }
     }

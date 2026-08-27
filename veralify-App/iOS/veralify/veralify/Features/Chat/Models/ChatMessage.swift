@@ -26,11 +26,8 @@ extension ChatMessage {
     static let conciergeGreeting = ChatMessage(
         role: .assistant,
         text: """
-        **Welcome to Veralify Concierge.**
-        I can help with:
-        - Flight search and booking support
-        - Global eSIM package recommendations
-        - Premium travel guidance
+        **Welcome to Veralify Coach.**
+        Fitness AI chat is not on the active tab surface yet. The generic chat components are preserved for the future coach experience.
         """
     )
 

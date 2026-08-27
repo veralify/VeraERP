@@ -74,7 +74,7 @@ struct ChatView: View {
                 .accessibilityLabel("Add attachment")
 
                 TextField(
-                    "Ask about flights, eSIM plans, or destinations…",
+                    "Ask about training, meals, or progress…",
                     text: $viewModel.draft,
                     axis: .vertical
                 )

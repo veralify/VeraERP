@@ -1,47 +1,33 @@
 import SwiftUI
 
-/// App shell: switches between the four main destinations, with a floating
-/// pill-shaped bottom nav bar instead of a system tab bar or side drawer.
 struct ContentView: View {
-    @State private var selectedTab: AppTab = .home
-    @State private var homePath: [String] = []
-    @ObservedObject private var navVisibility = NavigationVisibilityTracker.shared
-    @EnvironmentObject private var localization: LocalizationManager
-
-    private var isNavBarHidden: Bool {
-        navVisibility.pushedScreenCount > 0
-    }
+    @ObservedObject private var supabase = SupabaseClient.shared
+    @State private var entitlementStore = EntitlementStore.shared
+    @State private var storeKitManager = StoreKitManager.shared
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Group {
-                switch selectedTab {
-                case .home:
-                    ChatHomeView(path: $homePath)
-                case .explore:
-                    ExploreView()
-                case .films:
-                    FilmsHomeView()
-                case .esims:
-                    MyESIMsView()
-                case .profile:
-                    ProfileView()
-                }
-            }
-            .ignoresSafeArea(.keyboard)
-            .id(localization.language)
-
-            if !isNavBarHidden {
-                FloatingNavBar(selection: $selectedTab)
-                    .padding(.bottom, 8)
-                    .transition(.opacity)
+        Group {
+            if supabase.isAuthenticated {
+                AppShellView()
+                    .environment(entitlementStore)
+                    .environment(storeKitManager)
+            } else {
+                LoginView()
             }
         }
-        .animation(.easeInOut(duration: 0.2), value: isNavBarHidden)
-        .tint(AppTheme.accent)
+        .tint(VeraTokens.Colors.primary)
+        .task {
+            guard supabase.isAuthenticated else { return }
+            await entitlementStore.refreshIfNeeded()
+            await storeKitManager.loadProducts()
+            await storeKitManager.restoreCurrentEntitlements()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            guard newPhase == .active, supabase.isAuthenticated else { return }
+            Task { await entitlementStore.refresh() }
+        }
     }
 }
 
-#Preview {
-    ContentView()
-}
+#Preview { ContentView() }
