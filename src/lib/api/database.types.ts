@@ -88,6 +88,479 @@ export type Database = {
           },
         ]
       }
+      ai_conversations: {
+        Row: {
+          created_at: string
+          id: string
+          title: string | null
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string | null
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string | null
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_conversations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_conversations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_feedback: {
+        Row: {
+          ai_request_id: string
+          created_at: string
+          feedback: string | null
+          id: string
+          rating: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_request_id: string
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          rating?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_request_id?: string
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          rating?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_feedback_ai_request_id_fkey"
+            columns: ["ai_request_id"]
+            isOneToOne: false
+            referencedRelation: "ai_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_feedback_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_feedback_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_food_estimates: {
+        Row: {
+          confidence: number | null
+          corrected_by_user: boolean
+          created_at: string
+          food_log_id: string | null
+          id: string
+          image_path: string | null
+          model: string
+          result: Json
+          updated_at: string
+          user_id: string
+          verified: boolean
+        }
+        Insert: {
+          confidence?: number | null
+          corrected_by_user?: boolean
+          created_at?: string
+          food_log_id?: string | null
+          id?: string
+          image_path?: string | null
+          model: string
+          result: Json
+          updated_at?: string
+          user_id: string
+          verified?: boolean
+        }
+        Update: {
+          confidence?: number | null
+          corrected_by_user?: boolean
+          created_at?: string
+          food_log_id?: string | null
+          id?: string
+          image_path?: string | null
+          model?: string
+          result?: Json
+          updated_at?: string
+          user_id?: string
+          verified?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_food_estimates_food_log_id_fkey"
+            columns: ["food_log_id"]
+            isOneToOne: false
+            referencedRelation: "food_logs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_food_estimates_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_food_estimates_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_insights: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          model: string
+          source_data: Json
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+          valid_until: string | null
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          model: string
+          source_data?: Json
+          title: string
+          type: string
+          updated_at?: string
+          user_id: string
+          valid_until?: string | null
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          model?: string
+          source_data?: Json
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+          valid_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_insights_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_insights_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_messages: {
+        Row: {
+          content: Json
+          conversation_id: string
+          created_at: string
+          id: string
+          model: string | null
+          role: Database["public"]["Enums"]["ai_message_role"]
+          updated_at: string
+        }
+        Insert: {
+          content: Json
+          conversation_id: string
+          created_at?: string
+          id?: string
+          model?: string | null
+          role: Database["public"]["Enums"]["ai_message_role"]
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          model?: string | null
+          role?: Database["public"]["Enums"]["ai_message_role"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_model_runs: {
+        Row: {
+          ai_request_id: string
+          created_at: string
+          estimated_cost: number | null
+          id: string
+          input_tokens: number
+          latency_ms: number | null
+          model: string
+          model_policy_version: string
+          output_tokens: number
+          prompt_version: string
+          provider: string
+          reasoning_tokens: number | null
+          safety_policy_version: string
+          structured_output_valid: boolean
+          success: boolean
+          tool_schema_version: string
+          updated_at: string
+        }
+        Insert: {
+          ai_request_id: string
+          created_at?: string
+          estimated_cost?: number | null
+          id?: string
+          input_tokens?: number
+          latency_ms?: number | null
+          model: string
+          model_policy_version: string
+          output_tokens?: number
+          prompt_version: string
+          provider: string
+          reasoning_tokens?: number | null
+          safety_policy_version: string
+          structured_output_valid?: boolean
+          success: boolean
+          tool_schema_version: string
+          updated_at?: string
+        }
+        Update: {
+          ai_request_id?: string
+          created_at?: string
+          estimated_cost?: number | null
+          id?: string
+          input_tokens?: number
+          latency_ms?: number | null
+          model?: string
+          model_policy_version?: string
+          output_tokens?: number
+          prompt_version?: string
+          provider?: string
+          reasoning_tokens?: number | null
+          safety_policy_version?: string
+          structured_output_valid?: boolean
+          success?: boolean
+          tool_schema_version?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_model_runs_ai_request_id_fkey"
+            columns: ["ai_request_id"]
+            isOneToOne: false
+            referencedRelation: "ai_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_recommendations: {
+        Row: {
+          created_at: string
+          dismissed_at: string | null
+          id: string
+          model: string
+          reason: string
+          recommendation_type: string
+          score: number
+          target_id: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          dismissed_at?: string | null
+          id?: string
+          model: string
+          reason: string
+          recommendation_type: string
+          score: number
+          target_id?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          dismissed_at?: string | null
+          id?: string
+          model?: string
+          reason?: string
+          recommendation_type?: string
+          score?: number
+          target_id?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_recommendations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_recommendations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_requests: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          fallback_used: boolean
+          id: string
+          model_requested: string | null
+          model_used: string | null
+          request_id: string
+          status: Database["public"]["Enums"]["ai_request_status"]
+          task: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          fallback_used?: boolean
+          id?: string
+          model_requested?: string | null
+          model_used?: string | null
+          request_id: string
+          status?: Database["public"]["Enums"]["ai_request_status"]
+          task: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          fallback_used?: boolean
+          id?: string
+          model_requested?: string | null
+          model_used?: string | null
+          request_id?: string
+          status?: Database["public"]["Enums"]["ai_request_status"]
+          task?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_tool_calls: {
+        Row: {
+          ai_request_id: string
+          arguments: Json
+          created_at: string
+          id: string
+          result: Json | null
+          success: boolean
+          tool_name: string
+          updated_at: string
+        }
+        Insert: {
+          ai_request_id: string
+          arguments?: Json
+          created_at?: string
+          id?: string
+          result?: Json | null
+          success: boolean
+          tool_name: string
+          updated_at?: string
+        }
+        Update: {
+          ai_request_id?: string
+          arguments?: Json
+          created_at?: string
+          id?: string
+          result?: Json | null
+          success?: boolean
+          tool_name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_tool_calls_ai_request_id_fkey"
+            columns: ["ai_request_id"]
+            isOneToOne: false
+            referencedRelation: "ai_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_usage_logs: {
         Row: {
           completion_tokens: number
@@ -180,6 +653,47 @@ export type Database = {
             columns: ["actor_id"]
             isOneToOne: false
             referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_products: {
+        Row: {
+          billing_period: Database["public"]["Enums"]["billing_period"]
+          created_at: string
+          id: string
+          is_active: boolean
+          plan_id: string
+          provider: Database["public"]["Enums"]["billing_provider"]
+          provider_product_id: string
+          updated_at: string
+        }
+        Insert: {
+          billing_period: Database["public"]["Enums"]["billing_period"]
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          plan_id: string
+          provider: Database["public"]["Enums"]["billing_provider"]
+          provider_product_id: string
+          updated_at?: string
+        }
+        Update: {
+          billing_period?: Database["public"]["Enums"]["billing_period"]
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          plan_id?: string
+          provider?: Database["public"]["Enums"]["billing_provider"]
+          provider_product_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_products_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
             referencedColumns: ["id"]
           },
         ]
@@ -278,6 +792,569 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_availability: {
+        Row: {
+          coach_id: string
+          created_at: string
+          day_of_week: number
+          end_time: string
+          id: string
+          is_active: boolean
+          start_time: string
+          timezone: string
+          updated_at: string
+        }
+        Insert: {
+          coach_id: string
+          created_at?: string
+          day_of_week: number
+          end_time: string
+          id?: string
+          is_active?: boolean
+          start_time: string
+          timezone: string
+          updated_at?: string
+        }
+        Update: {
+          coach_id?: string
+          created_at?: string
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          is_active?: boolean
+          start_time?: string
+          timezone?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_availability_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_client_permissions: {
+        Row: {
+          activity: boolean
+          client_id: string
+          coach_id: string
+          created_at: string
+          goals: boolean
+          measurements: boolean
+          mood: boolean
+          nutrition: boolean
+          progress_photos: boolean
+          updated_at: string
+          weight: boolean
+        }
+        Insert: {
+          activity?: boolean
+          client_id: string
+          coach_id: string
+          created_at?: string
+          goals?: boolean
+          measurements?: boolean
+          mood?: boolean
+          nutrition?: boolean
+          progress_photos?: boolean
+          updated_at?: string
+          weight?: boolean
+        }
+        Update: {
+          activity?: boolean
+          client_id?: string
+          coach_id?: string
+          created_at?: string
+          goals?: boolean
+          measurements?: boolean
+          mood?: boolean
+          nutrition?: boolean
+          progress_photos?: boolean
+          updated_at?: string
+          weight?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_client_permissions_coach_id_client_id_fkey"
+            columns: ["coach_id", "client_id"]
+            isOneToOne: true
+            referencedRelation: "coach_clients"
+            referencedColumns: ["coach_id", "client_id"]
+          },
+        ]
+      }
+      coach_clients: {
+        Row: {
+          client_id: string
+          coach_id: string
+          created_at: string
+          ended_at: string | null
+          started_at: string
+          status: Database["public"]["Enums"]["coach_client_status"]
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          coach_id: string
+          created_at?: string
+          ended_at?: string | null
+          started_at?: string
+          status?: Database["public"]["Enums"]["coach_client_status"]
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          coach_id?: string
+          created_at?: string
+          ended_at?: string | null
+          started_at?: string
+          status?: Database["public"]["Enums"]["coach_client_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_clients_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_clients_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_clients_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_payouts: {
+        Row: {
+          amount_cents: number
+          coach_id: string
+          created_at: string
+          currency: string
+          id: string
+          idempotency_key_id: string | null
+          period_end: string
+          period_start: string
+          status: Database["public"]["Enums"]["coach_payout_status"]
+          stripe_payout_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          coach_id: string
+          created_at?: string
+          currency: string
+          id?: string
+          idempotency_key_id?: string | null
+          period_end: string
+          period_start: string
+          status: Database["public"]["Enums"]["coach_payout_status"]
+          stripe_payout_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          coach_id?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          idempotency_key_id?: string | null
+          period_end?: string
+          period_start?: string
+          status?: Database["public"]["Enums"]["coach_payout_status"]
+          stripe_payout_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_payouts_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_payouts_idempotency_key_id_fkey"
+            columns: ["idempotency_key_id"]
+            isOneToOne: false
+            referencedRelation: "idempotency_keys"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_platform_fees: {
+        Row: {
+          coach_id: string
+          created_at: string
+          effective_from: string
+          id: string
+          percentage: number
+          updated_at: string
+        }
+        Insert: {
+          coach_id: string
+          created_at?: string
+          effective_from: string
+          id?: string
+          percentage: number
+          updated_at?: string
+        }
+        Update: {
+          coach_id?: string
+          created_at?: string
+          effective_from?: string
+          id?: string
+          percentage?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_platform_fees_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_profiles: {
+        Row: {
+          bio: string | null
+          certifications: Json
+          created_at: string
+          currency: string
+          headline: string | null
+          hourly_rate: number | null
+          id: string
+          location: string | null
+          online_only: boolean
+          rating: number
+          review_count: number
+          specialties: string[]
+          updated_at: string
+          verification_status: Database["public"]["Enums"]["coach_verification_status"]
+          years_experience: number | null
+        }
+        Insert: {
+          bio?: string | null
+          certifications?: Json
+          created_at?: string
+          currency?: string
+          headline?: string | null
+          hourly_rate?: number | null
+          id: string
+          location?: string | null
+          online_only?: boolean
+          rating?: number
+          review_count?: number
+          specialties?: string[]
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["coach_verification_status"]
+          years_experience?: number | null
+        }
+        Update: {
+          bio?: string | null
+          certifications?: Json
+          created_at?: string
+          currency?: string
+          headline?: string | null
+          hourly_rate?: number | null
+          id?: string
+          location?: string | null
+          online_only?: boolean
+          rating?: number
+          review_count?: number
+          specialties?: string[]
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["coach_verification_status"]
+          years_experience?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_reviews: {
+        Row: {
+          client_id: string
+          coach_id: string
+          created_at: string
+          id: string
+          rating: number
+          review: string | null
+          status: Database["public"]["Enums"]["coach_review_status"]
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          coach_id: string
+          created_at?: string
+          id?: string
+          rating: number
+          review?: string | null
+          status?: Database["public"]["Enums"]["coach_review_status"]
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          coach_id?: string
+          created_at?: string
+          id?: string
+          rating?: number
+          review?: string | null
+          status?: Database["public"]["Enums"]["coach_review_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_reviews_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_reviews_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_reviews_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_sessions: {
+        Row: {
+          agora_channel: string | null
+          client_id: string | null
+          coach_id: string
+          created_at: string
+          description: string | null
+          duration_minutes: number
+          id: string
+          scheduled_at: string
+          session_type: Database["public"]["Enums"]["coach_session_type"]
+          status: Database["public"]["Enums"]["coach_session_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          agora_channel?: string | null
+          client_id?: string | null
+          coach_id: string
+          created_at?: string
+          description?: string | null
+          duration_minutes: number
+          id?: string
+          scheduled_at: string
+          session_type?: Database["public"]["Enums"]["coach_session_type"]
+          status?: Database["public"]["Enums"]["coach_session_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          agora_channel?: string | null
+          client_id?: string | null
+          coach_id?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number
+          id?: string
+          scheduled_at?: string
+          session_type?: Database["public"]["Enums"]["coach_session_type"]
+          status?: Database["public"]["Enums"]["coach_session_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_sessions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_sessions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_sessions_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_specialties: {
+        Row: {
+          coach_id: string
+          created_at: string
+          id: string
+          specialty: string
+          updated_at: string
+        }
+        Insert: {
+          coach_id: string
+          created_at?: string
+          id?: string
+          specialty: string
+          updated_at?: string
+        }
+        Update: {
+          coach_id?: string
+          created_at?: string
+          id?: string
+          specialty?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_specialties_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_stripe_accounts: {
+        Row: {
+          charges_enabled: boolean
+          coach_id: string
+          created_at: string
+          id: string
+          onboarding_status: Database["public"]["Enums"]["stripe_onboarding_status"]
+          payouts_enabled: boolean
+          stripe_account_id: string
+          updated_at: string
+        }
+        Insert: {
+          charges_enabled?: boolean
+          coach_id: string
+          created_at?: string
+          id?: string
+          onboarding_status?: Database["public"]["Enums"]["stripe_onboarding_status"]
+          payouts_enabled?: boolean
+          stripe_account_id: string
+          updated_at?: string
+        }
+        Update: {
+          charges_enabled?: boolean
+          coach_id?: string
+          created_at?: string
+          id?: string
+          onboarding_status?: Database["public"]["Enums"]["stripe_onboarding_status"]
+          payouts_enabled?: boolean
+          stripe_account_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_stripe_accounts_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: true
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coach_transactions: {
+        Row: {
+          amount_cents: number
+          coach_id: string
+          created_at: string
+          currency: string
+          id: string
+          idempotency_key_id: string | null
+          session_payment_intent_id: string | null
+          stripe_ref: string | null
+          type: Database["public"]["Enums"]["coach_transaction_type"]
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          coach_id: string
+          created_at?: string
+          currency: string
+          id?: string
+          idempotency_key_id?: string | null
+          session_payment_intent_id?: string | null
+          stripe_ref?: string | null
+          type: Database["public"]["Enums"]["coach_transaction_type"]
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          coach_id?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          idempotency_key_id?: string | null
+          session_payment_intent_id?: string | null
+          stripe_ref?: string | null
+          type?: Database["public"]["Enums"]["coach_transaction_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_transactions_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_transactions_idempotency_key_id_fkey"
+            columns: ["idempotency_key_id"]
+            isOneToOne: false
+            referencedRelation: "idempotency_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "coach_transactions_session_payment_intent_id_fkey"
+            columns: ["session_payment_intent_id"]
+            isOneToOne: false
+            referencedRelation: "session_payment_intents"
             referencedColumns: ["id"]
           },
         ]
@@ -1733,6 +2810,76 @@ export type Database = {
           },
         ]
       }
+      iap_transactions: {
+        Row: {
+          apple_original_transaction_id: string
+          apple_transaction_id: string
+          created_at: string
+          environment: Database["public"]["Enums"]["iap_environment"]
+          expires_at: string | null
+          id: string
+          plan_id: string
+          product_id: string
+          purchased_at: string
+          raw_payload: Json
+          status: Database["public"]["Enums"]["iap_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          apple_original_transaction_id: string
+          apple_transaction_id: string
+          created_at?: string
+          environment: Database["public"]["Enums"]["iap_environment"]
+          expires_at?: string | null
+          id?: string
+          plan_id: string
+          product_id: string
+          purchased_at: string
+          raw_payload: Json
+          status: Database["public"]["Enums"]["iap_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          apple_original_transaction_id?: string
+          apple_transaction_id?: string
+          created_at?: string
+          environment?: Database["public"]["Enums"]["iap_environment"]
+          expires_at?: string | null
+          id?: string
+          plan_id?: string
+          product_id?: string
+          purchased_at?: string
+          raw_payload?: Json
+          status?: Database["public"]["Enums"]["iap_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "iap_transactions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "iap_transactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "iap_transactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       idempotency_keys: {
         Row: {
           created_at: string
@@ -1979,6 +3126,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "live_rooms_coach_session_fk"
+            columns: ["coach_session_id"]
+            isOneToOne: false
+            referencedRelation: "coach_sessions"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "live_rooms_group_id_fkey"
             columns: ["group_id"]
             isOneToOne: false
@@ -2149,6 +3303,54 @@ export type Database = {
           {
             foreignKeyName: "messages_sender_id_fkey"
             columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      moderation_actions: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          moderator_id: string
+          reason: string | null
+          target_id: string
+          target_type: string
+          updated_at: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: string
+          moderator_id: string
+          reason?: string | null
+          target_id: string
+          target_type: string
+          updated_at?: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          moderator_id?: string
+          reason?: string | null
+          target_id?: string
+          target_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "moderation_actions_moderator_id_fkey"
+            columns: ["moderator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "moderation_actions_moderator_id_fkey"
+            columns: ["moderator_id"]
             isOneToOne: false
             referencedRelation: "public_profiles"
             referencedColumns: ["id"]
@@ -2360,6 +3562,268 @@ export type Database = {
           unsubscribe_token?: string
           updated_at?: string
           user_agent?: string | null
+        }
+        Relationships: []
+      }
+      notification_jobs: {
+        Row: {
+          attempts: number
+          created_at: string
+          dead_letter_at: string | null
+          dead_letter_reason: string | null
+          failed_at: string | null
+          id: string
+          idempotency_key_id: string | null
+          last_error: string | null
+          max_attempts: number
+          next_attempt_at: string
+          notification_id: string
+          provider: Database["public"]["Enums"]["notification_provider"]
+          scheduled_at: string
+          sent_at: string | null
+          status: Database["public"]["Enums"]["notification_job_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          dead_letter_at?: string | null
+          dead_letter_reason?: string | null
+          failed_at?: string | null
+          id?: string
+          idempotency_key_id?: string | null
+          last_error?: string | null
+          max_attempts?: number
+          next_attempt_at?: string
+          notification_id: string
+          provider: Database["public"]["Enums"]["notification_provider"]
+          scheduled_at?: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["notification_job_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          dead_letter_at?: string | null
+          dead_letter_reason?: string | null
+          failed_at?: string | null
+          id?: string
+          idempotency_key_id?: string | null
+          last_error?: string | null
+          max_attempts?: number
+          next_attempt_at?: string
+          notification_id?: string
+          provider?: Database["public"]["Enums"]["notification_provider"]
+          scheduled_at?: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["notification_job_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_jobs_idempotency_key_id_fkey"
+            columns: ["idempotency_key_id"]
+            isOneToOne: false
+            referencedRelation: "idempotency_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_jobs_notification_id_fkey"
+            columns: ["notification_id"]
+            isOneToOne: false
+            referencedRelation: "notifications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_jobs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_jobs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification_preferences: {
+        Row: {
+          chat: boolean
+          coaching: boolean
+          created_at: string
+          goals: boolean
+          live: boolean
+          marketing: boolean
+          nutrition: boolean
+          social: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          chat?: boolean
+          coaching?: boolean
+          created_at?: string
+          goals?: boolean
+          live?: boolean
+          marketing?: boolean
+          nutrition?: boolean
+          social?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          chat?: boolean
+          coaching?: boolean
+          created_at?: string
+          goals?: boolean
+          live?: boolean
+          marketing?: boolean
+          nutrition?: boolean
+          social?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_preferences_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_preferences_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          body: string
+          created_at: string
+          data: Json
+          id: string
+          read_at: string | null
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          data?: Json
+          id?: string
+          read_at?: string | null
+          title: string
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          data?: Json
+          id?: string
+          read_at?: string | null
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plan_entitlements: {
+        Row: {
+          created_at: string
+          id: string
+          limit_period: string | null
+          limit_value: number | null
+          lookup_key: string
+          plan_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          limit_period?: string | null
+          limit_value?: number | null
+          lookup_key: string
+          plan_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          limit_period?: string | null
+          limit_value?: number | null
+          lookup_key?: string
+          plan_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_entitlements_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plans: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -2889,6 +4353,128 @@ export type Database = {
           },
         ]
       }
+      refunds: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          id: string
+          idempotency_key_id: string | null
+          reason: string | null
+          requested_by: string | null
+          session_payment_intent_id: string
+          status: Database["public"]["Enums"]["refund_status"]
+          stripe_refund_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          id?: string
+          idempotency_key_id?: string | null
+          reason?: string | null
+          requested_by?: string | null
+          session_payment_intent_id: string
+          status?: Database["public"]["Enums"]["refund_status"]
+          stripe_refund_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          id?: string
+          idempotency_key_id?: string | null
+          reason?: string | null
+          requested_by?: string | null
+          session_payment_intent_id?: string
+          status?: Database["public"]["Enums"]["refund_status"]
+          stripe_refund_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refunds_idempotency_key_id_fkey"
+            columns: ["idempotency_key_id"]
+            isOneToOne: false
+            referencedRelation: "idempotency_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refunds_session_payment_intent_id_fkey"
+            columns: ["session_payment_intent_id"]
+            isOneToOne: false
+            referencedRelation: "session_payment_intents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reports: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          reason: string
+          reporter_id: string
+          resolved_at: string | null
+          status: Database["public"]["Enums"]["report_status"]
+          target_id: string
+          target_type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          reason: string
+          reporter_id: string
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["report_status"]
+          target_id: string
+          target_type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          reason?: string
+          reporter_id?: string
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["report_status"]
+          target_id?: string
+          target_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_reporter_id_fkey"
+            columns: ["reporter_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_reporter_id_fkey"
+            columns: ["reporter_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       room_banned_users: {
         Row: {
           banned_by: string
@@ -3021,6 +4607,287 @@ export type Database = {
           },
         ]
       }
+      session_bookings: {
+        Row: {
+          booked_at: string
+          cancelled_at: string | null
+          client_id: string
+          created_at: string
+          id: string
+          payment_method: Database["public"]["Enums"]["booking_payment_method"]
+          session_id: string
+          status: Database["public"]["Enums"]["booking_status"]
+          updated_at: string
+        }
+        Insert: {
+          booked_at?: string
+          cancelled_at?: string | null
+          client_id: string
+          created_at?: string
+          id?: string
+          payment_method?: Database["public"]["Enums"]["booking_payment_method"]
+          session_id: string
+          status?: Database["public"]["Enums"]["booking_status"]
+          updated_at?: string
+        }
+        Update: {
+          booked_at?: string
+          cancelled_at?: string | null
+          client_id?: string
+          created_at?: string
+          id?: string
+          payment_method?: Database["public"]["Enums"]["booking_payment_method"]
+          session_id?: string
+          status?: Database["public"]["Enums"]["booking_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_bookings_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_bookings_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_bookings_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "coach_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      session_notes: {
+        Row: {
+          coach_id: string
+          content: string
+          created_at: string
+          id: string
+          session_id: string
+          updated_at: string
+          visibility: Database["public"]["Enums"]["session_note_visibility"]
+        }
+        Insert: {
+          coach_id: string
+          content: string
+          created_at?: string
+          id?: string
+          session_id: string
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["session_note_visibility"]
+        }
+        Update: {
+          coach_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          session_id?: string
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["session_note_visibility"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_notes_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_notes_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "coach_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      session_payment_intents: {
+        Row: {
+          amount_cents: number
+          client_id: string
+          coach_id: string
+          created_at: string
+          currency: string
+          id: string
+          idempotency_key_id: string | null
+          platform_fee_cents: number
+          session_id: string
+          status: Database["public"]["Enums"]["session_payment_status"]
+          stripe_payment_intent_id: string
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          client_id: string
+          coach_id: string
+          created_at?: string
+          currency: string
+          id?: string
+          idempotency_key_id?: string | null
+          platform_fee_cents: number
+          session_id: string
+          status?: Database["public"]["Enums"]["session_payment_status"]
+          stripe_payment_intent_id: string
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          client_id?: string
+          coach_id?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          idempotency_key_id?: string | null
+          platform_fee_cents?: number
+          session_id?: string
+          status?: Database["public"]["Enums"]["session_payment_status"]
+          stripe_payment_intent_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_payment_intents_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_payment_intents_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_payment_intents_coach_id_fkey"
+            columns: ["coach_id"]
+            isOneToOne: false
+            referencedRelation: "coach_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_payment_intents_idempotency_key_id_fkey"
+            columns: ["idempotency_key_id"]
+            isOneToOne: false
+            referencedRelation: "idempotency_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_payment_intents_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: true
+            referencedRelation: "coach_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscription_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          payload: Json
+          processed: boolean
+          processed_at: string | null
+          stripe_event_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          payload: Json
+          processed?: boolean
+          processed_at?: string | null
+          stripe_event_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          payload?: Json
+          processed?: boolean
+          processed_at?: string | null
+          stripe_event_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string
+          current_period_start: string
+          id: string
+          plan_id: string
+          status: Database["public"]["Enums"]["subscription_status"]
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end: string
+          current_period_start: string
+          id?: string
+          plan_id: string
+          status: Database["public"]["Enums"]["subscription_status"]
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string
+          current_period_start?: string
+          id?: string
+          plan_id?: string
+          status?: Database["public"]["Enums"]["subscription_status"]
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_blocks: {
         Row: {
           blocked_id: string
@@ -3112,6 +4979,57 @@ export type Database = {
           },
           {
             foreignKeyName: "user_devices_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_entitlements: {
+        Row: {
+          active: boolean
+          created_at: string
+          expires_at: string | null
+          id: string
+          limit_value: number | null
+          lookup_key: string
+          source: Database["public"]["Enums"]["entitlement_source"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          limit_value?: number | null
+          lookup_key: string
+          source: Database["public"]["Enums"]["entitlement_source"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          limit_value?: number | null
+          lookup_key?: string
+          source?: Database["public"]["Enums"]["entitlement_source"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_entitlements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_entitlements_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "public_profiles"
@@ -3393,6 +5311,10 @@ export type Database = {
       }
     }
     Functions: {
+      coach_can_access_client: {
+        Args: { p_client_id: string; p_coach_id: string }
+        Returns: boolean
+      }
       increment_referral: { Args: { p_code: string }; Returns: undefined }
       is_conversation_member: {
         Args: { p_conversation_id: string }
@@ -3409,6 +5331,51 @@ export type Database = {
       waitlist_position: { Args: { p_email: string }; Returns: number }
     }
     Enums: {
+      ai_message_role: "user" | "assistant" | "system" | "tool"
+      ai_request_status: "pending" | "processing" | "completed" | "failed"
+      billing_period: "weekly" | "monthly" | "annual"
+      billing_provider: "apple" | "stripe"
+      booking_payment_method: "stripe"
+      booking_status:
+        | "pending"
+        | "payment_required"
+        | "paid"
+        | "confirmed"
+        | "completed"
+        | "cancelled"
+        | "refunded"
+      coach_client_status:
+        | "pending"
+        | "active"
+        | "paused"
+        | "ended"
+        | "cancelled"
+      coach_payout_status:
+        | "pending"
+        | "in_transit"
+        | "paid"
+        | "failed"
+        | "cancelled"
+      coach_review_status: "published" | "hidden" | "removed"
+      coach_session_status:
+        | "draft"
+        | "available"
+        | "booked"
+        | "confirmed"
+        | "completed"
+        | "cancelled"
+      coach_session_type: "video" | "audio" | "in_person"
+      coach_transaction_type:
+        | "charge"
+        | "refund"
+        | "payout"
+        | "fee"
+        | "adjustment"
+      coach_verification_status:
+        | "pending"
+        | "verified"
+        | "rejected"
+        | "suspended"
       comment_status: "published" | "deleted" | "hidden"
       consent_type: "terms" | "privacy" | "health_data" | "marketing"
       conversation_member_role: "owner" | "admin" | "member"
@@ -3425,6 +5392,7 @@ export type Database = {
         | "processing"
         | "completed"
         | "cancelled"
+      entitlement_source: "apple" | "stripe" | "admin" | "promo"
       follow_status: "active" | "pending" | "blocked"
       food_log_source: "manual" | "barcode" | "photo" | "ai" | "import"
       goal_period: "daily" | "weekly" | "monthly" | "overall"
@@ -3433,6 +5401,8 @@ export type Database = {
       group_role: "owner" | "admin" | "moderator" | "coach" | "member"
       group_type: "general" | "challenge" | "support" | "coaching"
       group_visibility: "public" | "private"
+      iap_environment: "production" | "sandbox"
+      iap_status: "active" | "expired" | "revoked" | "grace_period"
       idempotency_scope:
         | "payment"
         | "ai_write"
@@ -3460,6 +5430,13 @@ export type Database = {
         | "muscle_mass"
       media_type: "image" | "video"
       message_type: "text" | "image" | "video" | "system"
+      notification_job_status:
+        | "queued"
+        | "processing"
+        | "sent"
+        | "failed"
+        | "dead_letter"
+      notification_provider: "apns" | "email" | "web"
       post_status: "draft" | "published" | "archived" | "deleted"
       post_type: "text" | "photo" | "video" | "progress" | "nutrition" | "goal"
       post_visibility: "public" | "followers" | "private" | "group"
@@ -3470,6 +5447,8 @@ export type Database = {
         | "moderate"
         | "active"
         | "very_active"
+      refund_status: "pending" | "succeeded" | "failed" | "canceled"
+      report_status: "pending" | "reviewing" | "resolved" | "dismissed"
       room_moderation_action:
         | "mute"
         | "remove"
@@ -3477,6 +5456,21 @@ export type Database = {
         | "approve_speaker"
         | "revoke_speaker"
         | "dismiss_hand"
+      session_note_visibility: "coach_private" | "client_shared"
+      session_payment_status:
+        | "requires_payment"
+        | "succeeded"
+        | "refunded"
+        | "failed"
+      stripe_onboarding_status: "pending" | "complete" | "restricted"
+      subscription_status:
+        | "trialing"
+        | "active"
+        | "past_due"
+        | "canceled"
+        | "incomplete"
+        | "incomplete_expired"
+        | "unpaid"
       units_system: "metric" | "imperial"
     }
     CompositeTypes: {
@@ -3608,6 +5602,57 @@ export const Constants = {
   },
   public: {
     Enums: {
+      ai_message_role: ["user", "assistant", "system", "tool"],
+      ai_request_status: ["pending", "processing", "completed", "failed"],
+      billing_period: ["weekly", "monthly", "annual"],
+      billing_provider: ["apple", "stripe"],
+      booking_payment_method: ["stripe"],
+      booking_status: [
+        "pending",
+        "payment_required",
+        "paid",
+        "confirmed",
+        "completed",
+        "cancelled",
+        "refunded",
+      ],
+      coach_client_status: [
+        "pending",
+        "active",
+        "paused",
+        "ended",
+        "cancelled",
+      ],
+      coach_payout_status: [
+        "pending",
+        "in_transit",
+        "paid",
+        "failed",
+        "cancelled",
+      ],
+      coach_review_status: ["published", "hidden", "removed"],
+      coach_session_status: [
+        "draft",
+        "available",
+        "booked",
+        "confirmed",
+        "completed",
+        "cancelled",
+      ],
+      coach_session_type: ["video", "audio", "in_person"],
+      coach_transaction_type: [
+        "charge",
+        "refund",
+        "payout",
+        "fee",
+        "adjustment",
+      ],
+      coach_verification_status: [
+        "pending",
+        "verified",
+        "rejected",
+        "suspended",
+      ],
       comment_status: ["published", "deleted", "hidden"],
       consent_type: ["terms", "privacy", "health_data", "marketing"],
       conversation_member_role: ["owner", "admin", "member"],
@@ -3626,6 +5671,7 @@ export const Constants = {
         "completed",
         "cancelled",
       ],
+      entitlement_source: ["apple", "stripe", "admin", "promo"],
       follow_status: ["active", "pending", "blocked"],
       food_log_source: ["manual", "barcode", "photo", "ai", "import"],
       goal_period: ["daily", "weekly", "monthly", "overall"],
@@ -3634,6 +5680,8 @@ export const Constants = {
       group_role: ["owner", "admin", "moderator", "coach", "member"],
       group_type: ["general", "challenge", "support", "coaching"],
       group_visibility: ["public", "private"],
+      iap_environment: ["production", "sandbox"],
+      iap_status: ["active", "expired", "revoked", "grace_period"],
       idempotency_scope: [
         "payment",
         "ai_write",
@@ -3664,6 +5712,14 @@ export const Constants = {
       ],
       media_type: ["image", "video"],
       message_type: ["text", "image", "video", "system"],
+      notification_job_status: [
+        "queued",
+        "processing",
+        "sent",
+        "failed",
+        "dead_letter",
+      ],
+      notification_provider: ["apns", "email", "web"],
       post_status: ["draft", "published", "archived", "deleted"],
       post_type: ["text", "photo", "video", "progress", "nutrition", "goal"],
       post_visibility: ["public", "followers", "private", "group"],
@@ -3675,6 +5731,8 @@ export const Constants = {
         "active",
         "very_active",
       ],
+      refund_status: ["pending", "succeeded", "failed", "canceled"],
+      report_status: ["pending", "reviewing", "resolved", "dismissed"],
       room_moderation_action: [
         "mute",
         "remove",
@@ -3682,6 +5740,23 @@ export const Constants = {
         "approve_speaker",
         "revoke_speaker",
         "dismiss_hand",
+      ],
+      session_note_visibility: ["coach_private", "client_shared"],
+      session_payment_status: [
+        "requires_payment",
+        "succeeded",
+        "refunded",
+        "failed",
+      ],
+      stripe_onboarding_status: ["pending", "complete", "restricted"],
+      subscription_status: [
+        "trialing",
+        "active",
+        "past_due",
+        "canceled",
+        "incomplete",
+        "incomplete_expired",
+        "unpaid",
       ],
       units_system: ["metric", "imperial"],
     },
