@@ -15,7 +15,7 @@
 **Mobile:** Swift / SwiftUI
 
 **Specification status:** Production architecture — **frozen for Phase 0**  
-**Specification version:** 2.3 (v2.2 review approved 9.2/10; incorporates final production-hardening contract details A–G)  
+**Specification version:** 2.6 (Cal AI-style Pro + paid VERALIFY_COACH tier + 1:1 coach marketplace at launch)  
 **Date:** August 26, 2026
 
 ---
@@ -1476,7 +1476,7 @@ id uuid PK
 plan_id uuid FK
 provider text                 -- apple | stripe
 provider_product_id text      -- StoreKit product ID or Stripe product ID
-billing_period text           -- monthly | annual
+billing_period text           -- weekly | monthly | annual
 is_active boolean DEFAULT true
 created_at
 UNIQUE (provider, provider_product_id)
@@ -1485,8 +1485,10 @@ UNIQUE (provider, provider_product_id)
 Example rows for VERALIFY_PRO:
 
 ```text
+(pro, apple,  com.veralify.pro.weekly,  weekly)
 (pro, apple,  com.veralify.pro.monthly, monthly)
 (pro, apple,  com.veralify.pro.annual,  annual)
+(pro, stripe, prod_XXXX,                weekly)
 (pro, stripe, prod_XXXX,                monthly)
 (pro, stripe, prod_XXXX,                annual)
 ```
@@ -2283,29 +2285,54 @@ Use Agora Chat later if:
 
 ---
 
-# 34. Commerce Architecture — Dual Billing
+# 34. Commerce Architecture — Cal AI-Style Single Subscription
 
-**Launch-blocking rule:** digital app features unlocked inside the iOS app
-(Pro AI, premium nutrition, unlimited groups, advanced progress/trends) must be
-sold through **Apple In-App Purchase**. Apple's App Review Guidelines require IAP
-for unlocking app functionality and digital subscriptions. Apple permits
-alternative payments only for **real-time person-to-person services between two
-individuals** (e.g., 1:1 fitness training) — one-to-many services remain IAP.
+**Pricing model (launch): exactly like Cal AI.**
+
+```text
+No free tier.
+Onboarding quiz → personalized plan → hard paywall → 3-day free trial
+→ one subscription: VERALIFY PRO
+```
+
+```text
+VERALIFY PRO (consumer)
+  Weekly:   $4.99 / week
+  Monthly:  $9.99 / month
+  Annual:   $29.99 / year  (default selection, "save 75%")
+  Trial:    3 days free, auto-converts
+
+VERALIFY COACH (coach tools)
+  Weekly / Monthly / Annual — pricing is configuration
+  Includes everything in Pro + coach dashboard, client management,
+  client data access, scheduling, video/group sessions
+```
+
+Prices are App Store Connect / Stripe configuration, not code. Pro unlocks the
+full consumer experience: AI food scanning, insights, unlimited groups, live
+rooms, progress analytics, coach discovery.
+
+**Launch-blocking rule:** the subscription unlocks digital app functionality,
+so inside the iOS app it must be sold through **Apple In-App Purchase**. Apple
+permits alternative payments only for **real-time person-to-person services
+between two individuals** (e.g., 1:1 fitness training) — one-to-many services
+remain IAP.
 
 ```text
                  VERALIFY BILLING
                         │
           ┌─────────────┴─────────────┐
           │                           │
-        DIGITAL                    HUMAN SERVICE
-       FEATURES                     PAYMENTS
-          │                           │
-   ┌──────┴──────┐                Stripe / Connect
-   │             │                    │
- iOS app       Web                1:1 coach session
-   │             │                Coach payouts
-Apple IAP    Stripe Billing
-(StoreKit 2) (Checkout/Portal)
+   DIGITAL SUBSCRIPTIONS         HUMAN SERVICE
+   VERALIFY_PRO (consumer)        PAYMENTS
+   VERALIFY_COACH (coach tools)       │
+          │                      Stripe Connect
+   ┌──────┴──────┐               1:1 coach session
+   │             │               Coach payouts
+ iOS app       Web
+   │             │
+ Apple IAP    Stripe Billing
+ (StoreKit 2) (Checkout/Portal)
    │             │
    └──────┬──────┘
           ↓
@@ -2314,17 +2341,21 @@ Apple IAP    Stripe Billing
 
 Rules:
 
-1. iOS Pro/Coach digital features → StoreKit 2 subscriptions.
-2. Web Pro/Coach subscriptions → Stripe Billing.
-3. 1:1 coach sessions (person-to-person, real-time) → Stripe, allowed outside IAP.
-4. Group coaching (one-to-many) consumed in-app → treat as IAP-gated digital content.
+1. iOS subscriptions (Pro + Coach) → StoreKit 2 (Pro: hard paywall after onboarding quiz).
+2. Web subscriptions (Pro + Coach) → Stripe Billing.
+3. 1:1 coach sessions (person-to-person, real-time) → Stripe Connect, allowed
+   outside IAP per Apple's person-to-person services exception — **in launch scope** (§34b).
+4. Group coaching (one-to-many) consumed in-app → IAP-gated (included in Pro).
 5. The application only ever reads `user_entitlements` — it never cares whether
    an entitlement came from Apple or Stripe.
 6. Never trust client-side subscription state.
+7. Referral codes at the paywall (Cal AI-style growth loop) — free days per
+   successful referral, configured server-side.
 
 ## Apple IAP layer
 
-- StoreKit 2 products mirroring `VERALIFY_PRO` / `VERALIFY_COACH` (monthly/annual)
+- StoreKit 2 products: `VERALIFY_PRO` (weekly + monthly + annual, 3-day intro
+  trial) and `VERALIFY_COACH` (weekly + monthly + annual)
 - App Store Server Notifications V2 → `POST /api/apple/notifications`
 - Server-side receipt/transaction verification via App Store Server API
 - `iap_transactions` table (see §17) feeding `user_entitlements` with `source = 'apple'`
@@ -2352,32 +2383,17 @@ previously purchased functionality.
 
 ## Stripe products (web)
 
-Create three products.
+Create **two** products.
 
 ```text
-VERALIFY_FREE
 VERALIFY_PRO
+  Weekly   ($4.99)
+  Monthly  ($9.99)
+  Annual   ($29.99, default)
+  3-day trial
+
 VERALIFY_COACH
-```
-
-Free has no recurring Stripe subscription.
-
-## Pro
-
-Recommended product configuration:
-
-```text
-Monthly
-Annual
-```
-
-## Coach
-
-Recommended:
-
-```text
-Monthly
-Annual
+  Weekly / Monthly / Annual (configuration)
 ```
 
 Pricing is intentionally configuration, not hard-coded into the application.
@@ -2385,6 +2401,10 @@ Pricing is intentionally configuration, not hard-coded into the application.
 ---
 
 # 34b. Coach Marketplace Payments — Stripe Connect
+
+> **Status: LAUNCH SCOPE.** Veralify's second revenue stream: clients pay
+> coaches for 1:1 sessions; Veralify retains a platform fee. Built in
+> Phase 10 (Coaching) alongside booking + video sessions.
 
 Coaching is a **marketplace**, not just scheduling + video. Money flow:
 
@@ -2493,108 +2513,74 @@ Rules:
 
 ---
 
-# 35. Exact Stripe Entitlements
+# 35. Entitlements — Single Tier
 
-Create these Stripe Features.
+Cal AI model: **one subscription, everything included.** Entitlement keys still
+exist so limits stay configurable and future tiers remain possible without
+schema changes.
 
 ```text
-basic_food_tracking
 ai_food_logging
 advanced_ai
 daily_summary
 advanced_nutrition
-one_group
 unlimited_groups
-basic_progress
 advanced_progress
 progress_photos
 advanced_trends
 live_rooms
 premium_live_rooms
 coach_discovery
-coach_client_management
-coach_client_data
-coach_video_sessions
-coach_group_sessions
-coach_scheduling
-coach_dashboard
 ```
 
 ---
 
-# 36. Free Entitlements
+# 36. Trial Entitlements
+
+There is **no free tier**. The 3-day trial grants full Pro entitlements
+(Apple intro offer / Stripe trial). When the trial lapses without conversion:
 
 ```text
-basic_food_tracking
-daily_summary
-one_group
-basic_progress
-live_rooms
-```
-
-Limits:
-
-```text
-groups = 1
+read-only access to own historical data
+paywall on all tracking, AI, groups and live features
 ```
 
 ---
 
 # 37. Pro Entitlements
 
-```text
-basic_food_tracking
-ai_food_logging
-advanced_ai
-daily_summary
-advanced_nutrition
-unlimited_groups
-basic_progress
-advanced_progress
-progress_photos
-advanced_trends
-live_rooms
-premium_live_rooms
-```
+All keys in §35. No feature differentiation inside the paid tier.
 
 ---
 
-# 38. Coach Entitlements
+# 38. Coach Model
 
 **"Coach" is three separable concepts — do not tangle them:**
 
 ```text
 1. Coach Account          -- role/identity: verified coach profile, discoverable
-2. Coach Pro Tools        -- digital subscription: dashboard, client management,
-                             coaching tools (IAP on iOS / Stripe on web)
+2. VERALIFY_COACH         -- paid subscription: coach dashboard, client management,
+   (Coach Tools)             client data, scheduling, video/group sessions
+                             (IAP on iOS / Stripe on web)
 3. Coach Marketplace      -- Stripe Connect services: selling 1:1 sessions,
-   Services                  receiving payouts
+   Services                  receiving payouts (LAUNCH SCOPE, §34b)
 ```
 
-A user may hold any combination simultaneously: a coach using Veralify tools,
-a user purchasing coaching, a coach selling 1:1 services — or all three. The
-entitlement model treats each independently:
+Launch model:
 
 ```text
-coach account   → coach_profiles row (+ verification)
-coach pro tools → user_entitlements (coach_* keys, source apple|stripe)
+coach account   → coach_profiles row + platform verification (free, invited/vetted)
+coach tools     → VERALIFY_COACH subscription → user_entitlements (coach_* keys)
 marketplace     → coach_stripe_accounts (onboarded, payouts enabled)
 ```
 
-Coach is a role/product combination.
+A user may hold any combination simultaneously: a coach subscribing to tools,
+a user purchasing coaching, a coach selling 1:1 services — or all three. The
+entitlement model treats each independently.
+
+VERALIFY_COACH entitlement keys (all Pro keys plus):
 
 ```text
-basic_food_tracking
-ai_food_logging
-advanced_ai
-advanced_nutrition
-unlimited_groups
-advanced_progress
-progress_photos
-advanced_trends
-live_rooms
-premium_live_rooms
-coach_discovery
 coach_client_management
 coach_client_data
 coach_video_sessions
@@ -2720,11 +2706,25 @@ Choices:
 
 ### `TargetSetupScreen`
 
-AI-assisted target setup.
+AI-assisted target setup ("your personalized plan").
+
+### `PlanRevealScreen`
+
+Cal AI-style: show the computed personalized plan (daily calories, macros,
+projected goal date) as the payoff of the quiz.
+
+### `PaywallScreen`
+
+Hard paywall — required to proceed (no free tier):
+
+- 3-day free trial, then $4.99/wk, $9.99/mo or $29.99/yr (annual preselected)
+- StoreKit 2 purchase (appAccountToken)
+- referral code entry
+- restore purchases (currentEntitlements)
 
 ### `CommunitySetupScreen`
 
-Recommended communities.
+Recommended communities (post-purchase).
 
 ---
 
