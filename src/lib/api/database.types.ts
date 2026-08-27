@@ -282,6 +282,118 @@ export type Database = {
           },
         ]
       }
+      comment_likes: {
+        Row: {
+          comment_id: string
+          created_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          comment_id: string
+          created_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          comment_id?: string
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comment_likes_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comment_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comment_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      comments: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          parent_comment_id: string | null
+          post_id: string
+          status: Database["public"]["Enums"]["comment_status"]
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          parent_comment_id?: string | null
+          post_id: string
+          status?: Database["public"]["Enums"]["comment_status"]
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          parent_comment_id?: string | null
+          post_id?: string
+          status?: Database["public"]["Enums"]["comment_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_parent_comment_id_fkey"
+            columns: ["parent_comment_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_parent_same_post_fk"
+            columns: ["parent_comment_id", "post_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id", "post_id"]
+          },
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       consent_records: {
         Row: {
           consent_type: Database["public"]["Enums"]["consent_type"]
@@ -323,6 +435,111 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversation_members: {
+        Row: {
+          conversation_id: string
+          joined_at: string
+          last_read_message_id: string | null
+          role: Database["public"]["Enums"]["conversation_member_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          conversation_id: string
+          joined_at?: string
+          last_read_message_id?: string | null
+          role?: Database["public"]["Enums"]["conversation_member_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          conversation_id?: string
+          joined_at?: string
+          last_read_message_id?: string | null
+          role?: Database["public"]["Enums"]["conversation_member_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_members_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversation_members_last_read_message_fk"
+            columns: ["last_read_message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversation_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversation_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversations: {
+        Row: {
+          created_at: string
+          created_by: string
+          group_id: string | null
+          id: string
+          type: Database["public"]["Enums"]["conversation_type"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          group_id?: string | null
+          id?: string
+          type: Database["public"]["Enums"]["conversation_type"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          group_id?: string | null
+          id?: string
+          type?: Database["public"]["Enums"]["conversation_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversations_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
             referencedColumns: ["id"]
           },
         ]
@@ -707,6 +924,62 @@ export type Database = {
           status?: string
         }
         Relationships: []
+      }
+      follows: {
+        Row: {
+          created_at: string
+          followed_id: string
+          follower_id: string
+          id: string
+          status: Database["public"]["Enums"]["follow_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          followed_id: string
+          follower_id: string
+          id?: string
+          status?: Database["public"]["Enums"]["follow_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          followed_id?: string
+          follower_id?: string
+          id?: string
+          status?: Database["public"]["Enums"]["follow_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "follows_followed_id_fkey"
+            columns: ["followed_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "follows_followed_id_fkey"
+            columns: ["followed_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       food_external_mappings: {
         Row: {
@@ -1238,6 +1511,228 @@ export type Database = {
           },
         ]
       }
+      group_invites: {
+        Row: {
+          accepted_at: string | null
+          created_at: string
+          expires_at: string
+          group_id: string
+          id: string
+          invited_by: string
+          invited_user_id: string | null
+          token: string
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string
+          expires_at: string
+          group_id: string
+          id?: string
+          invited_by: string
+          invited_user_id?: string | null
+          token: string
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string
+          expires_at?: string
+          group_id?: string
+          id?: string
+          invited_by?: string
+          invited_user_id?: string | null
+          token?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_invites_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_invites_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_invites_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_invites_invited_user_id_fkey"
+            columns: ["invited_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_invites_invited_user_id_fkey"
+            columns: ["invited_user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_members: {
+        Row: {
+          group_id: string
+          joined_at: string
+          role: Database["public"]["Enums"]["group_role"]
+          status: Database["public"]["Enums"]["group_member_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          joined_at?: string
+          role?: Database["public"]["Enums"]["group_role"]
+          status?: Database["public"]["Enums"]["group_member_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          joined_at?: string
+          role?: Database["public"]["Enums"]["group_role"]
+          status?: Database["public"]["Enums"]["group_member_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_rules: {
+        Row: {
+          created_at: string
+          group_id: string
+          id: string
+          position: number
+          rule_text: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          group_id: string
+          id?: string
+          position?: number
+          rule_text: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          group_id?: string
+          id?: string
+          position?: number
+          rule_text?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_rules_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groups: {
+        Row: {
+          avatar_path: string | null
+          cover_path: string | null
+          created_at: string
+          description: string | null
+          goal_type: string | null
+          id: string
+          is_active: boolean
+          member_limit: number | null
+          name: string
+          owner_id: string
+          slug: string
+          type: Database["public"]["Enums"]["group_type"]
+          updated_at: string
+          visibility: Database["public"]["Enums"]["group_visibility"]
+        }
+        Insert: {
+          avatar_path?: string | null
+          cover_path?: string | null
+          created_at?: string
+          description?: string | null
+          goal_type?: string | null
+          id?: string
+          is_active?: boolean
+          member_limit?: number | null
+          name: string
+          owner_id: string
+          slug: string
+          type?: Database["public"]["Enums"]["group_type"]
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["group_visibility"]
+        }
+        Update: {
+          avatar_path?: string | null
+          cover_path?: string | null
+          created_at?: string
+          description?: string | null
+          goal_type?: string | null
+          id?: string
+          is_active?: boolean
+          member_limit?: number | null
+          name?: string
+          owner_id?: string
+          slug?: string
+          type?: Database["public"]["Enums"]["group_type"]
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["group_visibility"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "groups_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       idempotency_keys: {
         Row: {
           created_at: string
@@ -1273,6 +1768,238 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      live_room_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          metadata: Json
+          room_id: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          metadata?: Json
+          room_id: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          metadata?: Json
+          room_id?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "live_room_events_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "live_rooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_room_events_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_room_events_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      live_room_hosts: {
+        Row: {
+          created_at: string
+          role: Database["public"]["Enums"]["live_room_role"]
+          room_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          role?: Database["public"]["Enums"]["live_room_role"]
+          room_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          role?: Database["public"]["Enums"]["live_room_role"]
+          room_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "live_room_hosts_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "live_rooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_room_hosts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_room_hosts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      live_room_participants: {
+        Row: {
+          created_at: string
+          hand_raised_at: string | null
+          joined_at: string
+          left_at: string | null
+          role: Database["public"]["Enums"]["live_room_role"]
+          room_id: string
+          speak_state: Database["public"]["Enums"]["live_room_speak_state"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          hand_raised_at?: string | null
+          joined_at?: string
+          left_at?: string | null
+          role?: Database["public"]["Enums"]["live_room_role"]
+          room_id: string
+          speak_state?: Database["public"]["Enums"]["live_room_speak_state"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          hand_raised_at?: string | null
+          joined_at?: string
+          left_at?: string | null
+          role?: Database["public"]["Enums"]["live_room_role"]
+          room_id?: string
+          speak_state?: Database["public"]["Enums"]["live_room_speak_state"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "live_room_participants_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "live_rooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_room_participants_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_room_participants_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      live_rooms: {
+        Row: {
+          agora_channel: string
+          coach_session_id: string | null
+          created_at: string
+          description: string | null
+          ended_at: string | null
+          group_id: string | null
+          host_id: string
+          id: string
+          max_participants: number | null
+          room_type: Database["public"]["Enums"]["live_room_type"]
+          scheduled_at: string
+          started_at: string | null
+          status: Database["public"]["Enums"]["live_room_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          agora_channel: string
+          coach_session_id?: string | null
+          created_at?: string
+          description?: string | null
+          ended_at?: string | null
+          group_id?: string | null
+          host_id: string
+          id?: string
+          max_participants?: number | null
+          room_type?: Database["public"]["Enums"]["live_room_type"]
+          scheduled_at: string
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["live_room_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          agora_channel?: string
+          coach_session_id?: string | null
+          created_at?: string
+          description?: string | null
+          ended_at?: string | null
+          group_id?: string | null
+          host_id?: string
+          id?: string
+          max_participants?: number | null
+          room_type?: Database["public"]["Enums"]["live_room_type"]
+          scheduled_at?: string
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["live_room_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "live_rooms_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_rooms_host_id_fkey"
+            columns: ["host_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "live_rooms_host_id_fkey"
+            columns: ["host_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       meal_groups: {
         Row: {
@@ -1313,6 +2040,115 @@ export type Database = {
           {
             foreignKeyName: "meal_groups_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      message_attachments: {
+        Row: {
+          created_at: string
+          id: string
+          media_type: Database["public"]["Enums"]["media_type"]
+          message_id: string
+          size_bytes: number
+          storage_path: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          media_type: Database["public"]["Enums"]["media_type"]
+          message_id: string
+          size_bytes: number
+          storage_path: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          media_type?: Database["public"]["Enums"]["media_type"]
+          message_id?: string
+          size_bytes?: number
+          storage_path?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_attachments_message_id_fkey"
+            columns: ["message_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body: string | null
+          conversation_id: string
+          created_at: string
+          deleted_at: string | null
+          edited_at: string | null
+          id: string
+          message_type: Database["public"]["Enums"]["message_type"]
+          metadata: Json
+          reply_to_id: string | null
+          sender_id: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          conversation_id: string
+          created_at?: string
+          deleted_at?: string | null
+          edited_at?: string | null
+          id?: string
+          message_type?: Database["public"]["Enums"]["message_type"]
+          metadata?: Json
+          reply_to_id?: string | null
+          sender_id: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          conversation_id?: string
+          created_at?: string
+          deleted_at?: string | null
+          edited_at?: string | null
+          id?: string
+          message_type?: Database["public"]["Enums"]["message_type"]
+          metadata?: Json
+          reply_to_id?: string | null
+          sender_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_reply_to_id_fkey"
+            columns: ["reply_to_id"]
+            isOneToOne: false
+            referencedRelation: "messages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_sender_id_fkey"
+            columns: ["sender_id"]
             isOneToOne: false
             referencedRelation: "public_profiles"
             referencedColumns: ["id"]
@@ -1526,6 +2362,197 @@ export type Database = {
           user_agent?: string | null
         }
         Relationships: []
+      }
+      post_bookmarks: {
+        Row: {
+          created_at: string
+          post_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_bookmarks_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_bookmarks_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_bookmarks_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_likes: {
+        Row: {
+          created_at: string
+          post_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "post_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_media: {
+        Row: {
+          created_at: string
+          duration_seconds: number | null
+          height: number | null
+          id: string
+          media_type: Database["public"]["Enums"]["media_type"]
+          position: number
+          post_id: string
+          storage_path: string
+          updated_at: string
+          width: number | null
+        }
+        Insert: {
+          created_at?: string
+          duration_seconds?: number | null
+          height?: number | null
+          id?: string
+          media_type: Database["public"]["Enums"]["media_type"]
+          position?: number
+          post_id: string
+          storage_path: string
+          updated_at?: string
+          width?: number | null
+        }
+        Update: {
+          created_at?: string
+          duration_seconds?: number | null
+          height?: number | null
+          id?: string
+          media_type?: Database["public"]["Enums"]["media_type"]
+          position?: number
+          post_id?: string
+          storage_path?: string
+          updated_at?: string
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_media_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          author_id: string
+          content: string | null
+          created_at: string
+          group_id: string | null
+          id: string
+          post_type: Database["public"]["Enums"]["post_type"]
+          status: Database["public"]["Enums"]["post_status"]
+          updated_at: string
+          visibility: Database["public"]["Enums"]["post_visibility"]
+        }
+        Insert: {
+          author_id: string
+          content?: string | null
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          post_type?: Database["public"]["Enums"]["post_type"]
+          status?: Database["public"]["Enums"]["post_status"]
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["post_visibility"]
+        }
+        Update: {
+          author_id?: string
+          content?: string | null
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          post_type?: Database["public"]["Enums"]["post_type"]
+          status?: Database["public"]["Enums"]["post_status"]
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["post_visibility"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profile_preferences: {
         Row: {
@@ -1856,6 +2883,138 @@ export type Database = {
           {
             foreignKeyName: "progress_videos_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      room_banned_users: {
+        Row: {
+          banned_by: string
+          created_at: string
+          reason: string | null
+          room_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          banned_by: string
+          created_at?: string
+          reason?: string | null
+          room_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          banned_by?: string
+          created_at?: string
+          reason?: string | null
+          room_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_banned_users_banned_by_fkey"
+            columns: ["banned_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_banned_users_banned_by_fkey"
+            columns: ["banned_by"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_banned_users_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "live_rooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_banned_users_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_banned_users_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      room_moderation_events: {
+        Row: {
+          action: Database["public"]["Enums"]["room_moderation_action"]
+          created_at: string
+          id: string
+          metadata: Json
+          moderator_id: string
+          room_id: string
+          target_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          action: Database["public"]["Enums"]["room_moderation_action"]
+          created_at?: string
+          id?: string
+          metadata?: Json
+          moderator_id: string
+          room_id: string
+          target_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          action?: Database["public"]["Enums"]["room_moderation_action"]
+          created_at?: string
+          id?: string
+          metadata?: Json
+          moderator_id?: string
+          room_id?: string
+          target_user_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_moderation_events_moderator_id_fkey"
+            columns: ["moderator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_moderation_events_moderator_id_fkey"
+            columns: ["moderator_id"]
+            isOneToOne: false
+            referencedRelation: "public_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_moderation_events_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "live_rooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_moderation_events_target_user_id_fkey"
+            columns: ["target_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_moderation_events_target_user_id_fkey"
+            columns: ["target_user_id"]
             isOneToOne: false
             referencedRelation: "public_profiles"
             referencedColumns: ["id"]
@@ -2235,12 +3394,25 @@ export type Database = {
     }
     Functions: {
       increment_referral: { Args: { p_code: string }; Returns: undefined }
+      is_conversation_member: {
+        Args: { p_conversation_id: string }
+        Returns: boolean
+      }
+      is_group_admin: { Args: { p_group_id: string }; Returns: boolean }
+      is_group_member: { Args: { p_group_id: string }; Returns: boolean }
       is_platform_admin: { Args: never; Returns: boolean }
+      is_room_banned: { Args: { p_room_id: string }; Returns: boolean }
+      is_room_moderator: { Args: { p_room_id: string }; Returns: boolean }
+      is_room_participant: { Args: { p_room_id: string }; Returns: boolean }
       owns_food_log: { Args: { p_food_log_id: string }; Returns: boolean }
+      owns_post: { Args: { p_post_id: string }; Returns: boolean }
       waitlist_position: { Args: { p_email: string }; Returns: number }
     }
     Enums: {
+      comment_status: "published" | "deleted" | "hidden"
       consent_type: "terms" | "privacy" | "health_data" | "marketing"
+      conversation_member_role: "owner" | "admin" | "member"
+      conversation_type: "direct" | "group" | "coach_client"
       data_export_status:
         | "pending"
         | "processing"
@@ -2253,9 +3425,14 @@ export type Database = {
         | "processing"
         | "completed"
         | "cancelled"
+      follow_status: "active" | "pending" | "blocked"
       food_log_source: "manual" | "barcode" | "photo" | "ai" | "import"
       goal_period: "daily" | "weekly" | "monthly" | "overall"
       goal_status: "active" | "paused" | "completed" | "cancelled"
+      group_member_status: "active" | "pending" | "blocked" | "removed"
+      group_role: "owner" | "admin" | "moderator" | "coach" | "member"
+      group_type: "general" | "challenge" | "support" | "coaching"
+      group_visibility: "public" | "private"
       idempotency_scope:
         | "payment"
         | "ai_write"
@@ -2264,6 +3441,14 @@ export type Database = {
         | "webhook"
         | "notification"
       idempotency_status: "pending" | "completed" | "failed"
+      live_room_role: "host" | "moderator" | "speaker" | "listener"
+      live_room_speak_state:
+        | "listener"
+        | "request_to_speak"
+        | "approved_speaker"
+        | "speaking"
+      live_room_status: "scheduled" | "live" | "ended" | "cancelled"
+      live_room_type: "public" | "group" | "coach_client"
       meal_type: "breakfast" | "lunch" | "dinner" | "snack" | "other"
       measurement_type:
         | "waist"
@@ -2273,6 +3458,11 @@ export type Database = {
         | "arm"
         | "body_fat"
         | "muscle_mass"
+      media_type: "image" | "video"
+      message_type: "text" | "image" | "video" | "system"
+      post_status: "draft" | "published" | "archived" | "deleted"
+      post_type: "text" | "photo" | "video" | "progress" | "nutrition" | "goal"
+      post_visibility: "public" | "followers" | "private" | "group"
       privacy_visibility: "private" | "followers" | "public" | "coach"
       profile_activity_level:
         | "sedentary"
@@ -2280,6 +3470,13 @@ export type Database = {
         | "moderate"
         | "active"
         | "very_active"
+      room_moderation_action:
+        | "mute"
+        | "remove"
+        | "ban"
+        | "approve_speaker"
+        | "revoke_speaker"
+        | "dismiss_hand"
       units_system: "metric" | "imperial"
     }
     CompositeTypes: {
@@ -2411,7 +3608,10 @@ export const Constants = {
   },
   public: {
     Enums: {
+      comment_status: ["published", "deleted", "hidden"],
       consent_type: ["terms", "privacy", "health_data", "marketing"],
+      conversation_member_role: ["owner", "admin", "member"],
+      conversation_type: ["direct", "group", "coach_client"],
       data_export_status: [
         "pending",
         "processing",
@@ -2426,9 +3626,14 @@ export const Constants = {
         "completed",
         "cancelled",
       ],
+      follow_status: ["active", "pending", "blocked"],
       food_log_source: ["manual", "barcode", "photo", "ai", "import"],
       goal_period: ["daily", "weekly", "monthly", "overall"],
       goal_status: ["active", "paused", "completed", "cancelled"],
+      group_member_status: ["active", "pending", "blocked", "removed"],
+      group_role: ["owner", "admin", "moderator", "coach", "member"],
+      group_type: ["general", "challenge", "support", "coaching"],
+      group_visibility: ["public", "private"],
       idempotency_scope: [
         "payment",
         "ai_write",
@@ -2438,6 +3643,15 @@ export const Constants = {
         "notification",
       ],
       idempotency_status: ["pending", "completed", "failed"],
+      live_room_role: ["host", "moderator", "speaker", "listener"],
+      live_room_speak_state: [
+        "listener",
+        "request_to_speak",
+        "approved_speaker",
+        "speaking",
+      ],
+      live_room_status: ["scheduled", "live", "ended", "cancelled"],
+      live_room_type: ["public", "group", "coach_client"],
       meal_type: ["breakfast", "lunch", "dinner", "snack", "other"],
       measurement_type: [
         "waist",
@@ -2448,6 +3662,11 @@ export const Constants = {
         "body_fat",
         "muscle_mass",
       ],
+      media_type: ["image", "video"],
+      message_type: ["text", "image", "video", "system"],
+      post_status: ["draft", "published", "archived", "deleted"],
+      post_type: ["text", "photo", "video", "progress", "nutrition", "goal"],
+      post_visibility: ["public", "followers", "private", "group"],
       privacy_visibility: ["private", "followers", "public", "coach"],
       profile_activity_level: [
         "sedentary",
@@ -2455,6 +3674,14 @@ export const Constants = {
         "moderate",
         "active",
         "very_active",
+      ],
+      room_moderation_action: [
+        "mute",
+        "remove",
+        "ban",
+        "approve_speaker",
+        "revoke_speaker",
+        "dismiss_hand",
       ],
       units_system: ["metric", "imperial"],
     },

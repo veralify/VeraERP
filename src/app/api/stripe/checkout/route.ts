@@ -1,4 +1,9 @@
-import { getPlanByTier, type SubscriptionTier } from '@config/billing';
+import {
+  type BillingCadence,
+  getPlanByCadence,
+  getPlanByTier,
+  type SubscriptionTier,
+} from '@config/billing';
 import { getActiveBrand } from '@config/brands';
 import { apiLogger } from '@lib/logger';
 import { getStripe } from '@lib/stripe/server';
@@ -29,7 +34,9 @@ export async function POST(request: Request) {
 
   const formData = await request.formData().catch(() => null);
   const requestedTier = (formData?.get('tier') as SubscriptionTier | null) ?? 'veralify_plus';
-  const plan = getPlanByTier(requestedTier);
+  const requestedCadence = (formData?.get('cadence') as BillingCadence | null) ?? 'annual';
+  const cadencePlan = getPlanByCadence(requestedCadence);
+  const plan = cadencePlan?.tier === requestedTier ? cadencePlan : getPlanByTier(requestedTier);
 
   if (!plan?.priceEnvVar) {
     log.warn('rejected: invalid or non-purchasable plan', requestedTier);
@@ -76,9 +83,20 @@ export async function POST(request: Request) {
       client_reference_id: user.id,
       line_items: [{ price: priceId, quantity: 1 }],
       subscription_data: {
-        metadata: { user_id: user.id, tier: plan.tier },
+        trial_period_days: plan.trialDays,
+        metadata: {
+          user_id: user.id,
+          tier: plan.tier,
+          product_key: plan.productKey,
+          cadence: plan.cadence,
+        },
       },
-      metadata: { user_id: user.id, tier: plan.tier },
+      metadata: {
+        user_id: user.id,
+        tier: plan.tier,
+        product_key: plan.productKey,
+        cadence: plan.cadence,
+      },
       allow_promotion_codes: true,
       success_url: `${brand.websiteUrl}/dashboard?checkout=success`,
       cancel_url: `${brand.websiteUrl}/pricing?checkout=cancelled`,

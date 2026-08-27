@@ -45,6 +45,16 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
           >
             {user.email}
           </span>
+          <a
+            href="/dashboard"
+            className={primaryBtn}
+            style={{
+              backgroundColor: 'var(--brand-primary)',
+              color: 'var(--vera-color-on-primary)',
+            }}
+          >
+            Dashboard
+          </a>
           <button
             type="button"
             onClick={() => void signOut()}
@@ -59,14 +69,31 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
           </button>
         </>
       ) : (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className={primaryBtn}
-          style={{ backgroundColor: 'var(--brand-primary)', color: '#ffffff' }}
-        >
-          Sign in
-        </button>
+        <>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className={ghostBtn}
+            style={{
+              borderColor: 'var(--surface-border)',
+              backgroundColor: 'var(--surface)',
+              color: 'var(--text-main)',
+            }}
+          >
+            Sign in
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className={`${primaryBtn} hidden sm:inline-flex`}
+            style={{
+              backgroundColor: 'var(--brand-primary)',
+              color: 'var(--vera-color-on-primary)',
+            }}
+          >
+            Get started
+          </button>
+        </>
       )}
       <AuthModal open={open} onClose={() => setOpen(false)} />
     </div>

@@ -31,6 +31,7 @@ const readStoredMode = (): ThemeMode => {
 const persistMode = (mode: ThemeMode) => {
   try {
     window.localStorage.setItem(THEME_KEY, mode);
+    // biome-ignore lint/suspicious/noDocumentCookie: mirrors theme to a server-readable cookie.
     document.cookie = `${THEME_KEY}=${mode};path=/;max-age=31536000;samesite=lax`;
   } catch {
     /* ignore */

@@ -3,7 +3,20 @@ import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSiteUrl();
-  const routes = ['', '/privacy', '/terms', '/welcome'];
+  const routes = [
+    '',
+    '/features',
+    '/ai',
+    '/tracking',
+    '/communities',
+    '/live',
+    '/coaches',
+    '/pricing',
+    '/about',
+    '/help',
+    '/privacy',
+    '/terms',
+  ];
 
   return routes.map((route) => ({
     url: `${base}${route}`,

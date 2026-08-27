@@ -183,7 +183,7 @@ export function AuthModal({ open, onClose }: Props) {
         </h2>
         <p className="mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>
           {step === 'email'
-            ? 'Use your Veralify account to access flights, eSIMs, and more.'
+            ? 'Use your Veralify account to access tracking, communities, live rooms, and coaches.'
             : mode === 'signup'
               ? `Set a password for ${email.trim()}.`
               : `Enter the password for ${email.trim()}.`}

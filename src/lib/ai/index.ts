@@ -102,3 +102,47 @@ export async function* readSseStream<T = unknown>(response: Response): AsyncGene
     }
   }
 }
+
+import type { Database } from '@lib/api/database.types';
+
+type FoodLogItemInsert = Database['public']['Tables']['food_log_items']['Insert'];
+export type SnapshotResolvedCandidate = {
+  food_log_id: string;
+  food_id?: string | null;
+  food_nutrition_version_id?: string | null;
+  name: string;
+  confidence?: number | null;
+  nutrition?: {
+    calories: number;
+    protein_g: number;
+    carbs_g: number;
+    fat_g: number;
+    fiber_g: number;
+    sugar_g?: number;
+    sodium_mg?: number;
+  };
+};
+export function buildFoodLogItemSnapshot(
+  resolvedCandidate: SnapshotResolvedCandidate,
+  portion: { quantity: number; unit: string; grams?: number | null },
+): FoodLogItemInsert {
+  const n = resolvedCandidate.nutrition;
+  return {
+    food_log_id: resolvedCandidate.food_log_id,
+    food_id: resolvedCandidate.food_id ?? null,
+    food_nutrition_version_id: resolvedCandidate.food_nutrition_version_id ?? null,
+    name: resolvedCandidate.name,
+    quantity: portion.quantity,
+    unit: portion.unit,
+    grams: portion.grams ?? null,
+    calories: n?.calories ?? 0,
+    protein_g: n?.protein_g ?? 0,
+    carbs_g: n?.carbs_g ?? 0,
+    fat_g: n?.fat_g ?? 0,
+    fiber_g: n?.fiber_g ?? 0,
+    sugar_g: n?.sugar_g ?? 0,
+    sodium_mg: n?.sodium_mg ?? 0,
+    confidence: resolvedCandidate.confidence ?? null,
+    ai_estimated: !resolvedCandidate.food_id || !resolvedCandidate.food_nutrition_version_id,
+  };
+}

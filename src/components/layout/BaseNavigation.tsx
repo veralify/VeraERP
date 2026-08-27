@@ -4,71 +4,68 @@ import { AuthWidget } from '@components/auth/AuthWidget';
 import { getActiveBrand } from '@config/brands';
 import { LanguageSwitcher } from '@i18n/LanguageSwitcher';
 import { ThemeToggle } from '@theme/ThemeToggle';
-import { useEffect } from 'react';
+import Image from 'next/image';
 
-type Props = {
-  pageTitle?: string;
-};
+const productLinks = [
+  ['AI', '/ai'],
+  ['Tracking', '/tracking'],
+  ['Communities', '/communities'],
+  ['Live', '/live'],
+  ['Coaches', '/coaches'],
+] as const;
+
+type Props = { pageTitle?: string };
 
 export function BaseNavigation({ pageTitle }: Props) {
   const brand = getActiveBrand();
 
-  useEffect(() => {
-    const nav = document.getElementById('site-nav');
-    if (!nav) return;
-
-    let lastY = window.scrollY;
-    let ticking = false;
-
-    const update = () => {
-      const y = window.scrollY;
-      if (y <= 80 || y < lastY) {
-        nav.classList.remove('nav-hidden');
-      } else if (y > lastY) {
-        nav.classList.add('nav-hidden');
-      }
-      lastY = y;
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(update);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
     <header
       id="site-nav"
-      className="glass sticky top-0 z-40 transition-transform duration-300 will-change-transform"
+      className="glass sticky top-0 z-40"
       style={{ borderLeft: 'none', borderRight: 'none', borderTop: 'none' }}
     >
       {pageTitle && <h1 className="hidden">{pageTitle}</h1>}
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-4 px-6">
         <a
           href="/"
           className="inline-flex items-center gap-2.5 transition-opacity hover:opacity-80"
+          aria-label={`${brand.name} home`}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={brand.assets.logoPath}
-            alt={`${brand.name} logo`}
-            width={30}
-            height={30}
-            loading="eager"
-          />
-          <p
-            className="text-[17px] font-semibold tracking-tight"
-            style={{ color: 'var(--text-main)' }}
-          >
+          <Image src={brand.assets.logoPath} alt="" width={30} height={30} priority />
+          <span className="text-[17px] font-black tracking-tight text-vera-fg">
             {brand.shortName}
-          </p>
+          </span>
         </a>
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Product">
+          {productLinks.map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              className="rounded-full px-3 py-2 text-sm font-medium text-vera-fg-muted transition hover:bg-vera-surface hover:text-vera-fg"
+            >
+              {label}
+            </a>
+          ))}
+          <a
+            href="/pricing"
+            className="rounded-full px-3 py-2 text-sm font-semibold text-vera-fg transition hover:bg-vera-surface"
+          >
+            Pricing
+          </a>
+          <a
+            href="/about"
+            className="rounded-full px-3 py-2 text-sm font-medium text-vera-fg-muted transition hover:bg-vera-surface hover:text-vera-fg"
+          >
+            About
+          </a>
+          <a
+            href="/help"
+            className="rounded-full px-3 py-2 text-sm font-medium text-vera-fg-muted transition hover:bg-vera-surface hover:text-vera-fg"
+          >
+            Help
+          </a>
+        </nav>
         <div className="flex items-center gap-2.5">
           <ThemeToggle />
           <LanguageSwitcher />

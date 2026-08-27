@@ -1,47 +1,91 @@
 /**
- * Subscription plan catalogue. `tier` must match the
- * `profiles_subscription_tier_check` constraint in Supabase
- * (supabase/migrations/20260720173000_create_profiles_usage_and_orders.sql).
+ * Web subscription catalogue for the fitness pivot.
  *
- * Add new paid tiers here *and* extend the DB check constraint together.
+ * Stripe prices are configuration, not hard-coded live billing truth. Create the
+ * VERALIFY_PRO weekly/monthly/annual Stripe Prices with a 3-day trial in Stripe,
+ * then set the env vars below. Display labels mirror the frozen launch spec and
+ * must be reconciled with Stripe before production launch.
  */
-export type SubscriptionTier = 'free' | 'veralify_plus';
+export type SubscriptionTier = 'veralify_plus';
+export type BillingCadence = 'weekly' | 'monthly' | 'annual';
 
-export type BillingPlan = {
+export type BillingOption = {
   tier: SubscriptionTier;
+  productKey: 'VERALIFY_PRO';
+  cadence: BillingCadence;
   name: string;
   description: string;
   priceLabel: string;
+  note: string;
+  trialDays: number;
   monthlyAiCredits: number;
   features: string[];
-  /** Env var name holding the live Stripe Price ID for this plan (recurring). */
-  priceEnvVar?: string;
+  priceEnvVar: string;
+  recommended?: boolean;
 };
 
-export const billingPlans: BillingPlan[] = [
+const proFeatures = [
+  'AI food logging and verification',
+  'Advanced nutrition and daily summaries',
+  'Goal, progress, trend, and photo tracking',
+  'Unlimited groups and community accountability',
+  'Live rooms and premium live rooms',
+  'Coach discovery and AI recommendations',
+];
+
+export const billingOptions: BillingOption[] = [
   {
-    tier: 'free',
-    name: 'Free',
-    description: 'Get started with the essentials.',
-    priceLabel: '$0/mo',
-    monthlyAiCredits: 50,
-    features: ['50 AI credits / month', 'Core travel & eSIM tools', 'Community support'],
+    tier: 'veralify_plus',
+    productKey: 'VERALIFY_PRO',
+    cadence: 'weekly',
+    name: 'Weekly',
+    description: 'Flexible access for short reset periods.',
+    priceLabel: '$4.99 / week',
+    note: '3-day trial, then weekly billing.',
+    trialDays: 3,
+    monthlyAiCredits: 1000,
+    features: proFeatures,
+    priceEnvVar: 'STRIPE_PRICE_VERALIFY_PRO_WEEKLY',
   },
   {
     tier: 'veralify_plus',
-    name: 'Veralify Plus',
-    description: 'More AI credits and priority perks for frequent travellers.',
-    priceLabel: '$9/mo',
+    productKey: 'VERALIFY_PRO',
+    cadence: 'monthly',
+    name: 'Monthly',
+    description: 'Month-to-month Pro accountability.',
+    priceLabel: '$9.99 / month',
+    note: '3-day trial, then monthly billing.',
+    trialDays: 3,
     monthlyAiCredits: 1000,
-    features: ['1,000 AI credits / month', 'Priority support', 'Early access to new features'],
-    priceEnvVar: 'STRIPE_PRICE_VERALIFY_PLUS',
+    features: proFeatures,
+    priceEnvVar: 'STRIPE_PRICE_VERALIFY_PRO_MONTHLY',
+  },
+  {
+    tier: 'veralify_plus',
+    productKey: 'VERALIFY_PRO',
+    cadence: 'annual',
+    name: 'Annual',
+    description: 'Default launch value for long-term consistency.',
+    priceLabel: '$29.99 / year',
+    note: '3-day trial, then annual billing. Save 75% versus weekly.',
+    trialDays: 3,
+    monthlyAiCredits: 1000,
+    features: proFeatures,
+    priceEnvVar: 'STRIPE_PRICE_VERALIFY_PRO_ANNUAL',
+    recommended: true,
   },
 ];
 
-export function getPlanByTier(tier: SubscriptionTier): BillingPlan | undefined {
-  return billingPlans.find((plan) => plan.tier === tier);
+export const billingPlans = billingOptions;
+
+export function getPlanByTier(tier: SubscriptionTier): BillingOption | undefined {
+  return billingOptions.find((plan) => plan.tier === tier && plan.cadence === 'annual');
 }
 
-export function getPlanByPriceId(priceId: string): BillingPlan | undefined {
-  return billingPlans.find((plan) => plan.priceEnvVar && process.env[plan.priceEnvVar] === priceId);
+export function getPlanByCadence(cadence: BillingCadence): BillingOption | undefined {
+  return billingOptions.find((plan) => plan.cadence === cadence);
+}
+
+export function getPlanByPriceId(priceId: string): BillingOption | undefined {
+  return billingOptions.find((plan) => process.env[plan.priceEnvVar] === priceId);
 }

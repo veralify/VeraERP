@@ -1,6 +1,9 @@
 export type FoodCandidate = {
   name: string;
   canonical_hint?: string;
+  barcode?: string | null;
+  external_id?: string | null;
+  source?: string | null;
   confidence: number;
   assumptions: string[];
 };
@@ -12,11 +15,38 @@ export type PortionEstimate = {
   confidence: number;
   assumptions: string[];
 };
+export type FoodNutrition = {
+  calories: number;
+  protein_g: number;
+  carbs_g: number;
+  fat_g: number;
+  fiber_g: number;
+  sugar_g?: number;
+  sodium_mg?: number;
+};
+export type AnalyzeFoodItem = {
+  food_id?: string;
+  food_nutrition_version_id?: string;
+  name: string;
+  portion: PortionEstimate;
+  confidence: number;
+  assumptions: string[];
+  nutrition?: FoodNutrition;
+  provenance: {
+    kind: 'internal' | 'external' | 'ai_estimate_pending_verification';
+    source?: string | null;
+    external_id?: string | null;
+    matched_by?: string;
+    nutrition_version_id?: string | null;
+  };
+  needs_verification: boolean;
+};
 export type FoodAnalysisResult = {
-  items: Array<FoodCandidate & { portion: PortionEstimate }>;
+  items: AnalyzeFoodItem[];
   overall_confidence: number;
   requires_confirmation: boolean;
   verification_recommended: boolean;
+  threshold_decision?: 'auto_accept' | 'needs_user_confirm' | 'reject';
 };
 export type CoachResponse = {
   message: string;

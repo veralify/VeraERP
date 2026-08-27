@@ -1,18 +1,18 @@
 export const en = {
   hero: {
-    quote: 'Good things come to those who wait.',
-    headline: 'We disagree. Better things come to those who take action. 🌍',
+    quote: 'Progress starts with one honest log.',
+    headline: 'Track. Connect. Transform.',
     description:
-      "Don't just wait for the future of travel—help us build it. Join the Veralify Inner Circle now for early, exclusive Beta access before the public launch.",
-    cta: 'Claim your passport to a borderless world!',
+      'Join Veralify early for AI food tracking, communities, live rooms, and coach discovery.',
+    cta: 'Start your fitness loop.',
     scrollDown: 'Scroll down',
   },
   waitlist: {
     badge: 'Coming soon · 2026',
-    titleLine1: 'Your passport',
-    titleLine2: 'to a borderless world.',
+    titleLine1: 'Track. Connect.',
+    titleLine2: 'Transform.',
     description:
-      'The first travel and telecom super-app built for modern explorers. Activate global internet in seconds, curate your perfect trip, and stay connected everywhere — zero friction, no roaming drama. Join us as we find better ways to explore the world.',
+      'AI-powered food and nutrition tracking, goals, progress, communities, live rooms, messaging, and coach discovery in one Pro experience.',
     emailPlaceholder: 'Your Email Address',
     submit: 'Get Notified',
     submitting: 'Joining',
@@ -22,7 +22,7 @@ export const en = {
     genericError: 'Something went wrong.',
   },
   footer: {
-    tagline: 'Your passport to a borderless world.',
+    tagline: 'Track. Connect. Transform.',
     legalNotice: 'Legal notice',
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
@@ -30,8 +30,8 @@ export const en = {
     backToTop: 'Back to top',
   },
   welcome: {
-    title: "You're on the list! 🌍",
-    titleBack: "You're already on the list — welcome back! 🌍",
+    title: "You're on the list!",
+    titleBack: "You're already on the list — welcome back!",
     yourPosition: 'Your position',
     moveUpBefore:
       'Want to move up? Every friend who joins with your link bumps you up the list — and the',
@@ -43,7 +43,7 @@ export const en = {
     shareX: 'Share on X',
     backHome: 'Back to home',
     shareText:
-      'I just joined the Veralify waitlist — your passport to a borderless world. Join with my link and we both move up:',
+      'I just joined the Veralify waitlist for AI fitness accountability. Join with my link and we both move up:',
   },
   notFound: {
     heading: 'Page Not Found',
@@ -66,7 +66,7 @@ export const en = {
       },
       {
         heading: '3. Third-party sharing',
-        body: 'To provide eSIM connectivity and essential services, we may share necessary data with trusted third-party service providers (e.g., telecommunication carriers, payment processors, and cloud infrastructure providers). We ensure these partners adhere to strict data protection standards.',
+        body: 'To provide fitness, subscription, communications, and essential services, we may share necessary data with trusted service providers such as payment processors, email providers, and cloud infrastructure providers. We ensure these partners adhere to strict data protection standards.',
       },
       {
         heading: '4. Data security',

@@ -15,6 +15,7 @@ const dictionaries: Record<Locale, Dictionary> = { en, es, fr, de, it, ar };
 // language on the first paint, eliminating the English flash on navigation.
 const writeLocaleCookie = (locale: Locale) => {
   try {
+    // biome-ignore lint/suspicious/noDocumentCookie: mirrors locale to a server-readable cookie.
     document.cookie = `${STORAGE_KEY}=${locale};path=/;max-age=31536000;samesite=lax`;
   } catch {
     /* ignore */

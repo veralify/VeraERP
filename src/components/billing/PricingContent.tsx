@@ -1,13 +1,9 @@
 import { ManageBillingButton } from '@components/billing/ManageBillingButton';
 import { UpgradeButton } from '@components/billing/UpgradeButton';
-import { billingPlans } from '@config/billing';
+import { billingOptions } from '@config/billing';
 import { createSupabaseServerClient } from '@lib/supabase/server';
 import { supabaseAdmin } from '@lib/supabaseAdmin';
 
-/**
- * Fetches the signed-in user's current tier (if any) so the pricing page can
- * highlight their active plan and swap the CTA to "Manage billing".
- */
 async function getCurrentTier(): Promise<string | null> {
   try {
     const supabase = await createSupabaseServerClient();
@@ -15,14 +11,12 @@ async function getCurrentTier(): Promise<string | null> {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return null;
-
     const { data: profile } = await supabaseAdmin
       .from('profiles')
       .select('subscription_tier')
       .eq('id', user.id)
       .maybeSingle();
-
-    return profile?.subscription_tier ?? 'free';
+    return profile?.subscription_tier ?? null;
   } catch {
     return null;
   }
@@ -30,61 +24,96 @@ async function getCurrentTier(): Promise<string | null> {
 
 export async function PricingContent() {
   const currentTier = await getCurrentTier();
+  const isPro = currentTier === 'veralify_plus';
 
   return (
-    <main
-      className="mx-auto max-w-5xl px-6 pb-40 pt-16"
-      style={{ backgroundColor: 'var(--page-bg)', color: 'var(--text-main)' }}
-    >
-      <div className="mb-12 text-center">
-        <h1 className="text-3xl font-bold sm:text-4xl">Pricing</h1>
-        <p className="mt-3 text-base opacity-80">
-          Simple plans that scale with how much you travel.
+    <main className="bg-vera-bg px-6 pb-28 pt-16 text-vera-fg">
+      <section className="mx-auto max-w-4xl text-center">
+        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-vera-primary">
+          Pricing
         </p>
-      </div>
+        <h1 className="mt-3 text-4xl font-black tracking-tight sm:text-6xl">
+          Veralify Pro unlocks everything.
+        </h1>
+        <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-vera-fg-muted">
+          No free tier. Your 3-day trial includes AI food scanning, insights, unlimited groups, live
+          rooms, progress analytics, and coach discovery.
+        </p>
+      </section>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        {billingPlans.map((plan) => {
-          const isCurrent = currentTier === plan.tier;
-          return (
-            <div
-              key={plan.tier}
-              className="flex flex-col rounded-2xl border border-black/10 p-8 dark:border-white/10"
-            >
-              <h2 className="text-xl font-semibold">{plan.name}</h2>
-              <p className="mt-2 text-sm opacity-70">{plan.description}</p>
-              <p className="mt-6 text-3xl font-bold">{plan.priceLabel}</p>
-
-              <ul className="mt-6 flex-1 space-y-2 text-sm">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2">
-                    <span aria-hidden="true">✓</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8">
-                {isCurrent ? (
-                  plan.tier === 'free' ? (
-                    <span className="inline-flex items-center justify-center rounded-full border border-current px-6 py-3 text-sm font-semibold opacity-60">
-                      Current plan
-                    </span>
-                  ) : (
-                    <ManageBillingButton label="Manage billing" />
-                  )
-                ) : plan.priceEnvVar ? (
-                  <UpgradeButton tier={plan.tier} label={`Upgrade to ${plan.name}`} />
-                ) : (
-                  <span className="inline-flex items-center justify-center rounded-full border border-current px-6 py-3 text-sm font-semibold opacity-60">
-                    Included
+      <section className="mx-auto mt-14 grid max-w-6xl gap-5 lg:grid-cols-3">
+        {billingOptions.map((plan) => (
+          <article
+            key={plan.cadence}
+            className="relative flex flex-col rounded-vera-2xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)]"
+          >
+            {plan.recommended ? (
+              <span className="absolute right-5 top-5 rounded-full bg-vera-secondary px-3 py-1 text-xs font-bold text-vera-on-secondary">
+                Default
+              </span>
+            ) : null}
+            <p className="text-sm font-semibold text-vera-primary">VERALIFY PRO</p>
+            <h2 className="mt-3 text-2xl font-bold">{plan.name}</h2>
+            <p className="mt-2 text-sm text-vera-fg-muted">{plan.description}</p>
+            <p className="mt-6 text-4xl font-black tracking-tight">{plan.priceLabel}</p>
+            <p className="mt-2 text-sm text-vera-fg-muted">{plan.note}</p>
+            <ul className="mt-6 flex-1 space-y-3 text-sm">
+              {plan.features.map((feature) => (
+                <li key={feature} className="flex gap-2">
+                  <span aria-hidden="true" className="text-vera-success">
+                    ✓
                   </span>
-                )}
-              </div>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8">
+              {isPro ? (
+                <ManageBillingButton
+                  label="Manage billing"
+                  className="btn-apple-secondary w-full"
+                />
+              ) : (
+                <UpgradeButton
+                  tier={plan.tier}
+                  cadence={plan.cadence}
+                  label="Start 3-day trial"
+                  className="btn-apple w-full"
+                />
+              )}
             </div>
-          );
-        })}
-      </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="mx-auto mt-16 max-w-4xl rounded-vera-2xl border border-vera-border bg-vera-bg-subtle p-8">
+        <h2 className="text-2xl font-bold">FAQ</h2>
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
+          {[
+            [
+              'What is included?',
+              'Every consumer Pro entitlement: AI food logging, advanced AI, nutrition, daily summaries, progress trends, groups, live rooms, and coach discovery.',
+            ],
+            [
+              'How does the trial work?',
+              'The 3-day trial grants full Pro access. If it lapses without conversion, historical data remains read-only and Pro actions route to billing.',
+            ],
+            [
+              'Can I cancel anytime?',
+              'Yes. Web subscribers manage cancellation and payment methods through the Stripe billing portal.',
+            ],
+            [
+              'What about iOS purchases?',
+              'Digital subscriptions purchased in the iOS app are sold through Apple In-App Purchase and restored with the App Store account.',
+            ],
+          ].map(([question, answer]) => (
+            <div key={question}>
+              <h3 className="font-semibold">{question}</h3>
+              <p className="mt-2 text-sm leading-6 text-vera-fg-muted">{answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

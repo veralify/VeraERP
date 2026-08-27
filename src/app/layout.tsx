@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: brand.name,
     template: `%s | ${brand.name}`,
   },
-  description: `Sign up to get upcoming ${brand.name} updates.`,
+  description: `${brand.name} is a fitness and social platform for AI food tracking, communities, live rooms, and coaches.`,
   manifest: '/manifest.json',
   icons: {
     icon: { url: brand.assets.faviconPath, type: 'image/svg+xml' },
@@ -48,6 +48,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     headerList.get('accept-language'),
   );
   const dir = localeMeta[initialLocale].dir;
+  const pathname = headerList.get('x-pathname') ?? '';
+  const isMemberApp = pathname.startsWith('/dashboard');
 
   // Explicit day/night preference is known server-side; 'auto'/unset defers to
   // the inline script below (which resolves by local clock before first paint).
@@ -79,9 +81,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <ThemeProvider initialTheme={initialTheme}>
           <LanguageProvider initialLocale={initialLocale}>
-            <BaseNavigation />
+            {!isMemberApp && <BaseNavigation />}
             {children}
-            <BaseFooter />
+            {!isMemberApp && <BaseFooter />}
           </LanguageProvider>
         </ThemeProvider>
         <Analytics />

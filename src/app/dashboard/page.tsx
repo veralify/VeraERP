@@ -1,54 +1,42 @@
-import { ManageBillingButton } from '@components/billing/ManageBillingButton';
-import { NewsletterControl } from '@components/dashboard/NewsletterControl';
-import { getActiveBrand } from '@config/brands';
+import { EmptyState } from '@components/member/EmptyState';
 import { createSupabaseServerClient } from '@lib/supabase/server';
-import { supabaseAdmin } from '@lib/supabaseAdmin';
 import type { Metadata } from 'next';
 
-const brand = getActiveBrand();
-
 export const metadata: Metadata = {
-  title: `${brand.name} Dashboard`,
-  description: `Admin dashboard for ${brand.name} email campaigns and operations.`,
+  title: 'Dashboard',
+  description: 'Your Veralify member dashboard.',
 };
 
-async function getBillingStatus() {
-  try {
-    const supabase = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return null;
-
-    const { data: profile } = await supabaseAdmin
-      .from('profiles')
-      .select('subscription_tier, stripe_customer_id')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    return profile ?? null;
-  } catch {
-    return null;
-  }
+async function getUser() {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
 }
 
 export default async function DashboardPage() {
-  const billing = await getBillingStatus();
-
+  const user = await getUser();
   return (
-    <main
-      className="px-6 pb-40 pt-10"
-      style={{ backgroundColor: 'var(--page-bg)', color: 'var(--text-main)' }}
-    >
-      {billing?.stripe_customer_id ? (
-        <div className="mb-8 flex items-center justify-between rounded-xl border border-black/10 p-4 dark:border-white/10">
-          <span className="text-sm opacity-80">
-            Current plan: <strong>{billing.subscription_tier}</strong>
-          </span>
-          <ManageBillingButton />
-        </div>
-      ) : null}
-      <NewsletterControl />
+    <main className="px-4 py-8 lg:px-8">
+      <section className="mb-8 rounded-vera-2xl border border-vera-border bg-vera-surface p-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-vera-primary">
+          Member dashboard
+        </p>
+        <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-5xl">
+          Welcome{user?.email ? `, ${user.email}` : ''}.
+        </h1>
+        <p className="mt-3 max-w-2xl text-vera-fg-muted">
+          Start with a meal, progress photo, or goal check-in. Your dashboard will fill in as you
+          track real activity.
+        </p>
+      </section>
+      <EmptyState
+        title="No entries yet"
+        body="Your meals, progress updates, goals, groups, live rooms, messages, and AI insights will appear here after you add them."
+        ctaHref="/dashboard/track"
+        ctaLabel="Start tracking"
+      />
     </main>
   );
 }
