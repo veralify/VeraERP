@@ -63,7 +63,9 @@ const TIERS = {
 };
 
 function usage() {
-  console.error('Usage: node scripts/validate-env.mjs [dotenv-file] [--tier web-public|web-server|edge-functions] [--soft]');
+  console.error(
+    'Usage: node scripts/validate-env.mjs [dotenv-file] [--tier web-public|web-server|edge-functions] [--soft]',
+  );
 }
 
 function parseDotenv(path) {
@@ -75,7 +77,10 @@ function parseDotenv(path) {
     const match = line.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/);
     if (!match) continue;
     let value = match[2].trim();
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
       value = value.slice(1, -1);
     }
     env[match[1]] = value;
@@ -126,9 +131,17 @@ const rows = ALL_VARS.map((name) => ({
 
 console.log(`Environment validation tier: ${tier}${soft ? ' (soft)' : ''}`);
 if (dotenvPath) console.log(`Dotenv file: ${dotenvPath}`);
-console.table(rows.map((row) => ({ Name: row.name, Required: row.required ? 'yes' : 'no', Status: row.status })));
+console.table(
+  rows.map((row) => ({
+    Name: row.name,
+    Required: row.required ? 'yes' : 'no',
+    Status: row.status,
+  })),
+);
 
-const missingRequired = rows.filter((row) => row.required && row.status === 'MISSING').map((row) => row.name);
+const missingRequired = rows
+  .filter((row) => row.required && row.status === 'MISSING')
+  .map((row) => row.name);
 if (missingRequired.length > 0) {
   console.error(`Missing required variables for ${tier}: ${missingRequired.join(', ')}`);
   process.exit(soft ? 0 : 1);

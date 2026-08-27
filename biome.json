@@ -6,7 +6,15 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!supabase/functions",
+      "!supabase/.temp",
+      "!veralify-App",
+      "!src/lib/api/database.types.ts",
+      "!design-system/veralify/tokens/tokens.css"
+    ]
   },
   "formatter": {
     "enabled": true,
