@@ -171,10 +171,12 @@
       "role": "fast_general"
     },
     "advanced_chat": {
-      "role": "elite_reasoning"
+      "role": "elite_reasoning",
+      "budget_fallback_role": "fast_general"
     },
     "weekly_analysis": {
-      "role": "elite_reasoning"
+      "role": "elite_reasoning",
+      "budget_fallback_role": "fast_general"
     },
     "cheap_multimodal": {
       "role": "cheap_multimodal"
@@ -188,10 +190,12 @@
       "ambiguous_role": "elite_reasoning_fallback"
     },
     "insight": {
-      "role": "elite_reasoning"
+      "role": "elite_reasoning",
+      "budget_fallback_role": "fast_general"
     },
     "recommendations": {
-      "role": "elite_reasoning"
+      "role": "elite_reasoning",
+      "budget_fallback_role": "fast_general"
     },
     "food_verification": {
       "role": "elite_reasoning_fallback"

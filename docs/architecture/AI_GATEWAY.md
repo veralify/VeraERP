@@ -57,3 +57,29 @@ POST /analyze-food
 ```
 
 The AI never returns final nutrition numbers. It only identifies candidates and portions. `nutrition-engine.ts` computes calories/protein/carbs/fat/fiber/sugar/sodium from canonical data. Clients should use `buildFoodLogItemSnapshot()` from `src/lib/ai` to create immutable `food_log_items` snapshots so historical logs do not change when canonical food data changes.
+
+## Evaluation framework
+
+The permanent §67 harness lives in `supabase/functions/ai-gateway/evals/`.
+
+Run seeded food benchmark:
+
+```bash
+cd supabase/functions/ai-gateway
+pnpm dlx deno run --allow-read --allow-write --allow-env evals/runner.ts evals/datasets/food_seed_text.jsonl
+```
+
+Run seeded reasoning benchmark:
+
+```bash
+pnpm dlx deno run --allow-read --allow-write --allow-env evals/runner.ts evals/datasets/reasoning_seed.jsonl
+```
+
+Reports are written to `evals/out/*.report.json` and `evals/out/*.report.md`. The runner uses mock case outputs unless `OPENROUTER_API_KEY` is set or `--real-openrouter` is passed; then it calls the real routed OpenRouter path. Metrics include identification accuracy, portion error %, calorie/protein/macro error %, confidence calibration buckets, structured-output validity, latency, and cost.
+
+Regression gates:
+
+- `tests/router_chaos_test.ts` verifies fallback-chain telemetry for provider outages, total failure, and over-budget cheaper-role fallback.
+- `tests/model_policy_regression_test.ts` fails when roles/routes/pricing/thresholds change without bumping `model_policy_version`.
+
+EXACT HUMAN ACTION REQUIRED for Phase 17: provide the 500+ real food-image benchmark dataset described in §67, covering restaurant, homemade, mixed dishes, drinks, desserts, international cuisines, poor lighting, partial meals, large/small portions, with expected canonical foods and nutrition/portion tolerances.

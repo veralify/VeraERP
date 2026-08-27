@@ -19,3 +19,4 @@ out
 .env
 .env.*
 !.env.example
+supabase/functions/ai-gateway/evals/out/
