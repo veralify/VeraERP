@@ -34,3 +34,26 @@ cd supabase/functions/ai-gateway && deno task test
 ```
 
 The legacy `src/app/api/v1/chat/completions/route.ts` is still a mock eSIM/travel-compatible route; it should later delegate to this gateway after product integration.
+
+## Food pipeline
+
+```text
+POST /analyze-food
+  → safety/rate/cost checks
+  → vision policy task food_image
+  → structured FoodAnalysisResult (foods + portions only)
+  → confidence thresholds from model-policy.json food_pipeline
+      below verification_confidence_below → food_verification policy task
+  → provenance lookup
+      1. foods.barcode
+      2. food_sources + food_external_mappings exact source/external_id
+      3. normalized foods.name match
+      4. external provider boundary (requires FOOD_DATA_PROVIDER_KEY; no fake data)
+      5. ai_estimate_pending_verification
+  → deterministic nutrition-engine.ts
+      canonical food + current food_nutrition_versions + food_servings
+      grams × canonical nutrient basis, rounded explicitly
+  → response: resolved items include nutrition/provenance; unresolved items omit nutrition and set needs_verification
+```
+
+The AI never returns final nutrition numbers. It only identifies candidates and portions. `nutrition-engine.ts` computes calories/protein/carbs/fat/fiber/sugar/sodium from canonical data. Clients should use `buildFoodLogItemSnapshot()` from `src/lib/ai` to create immutable `food_log_items` snapshots so historical logs do not change when canonical food data changes.
