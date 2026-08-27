@@ -1,0 +1,5 @@
+{
+  "compilerOptions": { "strict": true, "lib": ["deno.ns", "dom", "dom.iterable", "es2022"] },
+  "tasks": { "test": "deno test --allow-read --allow-env" },
+  "fmt": { "singleQuote": true, "lineWidth": 100 }
+}

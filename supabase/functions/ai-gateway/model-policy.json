@@ -1,0 +1,35 @@
+{
+  "model_policy_version": "2026-08",
+  "benchmark_version": "veralify-bench-2026-08",
+  "roles": {
+    "elite_reasoning": { "display_name": "Elite reasoning", "primary_model": "openai/gpt-5.6-sol-pro", "fallback_models": ["anthropic/claude-opus-5"], "allowed_providers": ["OpenAI", "Anthropic"], "provider_preferences": { "order": ["OpenAI", "Anthropic"], "allow_fallbacks": true }, "max_cost_per_run_usd": 0.25, "latency_target_ms": 30000, "timeout_ms": 30000, "max_tokens": 1600 },
+    "elite_reasoning_fallback": { "display_name": "Elite reasoning fallback", "primary_model": "anthropic/claude-opus-5", "fallback_models": ["openai/gpt-5.6-sol-pro"], "allowed_providers": ["Anthropic", "OpenAI"], "provider_preferences": { "order": ["Anthropic", "OpenAI"], "allow_fallbacks": true }, "max_cost_per_run_usd": 0.30, "latency_target_ms": 30000, "timeout_ms": 30000, "max_tokens": 1600 },
+    "multimodal_primary": { "display_name": "Multimodal primary", "primary_model": "google/gemini-3.7-flash", "fallback_models": ["anthropic/claude-opus-5", "xiaomi/mimo-v2.5"], "allowed_providers": ["Google", "Anthropic", "Xiaomi"], "provider_preferences": { "order": ["Google", "Anthropic", "Xiaomi"], "allow_fallbacks": true }, "max_cost_per_run_usd": 0.08, "latency_target_ms": 12000, "timeout_ms": 18000, "max_tokens": 1200 },
+    "fast_general": { "display_name": "Fast general", "primary_model": "google/gemini-3.6-flash", "fallback_models": ["google/gemini-3.7-flash", "anthropic/claude-opus-5"], "allowed_providers": ["Google", "Anthropic"], "provider_preferences": { "order": ["Google", "Anthropic"], "allow_fallbacks": true }, "max_cost_per_run_usd": 0.05, "latency_target_ms": 8000, "timeout_ms": 12000, "max_tokens": 1000 },
+    "cheap_multimodal": { "display_name": "Cheap multimodal", "primary_model": "xiaomi/mimo-v2.5", "fallback_models": ["google/gemini-3.7-flash"], "allowed_providers": ["Xiaomi", "Google"], "provider_preferences": { "order": ["Xiaomi", "Google"], "allow_fallbacks": true }, "max_cost_per_run_usd": 0.02, "latency_target_ms": 12000, "timeout_ms": 15000, "max_tokens": 900 },
+    "cheap_agent_coding": { "display_name": "Cheap agent/coding", "primary_model": "xiaomi/mimo-v2.5-pro", "fallback_models": ["openai/gpt-5.6-sol"], "allowed_providers": ["Xiaomi", "OpenAI"], "provider_preferences": { "order": ["Xiaomi", "OpenAI"], "allow_fallbacks": true }, "max_cost_per_run_usd": 0.06, "latency_target_ms": 25000, "timeout_ms": 30000, "max_tokens": 1600 },
+    "coding_review_fallback": { "display_name": "Coding/review fallback", "primary_model": "openai/gpt-5.6-sol", "fallback_models": ["anthropic/claude-opus-5"], "allowed_providers": ["OpenAI", "Anthropic"], "provider_preferences": { "order": ["OpenAI", "Anthropic"], "allow_fallbacks": true }, "max_cost_per_run_usd": 0.15, "latency_target_ms": 25000, "timeout_ms": 30000, "max_tokens": 1800 }
+  },
+  "task_routing": {
+    "food_image": { "role": "multimodal_primary", "verification_role": "elite_reasoning_fallback", "verification_confidence_below": 0.72 },
+    "simple_chat": { "role": "fast_general" },
+    "advanced_chat": { "role": "elite_reasoning" },
+    "weekly_analysis": { "role": "elite_reasoning" },
+    "cheap_multimodal": { "role": "cheap_multimodal" },
+    "coding": { "role": "elite_reasoning_fallback", "review_role": "coding_review_fallback" },
+    "moderation": { "role": "multimodal_primary", "ambiguous_role": "elite_reasoning_fallback" },
+    "insight": { "role": "elite_reasoning" },
+    "recommendations": { "role": "elite_reasoning" },
+    "food_verification": { "role": "elite_reasoning_fallback" }
+  },
+  "reference_pricing": {
+    "openai/gpt-5.6-sol-pro": { "input_per_million_usd": 2, "output_per_million_usd": 10 },
+    "anthropic/claude-opus-5": { "input_per_million_usd": 5, "output_per_million_usd": 25 },
+    "google/gemini-3.7-flash": { "input_per_million_usd": 0.375, "output_per_million_usd": 1.875 },
+    "google/gemini-3.6-flash": { "input_per_million_usd": 0.75, "output_per_million_usd": 3.75 },
+    "xiaomi/mimo-v2.5": { "input_per_million_usd": 0.119, "output_per_million_usd": 0.238 },
+    "xiaomi/mimo-v2.5-pro": { "input_per_million_usd": 0.119, "output_per_million_usd": 0.238 },
+    "openai/gpt-5.6-sol": { "input_per_million_usd": 2, "output_per_million_usd": 10 }
+  },
+  "limits": { "per_user_per_minute": 20, "daily_cost_ceiling_usd": 2.5 }
+}
