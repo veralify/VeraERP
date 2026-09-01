@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Money Manager</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span>€</span><div><b>Money Manager</b><small>إدارة أموالك بذكاء</small></div></div>
+    <nav>
+      <button class="nav active" data-page="dashboard">لوحة التحكم</button>
+      <button class="nav" data-page="income">مصادر الدخل</button>
+      <button class="nav" data-page="expenses">المصاريف</button>
+      <button class="nav" data-page="debts">الديون</button>
+      <button class="nav" data-page="savings">المدخرات</button>
+      <button class="nav" data-page="plan">خطة سداد الديون</button>
+    </nav>
+    <div class="side-note">نسخة أولى<br>SQLite + Express</div>
+  </aside>
+  <main class="main">
+    <header><div><h1 id="title">لوحة التحكم</h1><p id="subtitle">نظرة سريعة على وضعك المالي</p></div><div class="currency">EUR €</div></header>
+    <section id="content"></section>
+  </main>
+</div>
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+
+    <div class="modal-head">
+      <h3 id="modal-title"></h3>
+
+      <button
+        id="modal-close"
+        type="button"
+        aria-label="إغلاق"
+      >
+        ×
+      </button>
+    </div>
+
+    <div id="modal-body"></div>
+
+  </div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
