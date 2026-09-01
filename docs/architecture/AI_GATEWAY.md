@@ -83,3 +83,13 @@ Regression gates:
 - `tests/model_policy_regression_test.ts` fails when roles/routes/pricing/thresholds change without bumping `model_policy_version`.
 
 EXACT HUMAN ACTION REQUIRED for Phase 17: provide the 500+ real food-image benchmark dataset described in §67, covering restaurant, homemade, mixed dishes, drinks, desserts, international cuisines, poor lighting, partial meals, large/small portions, with expected canonical foods and nutrition/portion tolerances.
+
+## Persistence, coach, insights, recommendations
+
+Every production gateway call now creates an `ai_requests` row before model execution and records each model attempt in `ai_model_runs` with model/provider, policy/prompt/tool/safety versions, tokens, latency, estimated cost, success, and structured-output validity. Tool executions write `ai_tool_calls`. Non-persisted harness calls must pass an `aiRequestId` where possible; if absent, logging explicitly skips model/tool rows for tests/evals only.
+
+`/chat` persists `ai_conversations` and `ai_messages`, assembles minimum caller-scoped context (profile, active goal, goal targets, 7-day nutrition summaries, weight trend, recent food logs), runs the health safety layer, and exposes only allowlisted tools. Cross-user tool arguments are rejected.
+
+`/insight` builds insights from daily nutrition summaries and goal targets, validates structured output, and reuses an existing same-day user/type insight to avoid duplicates. `/recommendations` ranks prefiltered candidates and persists `ai_recommendations`. `/feedback` writes `ai_feedback`. `/analyze-food` persists `ai_food_estimates` with resolved candidates and verification state.
+
+Guarded integration coverage: `tests/logging_integration_test.ts` writes and reads real AI logging tables when `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, an existing profile row, and `--allow-net` are available; otherwise it reports a skip and keeps local unit suites deterministic.

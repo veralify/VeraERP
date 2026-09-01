@@ -6,7 +6,7 @@ import { routedChat } from '../router.ts';
 import { GatewayError } from '../types.ts';
 
 const supabase = { from() { const q: any = { select: () => q, insert: () => Promise.resolve({ data: [], error: null }), update: () => q, eq: () => q, gte: () => q, in: () => q, order: () => q, limit: () => Promise.resolve({ data: [], error: null }), maybeSingle: () => Promise.resolve({ data: null, error: null }), single: () => Promise.resolve({ data: null, error: null }), then: (resolve: any) => resolve({ data: [], error: null }) }; return q; } };
-const params = (task = 'simple_chat') => ({ task, userId: 'u', requestId: crypto.randomUUID(), promptVersion: 'test@1', toolSchemaVersion: 'test@1', safetyPolicyVersion: 'test@1', supabase: supabase as any, messages: [{ role: 'user' as const, content: 'hello' }] });
+const params = (task = 'simple_chat') => ({ task, userId: 'u', requestId: crypto.randomUUID(), aiRequestId: 'air-chaos', promptVersion: 'test@1', toolSchemaVersion: 'test@1', safetyPolicyVersion: 'test@1', supabase: supabase as any, messages: [{ role: 'user' as const, content: 'hello' }] });
 const ok = (model: string, usage = { prompt_tokens: 100, completion_tokens: 20 }) => new Response(JSON.stringify({ model, choices: [{ message: { content: '{"message":"ok","suggested_actions":[],"tool_results_used":[],"confidence":0.8}' } }], usage }), { status: 200 });
 
 Deno.test('chaos: primary outage falls back and records chain telemetry', async () => {

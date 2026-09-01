@@ -8,7 +8,7 @@ import type {
   RecommendationResponse,
 } from './types';
 
-export type GatewayRoute = 'analyze-food' | 'chat' | 'insight' | 'recommendations';
+export type GatewayRoute = 'analyze-food' | 'chat' | 'insight' | 'recommendations' | 'feedback';
 
 export class AiGatewayClientError extends Error {
   constructor(
@@ -145,4 +145,31 @@ export function buildFoodLogItemSnapshot(
     confidence: resolvedCandidate.confidence ?? null,
     ai_estimated: !resolvedCandidate.food_id || !resolvedCandidate.food_nutrition_version_id,
   };
+}
+
+export const submitAiFeedback = (
+  body: { ai_request_id: string; rating?: number | null; feedback?: string | null },
+  options: { accessToken: string; baseUrl?: string; signal?: AbortSignal },
+) => callGateway('feedback', body, options);
+
+export async function streamCoachChat(
+  body: { message: string; conversation_id?: string; mode?: 'simple' | 'advanced'; days?: number },
+  options: { accessToken: string; baseUrl?: string; signal?: AbortSignal },
+): Promise<AsyncGenerator<GatewayEnvelope<CoachResponse>>> {
+  const baseUrl = options.baseUrl ?? process.env.NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL;
+  if (!baseUrl) {
+    throw new AiGatewayClientError(500, 'MISSING_FUNCTIONS_URL', 'NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL is required.');
+  }
+  const response = await fetch(`${baseUrl.replace(/\/$/, '')}/ai-gateway/chat`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${options.accessToken}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...body, stream: true }),
+    signal: options.signal,
+  });
+  if (!response.ok) {
+    const payload = await response.json().catch(() => ({}));
+    const err = payload?.error ?? {};
+    throw new AiGatewayClientError(response.status, String(err.code ?? 'AI_GATEWAY_ERROR'), String(err.message ?? 'AI gateway stream failed.'), err.details);
+  }
+  return readSseStream<GatewayEnvelope<CoachResponse>>(response);
 }
