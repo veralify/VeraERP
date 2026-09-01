@@ -147,6 +147,52 @@ final class SupabaseClient: ObservableObject {
         return first
     }
 
+
+    func upsert<Input: Encodable, Output: Decodable>(
+        into table: String,
+        data: Input,
+        returning: Output.Type = Output.self,
+        onConflict: String
+    ) async throws -> Output {
+        var components = URLComponents(string: "\(baseURL)/rest/v1/\(table)")!
+        components.queryItems = [URLQueryItem(name: "on_conflict", value: onConflict)]
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "POST"
+        authHeaders.forEach { request.setValue($1, forHTTPHeaderField: $0) }
+        request.setValue("resolution=merge-duplicates,return=representation", forHTTPHeaderField: "Prefer")
+        request.httpBody = try JSONEncoder().encode(data)
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        try validateResponse(response, data: responseData)
+        let items = try decodeArray(Output.self, from: responseData)
+        guard let first = items.first else { throw APIError.notFound }
+        return first
+    }
+
+    func select<T: Decodable>(
+        from table: String,
+        columns: String = "*",
+        rawFilters: [String: String]
+    ) async throws -> [T] {
+        var components = URLComponents(string: "\(baseURL)/rest/v1/\(table)")!
+        var queryItems = [URLQueryItem(name: "select", value: columns)]
+        rawFilters.forEach { key, value in
+            queryItems.append(URLQueryItem(name: key, value: value))
+        }
+        components.queryItems = queryItems
+        return try await get(url: components.url!)
+    }
+
+
+    func select<T: Decodable>(
+        from table: String,
+        columns: String = "*",
+        rawQueryItems: [URLQueryItem]
+    ) async throws -> [T] {
+        var components = URLComponents(string: "\(baseURL)/rest/v1/\(table)")!
+        components.queryItems = [URLQueryItem(name: "select", value: columns)] + rawQueryItems
+        return try await get(url: components.url!)
+    }
+
     /// Update rows. `Input` is the patch payload; `Output` is the full returned row type.
     func update<Input: Encodable, Output: Decodable>(
         table: String,

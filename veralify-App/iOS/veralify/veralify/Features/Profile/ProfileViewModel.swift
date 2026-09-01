@@ -25,7 +25,7 @@ final class ProfileViewModel: ObservableObject {
             let authUser = try await supabase.getUser()
             self.authUser = authUser
             let users: [VeraUser] = try await supabase.select(
-                from: "vera_users",
+                from: "profiles",
                 filters: ["id": authUser.id]
             )
             currentUser = users.first

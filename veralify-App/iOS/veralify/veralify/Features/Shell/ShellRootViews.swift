@@ -2,17 +2,10 @@ import SwiftUI
 
 struct HomeRootView: View {
     var body: some View {
-        ShellEmptyStateView(
-            title: "Your day starts here",
-            message: "Today's progress, AI insights, streaks, live rooms, and community activity will appear here.",
-            systemImage: "figure.run.circle.fill",
-            ctaTitle: "Log food",
-            ctaSystemImage: "plus.circle.fill"
-        )
-        .navigationTitle("Home")
-        .background(AppTheme.screenBackground.ignoresSafeArea())
+        HomeView()
     }
 }
+
 
 struct TrackRootView: View {
     var body: some View {
