@@ -447,7 +447,7 @@ pnpm email
 ### Marketplace Components
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    COACHING MARKETPLACE                      │
+│                    COACHING MARKETPLACE                     │
 └─────────────────────────────────────────────────────────────┘
 
 ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
@@ -468,9 +468,9 @@ pnpm email
        │                   │                   │
        │    Stripe Connect │                   │
        │    ┌────────────┐ │                   │
-       │    │ €50 pay   │ │                   │
-       │    │ €7.50 fee │ │                   │
-       │    │ €42.50    │ │                   │
+       │    │ €50 pay    │ │                   │
+       │    │ €7.50 fee  │ │                   │
+       │    │ €42.50     │ │                   │
        │    └────────────┘ │                   │
        │                   │                   │
        │ 6. Scheduled      │ 7. Payout         │
@@ -480,7 +480,7 @@ pnpm email
        │    Agora RTC      │    Agora RTC      │
        ├───────────────────┼───────────────────┤
        │                   │                   │
-       │ 10. Review         │ 11. Rating        │
+       │ 10. Review        │ 11. Rating        │
        └───────────────────┴───────────────────┘
 ```
 
@@ -579,3 +579,381 @@ Coach Payout: €50 × 0.85 = €42.50
 3. Coach joins → Same video room
 4. Session active → Real-time video/audio
 5. Session ends → Room cleanup, analytics recorded
+
+## Revenue Components Architecture
+
+### 1. Coaching Marketplace Revenue (Priority 1)
+
+#### Components
+```
+┌─────────────────────────────────────────────────────────────┐
+│              COACHING MARKETPLACE REVENUE                    │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│  CLIENT BOOKING  │    │  PAYMENT SPLIT   │    │  COACH PAYOUT    │
+├──────────────────┤    ├──────────────────┤    ├──────────────────┤
+│ • Session search │    │ • Stripe Connect │    │ • Auto-payouts   │
+│ • Coach profile  │    │ • 15% platform   │    │ • Daily/weekly   │
+│ • Time selection │    │ • 85% coach      │    │ • Balance tracking│
+│ • Payment intent │    │ • Fee calculation│    │ • Tax reporting  │
+│ • Confirmation   │    │ • Transaction log│    │ • Payout history │
+└────────┬─────────┘    └────────┬─────────┘    └────────┬─────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌────────────┴───────────┐
+                    │   REVENUE TRACKING     │
+                    ├────────────────────────┤
+                    │ • Session revenue      │
+                    │ • Platform fees        │
+                    │ • Coach earnings       │
+                    │ • Analytics dashboards │
+                    └────────────────────────┘
+```
+
+#### Database Tables
+```sql
+-- Session bookings
+CREATE TABLE session_bookings (
+  id UUID PRIMARY KEY,
+  client_id UUID REFERENCES profiles(id),
+  coach_id UUID REFERENCES coach_profiles(id),
+  session_id UUID REFERENCES coaching_sessions(id),
+  booking_date TIMESTAMP,
+  status TEXT DEFAULT 'pending',
+  stripe_payment_intent_id TEXT,
+  total_amount DECIMAL,
+  currency TEXT DEFAULT 'EUR',
+  platform_fee DECIMAL,
+  coach_amount DECIMAL,
+  created_at TIMESTAMP
+);
+
+-- Revenue tracking
+CREATE TABLE marketplace_revenue (
+  id UUID PRIMARY KEY,
+  booking_id UUID REFERENCES session_bookings(id),
+  session_date TIMESTAMP,
+  total_revenue DECIMAL,
+  platform_fee DECIMAL,
+  coach_payout DECIMAL,
+  vera_commission_rate DECIMAL DEFAULT 0.15,
+  payout_status TEXT DEFAULT 'pending',
+  payout_date TIMESTAMP,
+  created_at TIMESTAMP
+);
+
+-- Coach earnings
+CREATE TABLE coach_earnings (
+  id UUID PRIMARY KEY,
+  coach_id UUID REFERENCES coach_profiles(id),
+  booking_id UUID REFERENCES session_bookings(id),
+  amount DECIMAL,
+  payout_id TEXT,
+  status TEXT DEFAULT 'pending',
+  created_at TIMESTAMP
+);
+```
+
+#### API Routes
+```
+/api/marketplace/
+  ├── /bookings/
+  │   ├── POST /create          # Create session booking
+  │   ├── GET /list             # List client bookings
+  │   ├── GET /:id              # Get booking details
+  │   ├── PATCH /:id/cancel     # Cancel booking
+  │   └── POST /:id/reschedule  # Reschedule session
+  ├── /payments/
+  │   ├── POST /intent          # Create payment intent
+  │   ├── POST /confirm         # Confirm payment
+  │   ├── POST /refund          # Process refund
+  │   └── GET /:id/status       # Get payment status
+  ├── /revenue/
+  │   ├── GET /dashboard        # Revenue analytics
+  │   ├── GET /sessions         # Session revenue
+  │   ├── GET /fees             # Platform fees
+  │   └── GET /payouts          # Payout history
+  └── /payouts/
+      ├── POST /process         # Process coach payouts
+      ├── GET /pending          # Pending payouts
+      └── GET /history          # Payout history
+```
+
+### 2. Coach SaaS Revenue (Priority 2)
+
+#### Components
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 COACH SAAS REVENUE                          │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│  COACH PLANS     │    │  SUBSCRIPTION    │    │  FEATURE ACCESS  │
+├──────────────────┤    ├──────────────────┤    ├──────────────────┤
+│ • Starter €19/mo │    │ • Stripe Billing │    │ • Client limits  │
+│ • Pro €39/mo     │    │ • Recurring      │    │ • Feature tiers  │
+│ • Elite €49/mo   │    │ • Trial periods  │    │ • Usage tracking │
+│ • Custom pricing │    │ • Plan upgrades  │    │ • AI assistant   │
+│ • Annual discount│    │ • Cancel/Resume  │    │ • White label    │
+└────────┬─────────┘    └────────┬─────────┘    └────────┬─────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌────────────┴───────────┐
+                    │   COACH METRICS        │
+                    ├────────────────────────┤
+                    │ • MRR/ARR tracking     │
+                    │ • Churn rate           │
+                    │ • LTV/CAC analysis     │
+                    │ • Feature usage        │
+                    └────────────────────────┘
+```
+
+#### Database Tables
+```sql
+-- Coach subscription plans
+CREATE TABLE coach_plans (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL,
+  price_monthly DECIMAL NOT NULL,
+  price_yearly DECIMAL,
+  currency TEXT DEFAULT 'EUR',
+  features JSONB,
+  client_limit INTEGER,
+  ai_credits_monthly INTEGER,
+  video_minutes_monthly INTEGER,
+  stripe_price_id TEXT,
+  created_at TIMESTAMP
+);
+
+-- Coach subscriptions
+CREATE TABLE coach_subscriptions (
+  id UUID PRIMARY KEY,
+  coach_id UUID REFERENCES coach_profiles(id),
+  plan_id UUID REFERENCES coach_plans(id),
+  stripe_subscription_id TEXT,
+  status TEXT DEFAULT 'active',
+  current_period_start TIMESTAMP,
+  current_period_end TIMESTAMP,
+  cancel_at_period_end BOOLEAN DEFAULT FALSE,
+  trial_end TIMESTAMP,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
+);
+
+-- Subscription usage tracking
+CREATE TABLE coach_usage (
+  id UUID PRIMARY KEY,
+  subscription_id UUID REFERENCES coach_subscriptions(id),
+  period_start TIMESTAMP,
+  period_end TIMESTAMP,
+  clients_count INTEGER,
+  ai_credits_used INTEGER,
+  video_minutes_used INTEGER,
+  created_at TIMESTAMP
+);
+
+-- Subscription payments
+CREATE TABLE subscription_payments (
+  id UUID PRIMARY KEY,
+  subscription_id UUID REFERENCES coach_subscriptions(id),
+  stripe_payment_intent_id TEXT,
+  amount DECIMAL,
+  currency TEXT DEFAULT 'EUR',
+  status TEXT,
+  created_at TIMESTAMP
+);
+```
+
+#### API Routes
+```
+/api/coach-saas/
+  ├── /plans/
+  │   ├── GET /list              # List available plans
+  │   ├── GET /:id               # Get plan details
+  │   └── POST /compare          # Compare plans
+  ├── /subscriptions/
+  │   ├── POST /create           # Create subscription
+  │   ├── GET /current          # Get current subscription
+  │   ├── PATCH /upgrade         # Upgrade plan
+  │   ├── PATCH /downgrade       # Downgrade plan
+  │   ├── POST /cancel          # Cancel subscription
+  │   └── POST /resume          # Resume subscription
+  ├── /usage/
+  │   ├── GET /current          # Current usage
+  │   ├── GET /history          # Usage history
+  │   └── GET /limits           # Plan limits
+  └── /billing/
+      ├── GET /invoices         # Billing history
+      ├── GET /upcoming         # Upcoming payment
+      ├── POST /payment-method   # Update payment method
+      └── GET /transactions     # Transaction history
+```
+
+### 3. Consumer Pro Revenue (Priority 3)
+
+#### Components
+```
+┌─────────────────────────────────────────────────────────────┐
+│                CONSUMER PRO REVENUE                         │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│  USER PLANS      │    │  SUBSCRIPTION    │    │  PREMIUM FEATURES│
+├──────────────────┤    ├──────────────────┤    ├──────────────────┤
+│ • Basic $9.99/mo │    │ • Stripe Billing │    │ • AI food tracking│
+│ • Annual discount│    │ • Recurring      │    │ • Advanced goals │
+│ • Free trial     │    │ • Trial periods  │    │ • Premium groups │
+│ • Student pricing│    │ • Plan upgrades  │    │ • Priority support│
+│ • Family plans   │    │ • Cancel/Resume  │    │ • Custom insights │
+└────────┬─────────┘    └────────┬─────────┘    └────────┬─────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌────────────┴───────────┐
+                    │   USER METRICS         │
+                    ├────────────────────────┤
+                    │ • MRR/ARR tracking     │
+                    │ • Free vs paid split   │
+                    │ • Feature adoption     │
+                    │ • Retention rates      │
+                    └────────────────────────┘
+```
+
+#### Database Tables
+```sql
+-- User subscription plans
+CREATE TABLE user_plans (
+  id UUID PRIMARY KEY,
+  name TEXT NOT NULL,
+  price_monthly DECIMAL NOT NULL,
+  price_yearly DECIMAL,
+  currency TEXT DEFAULT 'USD',
+  features JSONB,
+  ai_scans_daily INTEGER,
+  goal_templates INTEGER,
+  premium_group_access BOOLEAN,
+  priority_support BOOLEAN,
+  stripe_price_id TEXT,
+  created_at TIMESTAMP
+);
+
+-- User subscriptions
+CREATE TABLE user_subscriptions (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES profiles(id),
+  plan_id UUID REFERENCES user_plans(id),
+  stripe_subscription_id TEXT,
+  status TEXT DEFAULT 'active',
+  current_period_start TIMESTAMP,
+  current_period_end TIMESTAMP,
+  cancel_at_period_end BOOLEAN DEFAULT FALSE,
+  trial_end TIMESTAMP,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
+);
+
+-- User feature usage
+CREATE TABLE user_feature_usage (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES profiles(id),
+  subscription_id UUID REFERENCES user_subscriptions(id),
+  feature_name TEXT,
+  usage_count INTEGER,
+  period_start TIMESTAMP,
+  period_end TIMESTAMP,
+  created_at TIMESTAMP
+);
+
+-- User payments
+CREATE TABLE user_payments (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES profiles(id),
+  subscription_id UUID REFERENCES user_subscriptions(id),
+  stripe_payment_intent_id TEXT,
+  amount DECIMAL,
+  currency TEXT DEFAULT 'USD',
+  status TEXT,
+  created_at TIMESTAMP
+);
+```
+
+#### API Routes
+```
+/api/consumer-pro/
+  ├── /plans/
+  │   ├── GET /list              # List available plans
+  │   ├── GET /:id               # Get plan details
+  │   └── POST /compare          # Compare plans
+  ├── /subscriptions/
+  │   ├── POST /create           # Create subscription
+  │   ├── GET /current          # Get current subscription
+  │   ├── PATCH /upgrade         # Upgrade plan
+  │   ├── POST /cancel          # Cancel subscription
+  │   └── POST /resume          # Resume subscription
+  ├── /features/
+  │   ├── GET /available        # Available features
+  │   ├── GET /usage            # Feature usage
+  │   └── GET /limits           # Plan limits
+  └── /billing/
+      ├── GET /invoices         # Billing history
+      ├── GET /upcoming         # Upcoming payment
+      ├── POST /payment-method   # Update payment method
+      └── GET /transactions     # Transaction history
+```
+
+## Unified Revenue Dashboard
+
+### Revenue Analytics Components
+```
+┌─────────────────────────────────────────────────────────────┐
+│              UNIFIED REVENUE DASHBOARD                      │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│ TOTAL REVENUE    │  │ REVENUE STREAMS  │  │ FORECASTING      │
+├──────────────────┤  ├──────────────────┤  ├──────────────────┤
+│ • MRR            │  │ • Marketplace    │  │ • Growth trends  │
+│ • ARR            │  │ • Coach SaaS     │  │ • Churn prediction│
+│ • Total bookings │  │ • Consumer Pro   │  │ • Revenue targets│
+│ • Active subs    │  │ • Breakdown %    │  │ • Seasonality    │
+└──────────────────┘  └──────────────────┘  └──────────────────┘
+
+┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│ CUSTOMER METRICS │  │ FINANCIAL HEALTH │  │ GROWTH METRICS   │
+├──────────────────┤  ├──────────────────┤  ├──────────────────┤
+│ • Active coaches │  │ • Cash flow      │  │ • New signups     │
+│ • Active users   │  │ • Burn rate      │  │ • Conversion rates│
+│ • Session volume │  │ • Runway         │  │ • CAC/LTV ratios  │
+│ • Subscriptions  │  │ • Profit margins │  │ • Cohort analysis │
+└──────────────────┘  └──────────────────┘  └──────────────────┘
+```
+
+### Revenue API Routes
+```
+/api/revenue/
+  ├── /overview/
+  │   ├── GET /total             # Total revenue
+  │   ├── GET /mrr              # Monthly recurring revenue
+  │   ├── GET /arr              # Annual recurring revenue
+  │   └── GET /growth           # Growth metrics
+  ├── /streams/
+  │   ├── GET /marketplace      # Marketplace revenue
+  │   ├── GET /coach-saas       # Coach SaaS revenue
+  │   ├── GET /consumer-pro     # Consumer Pro revenue
+  │   └── GET /breakdown        # Revenue breakdown
+  ├── /forecasting/
+  │   ├── GET /monthly          # Monthly forecast
+  │   ├── GET /quarterly        # Quarterly forecast
+  │   └── GET /annual           # Annual forecast
+  ├── /customers/
+  │   ├── GET /coaches          # Coach metrics
+  │   ├── GET /users            # User metrics
+  │   └── GET /retention       # Retention rates
+  └── /financial/
+      ├── GET /cash-flow        # Cash flow analysis
+      ├── GET /margins          # Profit margins
+      └── GET /health           # Financial health
+```
