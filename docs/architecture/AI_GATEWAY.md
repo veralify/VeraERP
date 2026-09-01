@@ -93,3 +93,33 @@ Every production gateway call now creates an `ai_requests` row before model exec
 `/insight` builds insights from daily nutrition summaries and goal targets, validates structured output, and reuses an existing same-day user/type insight to avoid duplicates. `/recommendations` ranks prefiltered candidates and persists `ai_recommendations`. `/feedback` writes `ai_feedback`. `/analyze-food` persists `ai_food_estimates` with resolved candidates and verification state.
 
 Guarded integration coverage: `tests/logging_integration_test.ts` writes and reads real AI logging tables when `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, an existing profile row, and `--allow-net` are available; otherwise it reports a skip and keeps local unit suites deterministic.
+
+## Spec endpoint aliases and tool status
+
+Canonical Edge Function paths now accept the §60 names as thin aliases:
+
+| Spec endpoint | Gateway route | Status |
+|---|---|---|
+| `POST /api/v1/ai/chat` | `/chat` | Real coach chat with persistence, safety, context, tools |
+| `POST /api/v1/ai/food-estimate` | `/food-estimate` → `/analyze-food` | Real food estimate pipeline |
+| `POST /api/v1/ai/food-verify` | `/food-verify` | Real standalone verification using food verification prompt |
+| `POST /api/v1/ai/insight` | `/insight` | Real nutrition insight |
+| `POST /api/v1/ai/progress-analysis` | `/progress-analysis` | Real progress insight alias with progress prompt/task |
+| `POST /api/v1/ai/recommendations` | `/recommendations` | Real candidate generation + AI ranking + persistence |
+| `POST /api/v1/ai/feedback` | `/feedback` | Real `ai_feedback` write |
+
+Tool status:
+
+| Tool | Status |
+|---|---|
+| `get_user_profile`, `get_user_goals`, `get_active_goal`, `get_goal` | Real, caller-scoped |
+| `get_daily_nutrition`, `get_today_nutrition`, `get_nutrition_history` | Real, caller-scoped deterministic summaries |
+| `get_weight_history`, `get_weight_trend`, `get_measurements` | Real, caller-scoped progress data |
+| `get_food_log`, `get_recent_food_logs`, `search_foods` | Real, caller-scoped/canonical reads |
+| `get_user_groups`, `get_recent_posts`, `get_upcoming_sessions` | Real, caller-scoped social/coaching reads |
+| `get_progress_summary`, `get_activity_summary`, `get_recommended_groups`, `get_live_rooms`, `get_coach_relationship` | `NOT_YET_AVAILABLE` until the corresponding aggregate/live-room/relationship services are finalized |
+| Mutations: `create_food_log`, `update_food_log`, `delete_food_log`, `create_goal`, `update_goal`, `create_progress_entry`, `recommend_group`, `recommend_live_room` | `NOT_YET_AVAILABLE`; mutation policy remains server/application-owned pending product confirmation flows |
+| External food provider lookup | Blocked on `FOOD_DATA_PROVIDER_KEY` and provider adapter selection |
+| 500+ image eval dataset | Human-provided Phase 17 requirement |
+
+Recommendations now generate prefiltered candidates server-side from real goal targets, nutrition summaries, weight trends, group membership, and stale-goal signals when callers do not provide candidates.

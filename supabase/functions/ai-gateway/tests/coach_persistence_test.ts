@@ -19,6 +19,7 @@ function mockDb(seed: Record<string, unknown[]> = {}) {
         update: (value: unknown) => { rows.forEach((r) => Object.assign(r, value)); return Promise.resolve({ data: rows, error: null }); },
         eq: (col: string, val: unknown) => { rows = rows.filter((r) => r[col] === val); return q; },
         gte: (col: string, val: unknown) => { rows = rows.filter((r) => String(r[col]) >= String(val)); return q; },
+        in: (col: string, vals: unknown[]) => { rows = rows.filter((r) => vals.includes(r[col])); return q; },
         order: (col: string, opts: any) => { rows.sort((a,b) => opts?.ascending === false ? String(b[col]).localeCompare(String(a[col])) : String(a[col]).localeCompare(String(b[col]))); return q; },
         limit: (n: number) => Promise.resolve({ data: rows.slice(0,n), error: null }),
         maybeSingle: () => Promise.resolve({ data: rows[0] ?? null, error: null }),

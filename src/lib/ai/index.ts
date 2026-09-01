@@ -8,7 +8,7 @@ import type {
   RecommendationResponse,
 } from './types';
 
-export type GatewayRoute = 'analyze-food' | 'chat' | 'insight' | 'recommendations' | 'feedback';
+export type GatewayRoute = 'analyze-food' | 'food-verify' | 'chat' | 'insight' | 'progress-analysis' | 'recommendations' | 'feedback';
 
 export class AiGatewayClientError extends Error {
   constructor(
@@ -173,3 +173,14 @@ export async function streamCoachChat(
   }
   return readSseStream<GatewayEnvelope<CoachResponse>>(response);
 }
+
+export const estimateFood = analyzeFood;
+export const verifyFood = (
+  body: { image_ref?: string; analysis?: unknown; candidates?: unknown; context?: Record<string, unknown> },
+  options: { accessToken: string; baseUrl?: string; signal?: AbortSignal },
+) => callGateway<FoodAnalysisResult>('food-verify', body, options);
+
+export const getProgressAnalysis = (
+  body: { context?: Record<string, unknown> },
+  options: { accessToken: string; baseUrl?: string; signal?: AbortSignal },
+) => callGateway<InsightResponse>('progress-analysis', body, options);
