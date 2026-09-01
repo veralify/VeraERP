@@ -20,3 +20,5 @@ out
 .env.*
 !.env.example
 supabase/functions/ai-gateway/evals/out/
+supabase/.branches/
+supabase/.temp/

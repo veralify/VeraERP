@@ -5328,6 +5328,16 @@ export type Database = {
       is_room_participant: { Args: { p_room_id: string }; Returns: boolean }
       owns_food_log: { Args: { p_food_log_id: string }; Returns: boolean }
       owns_post: { Args: { p_post_id: string }; Returns: boolean }
+      project_user_entitlements: {
+        Args: { p_user_id: string }
+        Returns: {
+          active: boolean
+          expires_at: string
+          limit_value: number
+          lookup_key: string
+          source: Database["public"]["Enums"]["entitlement_source"]
+        }[]
+      }
       waitlist_position: { Args: { p_email: string }; Returns: number }
     }
     Enums: {
