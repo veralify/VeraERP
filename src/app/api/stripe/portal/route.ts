@@ -1,4 +1,3 @@
-import { getActiveBrand } from '@config/brands';
 import { apiLogger } from '@lib/logger';
 import { getStripe } from '@lib/stripe/server';
 import { createSupabaseServerClient } from '@lib/supabase/server';
@@ -12,7 +11,7 @@ import { NextResponse } from 'next/server';
  */
 export async function POST(request: Request) {
   const log = apiLogger('/api/stripe/portal', request);
-  const brand = getActiveBrand();
+  const origin = new URL(request.url).origin;
 
   const supabase = await createSupabaseServerClient();
   const {
@@ -52,7 +51,7 @@ export async function POST(request: Request) {
   try {
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
-      return_url: `${brand.websiteUrl}/dashboard`,
+      return_url: `${origin}/dashboard/billing`,
     });
 
     log.done(303, { userId: user.id });

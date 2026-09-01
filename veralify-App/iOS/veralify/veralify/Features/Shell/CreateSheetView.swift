@@ -35,6 +35,7 @@ enum CreateDestination: String, Identifiable, CaseIterable {
     var phaseNote: LocalizedStringKey {
         switch self {
         case .sharedFilm: return "Preserved Film/Foto feature"
+        case .logFood, .scanFood: return "Available now"
         default: return "Coming in a later phase"
         }
     }
@@ -42,6 +43,10 @@ enum CreateDestination: String, Identifiable, CaseIterable {
     @ViewBuilder
     var view: some View {
         switch self {
+        case .logFood:
+            ManualFoodLogStandaloneView()
+        case .scanFood:
+            FoodCameraStandaloneView()
         case .sharedFilm:
             FilmsHomeView()
         default:
@@ -80,7 +85,7 @@ struct CreateSheetView: View {
                 } header: {
                     Text("Create")
                 } footer: {
-                    Text("Food logging, social posting, progress photos, and live rooms are typed placeholders for future iOS phases. No fake workflows are enabled.")
+                    Text("Food logging and scan food are live. Social posting, progress photos, and live rooms remain typed placeholders for future iOS phases.")
                 }
             }
             .scrollContentBackground(.hidden)

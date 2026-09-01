@@ -93,9 +93,27 @@ final class SupabaseClient: ObservableObject {
         return session
     }
 
+    var edgeFunctionsBaseURL: URL {
+        URL(string: "\(baseURL)/functions/v1")!
+    }
+
     func getUser() async throws -> AuthUser {
         let url = URL(string: "\(baseURL)/auth/v1/user")!
         return try await get(url: url)
+    }
+
+    func invokeEdgeFunction<Input: Encodable, Output: Decodable>(
+        _ name: String,
+        body: Input,
+        returning: Output.Type = Output.self
+    ) async throws -> Output {
+        var request = URLRequest(url: edgeFunctionsBaseURL.appending(path: name))
+        request.httpMethod = "POST"
+        authHeaders.forEach { request.setValue($1, forHTTPHeaderField: $0) }
+        request.httpBody = try JSONEncoder().encode(body)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        try validateResponse(response, data: data)
+        return try decode(Output.self, from: data)
     }
 
     // MARK: - Database (PostgREST)
@@ -191,6 +209,16 @@ final class SupabaseClient: ObservableObject {
         var components = URLComponents(string: "\(baseURL)/rest/v1/\(table)")!
         components.queryItems = [URLQueryItem(name: "select", value: columns)] + rawQueryItems
         return try await get(url: components.url!)
+    }
+
+    func delete(from table: String, filters: [String: String]) async throws {
+        var components = URLComponents(string: "\(baseURL)/rest/v1/\(table)")!
+        components.queryItems = filters.map { URLQueryItem(name: $0.key, value: "eq.\($0.value)") }
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "DELETE"
+        authHeaders.forEach { request.setValue($1, forHTTPHeaderField: $0) }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        try validateResponse(response, data: data)
     }
 
     /// Update rows. `Input` is the patch payload; `Output` is the full returned row type.

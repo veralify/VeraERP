@@ -15,6 +15,7 @@ const navItems = [
   ['AI', '/dashboard/ai'],
   ['Profile', '/dashboard/profile'],
   ['Billing', '/dashboard/billing'],
+  ['Coach', '/dashboard/coach'],
 ] as const;
 
 export function MemberShell({ children, email }: { children: ReactNode; email: string | null }) {

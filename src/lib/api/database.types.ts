@@ -5311,6 +5311,34 @@ export type Database = {
       }
     }
     Functions: {
+      claim_notification_jobs: {
+        Args: { p_limit?: number }
+        Returns: {
+          attempts: number
+          created_at: string
+          dead_letter_at: string | null
+          dead_letter_reason: string | null
+          failed_at: string | null
+          id: string
+          idempotency_key_id: string | null
+          last_error: string | null
+          max_attempts: number
+          next_attempt_at: string
+          notification_id: string
+          provider: Database["public"]["Enums"]["notification_provider"]
+          scheduled_at: string
+          sent_at: string | null
+          status: Database["public"]["Enums"]["notification_job_status"]
+          updated_at: string
+          user_id: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "notification_jobs"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       coach_can_access_client: {
         Args: { p_client_id: string; p_coach_id: string }
         Returns: boolean
@@ -5441,6 +5469,7 @@ export type Database = {
       media_type: "image" | "video"
       message_type: "text" | "image" | "video" | "system"
       notification_job_status:
+        | "pending"
         | "queued"
         | "processing"
         | "sent"
@@ -5723,6 +5752,7 @@ export const Constants = {
       media_type: ["image", "video"],
       message_type: ["text", "image", "video", "system"],
       notification_job_status: [
+        "pending",
         "queued",
         "processing",
         "sent",

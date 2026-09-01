@@ -9,15 +9,7 @@ struct HomeRootView: View {
 
 struct TrackRootView: View {
     var body: some View {
-        ShellEmptyStateView(
-            title: "No meals logged yet",
-            message: "Food, progress photos, goals, and trends will appear here once tracking ships in a later phase.",
-            systemImage: "fork.knife.circle.fill",
-            ctaTitle: "Open create",
-            ctaSystemImage: "plus"
-        )
-        .navigationTitle("Track")
-        .background(AppTheme.screenBackground.ignoresSafeArea())
+        TrackView()
     }
 }
 

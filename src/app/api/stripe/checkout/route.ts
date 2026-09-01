@@ -4,7 +4,6 @@ import {
   getPlanByTier,
   type SubscriptionTier,
 } from '@config/billing';
-import { getActiveBrand } from '@config/brands';
 import { apiLogger } from '@lib/logger';
 import { getStripe } from '@lib/stripe/server';
 import { createSupabaseServerClient } from '@lib/supabase/server';
@@ -19,7 +18,7 @@ import { NextResponse } from 'next/server';
  */
 export async function POST(request: Request) {
   const log = apiLogger('/api/stripe/checkout', request);
-  const brand = getActiveBrand();
+  const origin = new URL(request.url).origin;
 
   const supabase = await createSupabaseServerClient();
   const {
@@ -98,8 +97,8 @@ export async function POST(request: Request) {
         cadence: plan.cadence,
       },
       allow_promotion_codes: true,
-      success_url: `${brand.websiteUrl}/dashboard?checkout=success`,
-      cancel_url: `${brand.websiteUrl}/pricing?checkout=cancelled`,
+      success_url: `${origin}/dashboard/billing?checkout=success`,
+      cancel_url: `${origin}/dashboard/billing?checkout=cancelled`,
     });
 
     if (!session.url) {
