@@ -1,4 +1,4 @@
-const state = { page: "dashboard" };
+const state = { page: "dashboard", transactionQuery: "", comparisonMode: "month", comparison: null };
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -18,6 +18,17 @@ if (modal) {
   });
 }
 
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem("money-manager-theme", theme);
+  $("#theme-toggle")?.setAttribute("aria-label", theme === "dark" ? "تفعيل المظهر الفاتح" : "تفعيل المظهر الداكن");
+}
+
+applyTheme(localStorage.getItem("money-manager-theme") || "light");
+$("#theme-toggle")?.addEventListener("click", () => {
+  applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+});
+
 const fmt = (n) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -33,6 +44,41 @@ const esc = (s) =>
     '"': "&quot;",
     "'": "&#039;",
   }[c]));
+
+function formatDelta(value) {
+  const numeric = Number(value || 0);
+  return `${numeric > 0 ? "+" : numeric < 0 ? "−" : ""}${fmt(Math.abs(numeric))}`;
+}
+
+function renderPeriodComparison(mode = state.comparisonMode) {
+  if (!state.comparison?.[mode]) return;
+  state.comparisonMode = mode;
+  const comparison = state.comparison[mode];
+  const labels = {
+    income: ["الدخل", "زيادة الدخل"],
+    expenses: ["الإنفاق والالتزامات", "تغير الإنفاق"],
+    netCashFlow: ["صافي التدفق", "تغير السيولة"],
+  };
+  const metrics = Object.entries(labels).map(([key, [title, detail]]) => {
+    const change = comparison.changes[key];
+    const isExpense = key === "expenses";
+    const favorable = isExpense ? change.signed <= 0 : change.signed >= 0;
+    const changeClass = change.signed === 0 ? "neutral" : favorable ? "up" : "down";
+    const percent = change.percent === null ? "لا توجد فترة سابقة" : `${change.percent > 0 ? "+" : ""}${change.percent}%`;
+    return `<div class="comparison-metric">
+      <span>${title}</span>
+      <strong>${fmt(comparison.current[key])}</strong>
+      <div class="comparison-change ${changeClass}"><b>${formatDelta(change.signed)}</b><small>${percent} · ${detail}</small></div>
+    </div>`;
+  }).join("");
+
+  $("#comparison-metrics").innerHTML = metrics;
+  $("#comparison-source").textContent = comparison.source === "actual" ? "مقارنة فعلية من سجل المعاملات" : "مقارنة مبنية على خطتك الشهرية";
+  $("#comparison-range").textContent = `الحالي: ${comparison.current.label} · السابق: ${comparison.previous.label}`;
+  document.querySelectorAll("[data-comparison-mode]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.comparisonMode === mode);
+  });
+}
 
 async function api(url, options = {}) {
   const response = await fetch(url, {
@@ -67,9 +113,13 @@ const pageMeta = {
   dashboard: ["لوحة التحكم", "نظرة سريعة على وضعك المالي"],
   income: ["مصادر الدخل", "أضف كل مصادر الدخل الثابتة والمتغيرة"],
   expenses: ["المصاريف", "تابع التزاماتك ومصاريفك الشهرية"],
+  transactions: ["سجل المعاملات", "ابحث وصنّف كل حركة مالية في مكان واحد"],
+  subscriptions: ["رادار الاشتراكات", "تابع الرسوم المتكررة والتجارب المجانية"],
   debts: ["الديون", "سجل الأرصدة والفوائد والأقساط"],
   savings: ["المدخرات", "تابع أهدافك الادخارية ومساهماتك الشهرية"],
   plan: ["خطة سداد الديون", "خطة شهرية تلقائية حسب المدة والقدرة المالية"],
+  "admin-tasks": ["المهام والمواعيد", "تابع الضرائب والتجديدات والمهام الإدارية"],
+  documents: ["الوثائق والإيصالات", "سجل منظم للضمانات والإيصالات والمستندات المهمة"],
 };
 
 function setPage(page) {
@@ -104,9 +154,13 @@ async function render() {
     if (state.page === "dashboard") await dashboard();
     if (state.page === "income") await listPage("income");
     if (state.page === "expenses") await listPage("expenses");
+    if (state.page === "transactions") await listPage("transactions");
+    if (state.page === "subscriptions") await listPage("subscriptions");
     if (state.page === "debts") await listPage("debts");
     if (state.page === "savings") await listPage("savings");
     if (state.page === "plan") await planPage();
+    if (state.page === "admin-tasks") await listPage("admin-tasks");
+    if (state.page === "documents") await listPage("documents");
   } catch (error) {
     console.error(error);
 
@@ -146,40 +200,126 @@ async function dashboard() {
   const monthlyChanges = chartData.monthlyChanges || [];
 
   $("#content").innerHTML = `
-    <div class="grid cards">
-
-      <div class="card">
-        <div class="label">إجمالي الدخل الشهري</div>
-        <div class="value blue">${fmt(data.income)}</div>
+    <section class="dashboard-hero">
+      <div>
+        <span class="eyebrow">نظرة هذا الشهر</span>
+        <h2>أموالك تحت السيطرة</h2>
+        <p>اتخذ الخطوة التالية بناءً على وضعك النقدي الحالي.</p>
       </div>
-
-      <div class="card">
-        <div class="label">إجمالي المصاريف</div>
-        <div class="value">${fmt(data.expenses)}</div>
-        <div class="label">${(data.debtRatio * 100).toFixed(1)}% من الدخل</div>
+      <div class="hero-balance ${data.netCashFlow >= 0 ? "positive" : "negative"}">
+        <span>صافي التدفق المتاح</span>
+        <strong>${fmt(data.netCashFlow)}</strong>
+        <small>${data.netCashFlow >= 0 ? "بعد المصاريف والأقساط والادخار" : "تحتاج الخطة إلى تخفيض التزامات"}</small>
       </div>
+    </section>
 
-      <div class="card">
-        <div class="label">المتاح قبل الديون</div>
-        <div class="value ${data.available >= 0 ? "good" : "bad"}">
-          ${fmt(data.available)}
+    ${sankeyWidgetPanel()}
+
+    <div class="metric-grid">
+      <article class="metric-card income-card">
+        <div class="metric-heading"><span class="metric-icon">↙</span><span>الدخل الشهري</span></div>
+        <strong>${fmt(data.income)}</strong>
+        <p>مصادر دخل نشطة</p>
+      </article>
+      <article class="metric-card expense-card">
+        <div class="metric-heading"><span class="metric-icon">↗</span><span>المصاريف الأساسية</span></div>
+        <strong>${fmt(data.expenses)}</strong>
+        <p>${(data.debtRatio * 100).toFixed(1)}% من دخلك الشهري</p>
+      </article>
+      <article class="metric-card ${data.upcomingBills.count ? "risk-card" : "safe-card"}">
+        <div class="metric-heading"><span class="metric-icon">◷</span><span>استحقاقات 7 أيام</span></div>
+        <strong>${data.upcomingBills.count}</strong>
+        <p>${data.upcomingBills.count ? `${fmt(data.upcomingBills.total)} تحتاج متابعة` : "لا توجد دفعات عاجلة"}</p>
+      </article>
+      <article class="metric-card debt-card">
+        <div class="metric-heading"><span class="metric-icon">◎</span><span>إجمالي الديون</span></div>
+        <strong>${fmt(data.totalDebt)}</strong>
+        <p>${progress.toFixed(0)}% من مسار الخطة الحالي</p>
+      </article>
+    </div>
+
+    <div class="action-bar" aria-label="إجراءات سريعة">
+      <div><span class="eyebrow">إجراءات سريعة</span><strong>سجّل ما حدث الآن</strong></div>
+      <div class="quick-actions">
+        <button class="btn secondary" data-quick-action="expenses">إضافة مصروف</button>
+        <button class="btn" data-quick-action="transactions">تسجيل معاملة</button>
+        <button class="btn secondary" data-quick-action="admin-tasks">مهمة إدارية</button>
+      </div>
+    </div>
+
+    <section class="comparison-panel">
+      <div class="comparison-head">
+        <div>
+          <span class="eyebrow">مراقبة الأداء</span>
+          <h2>مقارنة الفترات</h2>
+          <p id="comparison-source"></p>
+        </div>
+        <div class="period-toggle" role="group" aria-label="فترة المقارنة">
+          <button type="button" data-comparison-mode="month" class="active">شهري</button>
+          <button type="button" data-comparison-mode="quarter">ربعي</button>
         </div>
       </div>
+      <div class="comparison-metrics" id="comparison-metrics"></div>
+      <p class="comparison-range" id="comparison-range"></p>
+    </section>
 
-      <div class="card">
-        <div class="label">إجمالي الديون</div>
-        <div class="value bad">${fmt(data.totalDebt)}</div>
+    ${(data.alerts.subscriptions.length || data.alerts.tasks.length) ? `
+      <div class="grid two">
+        <div class="panel alert-panel">
+          <div class="panel-head"><h2>تنبيهات الاشتراكات</h2><span class="badge bad">${data.alerts.subscriptions.length}</span></div>
+          ${data.alerts.subscriptions.length ? data.alerts.subscriptions.map((item) => `<div class="kpi"><span>${esc(item.name)}${item.trial_ends_on ? " · تنتهي التجربة " + item.trial_ends_on : " · خصم " + (item.next_charge_date || "قريبًا")}</span><b>${fmt(item.amount)}</b></div>`).join("") : ""}
+        </div>
+        <div class="panel alert-panel">
+          <div class="panel-head"><h2>مهام قريبة</h2><span class="badge ${data.alerts.tasks.length ? "bad" : "good"}">${data.alerts.tasks.length}</span></div>
+          ${data.alerts.tasks.length ? data.alerts.tasks.map((item) => `<div class="kpi"><span>${esc(item.title)} · ${item.due_date}</span><b>${esc(item.category)}</b></div>`).join("") : ""}
+        </div>
+      </div>` : ""}
+
+    <div class="panel">
+
+      <div class="panel-head">
+        <h2>الفواتير القادمة (خلال 7 أيام)</h2>
+        <span class="badge ${data.upcomingBills.count > 0 ? "bad" : "good"}">
+          ${data.upcomingBills.count} فاتورة
+        </span>
       </div>
 
-      <div class="card">
-        <div class="label">إجمالي المدخرات</div>
-        <div class="value good">${fmt(data.totalSavings)}</div>
-        ${
-          data.savingsTarget
-            ? `<div class="label">${((data.totalSavings / data.savingsTarget) * 100).toFixed(1)}% من الهدف</div>`
-            : ""
-        }
-      </div>
+      ${
+        data.upcomingBills.bills.length === 0
+          ? `<div class="notice good">لا توجد فواتير مستحقة خلال الأيام السبعة القادمة 🎉</div>`
+          : `
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>الاسم</th>
+                    <th>النوع</th>
+                    <th>تاريخ الاستحقاق</th>
+                    <th>خلال</th>
+                    <th>المبلغ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${data.upcomingBills.bills
+                    .map(
+                      (b) => `
+                        <tr>
+                          <td>${esc(b.name)}</td>
+                          <td>${b.type === "debt" ? "قسط دين" : "مصروف"}</td>
+                          <td>${b.dueDate}</td>
+                          <td class="${b.daysUntil <= 2 ? "bad" : ""}">${
+                        b.daysUntil === 0 ? "اليوم" : `بعد ${b.daysUntil} يوم`
+                      }</td>
+                          <td>${fmt(b.amount)}</td>
+                        </tr>
+                      `
+                    )
+                    .join("")}
+                </tbody>
+              </table>
+            </div>
+          `
+      }
 
     </div>
 
@@ -307,10 +447,12 @@ async function dashboard() {
               <th>الدخل</th>
               <th>المصاريف</th>
               <th>سداد الديون</th>
+              <th>مساهمة الادخار</th>
               <th>الديون المتبقية</th>
               <th>تخفيض الديون</th>
               <th>التدفق النقدي</th>
               <th>الرصيد التراكمي</th>
+              <th>الادخار التراكمي</th>
               <th>التقدم %</th>
             </tr>
           </thead>
@@ -324,10 +466,12 @@ async function dashboard() {
                     <td>${fmt(m.income)}</td>
                     <td>${fmt(m.expenses)}</td>
                     <td>${fmt(m.debtPayment)}</td>
+                    <td class="good">${fmt(m.savingsContribution)}</td>
                     <td class="${m.debtRemaining > 0 ? 'bad' : 'good'}">${fmt(m.debtRemaining)}</td>
                     <td class="good">${fmt(m.debtChange)}</td>
                     <td class="${m.cashChange >= 0 ? 'good' : 'bad'}">${fmt(m.cashChange)}</td>
                     <td class="blue">${fmt(m.endingCash)}</td>
+                    <td class="good">${fmt(m.cumulativeSavings)}</td>
                     <td>${m.debtProgress.toFixed(1)}%</td>
                   </tr>
                 `
@@ -348,6 +492,54 @@ async function dashboard() {
 
   $("#show-plan-btn")?.addEventListener("click", () => {
     setPage("plan");
+  });
+
+  document.querySelectorAll("[data-quick-action]").forEach((button) => {
+    button.addEventListener("click", () => openForm(button.dataset.quickAction));
+  });
+
+  state.comparison = data.comparison;
+  renderPeriodComparison(state.comparisonMode);
+  document.querySelectorAll("[data-comparison-mode]").forEach((button) => {
+    button.addEventListener("click", () => renderPeriodComparison(button.dataset.comparisonMode));
+  });
+
+  initSankeyWidget();
+}
+
+function sankeyWidgetPanel({ interactive = true, section = null } = {}) {
+  const params = new URLSearchParams();
+  if (!interactive) params.set("sliders", "0");
+  if (section) params.set("section", section);
+  const query = params.toString();
+  const src = `/cashflow-sankey.html${query ? `?${query}` : ""}`;
+  return `
+    <div class="panel">
+
+      <div class="panel-head">
+        <h2>تدفق الأموال (Sankey)</h2>
+      </div>
+
+      <iframe
+        id="sankeyWidgetFrame"
+        src="${src}"
+        style="width:100%;border:0;display:block;"
+        title="Cashflow Sankey Widget"
+      ></iframe>
+
+    </div>
+  `;
+}
+
+function initSankeyWidget() {
+  const frame = document.getElementById("sankeyWidgetFrame");
+  if (!frame || frame.dataset.resizeBound) return;
+  frame.dataset.resizeBound = "1";
+  frame.style.height = "600px";
+  window.addEventListener("message", (event) => {
+    if (event.data?.type === "widget-resize" && event.source === frame.contentWindow) {
+      frame.style.height = `${event.data.height}px`;
+    }
   });
 }
 
@@ -473,6 +665,11 @@ function initCashFlowChart(data) {
           backgroundColor: '#f59e0b'
         },
         {
+          label: 'مساهمة الادخار',
+          data: data.map(d => d.savingsContribution),
+          backgroundColor: '#8b5cf6'
+        },
+        {
           label: 'الصافي',
           data: data.map(d => d.cashAfter),
           backgroundColor: '#3b82f6'
@@ -543,6 +740,34 @@ const configs = {
     ],
   },
 
+  transactions: {
+    title: "سجل المعاملات",
+    button: "إضافة معاملة",
+    fields: [
+      ["transaction_date", "تاريخ المعاملة", "date", true],
+      ["merchant", "التاجر / الوصف", "text", true],
+      ["amount", "المبلغ", "number", true],
+      ["direction", "النوع", "select", true, [["expense", "مصروف"], ["income", "دخل"]]],
+      ["category", "التصنيف", "text", false],
+      ["account", "الحساب", "text", false],
+      ["notes", "ملاحظات", "text", false],
+    ],
+  },
+
+  subscriptions: {
+    title: "الاشتراكات",
+    button: "إضافة اشتراك",
+    fields: [
+      ["name", "اسم الخدمة", "text", true],
+      ["amount", "المبلغ", "number", true],
+      ["cadence", "التكرار", "select", true, [["monthly", "شهري"], ["yearly", "سنوي"]]],
+      ["next_charge_date", "تاريخ الخصم القادم", "date", false],
+      ["trial_ends_on", "انتهاء التجربة", "date", false],
+      ["category", "التصنيف", "text", false],
+      ["active", "الحالة", "select", true, [["1", "نشط"], ["0", "متوقف"]]],
+    ],
+  },
+
   debts: {
     title: "الديون",
     button: "إضافة دين",
@@ -569,6 +794,29 @@ const configs = {
       ["category", "التصنيف", "text", false],
     ],
   },
+
+  "admin-tasks": {
+    title: "المهام والمواعيد",
+    button: "إضافة مهمة",
+    fields: [
+      ["title", "عنوان المهمة", "text", true],
+      ["category", "التصنيف", "text", false],
+      ["due_date", "تاريخ الاستحقاق", "date", false],
+      ["notes", "ملاحظات", "text", false],
+      ["status", "الحالة", "select", true, [["open", "مفتوحة"], ["done", "مكتملة"]]],
+    ],
+  },
+
+  documents: {
+    title: "الوثائق والإيصالات",
+    button: "إضافة وثيقة",
+    fields: [
+      ["title", "اسم الوثيقة", "text", true],
+      ["document_type", "النوع", "select", true, [["Receipt", "إيصال"], ["Warranty", "ضمان"], ["Insurance", "تأمين"], ["Tax", "ضريبة"], ["Other", "أخرى"]]],
+      ["expiry_date", "تاريخ الانتهاء / التجديد", "date", false],
+      ["notes", "ملاحظات أو مكان الحفظ", "text", false],
+    ],
+  },
 };
 
 /* =========================
@@ -576,7 +824,10 @@ const configs = {
 ========================= */
 
 async function listPage(type) {
-  const rows = await api(`/api/${type}`);
+  const endpoint = type === "transactions" && state.transactionQuery
+    ? `/api/transactions?q=${encodeURIComponent(state.transactionQuery)}`
+    : `/api/${type}`;
+  const rows = await api(endpoint);
   const config = configs[type];
 
   const columns = {
@@ -597,6 +848,10 @@ async function listPage(type) {
       "monthly_contribution",
       "category",
     ],
+    transactions: ["transaction_date", "merchant", "amount", "direction", "category", "account"],
+    subscriptions: ["name", "amount", "cadence", "next_charge_date", "trial_ends_on", "category", "active"],
+    "admin-tasks": ["title", "category", "due_date", "status"],
+    documents: ["title", "document_type", "expiry_date", "notes"],
   }[type];
 
   const heads = {
@@ -612,20 +867,45 @@ async function listPage(type) {
     priority: "الأولوية",
     target_amount: "المستهدف",
     monthly_contribution: "المساهمة الشهرية",
+    transaction_date: "التاريخ",
+    merchant: "التاجر / الوصف",
+    direction: "النوع",
+    account: "الحساب",
+    cadence: "التكرار",
+    next_charge_date: "الخصم القادم",
+    trial_ends_on: "انتهاء التجربة",
+    active: "الحالة",
+    title: "المهمة",
+    due_date: "الاستحقاق",
+    status: "الحالة",
+    document_type: "النوع",
+    expiry_date: "الانتهاء / التجديد",
+    notes: "ملاحظات",
   };
 
   $("#content").innerHTML = `
+    ${sankeyWidgetPanel({ interactive: false, section: type })}
+
     <div class="panel">
 
       <div class="panel-head">
 
         <h2>${config.title}</h2>
 
-        <button class="btn" id="add-item-btn">
-          + ${config.button}
-        </button>
+        <div class="panel-controls">
+          ${type === "transactions" ? `<button class="btn secondary" id="import-statement-btn">استيراد كشف</button><button class="btn secondary" id="export-transactions-btn">تصدير CSV</button>` : ""}
+          <button class="btn" id="add-item-btn">+ ${config.button}</button>
+        </div>
 
       </div>
+
+      ${type === "transactions" ? `<input id="statement-file" class="hidden" type="file" accept=".csv,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">` : ""}
+
+      ${type === "transactions" ? `
+        <div class="ledger-filters">
+          <input id="transaction-search" type="search" value="${esc(state.transactionQuery)}" placeholder="ابحث باسم التاجر أو التصنيف أو الملاحظات">
+          <span class="label">${rows.length} معاملة</span>
+        </div>` : ""}
 
       ${
         rows.length
@@ -662,6 +942,11 @@ async function listPage(type) {
                           ) {
                             value = fmt(value);
                           }
+
+                          if (column === "direction") value = value === "income" ? "دخل" : "مصروف";
+                          if (column === "cadence") value = value === "yearly" ? "سنوي" : "شهري";
+                          if (column === "active") value = Number(value) ? "نشط" : "متوقف";
+                          if (column === "status") value = value === "done" ? "مكتملة" : "مفتوحة";
 
                           if (column === "apr") {
                             value =
@@ -730,6 +1015,21 @@ async function listPage(type) {
     openForm(type);
   });
 
+  $("#transaction-search")?.addEventListener("input", (event) => {
+    state.transactionQuery = event.target.value;
+    clearTimeout(window.transactionSearchTimer);
+    window.transactionSearchTimer = setTimeout(() => listPage("transactions"), 250);
+  });
+
+  $("#import-statement-btn")?.addEventListener("click", () => $("#statement-file")?.click());
+  $("#statement-file")?.addEventListener("change", async (event) => {
+    const [file] = event.target.files || [];
+    if (!file) return;
+    await importStatement(file);
+    event.target.value = "";
+  });
+  $("#export-transactions-btn")?.addEventListener("click", () => exportTransactions(rows));
+
   /* Edit */
 
   document.querySelectorAll(".edit-btn").forEach((button) => {
@@ -755,6 +1055,54 @@ async function listPage(type) {
       await removeRow(type, id);
     });
   });
+
+  initSankeyWidget();
+}
+
+function csvCell(value) {
+  const text = String(value ?? "");
+  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function exportTransactions(rows) {
+  const headers = ["transaction_date", "merchant", "amount", "direction", "category", "account", "notes"];
+  const csv = [headers.join(","), ...rows.map((row) => headers.map((key) => csvCell(row[key])).join(","))].join("\n");
+  const url = URL.createObjectURL(new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `money-manager-transactions-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+async function importStatement(file) {
+  const button = $("#import-statement-btn");
+  const supported = /\.(csv|xlsx|xls)$/i.test(file.name);
+  if (!supported) {
+    alert("اختر ملف CSV أو XLSX فقط.");
+    return;
+  }
+  try {
+    button.disabled = true;
+    button.textContent = "جارٍ الاستيراد...";
+    const response = await fetch("/api/transactions/import-file", {
+      method: "POST",
+      headers: { "Content-Type": file.type || (file.name.toLowerCase().endsWith(".csv") ? "text/csv" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") },
+      body: await file.arrayBuffer(),
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(payload.error || "تعذر استيراد الملف.");
+    state.transactionQuery = "";
+    await listPage("transactions");
+    alert(`تم استيراد ${payload.imported} معاملة بنجاح.`);
+  } catch (error) {
+    alert(error.message || "تعذر استيراد الملف.");
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.textContent = "استيراد كشف";
+    }
+  }
 }
 
 /* =========================
@@ -773,37 +1121,21 @@ function openForm(type, row = {}) {
     <form id="data-form" class="form-grid">
 
       ${config.fields
-        .map(([key, label, inputType, required]) => {
+        .map(([key, label, inputType, required, options]) => {
 
           if (inputType === "select") {
-            const fixedSelected =
-              row[key] !== "variable" ? "selected" : "";
-
-            const variableSelected =
-              row[key] === "variable" ? "selected" : "";
+            const selectOptions = options || [["fixed", "ثابت"], ["variable", "متغير"]];
+            const selectedValue = String(row[key] ?? selectOptions[0][0]);
 
             return `
               <div class="field">
 
                 <label>${label}</label>
 
-                <select name="${key}">
+              <select name="${key}">
+                ${selectOptions.map(([value, text]) => `<option value="${esc(value)}" ${String(value) === selectedValue ? "selected" : ""}>${esc(text)}</option>`).join("")}
 
-                  <option
-                    value="fixed"
-                    ${fixedSelected}
-                  >
-                    ثابت
-                  </option>
-
-                  <option
-                    value="variable"
-                    ${variableSelected}
-                  >
-                    متغير
-                  </option>
-
-                </select>
+              </select>
 
               </div>
             `;
@@ -905,6 +1237,7 @@ async function saveForm(type, row = {}) {
     "priority",
     "target_amount",
     "monthly_contribution",
+    "active",
   ];
 
   numericFields.forEach((field) => {
@@ -926,7 +1259,8 @@ async function saveForm(type, row = {}) {
 
   if (
     ("amount" in data && data.amount < 0) ||
-    ("balance" in data && data.balance < 0)
+    ("balance" in data && data.balance < 0) ||
+    ("minimum_payment" in data && data.minimum_payment < 0)
   ) {
     errorBox.textContent =
       "المبلغ لا يمكن أن يكون بالسالب.";
@@ -1017,6 +1351,8 @@ async function planPage() {
   ];
 
   $("#content").innerHTML = `
+    ${sankeyWidgetPanel({ interactive: false })}
+
     <div class="panel">
 
       <div class="panel-head">
@@ -1207,6 +1543,8 @@ async function planPage() {
     "click",
     savePlanSettings
   );
+
+  initSankeyWidget();
 }
 
 /* =========================
