@@ -1,3 +1,5 @@
+import { Banner } from '@components/generic/Banner';
+import { SubmitButton as GenericSubmitButton } from '@components/generic/SubmitButton';
 import type { ReactNode } from 'react';
 
 export function PageHeader({
@@ -29,15 +31,22 @@ export function Card({
   children,
   className = '',
   id,
+  interactive = false,
 }: {
   children: ReactNode;
   className?: string;
   id?: string;
+  /** Adds a hover lift + border glow, for cards that wrap a link/action. */
+  interactive?: boolean;
 }) {
   return (
     <section
       id={id}
-      className={`rounded-vera-2xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)] ${className}`}
+      className={`rounded-vera-2xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)] transition-[transform,box-shadow,border-color] duration-200 ease-[var(--vera-ease-standard)] ${
+        interactive
+          ? 'hover:-translate-y-0.5 hover:border-vera-primary/40 hover:shadow-[var(--vera-shadow-md)]'
+          : 'hover:shadow-[var(--vera-shadow-md)]'
+      } ${className}`}
     >
       {children}
     </section>
@@ -56,24 +65,29 @@ export function Field({ label, children }: { label: string; children: ReactNode 
 export const inputClass =
   'min-h-11 rounded-vera-md border border-vera-border bg-vera-bg-subtle px-3 py-2 text-sm text-vera-fg outline-none focus:border-vera-focus';
 
-export function SubmitButton({ children }: { children: ReactNode }) {
-  return (
-    <button type="submit" className="btn-apple min-h-11">
-      {children}
-    </button>
-  );
+/**
+ * Thin re-export of `@components/generic/SubmitButton` kept at this path
+ * for backward compatibility — every form across the dashboard imports
+ * `SubmitButton` from here. The generic version adds a real pending
+ * spinner via `useFormStatus`.
+ */
+export function SubmitButton({
+  children,
+  pendingLabel,
+}: {
+  children: ReactNode;
+  pendingLabel?: ReactNode;
+}) {
+  return <GenericSubmitButton pendingLabel={pendingLabel}>{children}</GenericSubmitButton>;
 }
 
+/**
+ * Thin re-export of `@components/generic/Banner` (error variant) kept at
+ * this path/signature for backward compatibility — every page that reads a
+ * `?error=` search param imports `ErrorMessage` from here.
+ */
 export function ErrorMessage({ message }: { message?: string }) {
-  if (!message) return null;
-  return (
-    <p
-      role="alert"
-      className="rounded-vera-md border border-vera-danger/40 bg-vera-danger/10 p-3 text-sm text-vera-danger"
-    >
-      {message}
-    </p>
-  );
+  return <Banner variant="error" message={message} />;
 }
 
 export function Pager({

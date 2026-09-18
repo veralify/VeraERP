@@ -1,3 +1,5 @@
+import { Reveal, StaggerGroup, StaggerItem } from '@components/generic/Motion';
+import { fadeUp, scaleIn } from '@lib/motion/variants';
 import type { ReactNode } from 'react';
 
 export type FeatureBlock = {
@@ -30,7 +32,7 @@ export function Hero({
   return (
     <section className="relative isolate overflow-hidden px-6 py-24 sm:py-32">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,color-mix(in_srgb,var(--vera-color-primary)_24%,transparent),transparent_34rem),radial-gradient(circle_at_bottom_right,color-mix(in_srgb,var(--vera-color-secondary)_18%,transparent),transparent_30rem)]" />
-      <div className="mx-auto max-w-6xl">
+      <Reveal className="mx-auto max-w-6xl" variants={fadeUp}>
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-vera-primary">
           {eyebrow}
         </p>
@@ -48,7 +50,7 @@ export function Hero({
             </a>
           ) : null}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -75,18 +77,19 @@ export function SectionHeader({
 
 export function FeatureGrid({ blocks }: { blocks: FeatureBlock[] }) {
   return (
-    <div className="grid gap-5 md:grid-cols-3">
+    <StaggerGroup className="grid gap-5 md:grid-cols-3">
       {blocks.map((block) => (
-        <article
+        <StaggerItem
           key={block.title}
-          className="rounded-vera-xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)]"
+          as="article"
+          className="rounded-vera-xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)] transition-[transform,box-shadow,border-color] duration-200 ease-[var(--vera-ease-standard)] hover:-translate-y-1 hover:border-vera-primary/40 hover:shadow-[var(--vera-shadow-md)]"
         >
           <p className="text-sm font-semibold text-vera-primary">{block.eyebrow}</p>
           <h3 className="mt-3 text-xl font-bold tracking-tight">{block.title}</h3>
           <p className="mt-3 text-sm leading-6 text-vera-fg-muted">{block.body}</p>
-        </article>
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerGroup>
   );
 }
 
@@ -103,13 +106,16 @@ export function CTASection({
 }) {
   return (
     <section className="px-6 py-20">
-      <div className="mx-auto max-w-5xl rounded-vera-2xl border border-vera-glass-border bg-vera-glass p-8 text-center shadow-[var(--vera-shadow-lg)] sm:p-12">
+      <Reveal
+        className="mx-auto max-w-5xl rounded-vera-2xl border border-vera-glass-border bg-vera-glass p-8 text-center shadow-[var(--vera-shadow-lg)] sm:p-12"
+        variants={scaleIn}
+      >
         <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">{title}</h2>
         <p className="mx-auto mt-4 max-w-2xl text-vera-fg-muted">{body}</p>
         <a className="btn-apple mt-8" href={href}>
           {label}
         </a>
-      </div>
+      </Reveal>
     </section>
   );
 }
