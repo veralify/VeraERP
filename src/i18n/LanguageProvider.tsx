@@ -2,14 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { defaultLocale, isLocale, type Locale, localeMeta, STORAGE_KEY } from './config';
-import { ar } from './locales/ar';
-import { de } from './locales/de';
-import { type Dictionary, en } from './locales/en';
-import { es } from './locales/es';
-import { fr } from './locales/fr';
-import { it } from './locales/it';
-
-const dictionaries: Record<Locale, Dictionary> = { en, es, fr, de, it, ar };
+import { type Dictionary, dictionaries } from './dictionaries';
 
 // Persist the choice in a cookie (one year) so the server can render the right
 // language on the first paint, eliminating the English flash on navigation.

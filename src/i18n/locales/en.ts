@@ -1,4 +1,120 @@
 export const en = {
+  marketing: {
+    home: {
+      hero: {
+        eyebrow: 'Veralify fitness',
+        title: 'Track. Connect. Transform.',
+        body: "Point your phone at a plate and Veralify reads it back to you — calories, protein, carbs, fat. Log it, watch the trend, and stay honest with people who'll notice if you stop.",
+        primaryCta: 'Start your 3-day Pro trial',
+        secondaryCta: 'Explore AI tracking',
+        stats: ['3-day trial', 'No free tier', 'Cancel anytime'],
+      },
+      howItWorks: {
+        eyebrow: 'How it works',
+        title: 'From download to your first log in under a minute.',
+        steps: [
+          {
+            title: 'Set your goal',
+            body: 'Lose, maintain, or gain — tell us the direction and your starting point.',
+          },
+          {
+            title: 'Get your plan',
+            body: 'Daily calorie and macro targets built from your own numbers, not a generic template.',
+          },
+          {
+            title: 'Scan your first meal',
+            body: 'Point your phone at the plate. Confirm what the AI sees before it saves.',
+          },
+          {
+            title: 'Start your trial',
+            body: '3 days of full Pro access — tracking, communities, live rooms, and coach discovery.',
+          },
+        ],
+      },
+      whyItSticks: {
+        eyebrow: 'Why it sticks',
+        body: "Most tracking apps stop at the log. Veralify turns that log into an insight worth reading, a reason to show up in a room with other people, and, when you want it, a coach who's actually looking.",
+      },
+      foodScan: {
+        eyebrow: 'AI food scan',
+        title: 'Log meals from a photo, then verify the details.',
+        body: "The pipeline is provenance-first: AI proposes what's on the plate, the nutrition engine does the math, and your history doesn't get silently rewritten later.",
+        points: [
+          'Snap a photo — AI proposes the food and portions',
+          'Confirm or correct before it saves to your log',
+          'Calories, protein, carbs, and fat calculated deterministically',
+        ],
+        previewLabel: 'Meal analysis preview',
+        previewHeading: 'Photo → macros',
+        calories: 'Calories',
+        protein: 'Protein',
+        carbs: 'Carbs',
+        fat: 'Fat',
+      },
+      liveRooms: {
+        eyebrow: 'Live rooms',
+        title: 'Show up together, in real time.',
+        body: "A feed is easy to ignore. A room you're already in isn't — voice and video rooms turn accountability into something that happens at a specific time, with specific people.",
+        points: [
+          'Voice-first rooms with request-to-speak',
+          'Scheduled community sessions and coach-hosted rooms',
+          'Host moderation and clear speaking states',
+        ],
+        liveNow: 'Live now',
+        roomName: 'Morning Run Club',
+        peopleLive: '12 people live · tap to join',
+      },
+      coach: {
+        eyebrow: 'Coach discovery',
+        title: "Human support when tracking alone isn't enough.",
+        body: "Some weeks the data is fine and the motivation isn't. Browse verified coaches, book a session, and pay for it right there — no separate app, no waiting on email.",
+        points: [
+          'Verified coach profiles with specialties and rates',
+          'Book and pay for a session in one flow',
+          'Optional data sharing, permission by permission',
+        ],
+        badge: 'Verified coach',
+        coachTitle: 'Strength & nutrition coaching',
+        tags: ['Strength', 'Nutrition', 'Habit building'],
+      },
+      pricing: {
+        eyebrow: 'Pricing',
+        title: 'One subscription. Nothing held back.',
+        body: "There's no free tier — the 3-day trial gives you the whole thing: AI food logging, insights, groups, live rooms, progress analytics, and coach discovery.",
+        bestValue: 'Best value',
+        compareCta: 'Compare billing options',
+      },
+      faq: {
+        title: 'Questions before you start',
+        items: [
+          {
+            question: 'How does AI food logging actually work?',
+            answer:
+              'Take a photo of your meal — the AI proposes what it sees and estimated portions. You confirm or correct before anything saves, so your log stays accurate over time.',
+          },
+          {
+            question: 'Is there a free tier?',
+            answer:
+              "No. Veralify Pro is one subscription with a 3-day trial, and the trial isn't a stripped-down version — it's everything.",
+          },
+          {
+            question: "What if I'd rather work with a coach than track solo?",
+            answer:
+              'Coach discovery is built into Pro. Browse verified coaches, book a session, and pay securely — coaching sits alongside tracking, not instead of it.',
+          },
+          {
+            question: 'Which platforms is Veralify on?',
+            answer:
+              'Web and iOS today, sharing the same account, entitlements, and data either way you log in.',
+          },
+        ],
+      },
+      finalCta: {
+        title: 'Start with tracking. Stay for the accountability.',
+        body: 'Food logs, insight, communities, live rooms, and coaches — all pointed at the same thing: you actually finishing what you started.',
+      },
+    },
+  },
   hero: {
     quote: 'Progress starts with one honest log.',
     headline: 'Track. Connect. Transform.',

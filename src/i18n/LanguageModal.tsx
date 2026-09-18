@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { type Locale, localeMeta, locales } from './config';
@@ -13,6 +14,7 @@ type Props = {
 export function LanguageModal({ open, onClose }: Props) {
   const { locale, setLocale } = useLanguage();
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -37,6 +39,10 @@ export function LanguageModal({ open, onClose }: Props) {
   const choose = (next: Locale) => {
     setLocale(next);
     onClose();
+    // Server Components resolve locale from the cookie at request time, so a
+    // client-only context update won't re-render already-rendered server
+    // markup (e.g. the homepage) — refresh to re-fetch with the new cookie.
+    router.refresh();
   };
 
   return createPortal(

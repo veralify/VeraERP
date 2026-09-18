@@ -1,4 +1,5 @@
 import { HomePage as MarketingHomePage } from '@components/marketing/HomePage';
+import { getServerDictionary } from '@i18n/getServerDictionary';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
-  return <MarketingHomePage />;
+export default async function HomePage() {
+  const { t } = await getServerDictionary();
+  return <MarketingHomePage t={t.marketing.home} />;
 }
