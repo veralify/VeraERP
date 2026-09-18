@@ -1,3 +1,5 @@
+import { CoachProfileForm } from '@components/member/CoachProfileForm';
+import { CoachSessionForm } from '@components/member/CoachSessionForm';
 import { Card, ErrorMessage, PageHeader, Pager } from '@components/member/DashboardPrimitives';
 import { EmptyState } from '@components/member/EmptyState';
 import { getUserEntitlements, hasEntitlement } from '@lib/api/entitlements';
@@ -7,8 +9,27 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Coach portal' };
 
-type SearchParams = Promise<{ page?: string; error?: string; connect?: string }>;
-type CoachProfile = { id: string; headline: string | null; verification_status: string };
+type SearchParams = Promise<{ page?: string; error?: string; connect?: string; saved?: string }>;
+type CoachProfile = {
+  id: string;
+  headline: string | null;
+  bio: string | null;
+  specialties: string[];
+  years_experience: number | null;
+  hourly_rate: number | null;
+  currency: string;
+  location: string | null;
+  online_only: boolean;
+  verification_status: string;
+};
+type CoachSession = {
+  id: string;
+  title: string;
+  session_type: string;
+  scheduled_at: string;
+  duration_minutes: number;
+  status: string;
+};
 type StripeAccount = {
   onboarding_status: string;
   charges_enabled: boolean;
@@ -52,6 +73,11 @@ function errorMessage(error?: string) {
     return 'VERALIFY_COACH entitlement is required to access coach tools.';
   if (error === 'coach-profile')
     return 'A coach profile is required before Stripe Connect onboarding can start.';
+  if (error === 'invalid-profile') return 'Enter a headline and a valid 3-letter currency code.';
+  if (error === 'save-profile') return 'Could not save your coach profile. Try again.';
+  if (error === 'invalid-session')
+    return 'Enter a title, format, duration, and a future date/time.';
+  if (error === 'save-session') return 'Could not publish that session. Try again.';
   if (error) return 'We could not complete that coach action. Try again.';
   return undefined;
 }
@@ -71,7 +97,9 @@ export default async function CoachPortalPage({ searchParams }: { searchParams: 
     getUserEntitlements(user.id).catch(() => []),
     supabase
       .from('coach_profiles')
-      .select('id, headline, verification_status')
+      .select(
+        'id, headline, bio, specialties, years_experience, hourly_rate, currency, location, online_only, verification_status',
+      )
       .eq('id', user.id)
       .maybeSingle(),
   ]);
@@ -98,35 +126,46 @@ export default async function CoachPortalPage({ searchParams }: { searchParams: 
     );
   }
 
-  const [{ data: stripeAccount }, { data: clients }, { data: bookings, count: bookingCount }] =
-    await Promise.all([
-      supabaseAdmin
-        .from('coach_stripe_accounts')
-        .select('onboarding_status, charges_enabled, payouts_enabled, stripe_account_id')
-        .eq('coach_id', user.id)
-        .maybeSingle(),
-      supabase
-        .from('coach_clients')
-        .select('client_id, status, started_at, ended_at')
-        .eq('coach_id', user.id)
-        .order('started_at', { ascending: false })
-        .limit(25),
-      supabase
-        .from('session_bookings')
-        .select(
-          'id, status, payment_method, booked_at, cancelled_at, coach_sessions!inner(title, scheduled_at, duration_minutes, session_type, status, client_id, coach_id)',
-          { count: 'exact' },
-        )
-        .eq('coach_sessions.coach_id', user.id)
-        .order('booked_at', { ascending: false })
-        .range(from, to)
-        .limit(pageSize + 1),
-    ]);
+  const [
+    { data: stripeAccount },
+    { data: clients },
+    { data: bookings, count: bookingCount },
+    { data: sessions },
+  ] = await Promise.all([
+    supabaseAdmin
+      .from('coach_stripe_accounts')
+      .select('onboarding_status, charges_enabled, payouts_enabled, stripe_account_id')
+      .eq('coach_id', user.id)
+      .maybeSingle(),
+    supabase
+      .from('coach_clients')
+      .select('client_id, status, started_at, ended_at')
+      .eq('coach_id', user.id)
+      .order('started_at', { ascending: false })
+      .limit(25),
+    supabase
+      .from('session_bookings')
+      .select(
+        'id, status, payment_method, booked_at, cancelled_at, coach_sessions!inner(title, scheduled_at, duration_minutes, session_type, status, client_id, coach_id)',
+        { count: 'exact' },
+      )
+      .eq('coach_sessions.coach_id', user.id)
+      .order('booked_at', { ascending: false })
+      .range(from, to)
+      .limit(pageSize + 1),
+    supabase
+      .from('coach_sessions')
+      .select('id, title, session_type, scheduled_at, duration_minutes, status')
+      .eq('coach_id', user.id)
+      .order('scheduled_at', { ascending: true })
+      .limit(20),
+  ]);
 
   const account = stripeAccount as StripeAccount | null;
   const clientRows = (clients ?? []) as CoachClient[];
   const bookingRows = ((bookings ?? []) as unknown as Booking[]).slice(0, pageSize);
   const hasNext = (bookings?.length ?? 0) > pageSize || from + pageSize < (bookingCount ?? 0);
+  const sessionRows = (sessions ?? []) as CoachSession[];
 
   return (
     <main className="px-4 py-8 lg:px-8">
@@ -175,6 +214,40 @@ export default async function CoachPortalPage({ searchParams }: { searchParams: 
             )}
             <Pager page={page} hasNext={hasNext} basePath="/dashboard/coach" />
           </Card>
+
+          <Card>
+            <h2 className="text-xl font-bold">Your session slots</h2>
+            {sessionRows.length ? (
+              <div className="mt-4 divide-y divide-vera-border">
+                {sessionRows.map((session) => (
+                  <article
+                    key={session.id}
+                    className="flex items-center justify-between gap-3 py-3"
+                  >
+                    <div>
+                      <p className="font-semibold">{session.title}</p>
+                      <p className="text-sm text-vera-fg-muted">
+                        {new Date(session.scheduled_at).toLocaleString()} ·{' '}
+                        {session.duration_minutes} min · {session.session_type}
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-vera-primary/15 px-3 py-1 text-xs font-semibold text-vera-primary">
+                      {session.status}
+                    </span>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                title="No session slots yet"
+                body="Publish a slot below so it appears on your public coach profile for booking."
+              />
+            )}
+          </Card>
+
+          <CoachSessionForm />
+
+          <CoachProfileForm existing={profile} />
 
           <Card>
             <h2 className="text-xl font-bold">Clients</h2>

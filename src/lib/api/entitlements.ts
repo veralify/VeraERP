@@ -1,12 +1,19 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from './database.types';
 import { createSupabaseServerClient } from '@lib/supabase/server';
 import { supabaseAdmin } from '@lib/supabaseAdmin';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from './database.types';
 
 type UserEntitlementRow = Database['public']['Tables']['user_entitlements']['Row'];
 export type UserEntitlement = Pick<
   UserEntitlementRow,
-  'id' | 'user_id' | 'lookup_key' | 'source' | 'active' | 'limit_value' | 'expires_at' | 'updated_at'
+  | 'id'
+  | 'user_id'
+  | 'lookup_key'
+  | 'source'
+  | 'active'
+  | 'limit_value'
+  | 'expires_at'
+  | 'updated_at'
 >;
 
 const entitlementSelect =
@@ -38,6 +45,9 @@ export async function getUserEntitlementsService(userId: string): Promise<UserEn
   return data ?? [];
 }
 
-export function hasEntitlement(entitlements: readonly Pick<UserEntitlement, 'lookup_key'>[], key: string) {
+export function hasEntitlement(
+  entitlements: readonly Pick<UserEntitlement, 'lookup_key'>[],
+  key: string,
+) {
   return entitlements.some((entitlement) => entitlement.lookup_key === key);
 }

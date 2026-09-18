@@ -8,7 +8,14 @@ import type {
   RecommendationResponse,
 } from './types';
 
-export type GatewayRoute = 'analyze-food' | 'food-verify' | 'chat' | 'insight' | 'progress-analysis' | 'recommendations' | 'feedback';
+export type GatewayRoute =
+  | 'analyze-food'
+  | 'food-verify'
+  | 'chat'
+  | 'insight'
+  | 'progress-analysis'
+  | 'recommendations'
+  | 'feedback';
 
 export class AiGatewayClientError extends Error {
   constructor(
@@ -158,7 +165,11 @@ export async function streamCoachChat(
 ): Promise<AsyncGenerator<GatewayEnvelope<CoachResponse>>> {
   const baseUrl = options.baseUrl ?? process.env.NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL;
   if (!baseUrl) {
-    throw new AiGatewayClientError(500, 'MISSING_FUNCTIONS_URL', 'NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL is required.');
+    throw new AiGatewayClientError(
+      500,
+      'MISSING_FUNCTIONS_URL',
+      'NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL is required.',
+    );
   }
   const response = await fetch(`${baseUrl.replace(/\/$/, '')}/ai-gateway/chat`, {
     method: 'POST',
@@ -169,14 +180,24 @@ export async function streamCoachChat(
   if (!response.ok) {
     const payload = await response.json().catch(() => ({}));
     const err = payload?.error ?? {};
-    throw new AiGatewayClientError(response.status, String(err.code ?? 'AI_GATEWAY_ERROR'), String(err.message ?? 'AI gateway stream failed.'), err.details);
+    throw new AiGatewayClientError(
+      response.status,
+      String(err.code ?? 'AI_GATEWAY_ERROR'),
+      String(err.message ?? 'AI gateway stream failed.'),
+      err.details,
+    );
   }
   return readSseStream<GatewayEnvelope<CoachResponse>>(response);
 }
 
 export const estimateFood = analyzeFood;
 export const verifyFood = (
-  body: { image_ref?: string; analysis?: unknown; candidates?: unknown; context?: Record<string, unknown> },
+  body: {
+    image_ref?: string;
+    analysis?: unknown;
+    candidates?: unknown;
+    context?: Record<string, unknown>;
+  },
   options: { accessToken: string; baseUrl?: string; signal?: AbortSignal },
 ) => callGateway<FoodAnalysisResult>('food-verify', body, options);
 

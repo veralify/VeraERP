@@ -54,6 +54,8 @@ export async function POST(request: Request) {
               : session.subscription.id,
             session.client_reference_id ?? session.metadata?.user_id ?? null,
           );
+        } else if (session.mode === 'payment' && session.metadata?.type === 'session_booking') {
+          await finalizeSessionBooking(stripe, session);
         }
         break;
       }
@@ -70,6 +72,19 @@ export async function POST(request: Request) {
           subscription.metadata?.user_id ?? null,
           subscription,
         );
+        break;
+      }
+      case 'account.updated': {
+        const account = event.data.object as Stripe.Account;
+        await supabaseAdmin
+          .from('coach_stripe_accounts')
+          .update({
+            onboarding_status: account.details_submitted ? 'complete' : 'pending',
+            charges_enabled: Boolean(account.charges_enabled),
+            payouts_enabled: Boolean(account.payouts_enabled),
+            updated_at: new Date().toISOString(),
+          })
+          .eq('stripe_account_id', account.id);
         break;
       }
       default:
@@ -137,4 +152,63 @@ async function syncSubscriptionForCustomer(
       updated_at: new Date().toISOString(),
     })
     .eq('id', userId);
+}
+
+/**
+ * Confirms a paid coach session booking: marks the booking/session confirmed
+ * and records the payment split (coach transfer vs. platform fee) so the
+ * coach portal and payout ledger reflect the completed Connect payment.
+ */
+async function finalizeSessionBooking(
+  stripe: ReturnType<typeof getStripe>,
+  session: Stripe.Checkout.Session,
+) {
+  const bookingId = session.metadata?.booking_id;
+  const sessionId = session.metadata?.session_id;
+  const coachId = session.metadata?.coach_id;
+  const clientId = session.metadata?.client_id;
+  const paymentIntentId =
+    typeof session.payment_intent === 'string'
+      ? session.payment_intent
+      : session.payment_intent?.id;
+  if (!bookingId || !sessionId || !coachId || !clientId || !paymentIntentId) return;
+
+  const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+  const amountCents = paymentIntent.amount;
+  const platformFeeCents = paymentIntent.application_fee_amount ?? 0;
+  const currency = paymentIntent.currency.toUpperCase();
+
+  await Promise.all([
+    supabaseAdmin.from('session_bookings').update({ status: 'confirmed' }).eq('id', bookingId),
+    supabaseAdmin.from('coach_sessions').update({ status: 'confirmed' }).eq('id', sessionId),
+  ]);
+
+  const { data: paymentRow } = await supabaseAdmin
+    .from('session_payment_intents')
+    .upsert(
+      {
+        session_id: sessionId,
+        client_id: clientId,
+        coach_id: coachId,
+        stripe_payment_intent_id: paymentIntentId,
+        amount_cents: amountCents,
+        currency,
+        platform_fee_cents: platformFeeCents,
+        status: 'succeeded',
+      },
+      { onConflict: 'session_id' },
+    )
+    .select('id')
+    .single();
+
+  if (paymentRow) {
+    await supabaseAdmin.from('coach_transactions').insert({
+      coach_id: coachId,
+      session_payment_intent_id: paymentRow.id,
+      type: 'charge',
+      amount_cents: amountCents - platformFeeCents,
+      currency,
+      stripe_ref: paymentIntentId,
+    });
+  }
 }

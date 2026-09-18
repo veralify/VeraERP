@@ -86,9 +86,10 @@ export default async function CoachesPage({ searchParams }: { searchParams: Sear
         {coaches.length ? (
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {coaches.map((coach) => (
-              <article
+              <a
                 key={coach.id}
-                className="rounded-vera-2xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)]"
+                href={`/coaches/${coach.id}`}
+                className="block rounded-vera-2xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)] transition hover:border-vera-primary"
               >
                 <p className="text-sm font-semibold text-vera-primary">
                   {coach.public_profiles?.display_name ??
@@ -135,7 +136,7 @@ export default async function CoachesPage({ searchParams }: { searchParams: Sear
                     </dd>
                   </div>
                 </dl>
-              </article>
+              </a>
             ))}
           </div>
         ) : (
