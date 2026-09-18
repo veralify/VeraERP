@@ -1,3 +1,4 @@
+import { UserCog } from 'lucide-react';
 import { upsertCoachProfileAction } from '../../app/dashboard/coach/actions';
 import { Field, inputClass, SubmitButton } from './DashboardPrimitives';
 
@@ -19,7 +20,8 @@ export function CoachProfileForm({ existing }: { existing: Existing }) {
       className="grid gap-4 rounded-vera-2xl border border-vera-border bg-vera-surface p-6 md:grid-cols-2"
     >
       <div className="md:col-span-2">
-        <h2 className="text-xl font-bold">
+        <h2 className="flex items-center gap-2 text-xl font-bold">
+          <UserCog className="h-5 w-5 text-vera-primary" aria-hidden="true" />
           {existing ? 'Edit coach profile' : 'Create coach profile'}
         </h2>
         <p className="mt-1 text-sm text-vera-fg-muted">
@@ -97,7 +99,9 @@ export function CoachProfileForm({ existing }: { existing: Existing }) {
         </label>
       </Field>
       <div className="md:col-span-2">
-        <SubmitButton>{existing ? 'Save changes' : 'Create profile'}</SubmitButton>
+        <SubmitButton pendingLabel="Saving…">
+          {existing ? 'Save changes' : 'Create profile'}
+        </SubmitButton>
       </div>
     </form>
   );

@@ -1,9 +1,15 @@
+import { Reveal } from '@components/generic/Motion';
+import { SkeletonList } from '@components/generic/Skeleton';
 import { Card, ErrorMessage, PageHeader } from '@components/member/DashboardPrimitives';
 import { EmptyState } from '@components/member/EmptyState';
 import { getUserEntitlements, hasEntitlement } from '@lib/api/entitlements';
+import { fadeUp } from '@lib/motion/variants';
 import { createSupabaseServerClient } from '@lib/supabase/server';
+import { Lock } from 'lucide-react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+import { SessionsList } from './SessionsList';
 
 type Params = Promise<{ id: string }>;
 type SearchParams = Promise<{ error?: string }>;
@@ -21,14 +27,6 @@ type CoachProfile = {
   rating: number;
   review_count: number;
   public_profiles: { display_name: string | null; username: string | null } | null;
-};
-type AvailableSession = {
-  id: string;
-  title: string;
-  description: string | null;
-  session_type: string;
-  scheduled_at: string;
-  duration_minutes: number;
 };
 
 function errorMessage(error?: string) {
@@ -74,6 +72,7 @@ export default async function CoachDetailPage({
           />
           <Card>
             <EmptyState
+              icon={<Lock className="h-6 w-6" strokeWidth={1.75} />}
               title="Coach discovery locked"
               body="Sign in and start Veralify Pro to browse verified coaches."
               ctaHref={user ? '/dashboard/billing' : '/pricing'}
@@ -96,16 +95,6 @@ export default async function CoachDetailPage({
   if (!coach) notFound();
   const profile = coach as unknown as CoachProfile;
 
-  const { data: sessions } = await supabase
-    .from('coach_sessions')
-    .select('id, title, description, session_type, scheduled_at, duration_minutes')
-    .eq('coach_id', id)
-    .eq('status', 'available')
-    .gt('scheduled_at', new Date().toISOString())
-    .order('scheduled_at', { ascending: true })
-    .limit(25);
-  const availableSessions = (sessions ?? []) as AvailableSession[];
-
   return (
     <main className="bg-vera-bg px-6 py-20 text-vera-fg">
       <div className="mx-auto max-w-4xl">
@@ -117,83 +106,51 @@ export default async function CoachDetailPage({
           }
         />
         <ErrorMessage message={errorMessage(search.error)} />
-        <Card className="mb-6">
-          <p className="text-sm leading-6 text-vera-fg-muted">{profile.bio ?? 'No bio yet.'}</p>
-          <dl className="mt-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
-            <div>
-              <dt className="text-vera-fg-muted">Experience</dt>
-              <dd className="font-semibold">{profile.years_experience ?? '—'} years</dd>
-            </div>
-            <div>
-              <dt className="text-vera-fg-muted">Rate</dt>
-              <dd className="font-semibold">
-                {profile.hourly_rate
-                  ? `${profile.currency.toUpperCase()} ${profile.hourly_rate}/hr`
-                  : '—'}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-vera-fg-muted">Rating</dt>
-              <dd className="font-semibold">
-                {profile.rating} ({profile.review_count})
-              </dd>
-            </div>
-            <div>
-              <dt className="text-vera-fg-muted">Format</dt>
-              <dd className="font-semibold">
-                {profile.online_only ? 'Online' : (profile.location ?? 'Flexible')}
-              </dd>
-            </div>
-          </dl>
-        </Card>
+        <Reveal variants={fadeUp}>
+          <Card className="mb-6">
+            <p className="text-sm leading-6 text-vera-fg-muted">{profile.bio ?? 'No bio yet.'}</p>
+            <dl className="mt-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+              <div>
+                <dt className="text-vera-fg-muted">Experience</dt>
+                <dd className="font-semibold">{profile.years_experience ?? '—'} years</dd>
+              </div>
+              <div>
+                <dt className="text-vera-fg-muted">Rate</dt>
+                <dd className="font-semibold">
+                  {profile.hourly_rate
+                    ? `${profile.currency.toUpperCase()} ${profile.hourly_rate}/hr`
+                    : '—'}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-vera-fg-muted">Rating</dt>
+                <dd className="font-semibold">
+                  {profile.rating} ({profile.review_count})
+                </dd>
+              </div>
+              <div>
+                <dt className="text-vera-fg-muted">Format</dt>
+                <dd className="font-semibold">
+                  {profile.online_only ? 'Online' : (profile.location ?? 'Flexible')}
+                </dd>
+              </div>
+            </dl>
+          </Card>
+        </Reveal>
 
-        <Card>
-          <h2 className="text-xl font-bold">Available sessions</h2>
-          {availableSessions.length ? (
-            <div className="mt-4 divide-y divide-vera-border">
-              {availableSessions.map((session) => {
-                const priceLabel =
-                  profile.hourly_rate != null
-                    ? `${profile.currency.toUpperCase()} ${(
-                        (profile.hourly_rate * session.duration_minutes) / 60
-                      ).toFixed(2)}`
-                    : null;
-                return (
-                  <article
-                    key={session.id}
-                    className="flex flex-wrap items-center justify-between gap-3 py-4"
-                  >
-                    <div>
-                      <p className="font-semibold">{session.title}</p>
-                      <p className="text-sm text-vera-fg-muted">
-                        {new Date(session.scheduled_at).toLocaleString()} ·{' '}
-                        {session.duration_minutes} min · {session.session_type}
-                        {priceLabel ? ` · ${priceLabel}` : ''}
-                      </p>
-                    </div>
-                    {user ? (
-                      <form action="/api/stripe/bookings/checkout" method="POST">
-                        <input type="hidden" name="sessionId" value={session.id} />
-                        <button type="submit" className="btn-apple">
-                          Book & pay
-                        </button>
-                      </form>
-                    ) : (
-                      <a className="btn-apple-secondary" href="/?auth=required">
-                        Sign in to book
-                      </a>
-                    )}
-                  </article>
-                );
-              })}
-            </div>
-          ) : (
-            <EmptyState
-              title="No open sessions"
-              body="This coach has no available session slots right now."
-            />
-          )}
-        </Card>
+        <Reveal variants={fadeUp} delay={0.08}>
+          <Card>
+            <h2 className="text-xl font-bold">Available sessions</h2>
+            <Suspense fallback={<SkeletonList count={3} className="mt-4" />}>
+              <SessionsList
+                coachId={id}
+                hourlyRate={profile.hourly_rate}
+                currency={profile.currency}
+                isSignedIn={Boolean(user)}
+              />
+            </Suspense>
+          </Card>
+        </Reveal>
       </div>
     </main>
   );

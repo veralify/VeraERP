@@ -1,3 +1,4 @@
+import { CalendarPlus } from 'lucide-react';
 import { createCoachSessionAction } from '../../app/dashboard/coach/actions';
 import { Field, inputClass, SubmitButton } from './DashboardPrimitives';
 
@@ -8,7 +9,10 @@ export function CoachSessionForm() {
       className="grid gap-4 rounded-vera-2xl border border-vera-border bg-vera-surface p-6 md:grid-cols-2"
     >
       <div className="md:col-span-2">
-        <h2 className="text-xl font-bold">Open a session slot</h2>
+        <h2 className="flex items-center gap-2 text-xl font-bold">
+          <CalendarPlus className="h-5 w-5 text-vera-primary" aria-hidden="true" />
+          Open a session slot
+        </h2>
         <p className="mt-1 text-sm text-vera-fg-muted">
           Published as "available" so clients can find and book it from coach discovery.
         </p>
@@ -47,7 +51,7 @@ export function CoachSessionForm() {
         </Field>
       </div>
       <div className="md:col-span-2">
-        <SubmitButton>Publish session</SubmitButton>
+        <SubmitButton pendingLabel="Publishing…">Publish session</SubmitButton>
       </div>
     </form>
   );

@@ -1,29 +1,35 @@
+import { EmptyState as GenericEmptyState } from '@components/generic/EmptyState';
+import { Inbox } from 'lucide-react';
+import type { ReactNode } from 'react';
+
+/**
+ * Thin, backward-compatible wrapper over `@components/generic/EmptyState`.
+ * Kept at this path/signature because it's imported across the member
+ * dashboard (goals, progress, groups, track, billing, ...) — callers that
+ * only pass title/body/ctaHref/ctaLabel keep working unchanged. New call
+ * sites (coach discovery/portal) pass a rendered `icon` element for a
+ * topic-appropriate glyph instead of the old literal "•" placeholder.
+ */
 export function EmptyState({
   title,
   body,
   ctaHref,
   ctaLabel,
+  icon = <Inbox className="h-6 w-6" strokeWidth={1.75} />,
 }: {
   title: string;
   body: string;
   ctaHref?: string;
   ctaLabel?: string;
+  icon?: ReactNode;
 }) {
   return (
-    <section className="rounded-vera-2xl border border-vera-border bg-vera-surface p-8 text-center shadow-[var(--vera-shadow-sm)]">
-      <div
-        className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-vera-surface-muted text-2xl"
-        aria-hidden="true"
-      >
-        •
-      </div>
-      <h2 className="mt-5 text-2xl font-bold tracking-tight">{title}</h2>
-      <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-vera-fg-muted">{body}</p>
-      {ctaHref && ctaLabel ? (
-        <a className="btn-apple mt-6" href={ctaHref}>
-          {ctaLabel}
-        </a>
-      ) : null}
-    </section>
+    <GenericEmptyState
+      icon={icon}
+      title={title}
+      body={body}
+      ctaHref={ctaHref}
+      ctaLabel={ctaLabel}
+    />
   );
 }
