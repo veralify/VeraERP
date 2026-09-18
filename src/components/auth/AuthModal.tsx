@@ -12,9 +12,11 @@ type Busy = null | 'email' | 'google' | 'apple' | 'passkey';
 type Props = {
   open: boolean;
   onClose: () => void;
+  /** Path to return to after a successful sign-in (e.g. the coach page a signed-out visitor was booking from). */
+  next?: string;
 };
 
-export function AuthModal({ open, onClose }: Props) {
+export function AuthModal({ open, onClose, next }: Props) {
   const [step, setStep] = useState<Step>('email');
   const [mode, setMode] = useState<Mode>('signin');
   const [email, setEmail] = useState('');
@@ -57,6 +59,13 @@ export function AuthModal({ open, onClose }: Props) {
   const supabase = createSupabaseBrowserClient();
   const busy = loading !== null;
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const callbackUrl = `${window.location.origin}/auth/callback${next ? `?next=${encodeURIComponent(next)}` : ''}`;
+
+  /** Session already established client-side (password/passkey) — close the modal and return to `next` if set. */
+  const finishInPlace = () => {
+    onClose();
+    if (next) window.location.href = next;
+  };
 
   const oauth = async (provider: 'google' | 'apple', which: Busy) => {
     if (!supabase) {
@@ -68,7 +77,7 @@ export function AuthModal({ open, onClose }: Props) {
     try {
       const { error: err } = await supabase.auth.signInWithOAuth({
         provider,
-        options: { redirectTo: `${window.location.origin}/auth/callback` },
+        options: { redirectTo: callbackUrl },
       });
       if (err) throw err;
     } catch (e) {
@@ -86,7 +95,7 @@ export function AuthModal({ open, onClose }: Props) {
     setLoading('passkey');
     try {
       await authenticateWithPasskey(email.trim());
-      onClose();
+      finishInPlace();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Passkey sign-in failed.');
     } finally {
@@ -121,7 +130,7 @@ export function AuthModal({ open, onClose }: Props) {
         const { error: err } = await supabase.auth.signUp({
           email: email.trim(),
           password,
-          options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+          options: { emailRedirectTo: callbackUrl },
         });
         if (err) throw err;
         setNotice('Check your inbox to confirm your email, then sign in.');
@@ -131,7 +140,7 @@ export function AuthModal({ open, onClose }: Props) {
           password,
         });
         if (err) throw err;
-        onClose();
+        finishInPlace();
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Authentication failed.');

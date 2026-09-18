@@ -5,7 +5,7 @@ import { CoachProfileForm } from '@components/member/CoachProfileForm';
 import { CoachSessionForm } from '@components/member/CoachSessionForm';
 import { Card, ErrorMessage, PageHeader } from '@components/member/DashboardPrimitives';
 import { EmptyState } from '@components/member/EmptyState';
-import { getUserEntitlements, hasEntitlement } from '@lib/api/entitlements';
+import { canActAsCoach } from '@lib/api/coachAccess';
 import { fadeUp } from '@lib/motion/variants';
 import { createSupabaseServerClient } from '@lib/supabase/server';
 import { supabaseAdmin } from '@lib/supabaseAdmin';
@@ -48,8 +48,8 @@ const stateMachine = [
 ];
 
 function errorMessage(error?: string) {
-  if (error === 'coach-entitlement')
-    return 'VERALIFY_COACH entitlement is required to access coach tools.';
+  if (error === 'coach-access' || error === 'coach-entitlement')
+    return 'Coaching is invite-only right now — request an invite to access coach tools.';
   if (error === 'coach-profile')
     return 'A coach profile is required before Stripe Connect onboarding can start.';
   if (error === 'invalid-profile') return 'Enter a headline and a valid 3-letter currency code.';
@@ -76,8 +76,8 @@ export default async function CoachPortalPage({ searchParams }: { searchParams: 
   } = await supabase.auth.getUser();
   if (!user) return null;
 
-  const [entitlements, { data: coachProfile }] = await Promise.all([
-    getUserEntitlements(user.id).catch(() => []),
+  const [canUseCoachPortal, { data: coachProfile }] = await Promise.all([
+    canActAsCoach(user.id, user.email ?? null),
     supabase
       .from('coach_profiles')
       .select(
@@ -87,23 +87,22 @@ export default async function CoachPortalPage({ searchParams }: { searchParams: 
       .maybeSingle(),
   ]);
   const profile = coachProfile as CoachProfile | null;
-  const canUseCoachPortal = hasEntitlement(entitlements, 'VERALIFY_COACH') || Boolean(profile);
 
   if (!canUseCoachPortal) {
     return (
       <main className="px-4 py-8 lg:px-8">
         <PageHeader
           eyebrow="Coach portal"
-          title="Coach tools require VERALIFY_COACH."
-          body="Upgrade when coach tools are available for your account. No coach dashboard data is shown without a coach entitlement or coach profile."
+          title="Coaching is invite-only right now."
+          body="We're onboarding a founding cohort of coaches by invite. Request an invite and we'll follow up by email — no subscription required."
         />
         <Card>
           <EmptyState
             icon={<Lock className="h-6 w-6" strokeWidth={1.75} />}
-            title="Coach access not active"
-            body="Your current entitlements do not include VERALIFY_COACH. Consumer Pro remains available from billing."
-            ctaHref="/dashboard/billing"
-            ctaLabel="Open billing"
+            title="Coach access is invite-only"
+            body="Your account doesn't have a coach invite yet. Email us to request one for the founding cohort."
+            ctaHref="mailto:hello@veralify.com?subject=Coach%20invite%20request"
+            ctaLabel="Request an invite"
           />
         </Card>
       </main>

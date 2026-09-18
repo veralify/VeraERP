@@ -1,11 +1,8 @@
 import { Reveal } from '@components/generic/Motion';
 import { SkeletonList } from '@components/generic/Skeleton';
 import { Card, ErrorMessage, PageHeader } from '@components/member/DashboardPrimitives';
-import { EmptyState } from '@components/member/EmptyState';
-import { getUserEntitlements, hasEntitlement } from '@lib/api/entitlements';
 import { fadeUp } from '@lib/motion/variants';
 import { createSupabaseServerClient } from '@lib/supabase/server';
-import { Lock } from 'lucide-react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -57,32 +54,6 @@ export default async function CoachDetailPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const entitlements = user ? await getUserEntitlements(user.id).catch(() => []) : [];
-  const canDiscover =
-    hasEntitlement(entitlements, 'coach_discovery') || hasEntitlement(entitlements, 'VERALIFY_PRO');
-
-  if (!canDiscover) {
-    return (
-      <main className="bg-vera-bg px-6 py-20 text-vera-fg">
-        <div className="mx-auto max-w-3xl">
-          <PageHeader
-            eyebrow="Coach discovery"
-            title="Coach discovery is included with Pro."
-            body="Sign in and start Veralify Pro to view coach profiles and book sessions."
-          />
-          <Card>
-            <EmptyState
-              icon={<Lock className="h-6 w-6" strokeWidth={1.75} />}
-              title="Coach discovery locked"
-              body="Sign in and start Veralify Pro to browse verified coaches."
-              ctaHref={user ? '/dashboard/billing' : '/pricing'}
-              ctaLabel={user ? 'Open billing' : 'View pricing'}
-            />
-          </Card>
-        </div>
-      </main>
-    );
-  }
 
   const { data: coach } = await supabase
     .from('coach_profiles')
@@ -96,7 +67,8 @@ export default async function CoachDetailPage({
   const profile = coach as unknown as CoachProfile;
 
   return (
-    <main className="bg-vera-bg px-6 py-20 text-vera-fg">
+    <main className="relative isolate overflow-hidden bg-vera-bg px-6 py-20 text-vera-fg">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,color-mix(in_srgb,var(--vera-color-coach-accent)_16%,transparent),transparent_36rem)]" />
       <div className="mx-auto max-w-4xl">
         <PageHeader
           eyebrow="Coach discovery"
@@ -147,6 +119,7 @@ export default async function CoachDetailPage({
                 hourlyRate={profile.hourly_rate}
                 currency={profile.currency}
                 isSignedIn={Boolean(user)}
+                signInHref={`/?auth=required&next=${encodeURIComponent(`/coaches/${id}`)}`}
               />
             </Suspense>
           </Card>

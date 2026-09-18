@@ -1,6 +1,6 @@
 'use server';
 
-import { getUserEntitlements, hasEntitlement } from '@lib/api/entitlements';
+import { canActAsCoach, claimCoachInvite } from '@lib/api/coachAccess';
 import { createSupabaseServerClient } from '@lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -22,14 +22,8 @@ async function currentCoach() {
   } = await supabase.auth.getUser();
   if (!user) redirect('/?auth=required');
 
-  const entitlements = await getUserEntitlements(user.id).catch(() => []);
-  const { data: existingProfile } = await supabase
-    .from('coach_profiles')
-    .select('id')
-    .eq('id', user.id)
-    .maybeSingle();
-  if (!hasEntitlement(entitlements, 'VERALIFY_COACH') && !existingProfile) {
-    redirect('/dashboard/coach?error=coach-entitlement');
+  if (!(await canActAsCoach(user.id, user.email ?? null))) {
+    redirect('/dashboard/coach?error=coach-access');
   }
   return { supabase, user };
 }
@@ -67,6 +61,8 @@ export async function upsertCoachProfileAction(formData: FormData) {
     { onConflict: 'id' },
   );
   if (error) redirect('/dashboard/coach?error=save-profile');
+
+  await claimCoachInvite(user.id, user.email ?? null);
 
   revalidatePath('/dashboard/coach');
   redirect('/dashboard/coach?saved=profile');

@@ -1,8 +1,12 @@
 import { ManageBillingButton } from '@components/billing/ManageBillingButton';
 import { UpgradeButton } from '@components/billing/UpgradeButton';
+import { Reveal, StaggerGroup, StaggerItem } from '@components/generic/Motion';
+import { FAQ } from '@components/marketing/SitePrimitives';
 import { billingOptions } from '@config/billing';
+import { fadeUp } from '@lib/motion/variants';
 import { createSupabaseServerClient } from '@lib/supabase/server';
 import { supabaseAdmin } from '@lib/supabaseAdmin';
+import { Check } from 'lucide-react';
 
 async function getCurrentTier(): Promise<string | null> {
   try {
@@ -27,8 +31,9 @@ export async function PricingContent() {
   const isPro = currentTier === 'veralify_plus';
 
   return (
-    <main className="bg-vera-bg px-6 pb-28 pt-16 text-vera-fg">
-      <section className="mx-auto max-w-4xl text-center">
+    <main className="relative isolate overflow-hidden bg-vera-bg px-6 pb-28 pt-16 text-vera-fg">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,color-mix(in_srgb,var(--vera-color-primary)_18%,transparent),transparent_38rem)]" />
+      <Reveal className="mx-auto max-w-4xl text-center" variants={fadeUp}>
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-vera-primary">
           Pricing
         </p>
@@ -39,17 +44,22 @@ export async function PricingContent() {
           No free tier. Your 3-day trial includes AI food scanning, insights, unlimited groups, live
           rooms, progress analytics, and coach discovery.
         </p>
-      </section>
+      </Reveal>
 
-      <section className="mx-auto mt-14 grid max-w-6xl gap-5 lg:grid-cols-3">
+      <StaggerGroup className="mx-auto mt-14 grid max-w-6xl gap-5 lg:grid-cols-3">
         {billingOptions.map((plan) => (
-          <article
+          <StaggerItem
             key={plan.cadence}
-            className="relative flex flex-col rounded-vera-2xl border border-vera-border bg-vera-surface p-6 shadow-[var(--vera-shadow-sm)]"
+            as="article"
+            className={`relative flex flex-col rounded-vera-2xl border p-6 transition-transform duration-200 hover:-translate-y-1 ${
+              plan.recommended
+                ? 'border-vera-primary bg-vera-surface shadow-[var(--vera-shadow-glow)]'
+                : 'border-vera-border bg-vera-surface shadow-[var(--vera-shadow-sm)]'
+            }`}
           >
             {plan.recommended ? (
               <span className="absolute right-5 top-5 rounded-full bg-vera-secondary px-3 py-1 text-xs font-bold text-vera-on-secondary">
-                Default
+                Best value
               </span>
             ) : null}
             <p className="text-sm font-semibold text-vera-primary">VERALIFY PRO</p>
@@ -59,10 +69,8 @@ export async function PricingContent() {
             <p className="mt-2 text-sm text-vera-fg-muted">{plan.note}</p>
             <ul className="mt-6 flex-1 space-y-3 text-sm">
               {plan.features.map((feature) => (
-                <li key={feature} className="flex gap-2">
-                  <span aria-hidden="true" className="text-vera-success">
-                    ✓
-                  </span>
+                <li key={feature} className="flex gap-2.5">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-vera-success" strokeWidth={2.5} />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -82,38 +90,35 @@ export async function PricingContent() {
                 />
               )}
             </div>
-          </article>
+          </StaggerItem>
         ))}
-      </section>
+      </StaggerGroup>
 
-      <section className="mx-auto mt-16 max-w-4xl rounded-vera-2xl border border-vera-border bg-vera-bg-subtle p-8">
-        <h2 className="text-2xl font-bold">FAQ</h2>
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
-          {[
-            [
-              'What is included?',
+      <FAQ
+        title="Pricing FAQ"
+        items={[
+          {
+            question: 'What is included?',
+            answer:
               'Every consumer Pro entitlement: AI food logging, advanced AI, nutrition, daily summaries, progress trends, groups, live rooms, and coach discovery.',
-            ],
-            [
-              'How does the trial work?',
+          },
+          {
+            question: 'How does the trial work?',
+            answer:
               'The 3-day trial grants full Pro access. If it lapses without conversion, historical data remains read-only and Pro actions route to billing.',
-            ],
-            [
-              'Can I cancel anytime?',
+          },
+          {
+            question: 'Can I cancel anytime?',
+            answer:
               'Yes. Web subscribers manage cancellation and payment methods through the Stripe billing portal.',
-            ],
-            [
-              'What about iOS purchases?',
+          },
+          {
+            question: 'What about iOS purchases?',
+            answer:
               'Digital subscriptions purchased in the iOS app are sold through Apple In-App Purchase and restored with the App Store account.',
-            ],
-          ].map(([question, answer]) => (
-            <div key={question}>
-              <h3 className="font-semibold">{question}</h3>
-              <p className="mt-2 text-sm leading-6 text-vera-fg-muted">{answer}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+          },
+        ]}
+      />
     </main>
   );
 }

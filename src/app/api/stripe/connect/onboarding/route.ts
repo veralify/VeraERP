@@ -1,4 +1,4 @@
-import { getUserEntitlements, hasEntitlement } from '@lib/api/entitlements';
+import { canActAsCoach } from '@lib/api/coachAccess';
 import { apiLogger } from '@lib/logger';
 import { getStripe } from '@lib/stripe/server';
 import { createSupabaseServerClient } from '@lib/supabase/server';
@@ -22,11 +22,10 @@ export async function POST(request: Request) {
     return NextResponse.redirect(new URL('/?auth=required', request.url), { status: 303 });
   }
 
-  const entitlements = await getUserEntitlements(user.id).catch(() => []);
-  if (!hasEntitlement(entitlements, 'VERALIFY_COACH')) {
-    log.warn('rejected: missing coach entitlement', user.id);
+  if (!(await canActAsCoach(user.id, user.email ?? null))) {
+    log.warn('rejected: no coach access (no profile, invite, or entitlement)', user.id);
     log.done(403);
-    return NextResponse.redirect(new URL('/dashboard/coach?error=coach-entitlement', request.url), {
+    return NextResponse.redirect(new URL('/dashboard/coach?error=coach-access', request.url), {
       status: 303,
     });
   }

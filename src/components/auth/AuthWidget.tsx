@@ -12,6 +12,7 @@ type AuthWidgetProps = {
 export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
   const [user, setUser] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
+  const [next, setNext] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
@@ -21,6 +22,17 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
       setUser(session?.user ?? null);
     });
     return () => sub.subscription.unsubscribe();
+  }, []);
+
+  // A signed-out visitor was sent here from a gated action (e.g. "Book & pay"
+  // on a coach page) via `?auth=required&next=/coaches/<id>` — open the modal
+  // immediately and carry `next` through so sign-in returns them there.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('auth') === 'required') {
+      setNext(params.get('next') ?? undefined);
+      setOpen(true);
+    }
   }, []);
 
   const signOut = async () => {
@@ -95,7 +107,7 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
           </button>
         </>
       )}
-      <AuthModal open={open} onClose={() => setOpen(false)} />
+      <AuthModal open={open} onClose={() => setOpen(false)} next={next} />
     </div>
   );
 }

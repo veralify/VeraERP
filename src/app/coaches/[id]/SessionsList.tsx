@@ -22,11 +22,13 @@ export async function SessionsList({
   hourlyRate,
   currency,
   isSignedIn,
+  signInHref,
 }: {
   coachId: string;
   hourlyRate: number | null;
   currency: string;
   isSignedIn: boolean;
+  signInHref: string;
 }) {
   const supabase = await createSupabaseServerClient();
   const { data: sessions } = await supabase
@@ -78,7 +80,7 @@ export async function SessionsList({
                 </button>
               </form>
             ) : (
-              <a className="btn-apple-secondary" href="/?auth=required">
+              <a className="btn-apple-secondary" href={signInHref}>
                 Sign in to book
               </a>
             )}
