@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="ar" dir="rtl" data-theme="light">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#6366f1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0e0e10">
   <title>Money Manager · إدارة أموالك بذكاء</title>
-  <script>try{document.documentElement.dataset.theme=localStorage.getItem("money-manager-theme")||"light"}catch(e){}</script>
+  <!-- Dark-only design; kept explicit so the first paint is never light. -->
+  <script>document.documentElement.dataset.theme="dark"</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap">
@@ -166,6 +167,24 @@
     </div>
   </div>
 </div>
+
+<nav class="dock" id="dock" aria-label="إجراءات سريعة">
+  <button class="dock-btn" type="button" data-dock-page="dashboard" aria-label="لوحة التحكم" title="لوحة التحكم">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg>
+  </button>
+  <button class="dock-btn" type="button" data-dock-page="plan" aria-label="خطة السداد" title="خطة السداد">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M14.5 2.5A8 8 0 0 1 21.5 9.5h-7z"/></svg>
+  </button>
+
+  <button class="dock-add" type="button" id="dock-add">إضافة</button>
+
+  <button class="dock-btn" type="button" data-dock-page="admin-tasks" aria-label="المهام والمواعيد" title="المهام والمواعيد">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5z"/><path d="M10.5 19a2 2 0 0 0 3 0"/></svg>
+  </button>
+  <button class="dock-btn" type="button" data-dock-page="documents" aria-label="الوثائق والإيصالات" title="الوثائق والإيصالات">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+  </button>
+</nav>
 
 <div class="toast-host" id="toast-host" role="status" aria-live="polite"></div>
 

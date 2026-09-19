@@ -31,7 +31,9 @@ function applyTheme(theme) {
     ?.contentWindow?.postMessage({ type: "set-theme", theme }, window.location.origin);
 }
 
-applyTheme(localStorage.getItem("money-manager-theme") || "light");
+// Dark-only design: the accents have no light-mode counterpart, so the stored
+// preference is ignored and the toggle is hidden in CSS.
+applyTheme("dark");
 $("#theme-toggle")?.addEventListener("click", () => {
   applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
 });
@@ -69,6 +71,35 @@ sidebarEl?.addEventListener("click", (event) => {
 // Never leave the drawer state stuck when resizing up to the docked layout.
 window.matchMedia("(max-width: 900px)").addEventListener("change", (event) => {
   if (!event.matches) setSidebar(false);
+});
+
+/* Floating dock. Mirrors the reference's bottom bar: a few destinations either
+   side of one prominent accent action. The add button is context-aware — it
+   opens the form for whatever page you are on, falling back to a transaction,
+   which is the entry people reach for most. */
+const DOCK_ADD_FALLBACK = "transactions";
+
+function syncDock(page) {
+  document.querySelectorAll("[data-dock-page]").forEach((button) => {
+    const isActive = button.dataset.dockPage === page;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-current", isActive ? "page" : "false");
+  });
+
+  const add = $("#dock-add");
+  if (!add) return;
+  // `configs` drives every add form; pages without one get the fallback.
+  const target = configs[page] ? page : DOCK_ADD_FALLBACK;
+  add.dataset.target = target;
+  add.textContent = configs[target]?.button || "إضافة";
+}
+
+$("#dock-add")?.addEventListener("click", (event) => {
+  openForm(event.currentTarget.dataset.target || DOCK_ADD_FALLBACK);
+});
+
+document.querySelectorAll("[data-dock-page]").forEach((button) => {
+  button.addEventListener("click", () => setPage(button.dataset.dockPage));
 });
 
 const fmt = (n) =>
@@ -167,6 +198,7 @@ const pageMeta = {
 function setPage(page) {
   state.page = page;
   if (page !== "dashboard") state.chartData = null;
+  syncDock(page);
 
   document.querySelectorAll(".nav").forEach((item) => {
     item.classList.toggle("active", item.dataset.page === page);
@@ -295,6 +327,13 @@ async function dashboard() {
         <h2>أين تقف من التخلص من الديون</h2>
       </div>
       <button class="btn secondary" id="show-plan-btn" type="button">عرض الخطة كاملة</button>
+    </div>
+
+    <div class="pill-strip ${plan.feasible ? "" : "negative"}" aria-label="ملخص الخطة">
+      <span class="pill-value">${fmt(plan.requiredMonthly)}</span>
+      <span class="pill ${plan.feasible ? "ok" : "danger"}">${plan.feasible ? "قابلة للتنفيذ" : "تحتاج تعديل"}</span>
+      <span class="pill">${plan.targetMonths} شهر</span>
+      <span class="pill ${progress >= 100 ? "ok" : "info"}">${progress.toFixed(0)}% مسدد</span>
     </div>
 
     <div class="grid two">

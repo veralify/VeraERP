@@ -5,74 +5,77 @@
 
 /* --------------------------------------------------------------------------
    1. Tokens
+
+   OLED-dark surface with vivid "highlighter" accents that carry near-black
+   text. Two rules keep this honest in a finance app:
+
+   1. Accent colour is SEMANTIC, never decorative. Lime means surplus, red
+      means deficit. A shortfall must never land on a cheerful card.
+   2. Text on an accent is near-black (--on-accent), never white. Every accent
+      here is a light, saturated tone; white on them fails contrast.
+
+   Single theme: these accents have no light-mode counterpart.
    -------------------------------------------------------------------------- */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  /* Brand */
-  --brand-50:  #eef0ff;
-  --brand-100: #e0e3ff;
-  --brand-200: #c6cbff;
-  --brand-400: #8b8ff5;
-  --brand-500: #6366f1;
-  --brand-600: #5457e0;
-  --brand-700: #4548bd;
+  /* Accents */
+  --lime:   #c6ff54;
+  --blue:   #59a9fb;
+  --yellow: #f2e941;
+  --red:    #ff4d5a;
+  --green:  #34d164;
 
-  /* Neutrals */
-  --gray-25:  #fcfcfd;
-  --gray-50:  #f7f8fa;
-  --gray-100: #f1f2f5;
-  --gray-150: #eaecf0;
-  --gray-200: #e4e6eb;
-  --gray-300: #d2d6de;
-  --gray-400: #9ba2af;
-  --gray-500: #6c7480;
-  --gray-600: #4c5462;
-  --gray-700: #343b48;
-  --gray-800: #1e232d;
-  --gray-900: #11141b;
+  /* Surfaces */
+  --bg:            #0e0e10;
+  --surface:       #18181a;
+  --surface-2:     #202023;
+  --surface-hover: #2a2a2e;
+  --border:        #2a2a2e;
+  --border-soft:   #232326;
+  --border-strong: #3a3a40;
 
-  /* Semantic surfaces */
-  --bg: var(--gray-50);
-  --surface: #ffffff;
-  --surface-2: var(--gray-50);
-  --surface-hover: var(--gray-100);
-  --border: var(--gray-200);
-  --border-soft: var(--gray-150);
-  --border-strong: var(--gray-300);
+  /* Text */
+  --text:        #ffffff;
+  --text-muted:  #8e8e93;
+  --text-subtle: #636366;
+  /* For text sitting on top of a vivid accent fill. */
+  --on-accent:   #0c0c0f;
+  --on-lime:     #0c0c0f;
+  --on-yellow:   #0c0c0f;
+  --on-green:    #0c0c0f;
+  --on-blue:     #ffffff;
+  --on-red:      #ffffff;
 
-  --text: var(--gray-900);
-  --text-muted: var(--gray-500);
-  --text-subtle: var(--gray-400);
+  /* Semantic roles */
+  --primary:             var(--lime);
+  --primary-hover:       #d2ff77;
+  --primary-soft:        rgba(198, 255, 84, .14);
+  --primary-soft-border: rgba(198, 255, 84, .32);
+  --on-primary:          var(--on-accent);
 
-  --primary: var(--brand-500);
-  --primary-hover: var(--brand-600);
-  --primary-soft: var(--brand-50);
-  --primary-soft-border: var(--brand-100);
-  --on-primary: #ffffff;
+  --success:      var(--green);
+  --success-soft: rgba(52, 209, 100, .15);
+  --danger:       var(--red);
+  --danger-soft:  rgba(255, 77, 90, .15);
+  --warning:      var(--yellow);
+  --warning-soft: rgba(242, 233, 65, .15);
+  --info:         var(--blue);
+  --info-soft:    rgba(89, 169, 251, .15);
 
-  --success: #0d9488;
-  --success-soft: #e6f7f4;
-  --danger: #dc4b4b;
-  --danger-soft: #fdeded;
-  --warning: #c07708;
-  --warning-soft: #fdf5e6;
-  --info: #2a72e5;
-  --info-soft: #eaf1fe;
-
-  /* Radii */
-  --r-xs: 6px;
-  --r-sm: 8px;
-  --r-md: 10px;
-  --r-lg: 14px;
-  --r-xl: 18px;
+  /* Radii — the reference is generously rounded, pills everywhere. */
+  --r-xs:   8px;
+  --r-sm:   10px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   20px;
   --r-pill: 999px;
 
-  /* Elevation */
-  --shadow-xs: 0 1px 2px rgba(16, 24, 40, .04);
-  --shadow-sm: 0 1px 3px rgba(16, 24, 40, .06), 0 1px 2px rgba(16, 24, 40, .03);
-  --shadow-md: 0 6px 16px rgba(16, 24, 40, .08);
-  --shadow-lg: 0 24px 48px -12px rgba(16, 24, 40, .22);
+  /* Elevation — on a near-black ground, shadow reads as depth, not as a halo. */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, .45);
+  --shadow-md: 0 10px 24px rgba(0, 0, 0, .5);
+  --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, .7);
 
   /* Layout */
   --sidebar-w: 268px;
@@ -80,42 +83,6 @@
   --ease: cubic-bezier(.2, .7, .3, 1);
 
   --ff: 'Cairo', system-ui, -apple-system, 'Segoe UI', sans-serif;
-}
-
-html[data-theme="dark"] {
-  color-scheme: dark;
-
-  --bg: #0c0e13;
-  --surface: #14171f;
-  --surface-2: #191d26;
-  --surface-hover: #1e2330;
-  --border: #262b37;
-  --border-soft: #1f2530;
-  --border-strong: #333a49;
-
-  --text: #eef1f7;
-  --text-muted: #98a1b2;
-  --text-subtle: #6b7484;
-
-  --primary: #818cf8;
-  --primary-hover: #949dfa;
-  --primary-soft: #1e2140;
-  --primary-soft-border: #2c3057;
-  --on-primary: #10131f;
-
-  --success: #34d3b6;
-  --success-soft: #10302c;
-  --danger: #ff7a7a;
-  --danger-soft: #35201f;
-  --warning: #eab34a;
-  --warning-soft: #322713;
-  --info: #7fb0ff;
-  --info-soft: #16233c;
-
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .3);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .4);
-  --shadow-md: 0 6px 18px rgba(0, 0, 0, .45);
-  --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, .6);
 }
 
 /* --------------------------------------------------------------------------
@@ -201,7 +168,7 @@ a { color: var(--primary); }
   width: 100%;
   max-width: var(--content-max);
   margin-inline: auto;
-  padding: 24px clamp(16px, 2.5vw, 32px) 64px;
+  padding: 24px clamp(16px, 2.5vw, 32px) 120px;
 }
 
 .scrim {
@@ -247,11 +214,10 @@ a { color: var(--primary); }
   width: 38px;
   height: 38px;
   border-radius: 11px;
-  background: linear-gradient(140deg, var(--brand-500), var(--brand-700));
-  color: #fff;
+  background: var(--lime);
+  color: var(--on-lime);
   font-size: 18px;
   font-weight: 800;
-  box-shadow: 0 4px 12px -2px rgba(99, 102, 241, .5);
 }
 
 .brand-text { display: grid; min-width: 0; }
@@ -415,8 +381,9 @@ a { color: var(--primary); }
 
 /* Theme toggle icon swap */
 .icon-sun, .icon-moon { width: 18px; height: 18px; }
-html[data-theme="light"] .icon-moon { display: none; }
-html[data-theme="dark"] .icon-sun { display: none; }
+/* Dark-only design: the accents have no light-mode counterpart, so the theme
+   toggle is hidden rather than left switching between one theme and itself. */
+#theme-toggle { display: none; }
 
 /* --------------------------------------------------------------------------
    6. Buttons
@@ -426,10 +393,10 @@ html[data-theme="dark"] .icon-sun { display: none; }
   align-items: center;
   justify-content: center;
   gap: 7px;
-  height: 38px;
-  padding-inline: 15px;
+  height: 40px;
+  padding-inline: 18px;
   border: 1px solid transparent;
-  border-radius: var(--r-md);
+  border-radius: var(--r-pill);
   background: var(--primary);
   color: var(--on-primary);
   font-size: 13px;
@@ -453,19 +420,19 @@ html[data-theme="dark"] .icon-sun { display: none; }
 .btn.ghost { background: transparent; color: var(--text-muted); }
 .btn.ghost:hover { background: var(--surface-hover); color: var(--text); }
 
-.btn.danger { background: var(--danger); color: #fff; }
+.btn.danger { background: var(--danger); color: var(--on-red); }
 .btn.danger:hover { background: color-mix(in srgb, var(--danger) 85%, #000); }
 
-.btn.sm { height: 32px; padding-inline: 11px; font-size: 12.5px; }
+.btn.sm { height: 34px; padding-inline: 14px; font-size: 12.5px; }
 
 .icon-button {
   display: grid;
   place-items: center;
   flex: none;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--border);
-  border-radius: var(--r-md);
+  border-radius: var(--r-pill);
   background: var(--surface);
   color: var(--text-muted);
   transition: color .15s var(--ease), background-color .15s var(--ease), border-color .15s var(--ease);
@@ -585,63 +552,79 @@ html[data-theme="dark"] .icon-sun { display: none; }
   grid-template-columns: minmax(0, 1fr) minmax(260px, auto);
   align-items: center;
   gap: 28px;
-  padding: clamp(20px, 2.6vw, 28px);
+  padding: clamp(22px, 2.8vw, 30px);
   border-radius: var(--r-xl);
-  border: 1px solid var(--border);
-  background:
-    radial-gradient(130% 150% at 100% 0%, color-mix(in srgb, var(--focus-accent, var(--primary)) 13%, transparent) 0%, transparent 58%),
-    var(--surface);
-  box-shadow: var(--shadow-sm);
+  /* Semantic, not decorative: lime for surplus, red for deficit. */
+  background: var(--focus-accent);
+  color: var(--focus-on);
+  box-shadow: var(--shadow-md);
 }
-.focus-card.positive { --focus-accent: var(--success); }
-.focus-card.negative { --focus-accent: var(--danger); }
+.focus-card.positive { --focus-accent: var(--lime); --focus-on: var(--on-lime); }
+.focus-card.negative { --focus-accent: var(--red);  --focus-on: var(--on-red); }
 
 .focus-copy { min-width: 0; }
+/* The global eyebrow is lime, which would vanish on a lime card. */
+.focus-card .eyebrow { color: color-mix(in srgb, var(--focus-on) 62%, transparent); }
 .focus-copy h2 {
   margin-top: 6px;
-  font-size: clamp(20px, 2.6vw, 27px);
+  font-size: clamp(22px, 2.8vw, 30px);
   font-weight: 800;
   letter-spacing: -.035em;
+  color: var(--focus-on);
 }
 .focus-copy p {
   margin-top: 6px;
   font-size: 13.5px;
   line-height: 1.6;
-  color: var(--text-muted);
+  color: color-mix(in srgb, var(--focus-on) 75%, transparent);
   max-width: 46ch;
 }
-.focus-copy .quick-actions { margin-top: 18px; }
+.focus-copy .quick-actions { margin-top: 20px; }
+
+/* Buttons sit on the accent, so they invert rather than use the global palette. */
+.focus-card .btn {
+  background: var(--focus-on);
+  color: var(--focus-accent);
+  border-color: transparent;
+}
+.focus-card .btn:hover { background: color-mix(in srgb, var(--focus-on) 84%, transparent); }
+.focus-card .btn.secondary {
+  background: color-mix(in srgb, var(--focus-on) 12%, transparent);
+  color: var(--focus-on);
+  border-color: color-mix(in srgb, var(--focus-on) 26%, transparent);
+}
+.focus-card .btn.secondary:hover { background: color-mix(in srgb, var(--focus-on) 20%, transparent); }
 
 .focus-figure {
   display: grid;
   gap: 4px;
   padding: 18px 22px;
   border-radius: var(--r-lg);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-xs);
+  background: color-mix(in srgb, var(--focus-on) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--focus-on) 16%, transparent);
 }
 .focus-figure > span {
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: .04em;
-  color: var(--text-muted);
+  color: color-mix(in srgb, var(--focus-on) 70%, transparent);
 }
 .focus-figure > small {
   font-size: 11.5px;
   line-height: 1.5;
-  color: var(--text-subtle);
+  color: color-mix(in srgb, var(--focus-on) 68%, transparent);
   max-width: 28ch;
 }
 .focus-figure strong {
-  font-size: clamp(30px, 3.8vw, 40px);
+  font-size: clamp(30px, 3.8vw, 42px);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -.045em;
   font-variant-numeric: tabular-nums;
 }
-.focus-figure.positive strong { color: var(--success); }
-.focus-figure.negative strong { color: var(--danger); }
+/* The card's colour already carries the good/bad signal. */
+.focus-figure.positive strong,
+.focus-figure.negative strong { color: var(--focus-on); }
 
 .quick-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
@@ -654,34 +637,22 @@ html[data-theme="dark"] .icon-sun { display: none; }
   flex-direction: column;
   gap: 2px;
   padding: 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--metric-accent);
+  color: var(--metric-on);
+  border: 1px solid transparent;
   border-radius: var(--r-lg);
-  box-shadow: var(--shadow-xs);
   overflow: hidden;
-  transition: border-color .15s var(--ease), box-shadow .15s var(--ease), transform .15s var(--ease);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
 }
-.metric-card:hover {
-  border-color: color-mix(in srgb, var(--metric-accent, var(--primary)) 35%, var(--border));
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
-}
-.metric-card::after {
-  content: "";
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline: 0;
-  height: 3px;
-  background: var(--metric-accent, var(--primary));
-}
+.metric-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
 .metric-heading {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: color-mix(in srgb, var(--metric-on) 78%, transparent);
 }
 
 .metric-icon {
@@ -690,27 +661,31 @@ html[data-theme="dark"] .icon-sun { display: none; }
   flex: none;
   width: 30px;
   height: 30px;
-  border-radius: var(--r-sm);
-  background: color-mix(in srgb, var(--metric-accent, var(--primary)) 13%, transparent);
-  color: var(--metric-accent, var(--primary));
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--metric-on) 14%, transparent);
+  color: var(--metric-on);
 }
 .metric-icon svg { width: 16px; height: 16px; }
 
 .metric-card > strong {
   margin-top: 14px;
-  font-size: clamp(21px, 2.3vw, 27px);
+  font-size: clamp(22px, 2.4vw, 28px);
   font-weight: 800;
   letter-spacing: -.04em;
   font-variant-numeric: tabular-nums;
-  color: var(--text);
+  color: var(--metric-on);
 }
-.metric-card > p { margin-top: 2px; font-size: 11.5px; color: var(--text-subtle); }
+.metric-card > p {
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: color-mix(in srgb, var(--metric-on) 70%, transparent);
+}
 
-.income-card  { --metric-accent: var(--success); }
-.expense-card { --metric-accent: var(--warning); }
-.debt-card    { --metric-accent: var(--danger); }
-.risk-card    { --metric-accent: var(--danger); }
-.safe-card    { --metric-accent: var(--success); }
+.income-card  { --metric-accent: var(--lime);   --metric-on: var(--on-lime); }
+.expense-card { --metric-accent: var(--yellow); --metric-on: var(--on-yellow); }
+.debt-card    { --metric-accent: var(--red);    --metric-on: var(--on-red); }
+.risk-card    { --metric-accent: var(--red);    --metric-on: var(--on-red); }
+.safe-card    { --metric-accent: var(--blue);   --metric-on: var(--on-blue); }
 
 /* Plan cards: one headline figure, then a hairline stat list. */
 .plan-card { gap: 0; }
@@ -823,7 +798,7 @@ html[data-theme="dark"] .icon-sun { display: none; }
 .progress > div {
   height: 100%;
   border-radius: var(--r-pill);
-  background: linear-gradient(90deg, var(--brand-400), var(--primary));
+  background: var(--primary);
   transition: width .5s var(--ease);
 }
 
@@ -859,6 +834,83 @@ html[data-theme="dark"] .icon-sun { display: none; }
 .sankey-panel { padding: 0; overflow: hidden; gap: 0; }
 .sankey-panel > .panel-head { padding: 16px 18px; border-bottom: 1px solid var(--border-soft); }
 .sankey-panel iframe { display: block; width: 100%; border: 0; background: var(--surface); }
+
+/* Floating dock — the reference's signature affordance: a capsule bar pinned to
+   the bottom with one prominent accent action. On phones, where the sidebar is
+   an off-canvas drawer, this becomes the primary way to move and to add. */
+.dock {
+  position: fixed;
+  inset-block-end: 18px;
+  inset-inline-start: 50%;
+  transform: translateX(50%);
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 10px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(14px);
+}
+/* translateX(50%) is correct under RTL; LTR needs the mirror. */
+[dir="ltr"] .dock { transform: translateX(-50%); }
+
+/* With the sidebar docked, centre on the content column rather than the
+   viewport, or the bar sits visibly off-centre under the page. */
+@media (min-width: 901px) {
+  .dock { inset-inline-start: calc(50% + var(--sidebar-w) / 2); }
+}
+
+.dock-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  color: var(--text-subtle);
+  transition: color .15s var(--ease), background-color .15s var(--ease);
+}
+.dock-btn svg { width: 19px; height: 19px; }
+.dock-btn:hover { color: var(--text); background: var(--surface-hover); }
+.dock-btn.active { color: var(--text); }
+
+.dock-add {
+  height: 40px;
+  padding-inline: 20px;
+  margin-inline: 4px;
+  border-radius: var(--r-pill);
+  background: var(--lime);
+  color: var(--on-lime);
+  font-size: 13.5px;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: background-color .15s var(--ease), transform .12s var(--ease);
+}
+.dock-add:hover { background: var(--primary-hover); }
+.dock-add:active { transform: translateY(1px); }
+
+/* Pill strip: the reference's timer row — a value, a status, a target. */
+.pill-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pill-strip .pill-value {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid color-mix(in srgb, var(--strip-accent, var(--lime)) 55%, transparent);
+  color: var(--strip-accent, var(--lime));
+  font-size: 13.5px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  background: transparent;
+}
+.pill-strip.negative { --strip-accent: var(--red); }
 
 /* --------------------------------------------------------------------------
    9. Tables
@@ -921,31 +973,31 @@ th.col-actions, td.col-actions { width: 1%; }
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: var(--r-pill);
   background: var(--surface-2);
   border: 1px solid var(--border-soft);
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--text);
   white-space: nowrap;
 }
-.badge.good { background: var(--success-soft); border-color: transparent; color: var(--success); }
-.badge.bad { background: var(--danger-soft); border-color: transparent; color: var(--danger); }
-.badge.warn { background: var(--warning-soft); border-color: transparent; color: var(--warning); }
-.badge.info { background: var(--info-soft); border-color: transparent; color: var(--info); }
+.badge.good { background: var(--green);  border-color: transparent; color: var(--on-green); }
+.badge.bad  { background: var(--red);    border-color: transparent; color: var(--on-red); }
+.badge.warn { background: var(--yellow); border-color: transparent; color: var(--on-yellow); }
+.badge.info { background: var(--blue);   border-color: transparent; color: var(--on-blue); }
 
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 3px 9px;
+  padding: 6px 12px;
   border-radius: var(--r-pill);
-  font-size: 11.5px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   white-space: nowrap;
   background: var(--surface-2);
-  color: var(--text-muted);
+  color: var(--text);
 }
 .pill::before {
   content: "";
@@ -954,10 +1006,10 @@ th.col-actions, td.col-actions { width: 1%; }
   border-radius: 50%;
   background: currentColor;
 }
-.pill.ok { background: var(--success-soft); color: var(--success); }
-.pill.danger { background: var(--danger-soft); color: var(--danger); }
-.pill.warn { background: var(--warning-soft); color: var(--warning); }
-.pill.info { background: var(--info-soft); color: var(--info); }
+.pill.ok::before     { background: var(--green); }
+.pill.danger::before { background: var(--red); }
+.pill.warn::before   { background: var(--yellow); }
+.pill.info::before   { background: var(--blue); }
 
 .notice {
   padding: 13px 15px;
@@ -1022,15 +1074,11 @@ input[type="number"] { font-variant-numeric: tabular-nums; }
 select {
   appearance: none;
   padding-inline-end: 34px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236c7480' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: left 11px center;
   background-size: 15px;
 }
-html[data-theme="dark"] select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398a1b2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-}
-
 .form-actions {
   display: flex;
   gap: 10px;
