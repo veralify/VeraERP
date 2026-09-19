@@ -1,0 +1,62 @@
+name: MoneyManager
+
+options:
+  bundleIdPrefix: com.veralify
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+  developmentLanguage: ar
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    CODE_SIGNING_ALLOWED: NO
+
+packages:
+  MoneyManagerCore:
+    path: MoneyManagerCore
+
+targets:
+  MoneyManager:
+    type: application
+    platform: iOS
+    sources:
+      - path: MoneyManager
+    dependencies:
+      - package: MoneyManagerCore
+        product: MoneyManagerCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.veralify.moneymanager
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Money Manager
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+
+  MoneyManagerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MoneyManagerTests
+    dependencies:
+      - target: MoneyManager
+      - package: MoneyManagerCore
+        product: MoneyManagerCore
+
+schemes:
+  MoneyManager:
+    build:
+      targets:
+        MoneyManager: all
+        MoneyManagerTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - MoneyManagerTests

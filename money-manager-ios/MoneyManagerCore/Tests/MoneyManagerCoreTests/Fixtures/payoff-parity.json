@@ -1,0 +1,1186 @@
+{
+  "generatedBy": "Tools/generate-parity-fixtures.mjs",
+  "source": "money-manager-web-mvp-v1/server.js",
+  "scenarios": [
+    {
+      "name": "seeded",
+      "note": "The data the web app ships with: a 0% court debt, an 11.49% loan, a 0% loan.",
+      "input": {
+        "income": 1600,
+        "expenses": 1194,
+        "targetMonths": 16,
+        "startDate": "2026-09-01",
+        "debts": [
+          {
+            "id": 1,
+            "name": "Court",
+            "balance": 3000,
+            "apr": 0,
+            "minimum_payment": 500,
+            "priority": 1
+          },
+          {
+            "id": 2,
+            "name": "Intesa",
+            "balance": 6491.72,
+            "apr": 11.49,
+            "minimum_payment": 177.98,
+            "priority": 2
+          },
+          {
+            "id": 3,
+            "name": "UniCredit",
+            "balance": 5851.53,
+            "apr": 0,
+            "minimum_payment": 315.75,
+            "priority": 3
+          }
+        ]
+      },
+      "expected": {
+        "income": 1600,
+        "expenses": 1194,
+        "available": 406,
+        "totalDebt": 15343.25,
+        "targetMonths": 16,
+        "startDate": "2026-09-01",
+        "requiredMonthly": 998.32,
+        "feasible": false,
+        "usedMonthly": 406,
+        "projectedRemaining": 9853.75,
+        "months": [
+          {
+            "month": "2026-09",
+            "payments": {
+              "1": 406,
+              "2": 0,
+              "3": 0
+            },
+            "totalPayment": 406,
+            "interestAccrued": 62.16,
+            "remainingDebt": 14999.41
+          },
+          {
+            "month": "2026-10",
+            "payments": {
+              "1": 406,
+              "2": 0,
+              "3": 0
+            },
+            "totalPayment": 406,
+            "interestAccrued": 62.75,
+            "remainingDebt": 14656.16
+          },
+          {
+            "month": "2026-11",
+            "payments": {
+              "1": 406,
+              "2": 0,
+              "3": 0
+            },
+            "totalPayment": 406,
+            "interestAccrued": 63.35,
+            "remainingDebt": 14313.52
+          },
+          {
+            "month": "2026-12",
+            "payments": {
+              "1": 406,
+              "2": 0,
+              "3": 0
+            },
+            "totalPayment": 406,
+            "interestAccrued": 63.96,
+            "remainingDebt": 13971.48
+          },
+          {
+            "month": "2027-01",
+            "payments": {
+              "1": 406,
+              "2": 0,
+              "3": 0
+            },
+            "totalPayment": 406,
+            "interestAccrued": 64.57,
+            "remainingDebt": 13630.05
+          },
+          {
+            "month": "2027-02",
+            "payments": {
+              "1": 406,
+              "2": 0,
+              "3": 0
+            },
+            "totalPayment": 406,
+            "interestAccrued": 65.19,
+            "remainingDebt": 13289.24
+          },
+          {
+            "month": "2027-03",
+            "payments": {
+              "1": 406,
+              "2": 0,
+              "3": 0
+            },
+            "totalPayment": 406,
+            "interestAccrued": 65.82,
+            "remainingDebt": 12949.06
+          },
+          {
+            "month": "2027-04",
+            "payments": {
+              "1": 158,
+              "2": 177.98,
+              "3": 70.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 66.45,
+            "remainingDebt": 12609.5
+          },
+          {
+            "month": "2027-05",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 65.38,
+            "remainingDebt": 12268.88
+          },
+          {
+            "month": "2027-06",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 64.3,
+            "remainingDebt": 11927.18
+          },
+          {
+            "month": "2027-07",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 63.21,
+            "remainingDebt": 11584.39
+          },
+          {
+            "month": "2027-08",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 62.11,
+            "remainingDebt": 11240.51
+          },
+          {
+            "month": "2027-09",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 61,
+            "remainingDebt": 10895.51
+          },
+          {
+            "month": "2027-10",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 59.88,
+            "remainingDebt": 10549.39
+          },
+          {
+            "month": "2027-11",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 58.75,
+            "remainingDebt": 10202.14
+          },
+          {
+            "month": "2027-12",
+            "payments": {
+              "1": 0,
+              "2": 177.98,
+              "3": 228.02
+            },
+            "totalPayment": 406,
+            "interestAccrued": 57.61,
+            "remainingDebt": 9853.75
+          }
+        ]
+      }
+    },
+    {
+      "name": "single-zero-apr",
+      "note": "Simplest possible plan: one interest-free debt, comfortably affordable.",
+      "input": {
+        "income": 2000,
+        "expenses": 500,
+        "targetMonths": 12,
+        "startDate": "2026-01-01",
+        "debts": [
+          {
+            "id": 1,
+            "name": "Loan",
+            "balance": 1200,
+            "apr": 0,
+            "minimum_payment": 100,
+            "priority": 1
+          }
+        ]
+      },
+      "expected": {
+        "income": 2000,
+        "expenses": 500,
+        "available": 1500,
+        "totalDebt": 1200,
+        "targetMonths": 12,
+        "startDate": "2026-01-01",
+        "requiredMonthly": 100,
+        "feasible": true,
+        "usedMonthly": 100,
+        "projectedRemaining": 0,
+        "months": [
+          {
+            "month": "2026-01",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 1100
+          },
+          {
+            "month": "2026-02",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 1000
+          },
+          {
+            "month": "2026-03",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 900
+          },
+          {
+            "month": "2026-04",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 800
+          },
+          {
+            "month": "2026-05",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 700
+          },
+          {
+            "month": "2026-06",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 600
+          },
+          {
+            "month": "2026-07",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 500
+          },
+          {
+            "month": "2026-08",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 400
+          },
+          {
+            "month": "2026-09",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 300
+          },
+          {
+            "month": "2026-10",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 200
+          },
+          {
+            "month": "2026-11",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 100
+          },
+          {
+            "month": "2026-12",
+            "payments": {
+              "1": 100
+            },
+            "totalPayment": 100,
+            "interestAccrued": 0,
+            "remainingDebt": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "apr-tie-priority-breaks",
+      "note": "Two debts at an identical APR — `priority` must decide who gets the surplus.",
+      "input": {
+        "income": 3000,
+        "expenses": 1000,
+        "targetMonths": 10,
+        "startDate": "2026-03-01",
+        "debts": [
+          {
+            "id": 1,
+            "name": "CardA",
+            "balance": 2000,
+            "apr": 19.9,
+            "minimum_payment": 50,
+            "priority": 5
+          },
+          {
+            "id": 2,
+            "name": "CardB",
+            "balance": 2000,
+            "apr": 19.9,
+            "minimum_payment": 50,
+            "priority": 1
+          }
+        ]
+      },
+      "expected": {
+        "income": 3000,
+        "expenses": 1000,
+        "available": 2000,
+        "totalDebt": 4000,
+        "targetMonths": 10,
+        "startDate": "2026-03-01",
+        "requiredMonthly": 437.38,
+        "feasible": true,
+        "usedMonthly": 437.38,
+        "projectedRemaining": 0.01,
+        "months": [
+          {
+            "month": "2026-03",
+            "payments": {
+              "1": 50,
+              "2": 387.38
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 66.33,
+            "remainingDebt": 3628.95
+          },
+          {
+            "month": "2026-04",
+            "payments": {
+              "1": 50,
+              "2": 387.38
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 60.18,
+            "remainingDebt": 3251.75
+          },
+          {
+            "month": "2026-05",
+            "payments": {
+              "1": 50,
+              "2": 387.38
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 53.92,
+            "remainingDebt": 2868.29
+          },
+          {
+            "month": "2026-06",
+            "payments": {
+              "1": 50,
+              "2": 387.38
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 47.57,
+            "remainingDebt": 2478.48
+          },
+          {
+            "month": "2026-07",
+            "payments": {
+              "1": 50,
+              "2": 387.38
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 41.1,
+            "remainingDebt": 2082.2
+          },
+          {
+            "month": "2026-08",
+            "payments": {
+              "1": 265.38,
+              "2": 172.01
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 34.53,
+            "remainingDebt": 1679.34
+          },
+          {
+            "month": "2026-09",
+            "payments": {
+              "1": 437.38,
+              "2": 0
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 27.85,
+            "remainingDebt": 1269.81
+          },
+          {
+            "month": "2026-10",
+            "payments": {
+              "1": 437.38,
+              "2": 0
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 21.06,
+            "remainingDebt": 853.49
+          },
+          {
+            "month": "2026-11",
+            "payments": {
+              "1": 437.38,
+              "2": 0
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 14.15,
+            "remainingDebt": 430.26
+          },
+          {
+            "month": "2026-12",
+            "payments": {
+              "1": 437.38,
+              "2": 0
+            },
+            "totalPayment": 437.38,
+            "interestAccrued": 7.14,
+            "remainingDebt": 0.01
+          }
+        ]
+      }
+    },
+    {
+      "name": "infeasible",
+      "note": "Required budget exceeds available income; plan runs at `available` and leaves a residue.",
+      "input": {
+        "income": 1200,
+        "expenses": 1100,
+        "targetMonths": 6,
+        "startDate": "2026-05-01",
+        "debts": [
+          {
+            "id": 1,
+            "name": "BigLoan",
+            "balance": 20000,
+            "apr": 15,
+            "minimum_payment": 400,
+            "priority": 1
+          },
+          {
+            "id": 2,
+            "name": "Card",
+            "balance": 5000,
+            "apr": 24.99,
+            "minimum_payment": 150,
+            "priority": 2
+          }
+        ]
+      },
+      "expected": {
+        "income": 1200,
+        "expenses": 1100,
+        "available": 100,
+        "totalDebt": 25000,
+        "targetMonths": 6,
+        "startDate": "2026-05-01",
+        "requiredMonthly": 4359.62,
+        "feasible": false,
+        "usedMonthly": 100,
+        "projectedRemaining": 26586.79,
+        "months": [
+          {
+            "month": "2026-05",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 354.13,
+            "remainingDebt": 25254.13
+          },
+          {
+            "month": "2026-06",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 358.17,
+            "remainingDebt": 25512.29
+          },
+          {
+            "month": "2026-07",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 362.28,
+            "remainingDebt": 25774.57
+          },
+          {
+            "month": "2026-08",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 366.46,
+            "remainingDebt": 26041.04
+          },
+          {
+            "month": "2026-09",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 370.72,
+            "remainingDebt": 26311.75
+          },
+          {
+            "month": "2026-10",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 375.04,
+            "remainingDebt": 26586.79
+          }
+        ]
+      }
+    },
+    {
+      "name": "high-apr-long-term",
+      "note": "Compounding-sensitive: high rates over a long term, where float drift would show.",
+      "input": {
+        "income": 5000,
+        "expenses": 1500,
+        "targetMonths": 36,
+        "startDate": "2026-02-01",
+        "debts": [
+          {
+            "id": 1,
+            "name": "Card1",
+            "balance": 8500.33,
+            "apr": 24.99,
+            "minimum_payment": 210.5,
+            "priority": 1
+          },
+          {
+            "id": 2,
+            "name": "Card2",
+            "balance": 3200.67,
+            "apr": 18.25,
+            "minimum_payment": 95.25,
+            "priority": 2
+          },
+          {
+            "id": 3,
+            "name": "Car",
+            "balance": 14750.1,
+            "apr": 6.75,
+            "minimum_payment": 320,
+            "priority": 3
+          }
+        ]
+      },
+      "expected": {
+        "income": 5000,
+        "expenses": 1500,
+        "available": 3500,
+        "totalDebt": 26451.1,
+        "targetMonths": 36,
+        "startDate": "2026-02-01",
+        "requiredMonthly": 881.02,
+        "feasible": true,
+        "usedMonthly": 881.02,
+        "projectedRemaining": 0.01,
+        "months": [
+          {
+            "month": "2026-02",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 308.67,
+            "remainingDebt": 25878.75
+          },
+          {
+            "month": "2026-03",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 300.61,
+            "remainingDebt": 25298.34
+          },
+          {
+            "month": "2026-04",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 292.41,
+            "remainingDebt": 24709.73
+          },
+          {
+            "month": "2026-05",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 284.07,
+            "remainingDebt": 24112.78
+          },
+          {
+            "month": "2026-06",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 275.57,
+            "remainingDebt": 23507.34
+          },
+          {
+            "month": "2026-07",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 266.93,
+            "remainingDebt": 22893.25
+          },
+          {
+            "month": "2026-08",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 258.13,
+            "remainingDebt": 22270.35
+          },
+          {
+            "month": "2026-09",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 249.17,
+            "remainingDebt": 21638.5
+          },
+          {
+            "month": "2026-10",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 240.05,
+            "remainingDebt": 20997.53
+          },
+          {
+            "month": "2026-11",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 230.76,
+            "remainingDebt": 20347.28
+          },
+          {
+            "month": "2026-12",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 221.31,
+            "remainingDebt": 19687.57
+          },
+          {
+            "month": "2027-01",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 211.69,
+            "remainingDebt": 19018.23
+          },
+          {
+            "month": "2027-02",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 201.89,
+            "remainingDebt": 18339.1
+          },
+          {
+            "month": "2027-03",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 191.91,
+            "remainingDebt": 17650
+          },
+          {
+            "month": "2027-04",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 181.76,
+            "remainingDebt": 16950.74
+          },
+          {
+            "month": "2027-05",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 171.41,
+            "remainingDebt": 16241.13
+          },
+          {
+            "month": "2027-06",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 160.88,
+            "remainingDebt": 15521
+          },
+          {
+            "month": "2027-07",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 150.16,
+            "remainingDebt": 14790.14
+          },
+          {
+            "month": "2027-08",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 139.24,
+            "remainingDebt": 14048.36
+          },
+          {
+            "month": "2027-09",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 128.12,
+            "remainingDebt": 13295.47
+          },
+          {
+            "month": "2027-10",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 116.8,
+            "remainingDebt": 12531.25
+          },
+          {
+            "month": "2027-11",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 105.27,
+            "remainingDebt": 11755.51
+          },
+          {
+            "month": "2027-12",
+            "payments": {
+              "1": 465.77,
+              "2": 95.25,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 93.53,
+            "remainingDebt": 10968.02
+          },
+          {
+            "month": "2028-01",
+            "payments": {
+              "1": 92.83,
+              "2": 468.19,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 81.57,
+            "remainingDebt": 10168.57
+          },
+          {
+            "month": "2028-02",
+            "payments": {
+              "1": 0,
+              "2": 561.02,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 71.49,
+            "remainingDebt": 9359.03
+          },
+          {
+            "month": "2028-03",
+            "payments": {
+              "1": 0,
+              "2": 561.02,
+              "3": 320
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 61.77,
+            "remainingDebt": 8539.79
+          },
+          {
+            "month": "2028-04",
+            "payments": {
+              "1": 0,
+              "2": 412.13,
+              "3": 468.89
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 51.93,
+            "remainingDebt": 7710.69
+          },
+          {
+            "month": "2028-05",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 43.37,
+            "remainingDebt": 6873.05
+          },
+          {
+            "month": "2028-06",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 38.66,
+            "remainingDebt": 6030.69
+          },
+          {
+            "month": "2028-07",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 33.92,
+            "remainingDebt": 5183.59
+          },
+          {
+            "month": "2028-08",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 29.16,
+            "remainingDebt": 4331.73
+          },
+          {
+            "month": "2028-09",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 24.37,
+            "remainingDebt": 3475.08
+          },
+          {
+            "month": "2028-10",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 19.55,
+            "remainingDebt": 2613.61
+          },
+          {
+            "month": "2028-11",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 14.7,
+            "remainingDebt": 1747.29
+          },
+          {
+            "month": "2028-12",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 9.83,
+            "remainingDebt": 876.1
+          },
+          {
+            "month": "2029-01",
+            "payments": {
+              "1": 0,
+              "2": 0,
+              "3": 881.02
+            },
+            "totalPayment": 881.02,
+            "interestAccrued": 4.93,
+            "remainingDebt": 0.01
+          }
+        ]
+      }
+    },
+    {
+      "name": "minimums-exceed-budget",
+      "note": "Minimums alone outrun what is available, so later debts get nothing that month.",
+      "input": {
+        "income": 1000,
+        "expenses": 900,
+        "targetMonths": 8,
+        "startDate": "2026-07-01",
+        "debts": [
+          {
+            "id": 1,
+            "name": "One",
+            "balance": 4000,
+            "apr": 12,
+            "minimum_payment": 300,
+            "priority": 1
+          },
+          {
+            "id": 2,
+            "name": "Two",
+            "balance": 4000,
+            "apr": 22,
+            "minimum_payment": 300,
+            "priority": 2
+          }
+        ]
+      },
+      "expected": {
+        "income": 1000,
+        "expenses": 900,
+        "available": 100,
+        "totalDebt": 8000,
+        "targetMonths": 8,
+        "startDate": "2026-07-01",
+        "requiredMonthly": 1059.8,
+        "feasible": false,
+        "usedMonthly": 100,
+        "projectedRemaining": 8128.58,
+        "months": [
+          {
+            "month": "2026-07",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 113.33,
+            "remainingDebt": 8013.33
+          },
+          {
+            "month": "2026-08",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 114.08,
+            "remainingDebt": 8027.41
+          },
+          {
+            "month": "2026-09",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 114.84,
+            "remainingDebt": 8042.25
+          },
+          {
+            "month": "2026-10",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 115.62,
+            "remainingDebt": 8057.87
+          },
+          {
+            "month": "2026-11",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 116.42,
+            "remainingDebt": 8074.3
+          },
+          {
+            "month": "2026-12",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 117.25,
+            "remainingDebt": 8091.55
+          },
+          {
+            "month": "2027-01",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 118.09,
+            "remainingDebt": 8109.63
+          },
+          {
+            "month": "2027-02",
+            "payments": {
+              "1": 100,
+              "2": 0
+            },
+            "totalPayment": 100,
+            "interestAccrued": 118.95,
+            "remainingDebt": 8128.58
+          }
+        ]
+      }
+    }
+  ]
+}
