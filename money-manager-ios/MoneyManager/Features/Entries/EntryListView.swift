@@ -129,14 +129,17 @@ struct EntryListView: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .swipeActions(edge: .trailing) {
+        // `.swipeActions` is a List-only modifier and silently does nothing in a
+        // stack, so deletion is offered by long-press here and by the button
+        // inside the edit sheet — both of which actually work.
+        .contextMenu {
             Button(role: .destructive) {
                 delete(target)
             } label: {
                 Label("حذف", systemImage: "trash")
             }
         }
-        .accessibilityHint("افتح للتعديل")
+        .accessibilityHint("افتح للتعديل، أو اضغط مطولًا للحذف")
     }
 
     // MARK: - Row content
