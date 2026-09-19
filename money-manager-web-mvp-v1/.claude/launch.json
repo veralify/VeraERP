@@ -1,0 +1,25 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "veralify-web",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd .. && pnpm exec next dev -p \"${PORT:-3100}\""
+      ],
+      "port": 3100,
+      "autoPort": true
+    },
+    {
+      "name": "money-manager",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "-e",
+        "process.env.PORT=process.env.PORT||3055;require('./server.js')"
+      ],
+      "port": 3055,
+      "autoPort": true
+    }
+  ]
+}

@@ -8,6 +8,12 @@ import { createPortal } from 'react-dom';
 type Step = 'email' | 'password';
 type Mode = 'signin' | 'signup';
 type Busy = null | 'email' | 'google' | 'apple' | 'passkey';
+type OAuthProvider = 'google' | 'apple';
+
+const PROVIDER_LABEL: Record<OAuthProvider, string> = { google: 'Google', apple: 'Apple' };
+// Flip once the provider is actually enabled in Supabase Dashboard → Authentication
+// → Sign In / Providers — until then Supabase rejects the request server-side.
+const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true';
 
 type Props = {
   open: boolean;
@@ -67,7 +73,7 @@ export function AuthModal({ open, onClose, next }: Props) {
     if (next) window.location.href = next;
   };
 
-  const oauth = async (provider: 'google' | 'apple', which: Busy) => {
+  const oauth = async (provider: OAuthProvider, which: Busy) => {
     if (!supabase) {
       setError('Authentication is temporarily unavailable.');
       return;
@@ -81,7 +87,17 @@ export function AuthModal({ open, onClose, next }: Props) {
       });
       if (err) throw err;
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Sign-in failed.');
+      // Supabase returns this exact message when the provider isn't turned on
+      // in Authentication → Sign In / Providers yet — surface something a
+      // visitor can act on instead of the raw backend error.
+      const isProviderDisabled = e instanceof Error && /provider is not enabled/i.test(e.message);
+      setError(
+        isProviderDisabled
+          ? `${PROVIDER_LABEL[provider]} sign-in isn't set up yet — use email instead.`
+          : e instanceof Error
+            ? e.message
+            : 'Sign-in failed.',
+      );
       setLoading(null);
     }
   };
@@ -230,15 +246,22 @@ export function AuthModal({ open, onClose, next }: Props) {
               or use one of these options
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
-              <SocialTile
-                label="Continue with Google"
-                onClick={() => void oauth('google', 'google')}
-                loading={loading === 'google'}
-                disabled={busy}
-              >
-                <GoogleGlyph />
-              </SocialTile>
+            <div
+              className="grid gap-3"
+              style={{
+                gridTemplateColumns: `repeat(${1 + Number(GOOGLE_OAUTH_ENABLED) + Number(canUsePasskey)}, minmax(0, 1fr))`,
+              }}
+            >
+              {GOOGLE_OAUTH_ENABLED && (
+                <SocialTile
+                  label="Continue with Google"
+                  onClick={() => void oauth('google', 'google')}
+                  loading={loading === 'google'}
+                  disabled={busy}
+                >
+                  <GoogleGlyph />
+                </SocialTile>
+              )}
               <SocialTile
                 label="Continue with Apple"
                 onClick={() => void oauth('apple', 'apple')}

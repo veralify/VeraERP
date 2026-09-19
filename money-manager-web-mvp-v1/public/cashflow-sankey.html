@@ -63,8 +63,11 @@
     --white: #ffffff;
   }
 
+  /* Dark tokens apply when the OS asks for dark AND the host app has not
+     pinned light, or when the host app explicitly pins dark. */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
+
       --surface: #0f0f0f;
       --surface-bright: #1f1f1f;
       --surface-dim: #141414;
@@ -94,6 +97,37 @@
       --chart-5: #969dff;
       --chart-6: #ff88d3;
     }
+  }
+
+  :root[data-theme="dark"] {
+    --surface: #0f0f0f;
+    --surface-bright: #1f1f1f;
+    --surface-dim: #141414;
+    --surface-container: #141414;
+    --surface-container-high: #1c1c1c;
+    --surface-container-highest: #171717;
+    --surface-container-low: #0f0f0f;
+    --surface-container-lowest: #0f0f0f;
+    --on-surface-default: #ffffff;
+    --on-surface-de-emphasis: #ababab;
+    --on-surface-primary: #9dd2ff;
+    --primary: #9dd2ff;
+    --on-primary: #192967;
+    --primary-container: #1f3b9b;
+    --on-primary-container: #dce4ff;
+    --outline: #9a9b9c;
+    --outline-variant: #4a5050;
+    --stroke-default: #2d2f38;
+    --stroke-emphasis: #808080;
+    --positive: #0ebc5f;
+    --negative: #ff4c45;
+    --warning: #ffdb0f;
+    --chart-1: #9dd2ff;
+    --chart-2: #60d673;
+    --chart-3: #ffdb0f;
+    --chart-4: #ff9999;
+    --chart-5: #969dff;
+    --chart-6: #ff88d3;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -336,18 +370,18 @@
   <!-- Summary (3-column inline header) -->
   <div class="summary-section">
     <div class="summary-item side-item">
-      <div class="summary-val side-val" id="expenseValue">$4,200</div>
-      <div class="summary-sub" id="expenseLabel">Monthly expenses</div>
+      <div class="summary-val side-val" id="expenseValue">€4,200</div>
+      <div class="summary-sub" id="expenseLabel">المصروفات الشهرية</div>
     </div>
     <div class="summary-divider"></div>
     <div class="summary-item center-item">
-      <div class="summary-val center-val positive" id="heroValue">$1,600</div>
-      <div class="summary-sub" id="heroSubtitle">Monthly surplus</div>
+      <div class="summary-val center-val positive" id="heroValue">€1,600</div>
+      <div class="summary-sub" id="heroSubtitle">الفائض الشهري</div>
     </div>
     <div class="summary-divider"></div>
     <div class="summary-item side-item">
       <div class="summary-val side-val positive" id="savingsRateValue">28%</div>
-      <div class="summary-sub" id="savingsRateLabel">Savings rate</div>
+      <div class="summary-sub" id="savingsRateLabel">نسبة الادخار</div>
     </div>
   </div>
 
@@ -356,12 +390,12 @@
   </div>
 
   <div class="sliders-section">
-    <div class="breakdown-title" id="slidersTitle">Adjust your cashflow</div>
+    <div class="breakdown-title" id="slidersTitle">خصّص أرقامك</div>
     <div id="slidersContainer"></div>
   </div>
 
   <div class="footer-note" id="footerNote">
-    Drag sliders to see how changes affect your savings.
+    حرّك المؤشرات لترى أثر التغييرات على مدخراتك.
   </div>
 </div>
 
@@ -396,13 +430,13 @@
   ];
 
   const defaultLabels = {
-    title: 'Monthly Cashflow',
-    subtitle: 'Where your money goes',
-    heroSubtitle: 'Monthly savings',
-    incomeLabel: 'Total income',
-    expenseLabel: 'Total expenses',
-    slidersTitle: 'Adjust your cashflow',
-    footerNote: 'Drag sliders to see how changes affect your savings.',
+    title: 'التدفق النقدي الشهري',
+    subtitle: 'إلى أين تذهب أموالك',
+    heroSubtitle: 'الادخار الشهري',
+    incomeLabel: 'إجمالي الدخل',
+    expenseLabel: 'إجمالي المصروفات',
+    slidersTitle: 'خصّص أرقامك',
+    footerNote: 'حرّك المؤشرات لترى أثر التغييرات على مدخراتك.',
     currencySymbol: '',
     currencyLocale: 'en-US',
   };
@@ -1098,8 +1132,8 @@
       container.appendChild(catDiv);
     }
 
-    createGroup('Income sources', incomeSliders, true);
-    createGroup('Expense categories', expenseSliders, true);
+    createGroup('مصادر الدخل', incomeSliders, true);
+    createGroup('فئات المصاريف', expenseSliders, true);
 
     // Initialize slider progress
     document.querySelectorAll('input[type="range"]').forEach(updateSliderProgress);
@@ -1301,10 +1335,26 @@
   // ===================================================================
   // DARK MODE LISTENER
   // ===================================================================
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  function repaintForTheme() {
     for (const k in colorCache) delete colorCache[k];
     renderChart();
+  }
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', repaintForTheme);
+
+  // The host app owns the light/dark choice; it sends it on load and on toggle.
+  function applyHostTheme(theme) {
+    if (theme !== 'light' && theme !== 'dark') return;
+    if (document.documentElement.dataset.theme === theme) return;
+    document.documentElement.dataset.theme = theme;
+    repaintForTheme();
+  }
+
+  window.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'set-theme') applyHostTheme(event.data.theme);
   });
+
+  applyHostTheme(new URLSearchParams(location.search).get('theme'));
 
   window.addEventListener('resize', () => {
     renderChart();

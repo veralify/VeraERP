@@ -88,6 +88,402 @@ export type Database = {
           },
         ]
       }
+      money_income: {
+        Row: {
+          active: boolean
+          amount: number
+          created_at: string
+          id: string
+          name: string
+          payday: number | null
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          amount: number
+          created_at?: string
+          id?: string
+          name: string
+          payday?: number | null
+          type?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          amount?: number
+          created_at?: string
+          id?: string
+          name?: string
+          payday?: number | null
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_income_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_expenses: {
+        Row: {
+          active: boolean
+          amount: number
+          category: string
+          created_at: string
+          due_day: number | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          amount: number
+          category?: string
+          created_at?: string
+          due_day?: number | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          amount?: number
+          category?: string
+          created_at?: string
+          due_day?: number | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_expenses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_debts: {
+        Row: {
+          apr: number
+          balance: number
+          created_at: string
+          due_day: number | null
+          id: string
+          minimum_payment: number
+          name: string
+          priority: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          apr?: number
+          balance: number
+          created_at?: string
+          due_day?: number | null
+          id?: string
+          minimum_payment?: number
+          name: string
+          priority?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          apr?: number
+          balance?: number
+          created_at?: string
+          due_day?: number | null
+          id?: string
+          minimum_payment?: number
+          name?: string
+          priority?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_debts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_savings: {
+        Row: {
+          active: boolean
+          amount: number
+          category: string
+          created_at: string
+          id: string
+          monthly_contribution: number
+          name: string
+          target_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          amount?: number
+          category?: string
+          created_at?: string
+          id?: string
+          monthly_contribution?: number
+          name: string
+          target_amount?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          amount?: number
+          category?: string
+          created_at?: string
+          id?: string
+          monthly_contribution?: number
+          name?: string
+          target_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_savings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          user_id: string
+          value: string
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          user_id: string
+          value: string
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          user_id?: string
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_settings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_transactions: {
+        Row: {
+          account: string
+          amount: number
+          category: string
+          created_at: string
+          direction: Database["public"]["Enums"]["money_transaction_direction"]
+          id: string
+          merchant: string
+          notes: string
+          transaction_date: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account?: string
+          amount: number
+          category?: string
+          created_at?: string
+          direction: Database["public"]["Enums"]["money_transaction_direction"]
+          id?: string
+          merchant: string
+          notes?: string
+          transaction_date: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account?: string
+          amount?: number
+          category?: string
+          created_at?: string
+          direction?: Database["public"]["Enums"]["money_transaction_direction"]
+          id?: string
+          merchant?: string
+          notes?: string
+          transaction_date?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_transactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_subscriptions: {
+        Row: {
+          active: boolean
+          amount: number
+          cadence: Database["public"]["Enums"]["money_cadence"]
+          category: string
+          created_at: string
+          id: string
+          name: string
+          next_charge_date: string | null
+          trial_ends_on: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          amount: number
+          cadence?: Database["public"]["Enums"]["money_cadence"]
+          category?: string
+          created_at?: string
+          id?: string
+          name: string
+          next_charge_date?: string | null
+          trial_ends_on?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          amount?: number
+          cadence?: Database["public"]["Enums"]["money_cadence"]
+          category?: string
+          created_at?: string
+          id?: string
+          name?: string
+          next_charge_date?: string | null
+          trial_ends_on?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_admin_tasks: {
+        Row: {
+          category: string
+          created_at: string
+          due_date: string | null
+          id: string
+          notes: string
+          status: Database["public"]["Enums"]["money_task_status"]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          notes?: string
+          status?: Database["public"]["Enums"]["money_task_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          notes?: string
+          status?: Database["public"]["Enums"]["money_task_status"]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_admin_tasks_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_documents: {
+        Row: {
+          created_at: string
+          document_type: string
+          expiry_date: string | null
+          id: string
+          notes: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          document_type?: string
+          expiry_date?: string | null
+          id?: string
+          notes?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          document_type?: string
+          expiry_date?: string | null
+          id?: string
+          notes?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_documents_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_conversations: {
         Row: {
           created_at: string
@@ -5382,6 +5778,9 @@ export type Database = {
         | "completed"
         | "cancelled"
         | "refunded"
+      money_cadence: "monthly" | "yearly"
+      money_task_status: "open" | "done"
+      money_transaction_direction: "income" | "expense"
       coach_client_status:
         | "pending"
         | "active"

@@ -1,4 +1,4 @@
-const state = { page: "dashboard", transactionQuery: "", comparisonMode: "month", comparison: null };
+const state = { page: "dashboard", transactionQuery: "", comparisonMode: "month", comparison: null, chartData: null };
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -22,11 +22,53 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem("money-manager-theme", theme);
   $("#theme-toggle")?.setAttribute("aria-label", theme === "dark" ? "تفعيل المظهر الفاتح" : "تفعيل المظهر الداكن");
+  // Charts read their colours from the CSS tokens, so they need a rebuild on theme change.
+  if (state.chartData && typeof renderDashboardCharts === "function") {
+    renderDashboardCharts(state.chartData);
+  }
+  // The Sankey lives in an iframe and cannot see our tokens, so tell it directly.
+  document.getElementById("sankeyWidgetFrame")
+    ?.contentWindow?.postMessage({ type: "set-theme", theme }, window.location.origin);
 }
 
 applyTheme(localStorage.getItem("money-manager-theme") || "light");
 $("#theme-toggle")?.addEventListener("click", () => {
   applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+});
+
+/* Mobile navigation drawer. The sidebar is docked on desktop and slides in
+   off-canvas at <=900px, so the trigger, the close button, the scrim and Esc
+   all have to drive the same state. */
+const sidebarEl = $("#sidebar");
+const scrimEl = $("#scrim");
+
+function setSidebar(open) {
+  if (!sidebarEl) return;
+  sidebarEl.classList.toggle("open", open);
+  if (scrimEl) scrimEl.hidden = !open;
+  $("#menu-btn")?.setAttribute("aria-expanded", String(open));
+  document.body.style.overflow = open ? "hidden" : "";
+  if (open) sidebarEl.querySelector(".sidebar-close")?.focus();
+}
+
+$("#menu-btn")?.addEventListener("click", () => setSidebar(true));
+$("#sidebar-close")?.addEventListener("click", () => setSidebar(false));
+scrimEl?.addEventListener("click", () => setSidebar(false));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && sidebarEl?.classList.contains("open")) setSidebar(false);
+});
+
+// Picking a destination should dismiss the drawer on small screens.
+sidebarEl?.addEventListener("click", (event) => {
+  if (event.target.closest(".nav") && window.matchMedia("(max-width: 900px)").matches) {
+    setSidebar(false);
+  }
+});
+
+// Never leave the drawer state stuck when resizing up to the docked layout.
+window.matchMedia("(max-width: 900px)").addEventListener("change", (event) => {
+  if (!event.matches) setSidebar(false);
 });
 
 const fmt = (n) =>
@@ -124,6 +166,7 @@ const pageMeta = {
 
 function setPage(page) {
   state.page = page;
+  if (page !== "dashboard") state.chartData = null;
 
   document.querySelectorAll(".nav").forEach((item) => {
     item.classList.toggle("active", item.dataset.page === page);
@@ -178,72 +221,113 @@ async function render() {
    Dashboard
 ========================= */
 
+const ICONS = {
+  income: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v10"/><path d="m8 10.5 4 4 4-4"/><path d="M4.5 19.5h15"/></svg>`,
+  expense: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V10"/><path d="m8 13.5 4-4 4 4"/><path d="M4.5 4.5h15"/></svg>`,
+  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>`,
+  debt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19"/><path d="M6.5 14.8h4"/></svg>`,
+};
+
 async function dashboard() {
   const data = await api("/api/dashboard");
   const plan = data.plan;
   const chartData = data.chartData;
+  state.chartData = chartData;
 
   const progress = plan.totalDebt
-    ? Math.max(
-        0,
-        Math.min(
-          100,
-          (1 - plan.projectedRemaining / plan.totalDebt) * 100
-        )
-      )
+    ? Math.max(0, Math.min(100, (1 - plan.projectedRemaining / plan.totalDebt) * 100))
     : 0;
 
-  const months = plan.months || [];
-  const finalEndingCash = chartData.endingCash.length > 0 
-    ? chartData.endingCash[chartData.endingCash.length - 1].endingCash 
+  const finalEndingCash = chartData.endingCash.length
+    ? chartData.endingCash[chartData.endingCash.length - 1].endingCash
     : 0;
   const monthlyChanges = chartData.monthlyChanges || [];
+  const positive = data.netCashFlow >= 0;
+  const alertCount = data.alerts.subscriptions.length + data.alerts.tasks.length;
 
   $("#content").innerHTML = `
-    <section class="dashboard-hero">
-      <div>
+    <section class="focus-card ${positive ? "positive" : "negative"}">
+      <div class="focus-copy">
         <span class="eyebrow">نظرة هذا الشهر</span>
-        <h2>أموالك تحت السيطرة</h2>
-        <p>اتخذ الخطوة التالية بناءً على وضعك النقدي الحالي.</p>
+        <h2>${positive ? "أموالك تحت السيطرة" : "خطتك تحتاج إلى تعديل"}</h2>
+        <p>${positive
+          ? "اتخذ الخطوة التالية بناءً على وضعك النقدي الحالي."
+          : "التزاماتك تتجاوز دخلك هذا الشهر — راجع المصاريف أو الأقساط."}</p>
+        <div class="quick-actions">
+          <button class="btn primary" data-quick-action="transactions">تسجيل معاملة</button>
+          <button class="btn secondary" data-quick-action="expenses">إضافة مصروف</button>
+          <button class="btn secondary" data-quick-action="admin-tasks">مهمة إدارية</button>
+        </div>
       </div>
-      <div class="hero-balance ${data.netCashFlow >= 0 ? "positive" : "negative"}">
+      <div class="focus-figure ${positive ? "positive" : "negative"}">
         <span>صافي التدفق المتاح</span>
         <strong>${fmt(data.netCashFlow)}</strong>
-        <small>${data.netCashFlow >= 0 ? "بعد المصاريف والأقساط والادخار" : "تحتاج الخطة إلى تخفيض التزامات"}</small>
+        <small>${positive ? "بعد المصاريف والأقساط والادخار" : "تحتاج الخطة إلى تخفيض التزامات"}</small>
       </div>
     </section>
 
-    ${sankeyWidgetPanel()}
-
     <div class="metric-grid">
       <article class="metric-card income-card">
-        <div class="metric-heading"><span class="metric-icon">↙</span><span>الدخل الشهري</span></div>
+        <div class="metric-heading"><span class="metric-icon">${ICONS.income}</span><span>الدخل الشهري</span></div>
         <strong>${fmt(data.income)}</strong>
         <p>مصادر دخل نشطة</p>
       </article>
       <article class="metric-card expense-card">
-        <div class="metric-heading"><span class="metric-icon">↗</span><span>المصاريف الأساسية</span></div>
+        <div class="metric-heading"><span class="metric-icon">${ICONS.expense}</span><span>المصاريف الأساسية</span></div>
         <strong>${fmt(data.expenses)}</strong>
         <p>${(data.debtRatio * 100).toFixed(1)}% من دخلك الشهري</p>
       </article>
       <article class="metric-card ${data.upcomingBills.count ? "risk-card" : "safe-card"}">
-        <div class="metric-heading"><span class="metric-icon">◷</span><span>استحقاقات 7 أيام</span></div>
+        <div class="metric-heading"><span class="metric-icon">${ICONS.clock}</span><span>استحقاقات 7 أيام</span></div>
         <strong>${data.upcomingBills.count}</strong>
         <p>${data.upcomingBills.count ? `${fmt(data.upcomingBills.total)} تحتاج متابعة` : "لا توجد دفعات عاجلة"}</p>
       </article>
       <article class="metric-card debt-card">
-        <div class="metric-heading"><span class="metric-icon">◎</span><span>إجمالي الديون</span></div>
+        <div class="metric-heading"><span class="metric-icon">${ICONS.debt}</span><span>إجمالي الديون</span></div>
         <strong>${fmt(data.totalDebt)}</strong>
         <p>${progress.toFixed(0)}% من مسار الخطة الحالي</p>
       </article>
     </div>
 
-    <div class="action-bar" aria-label="إجراءات سريعة">
-      <div><span class="eyebrow">إجراءات سريعة</span><strong>سجّل ما حدث الآن</strong></div>
-      <div class="quick-actions">
-        <button class="btn secondary" data-quick-action="expenses">إضافة مصروف</button>
-        <button class="btn" data-quick-action="transactions">تسجيل معاملة</button>
-        <button class="btn secondary" data-quick-action="admin-tasks">مهمة إدارية</button>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">خطة السداد</span>
+        <h2>أين تقف من التخلص من الديون</h2>
+      </div>
+      <button class="btn secondary" id="show-plan-btn" type="button">عرض الخطة كاملة</button>
+    </div>
+
+    <div class="grid two">
+      <div class="panel plan-card">
+        <div class="panel-head">
+          <h2>تقدم التخلص من الديون</h2>
+          <span class="badge ${plan.feasible ? "good" : "bad"}">${plan.feasible ? "قابلة للتنفيذ" : "تحتاج تعديل"}</span>
+        </div>
+        <div class="plan-figure">
+          <strong>${progress.toFixed(0)}<em>%</em></strong>
+          <div class="progress"><div style="width:${progress}%"></div></div>
+        </div>
+        <div class="stat-list">
+          <div class="kpi"><span>المدة المستهدفة</span><b>${plan.targetMonths} شهر</b></div>
+          <div class="kpi"><span>القسط الشهري المطلوب</span><b>${fmt(plan.requiredMonthly)}</b></div>
+          <div class="kpi"><span>المتبقي المتوقع</span><b>${fmt(plan.projectedRemaining)}</b></div>
+        </div>
+      </div>
+
+      <div class="panel plan-card">
+        <div class="panel-head">
+          <h2>الرصيد بعد جميع المدفوعات</h2>
+          <span class="badge ${finalEndingCash > 0 ? "good" : "bad"}">${finalEndingCash > 0 ? "إيجابي" : "سلبي"}</span>
+        </div>
+        <div class="plan-figure">
+          <strong class="${finalEndingCash > 0 ? "good" : "bad"}">${fmt(finalEndingCash)}</strong>
+          <p class="plan-caption">متوقع بعد ${plan.targetMonths} شهر من تنفيذ الخطة</p>
+        </div>
+        <div class="stat-list">
+          <div class="kpi"><span>التراكم الشهري</span><b class="blue">تلقائي</b></div>
+          <div class="kpi"><span>مدة الخطة</span><b>${plan.targetMonths} شهر</b></div>
+          <div class="kpi"><span>الحالة</span><b class="${finalEndingCash > 0 ? "good" : "bad"}">${finalEndingCash > 0 ? "إيجابي" : "سلبي"}</b></div>
+        </div>
       </div>
     </div>
 
@@ -263,236 +347,120 @@ async function dashboard() {
       <p class="comparison-range" id="comparison-range"></p>
     </section>
 
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">ما هو قادم</span>
+        <h2>الفواتير والتنبيهات</h2>
+      </div>
+      ${alertCount ? `<span class="badge bad">${alertCount} تنبيه</span>` : `<span class="badge good">لا تنبيهات</span>`}
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>الفواتير القادمة (خلال 7 أيام)</h2>
+        <span class="badge ${data.upcomingBills.count > 0 ? "bad" : "good"}">${data.upcomingBills.count} فاتورة</span>
+      </div>
+      ${data.upcomingBills.bills.length === 0
+        ? `<div class="notice good">لا توجد فواتير مستحقة خلال الأيام السبعة القادمة 🎉</div>`
+        : `<div class="table-responsive">
+            <table>
+              <thead><tr><th>الاسم</th><th>النوع</th><th>تاريخ الاستحقاق</th><th>خلال</th><th>المبلغ</th></tr></thead>
+              <tbody>
+                ${data.upcomingBills.bills.map((b) => `
+                  <tr>
+                    <td>${esc(b.name)}</td>
+                    <td>${b.type === "debt" ? "قسط دين" : "مصروف"}</td>
+                    <td>${b.dueDate}</td>
+                    <td class="${b.daysUntil <= 2 ? "bad" : ""}">${b.daysUntil === 0 ? "اليوم" : `بعد ${b.daysUntil} يوم`}</td>
+                    <td>${fmt(b.amount)}</td>
+                  </tr>`).join("")}
+              </tbody>
+            </table>
+          </div>`}
+    </div>
+
     ${(data.alerts.subscriptions.length || data.alerts.tasks.length) ? `
       <div class="grid two">
         <div class="panel alert-panel">
-          <div class="panel-head"><h2>تنبيهات الاشتراكات</h2><span class="badge bad">${data.alerts.subscriptions.length}</span></div>
-          ${data.alerts.subscriptions.length ? data.alerts.subscriptions.map((item) => `<div class="kpi"><span>${esc(item.name)}${item.trial_ends_on ? " · تنتهي التجربة " + item.trial_ends_on : " · خصم " + (item.next_charge_date || "قريبًا")}</span><b>${fmt(item.amount)}</b></div>`).join("") : ""}
+          <div class="panel-head"><h2>تنبيهات الاشتراكات</h2><span class="badge ${data.alerts.subscriptions.length ? "bad" : "good"}">${data.alerts.subscriptions.length}</span></div>
+          ${data.alerts.subscriptions.length
+            ? `<div class="stat-list">${data.alerts.subscriptions.map((item) => `<div class="kpi"><span>${esc(item.name)}${item.trial_ends_on ? " · تنتهي التجربة " + item.trial_ends_on : " · خصم " + (item.next_charge_date || "قريبًا")}</span><b>${fmt(item.amount)}</b></div>`).join("")}</div>`
+            : `<div class="notice good">لا توجد تنبيهات اشتراكات.</div>`}
         </div>
         <div class="panel alert-panel">
           <div class="panel-head"><h2>مهام قريبة</h2><span class="badge ${data.alerts.tasks.length ? "bad" : "good"}">${data.alerts.tasks.length}</span></div>
-          ${data.alerts.tasks.length ? data.alerts.tasks.map((item) => `<div class="kpi"><span>${esc(item.title)} · ${item.due_date}</span><b>${esc(item.category)}</b></div>`).join("") : ""}
+          ${data.alerts.tasks.length
+            ? `<div class="stat-list">${data.alerts.tasks.map((item) => `<div class="kpi"><span>${esc(item.title)} · ${item.due_date}</span><b>${esc(item.category)}</b></div>`).join("")}</div>`
+            : `<div class="notice good">لا توجد مهام قريبة.</div>`}
         </div>
       </div>` : ""}
 
-    <div class="panel">
-
-      <div class="panel-head">
-        <h2>الفواتير القادمة (خلال 7 أيام)</h2>
-        <span class="badge ${data.upcomingBills.count > 0 ? "bad" : "good"}">
-          ${data.upcomingBills.count} فاتورة
-        </span>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">التحليلات</span>
+        <h2>إلى أين تذهب أموالك</h2>
       </div>
-
-      ${
-        data.upcomingBills.bills.length === 0
-          ? `<div class="notice good">لا توجد فواتير مستحقة خلال الأيام السبعة القادمة 🎉</div>`
-          : `
-            <div class="table-responsive">
-              <table>
-                <thead>
-                  <tr>
-                    <th>الاسم</th>
-                    <th>النوع</th>
-                    <th>تاريخ الاستحقاق</th>
-                    <th>خلال</th>
-                    <th>المبلغ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${data.upcomingBills.bills
-                    .map(
-                      (b) => `
-                        <tr>
-                          <td>${esc(b.name)}</td>
-                          <td>${b.type === "debt" ? "قسط دين" : "مصروف"}</td>
-                          <td>${b.dueDate}</td>
-                          <td class="${b.daysUntil <= 2 ? "bad" : ""}">${
-                        b.daysUntil === 0 ? "اليوم" : `بعد ${b.daysUntil} يوم`
-                      }</td>
-                          <td>${fmt(b.amount)}</td>
-                        </tr>
-                      `
-                    )
-                    .join("")}
-                </tbody>
-              </table>
-            </div>
-          `
-      }
-
     </div>
 
     <div class="grid two">
-
       <div class="panel">
-
-        <div class="panel-head">
-          <h2>تقدم التخلص من الديون</h2>
-
-          <span class="badge ${plan.feasible ? "good" : "bad"}">
-            ${plan.feasible ? "الخطة قابلة للتنفيذ" : "الخطة تحتاج تعديل"}
-          </span>
-        </div>
-
-        <div class="value">${progress.toFixed(0)}%</div>
-
-        <div class="progress">
-          <div style="width:${progress}%"></div>
-        </div>
-
-        <div class="kpi">
-          <span>المدة المستهدفة</span>
-          <b>${plan.targetMonths} شهر</b>
-        </div>
-
-        <div class="kpi">
-          <span>القسط الشهري المطلوب</span>
-          <b>${fmt(plan.requiredMonthly)}</b>
-        </div>
-
-        <div class="kpi">
-          <span>المتبقي المتوقع</span>
-          <b>${fmt(plan.projectedRemaining)}</b>
-        </div>
-
+        <div class="panel-head"><h2>توزيع الدخل الشهري</h2></div>
+        <div class="chart-container"><canvas id="spendingMixChart"></canvas></div>
       </div>
-
       <div class="panel">
-
-        <div class="panel-head">
-          <h2>الرصيد النهائي بعد جميع المدفوعات</h2>
-        </div>
-
-        <div class="value good">${fmt(finalEndingCash)}</div>
-
-        <div class="kpi">
-          <span>بعد ${plan.targetMonths} شهر</span>
-          <b>من تنفيذ الخطة</b>
-        </div>
-
-        <div class="kpi">
-          <span>التراكم الشهري</span>
-          <b class="blue">تلقائي</b>
-        </div>
-
-        <div class="kpi">
-          <span>الحالة</span>
-          <b class="${finalEndingCash > 0 ? 'good' : 'bad'}">
-            ${finalEndingCash > 0 ? 'إيجابي' : 'سلبي'}
-          </b>
-        </div>
-
+        <div class="panel-head"><h2>تخفيض الديون بمرور الوقت</h2></div>
+        <div class="chart-container"><canvas id="debtReductionChart"></canvas></div>
       </div>
-
-    </div>
-
-    <div class="grid two">
-
-      <div class="panel">
-
-        <div class="panel-head">
-          <h2>توزيع الدخل الشهري</h2>
-        </div>
-
-        <div class="chart-container">
-          <canvas id="spendingMixChart"></canvas>
-        </div>
-
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-          <h2>تخفيض الديون بمرور الوقت</h2>
-        </div>
-
-        <div class="chart-container">
-          <canvas id="debtReductionChart"></canvas>
-        </div>
-
-      </div>
-
     </div>
 
     <div class="panel">
-
-      <div class="panel-head">
-        <h2>التدفق النقدي الشهري</h2>
-
-        <button class="btn secondary" id="show-plan-btn">
-          عرض الخطة كاملة
-        </button>
-      </div>
-
-      <div class="chart-container">
-        <canvas id="cashFlowChart"></canvas>
-      </div>
-
+      <div class="panel-head"><h2>التدفق النقدي الشهري</h2></div>
+      <div class="chart-container chart-container--tall"><canvas id="cashFlowChart"></canvas></div>
     </div>
 
-    <div class="panel">
+    ${sankeyWidgetPanel()}
 
-      <div class="panel-head">
+    <details class="panel collapsible-panel">
+      <summary class="panel-head">
         <h2>التغيرات الشهرية الكاملة</h2>
-        <span class="badge">${monthlyChanges.length} شهر</span>
-      </div>
-
+        <span class="summary-tools">
+          <span class="badge">${monthlyChanges.length} شهر</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+      </summary>
       <div class="table-responsive">
         <table>
-
           <thead>
             <tr>
-              <th>الشهر</th>
-              <th>الدخل</th>
-              <th>المصاريف</th>
-              <th>سداد الديون</th>
-              <th>مساهمة الادخار</th>
-              <th>الديون المتبقية</th>
-              <th>تخفيض الديون</th>
-              <th>التدفق النقدي</th>
-              <th>الرصيد التراكمي</th>
-              <th>الادخار التراكمي</th>
-              <th>التقدم %</th>
+              <th>الشهر</th><th>الدخل</th><th>المصاريف</th><th>سداد الديون</th><th>مساهمة الادخار</th>
+              <th>الديون المتبقية</th><th>تخفيض الديون</th><th>التدفق النقدي</th><th>الرصيد التراكمي</th>
+              <th>الادخار التراكمي</th><th>التقدم %</th>
             </tr>
           </thead>
-
           <tbody>
-            ${monthlyChanges
-              .map(
-                (m) => `
-                  <tr>
-                    <td>${m.month}</td>
-                    <td>${fmt(m.income)}</td>
-                    <td>${fmt(m.expenses)}</td>
-                    <td>${fmt(m.debtPayment)}</td>
-                    <td class="good">${fmt(m.savingsContribution)}</td>
-                    <td class="${m.debtRemaining > 0 ? 'bad' : 'good'}">${fmt(m.debtRemaining)}</td>
-                    <td class="good">${fmt(m.debtChange)}</td>
-                    <td class="${m.cashChange >= 0 ? 'good' : 'bad'}">${fmt(m.cashChange)}</td>
-                    <td class="blue">${fmt(m.endingCash)}</td>
-                    <td class="good">${fmt(m.cumulativeSavings)}</td>
-                    <td>${m.debtProgress.toFixed(1)}%</td>
-                  </tr>
-                `
-              )
-              .join("")}
+            ${monthlyChanges.map((m) => `
+              <tr>
+                <td>${m.month}</td>
+                <td>${fmt(m.income)}</td>
+                <td>${fmt(m.expenses)}</td>
+                <td>${fmt(m.debtPayment)}</td>
+                <td class="good">${fmt(m.savingsContribution)}</td>
+                <td class="${m.debtRemaining > 0 ? "bad" : "good"}">${fmt(m.debtRemaining)}</td>
+                <td class="good">${fmt(m.debtChange)}</td>
+                <td class="${m.cashChange >= 0 ? "good" : "bad"}">${fmt(m.cashChange)}</td>
+                <td class="blue">${fmt(m.endingCash)}</td>
+                <td class="good">${fmt(m.cumulativeSavings)}</td>
+                <td>${m.debtProgress.toFixed(1)}%</td>
+              </tr>`).join("")}
           </tbody>
-
         </table>
       </div>
-
-    </div>
+    </details>
   `;
 
-  // Initialize charts
-  initSpendingMixChart(chartData.spendingMix);
-  initDebtReductionChart(chartData.debtReduction);
-  initCashFlowChart(chartData.cashFlow);
+  renderDashboardCharts(chartData);
 
-  $("#show-plan-btn")?.addEventListener("click", () => {
-    setPage("plan");
-  });
+  $("#show-plan-btn")?.addEventListener("click", () => setPage("plan"));
 
   document.querySelectorAll("[data-quick-action]").forEach((button) => {
     button.addEventListener("click", () => openForm(button.dataset.quickAction));
@@ -511,22 +479,21 @@ function sankeyWidgetPanel({ interactive = true, section = null } = {}) {
   const params = new URLSearchParams();
   if (!interactive) params.set("sliders", "0");
   if (section) params.set("section", section);
+  params.set("theme", document.documentElement.dataset.theme || "light");
   const query = params.toString();
   const src = `/cashflow-sankey.html${query ? `?${query}` : ""}`;
   return `
-    <div class="panel">
-
+    <div class="panel sankey-panel">
       <div class="panel-head">
         <h2>تدفق الأموال (Sankey)</h2>
+        <span class="badge">تفاعلي</span>
       </div>
-
       <iframe
         id="sankeyWidgetFrame"
         src="${src}"
-        style="width:100%;border:0;display:block;"
         title="Cashflow Sankey Widget"
+        loading="lazy"
       ></iframe>
-
     </div>
   `;
 }
@@ -547,167 +514,219 @@ function initSankeyWidget() {
    Chart Functions
 ========================= */
 
-function initSpendingMixChart(data) {
-  const ctx = document.getElementById('spendingMixChart');
-  if (!ctx) return;
+const chartRegistry = new Map();
 
-  new Chart(ctx, {
-    type: 'doughnut',
+function chartTheme() {
+  const cs = getComputedStyle(document.documentElement);
+  const v = (name, fallback) => cs.getPropertyValue(name).trim() || fallback;
+  return {
+    font: "'Cairo', system-ui, sans-serif",
+    text: v("--text", "#11141b"),
+    muted: v("--text-muted", "#6c7480"),
+    subtle: v("--text-subtle", "#9ba2af"),
+    grid: v("--border-soft", "#eaecf0"),
+    surface: v("--surface", "#ffffff"),
+    border: v("--border", "#e4e6eb"),
+    primary: v("--primary", "#6366f1"),
+    success: v("--success", "#0d9488"),
+    danger: v("--danger", "#dc4b4b"),
+    warning: v("--warning", "#c07708"),
+    info: v("--info", "#2a72e5"),
+  };
+}
+
+/* Semantic palette so chart colours follow the design tokens (and dark mode)
+   instead of the raw hex values the API ships. */
+function mixColorFor(label, theme, fallback) {
+  const map = {
+    "المصاريف": theme.danger,
+    "أقساط الديون": theme.warning,
+    "مساهمة الادخار": theme.primary,
+    "المتبقي": theme.success,
+  };
+  return map[label] || fallback;
+}
+
+function baseChartOptions(theme) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: {
+        position: "bottom",
+        rtl: true,
+        labels: {
+          color: theme.muted,
+          boxWidth: 10,
+          boxHeight: 10,
+          usePointStyle: true,
+          pointStyle: "circle",
+          padding: 16,
+          font: { family: theme.font, size: 12, weight: "600" },
+        },
+      },
+      tooltip: {
+        rtl: true,
+        backgroundColor: theme.text,
+        titleColor: theme.surface,
+        bodyColor: theme.surface,
+        padding: 10,
+        cornerRadius: 8,
+        displayColors: true,
+        boxWidth: 8,
+        boxHeight: 8,
+        usePointStyle: true,
+        titleFont: { family: theme.font, size: 12, weight: "700" },
+        bodyFont: { family: theme.font, size: 12 },
+      },
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        border: { color: theme.grid },
+        ticks: { color: theme.subtle, font: { family: theme.font, size: 11 } },
+      },
+      y: {
+        beginAtZero: true,
+        grid: { color: theme.grid, drawTicks: false },
+        border: { display: false },
+        ticks: {
+          color: theme.subtle,
+          padding: 8,
+          font: { family: theme.font, size: 11 },
+          callback: (value) => fmt(value),
+        },
+      },
+    },
+  };
+}
+
+function mountChart(id, config) {
+  const existing = chartRegistry.get(id);
+  if (existing) {
+    existing.destroy();
+    chartRegistry.delete(id);
+  }
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  chartRegistry.set(id, new Chart(canvas, config));
+}
+
+function renderDashboardCharts(chartData) {
+  if (!chartData) return;
+  initSpendingMixChart(chartData.spendingMix);
+  initDebtReductionChart(chartData.debtReduction);
+  initCashFlowChart(chartData.cashFlow);
+}
+
+function initSpendingMixChart(data) {
+  const theme = chartTheme();
+  const options = baseChartOptions(theme);
+  mountChart("spendingMixChart", {
+    type: "doughnut",
     data: {
-      labels: data.map(d => d.label),
+      labels: data.map((d) => d.label),
       datasets: [{
-        data: data.map(d => d.value),
-        backgroundColor: data.map(d => d.color),
-        borderWidth: 0
-      }]
+        data: data.map((d) => d.value),
+        backgroundColor: data.map((d) => mixColorFor(d.label, theme, d.color)),
+        borderColor: theme.surface,
+        borderWidth: 3,
+        hoverOffset: 6,
+      }],
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: true,
+      ...options,
+      cutout: "64%",
+      scales: {},
       plugins: {
-        legend: {
-          position: 'bottom',
-          rtl: true,
-          labels: {
-            font: {
-              family: "'Cairo', sans-serif"
-            }
-          }
-        },
+        ...options.plugins,
         tooltip: {
+          ...options.plugins.tooltip,
           callbacks: {
-            label: function(context) {
+            label(context) {
               const value = context.raw;
               const total = context.dataset.data.reduce((a, b) => a + b, 0);
-              const percentage = ((value / total) * 100).toFixed(1);
-              const formattedValue = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "EUR",
-                maximumFractionDigits: 2,
-              }).format(value);
-              return `${context.label}: ${formattedValue} (${percentage}%)`;
-            }
-          }
-        }
-      }
-    }
+              const percentage = total ? ((value / total) * 100).toFixed(1) : "0.0";
+              return `${context.label}: ${fmt(value)} (${percentage}%)`;
+            },
+          },
+        },
+      },
+    },
   });
 }
 
 function initDebtReductionChart(data) {
-  const ctx = document.getElementById('debtReductionChart');
-  if (!ctx) return;
-
-  new Chart(ctx, {
-    type: 'line',
+  const theme = chartTheme();
+  const options = baseChartOptions(theme);
+  mountChart("debtReductionChart", {
+    type: "line",
     data: {
-      labels: data.map(d => d.month.slice(5)), // Show only month part
+      labels: data.map((d) => d.month.slice(5)),
       datasets: [{
-        label: 'الديون المتبقية',
-        data: data.map(d => d.remaining),
-        borderColor: '#ef4444',
-        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+        label: "الديون المتبقية",
+        data: data.map((d) => d.remaining),
+        borderColor: theme.primary,
+        backgroundColor: `color-mix(in srgb, ${theme.primary} 16%, transparent)`,
+        borderWidth: 2.5,
         fill: true,
-        tension: 0.4
-      }]
+        tension: 0.35,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointBackgroundColor: theme.primary,
+        pointBorderColor: theme.surface,
+        pointBorderWidth: 2,
+      }],
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: true,
+      ...options,
       plugins: {
-        legend: {
-          display: false
-        },
+        ...options.plugins,
+        legend: { display: false },
         tooltip: {
-          callbacks: {
-            label: function(context) {
-              return `المتبقي: ${fmt(context.raw)}`;
-            }
-          }
-        }
+          ...options.plugins.tooltip,
+          callbacks: { label: (context) => `المتبقي: ${fmt(context.raw)}` },
+        },
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(value) {
-              return fmt(value);
-            }
-          }
-        }
-      }
-    }
+    },
   });
 }
 
 function initCashFlowChart(data) {
-  const ctx = document.getElementById('cashFlowChart');
-  if (!ctx) return;
-
-  new Chart(ctx, {
-    type: 'bar',
+  const theme = chartTheme();
+  const options = baseChartOptions(theme);
+  const series = [
+    ["الدخل", "income", theme.success],
+    ["المصاريف", "expenses", theme.danger],
+    ["سداد الديون", "debtPayment", theme.warning],
+    ["مساهمة الادخار", "savingsContribution", theme.primary],
+    ["الصافي", "cashAfter", theme.info],
+  ];
+  mountChart("cashFlowChart", {
+    type: "bar",
     data: {
-      labels: data.map(d => d.month.slice(5)),
-      datasets: [
-        {
-          label: 'الدخل',
-          data: data.map(d => d.income),
-          backgroundColor: '#10b981'
-        },
-        {
-          label: 'المصاريف',
-          data: data.map(d => d.expenses),
-          backgroundColor: '#ef4444'
-        },
-        {
-          label: 'سداد الديون',
-          data: data.map(d => d.debtPayment),
-          backgroundColor: '#f59e0b'
-        },
-        {
-          label: 'مساهمة الادخار',
-          data: data.map(d => d.savingsContribution),
-          backgroundColor: '#8b5cf6'
-        },
-        {
-          label: 'الصافي',
-          data: data.map(d => d.cashAfter),
-          backgroundColor: '#3b82f6'
-        }
-      ]
+      labels: data.map((d) => d.month.slice(5)),
+      datasets: series.map(([label, key, color]) => ({
+        label,
+        data: data.map((d) => d[key]),
+        backgroundColor: color,
+        borderRadius: 3,
+        borderSkipped: false,
+        maxBarThickness: 14,
+      })),
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: true,
+      ...options,
       plugins: {
-        legend: {
-          position: 'top',
-          rtl: true,
-          labels: {
-            font: {
-              family: "'Cairo', sans-serif"
-            }
-          }
-        },
+        ...options.plugins,
+        legend: { ...options.plugins.legend, position: "top" },
         tooltip: {
-          callbacks: {
-            label: function(context) {
-              return `${context.dataset.label}: ${fmt(context.raw)}`;
-            }
-          }
-        }
+          ...options.plugins.tooltip,
+          callbacks: { label: (context) => `${context.dataset.label}: ${fmt(context.raw)}` },
+        },
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(value) {
-              return fmt(value);
-            }
-          }
-        }
-      }
-    }
+    },
   });
 }
 
@@ -910,6 +929,7 @@ async function listPage(type) {
       ${
         rows.length
           ? `
+            <div class="table-responsive">
             <table>
 
               <thead>
@@ -997,6 +1017,7 @@ async function listPage(type) {
               </tbody>
 
             </table>
+            </div>
           `
           : `
             <div class="empty">
@@ -1474,6 +1495,7 @@ async function planPage() {
       ${
         plan.months.length
           ? `
+            <div class="table-responsive">
             <table>
 
               <thead>
@@ -1528,6 +1550,7 @@ async function planPage() {
               </tbody>
 
             </table>
+            </div>
           `
           : `
             <div class="empty">

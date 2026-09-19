@@ -10,6 +10,7 @@ const navItems = [
   ['Progress', '/dashboard/progress'],
   ['Goals', '/dashboard/goals'],
   ['Groups', '/dashboard/groups'],
+  ['Money', '/dashboard/money'],
   ['Live', '/dashboard/live'],
   ['Messages', '/dashboard/messages'],
   ['AI', '/dashboard/ai'],
