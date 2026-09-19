@@ -22,11 +22,11 @@ struct EntryStep: View {
         OnboardingScaffold(title: title, subtitle: subtitle) {
             VStack(spacing: 16) {
                 VStack(spacing: 12) {
-                    FieldRow(label: "الاسم", placeholder: namePlaceholder, text: $name)
-                    FieldRow(label: "المبلغ الشهري", placeholder: "0.00", text: $amount, keyboard: .decimalPad)
+                    FieldRow(label: "Name", placeholder: namePlaceholder, text: $name)
+                    FieldRow(label: "Monthly amount", placeholder: "0.00", text: $amount, keyboard: .decimalPad)
 
                     Button(action: add) {
-                        Label("إضافة", systemImage: "plus")
+                        Label("Add", systemImage: "plus")
                             .font(.subheadline.weight(.bold))
                             .foregroundStyle(canAdd ? accent : Theme.textTertiary)
                             .frame(maxWidth: .infinity)
@@ -54,7 +54,7 @@ struct EntryStep: View {
                     }
 
                     HStack {
-                        Text("المجموع")
+                        Text("Total")
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.textSecondary)
                         Spacer()
@@ -98,21 +98,21 @@ struct DebtStep: View {
 
     var body: some View {
         OnboardingScaffold(
-            title: "ما الديون التي تسددها؟",
-            subtitle: "الرصيد المتبقي والحد الأدنى للقسط. إن لم تكن تعرف نسبة الفائدة، اتركها صفرًا."
+            title: "Which debts are you paying off?",
+            subtitle: "The balance left and the minimum payment. If you don't know the interest rate, leave it at zero."
         ) {
             VStack(spacing: 16) {
                 VStack(spacing: 12) {
-                    FieldRow(label: "اسم الدين", placeholder: "مثال: بطاقة ائتمان", text: $name)
-                    FieldRow(label: "الرصيد المتبقي", placeholder: "0.00", text: $balance, keyboard: .decimalPad)
+                    FieldRow(label: "Debt name", placeholder: "e.g. Credit card", text: $name)
+                    FieldRow(label: "Remaining balance", placeholder: "0.00", text: $balance, keyboard: .decimalPad)
                     HStack(spacing: 12) {
-                        FieldRow(label: "الفائدة السنوية %", placeholder: "0", text: $apr, keyboard: .decimalPad)
-                        FieldRow(label: "الحد الأدنى", placeholder: "0.00", text: $minimum, keyboard: .decimalPad)
+                        FieldRow(label: "Annual interest %", placeholder: "0", text: $apr, keyboard: .decimalPad)
+                        FieldRow(label: "Minimum", placeholder: "0.00", text: $minimum, keyboard: .decimalPad)
                     }
-                    FieldRow(label: "يوم الاستحقاق (اختياري)", placeholder: "1–31", text: $dueDay, keyboard: .numberPad)
+                    FieldRow(label: "Due day (optional)", placeholder: "1–31", text: $dueDay, keyboard: .numberPad)
 
                     Button(action: add) {
-                        Label("إضافة دين", systemImage: "plus")
+                        Label("Add debt", systemImage: "plus")
                             .font(.subheadline.weight(.bold))
                             .foregroundStyle(canAdd ? Theme.red : Theme.textTertiary)
                             .frame(maxWidth: .infinity)
@@ -141,7 +141,7 @@ struct DebtStep: View {
                 }
             }
         } actions: {
-            PrimaryButton(title: debts.isEmpty ? "ليس لديّ ديون" : "متابعة", action: onContinue)
+            PrimaryButton(title: debts.isEmpty ? "I have no debts" : "Continue", action: onContinue)
         }
     }
 

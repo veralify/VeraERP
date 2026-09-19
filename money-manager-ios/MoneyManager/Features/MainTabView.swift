@@ -8,10 +8,10 @@ struct MainTabView: View {
 
     private var title: LocalizedStringKey {
         switch selection {
-        case 1:  "التحليلات"
-        case 2:  "التنبيهات"
-        case 3:  "الحساب"
-        default: "لوحة التحكم"
+        case 1:  "Analytics"
+        case 2:  "Alerts"
+        case 3:  "Account"
+        default: "Dashboard"
         }
     }
 
@@ -28,7 +28,7 @@ struct MainTabView: View {
                 }
             }
 
-            FloatingTabBar(selection: $selection, actionTitle: "إضافة") {
+            FloatingTabBar(selection: $selection, actionTitle: "Add") {
                 isAddingEntry = true
             }
             .padding(.bottom, 8)

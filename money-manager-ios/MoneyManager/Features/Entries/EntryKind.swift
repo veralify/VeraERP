@@ -9,24 +9,24 @@ enum EntryKind: String, CaseIterable, Identifiable, Hashable {
 
     var shortTitle: LocalizedStringKey {
         switch self {
-        case .income:  "دخل"
-        case .expense: "مصروف"
-        case .debt:    "دين"
+        case .income:  "Income"
+        case .expense: "Expense"
+        case .debt:    "Debt"
         }
     }
 
     var listTitle: LocalizedStringKey {
         switch self {
-        case .income:  "مصادر الدخل"
-        case .expense: "المصاريف الثابتة"
-        case .debt:    "الديون"
+        case .income:  "Income sources"
+        case .expense: "Fixed expenses"
+        case .debt:    "Debts"
         }
     }
 
     var amountLabel: LocalizedStringKey {
         switch self {
-        case .debt: "الرصيد المتبقي"
-        default:    "المبلغ الشهري"
+        case .debt: "Remaining balance"
+        default:    "Monthly amount"
         }
     }
 
@@ -40,9 +40,9 @@ enum EntryKind: String, CaseIterable, Identifiable, Hashable {
 
     var emptyMessage: LocalizedStringKey {
         switch self {
-        case .income:  "أضف راتبك أو أي دخل شهري آخر."
-        case .expense: "أضف الإيجار والفواتير وأي التزام شهري متكرر."
-        case .debt:    "أضف ديونك لنحسب لك خطة السداد."
+        case .income:  "Add your salary or any other monthly income."
+        case .expense: "Add rent, bills and any recurring monthly commitment."
+        case .debt:    "Add your debts and we'll build your payoff plan."
         }
     }
 

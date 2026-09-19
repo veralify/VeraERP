@@ -57,7 +57,7 @@ struct SankeyChart: View {
             .environment(\.layoutDirection, .leftToRight)
         }
         .accessibilityElement()
-        .accessibilityLabel("مخطط تدفق الأموال")
+        .accessibilityLabel("Money flow diagram")
         .accessibilityValue(accessibilitySummary)
     }
 
@@ -159,7 +159,7 @@ struct SankeyChart: View {
                 let label = targets.first { $0.id == band.id }?.label ?? band.id
                 return "\(label) \(CurrencyFormat.string(band.value))"
             }
-            .joined(separator: "، ")
+            .joined(separator: String(localized: ", "))
     }
 }
 

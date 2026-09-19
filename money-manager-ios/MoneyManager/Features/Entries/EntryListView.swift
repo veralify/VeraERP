@@ -36,7 +36,7 @@ struct EntryListView: View {
             if targets.isEmpty {
                 EmptyStateView(
                     icon: kind.emptyIcon,
-                    title: "لا توجد بنود بعد",
+                    title: "Nothing here yet",
                     message: kind.emptyMessage
                 )
             } else {
@@ -67,7 +67,7 @@ struct EntryListView: View {
                         .font(.system(size: 15, weight: .bold))
                         .foregroundStyle(Theme.lime)
                 }
-                .accessibilityLabel("إضافة")
+                .accessibilityLabel("Add")
             }
         }
         .sheet(item: $editing) { target in
@@ -82,7 +82,7 @@ struct EntryListView: View {
 
     private var totalCard: some View {
         HStack {
-            Text(kind == .debt ? "إجمالي الرصيد" : "المجموع الشهري")
+            Text(kind == .debt ? "Total balance" : "Monthly total")
                 .font(.subheadline)
                 .foregroundStyle(Theme.textSecondary)
             Spacer(minLength: 8)
@@ -136,10 +136,10 @@ struct EntryListView: View {
             Button(role: .destructive) {
                 delete(target)
             } label: {
-                Label("حذف", systemImage: "trash")
+                Label("Delete", systemImage: "trash")
             }
         }
-        .accessibilityHint("افتح للتعديل، أو اضغط مطولًا للحذف")
+        .accessibilityHint("Open to edit, or press and hold to delete")
     }
 
     // MARK: - Row content
@@ -165,11 +165,11 @@ struct EntryListView: View {
         case .income:
             return nil
         case .expense(let item):
-            return item.dueDay.map { "يوم الاستحقاق \($0)" }
+            return item.dueDay.map { String(localized: "Due on day \($0)") }
         case .debt(let item):
-            var parts = ["الحد الأدنى \(CurrencyFormat.string(item.minimumPayment))"]
-            if item.apr > 0 { parts.append("\(item.apr.percentText)% فائدة") }
-            if let day = item.dueDay { parts.append("يوم \(day)") }
+            var parts = [String(localized: "Minimum \(CurrencyFormat.string(item.minimumPayment))")]
+            if item.apr > 0 { parts.append(String(localized: "\(item.apr.percentText)% interest")) }
+            if let day = item.dueDay { parts.append(String(localized: "day \(day)")) }
             return parts.joined(separator: " · ")
         }
     }

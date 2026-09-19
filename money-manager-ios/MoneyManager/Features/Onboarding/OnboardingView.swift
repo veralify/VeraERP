@@ -48,11 +48,11 @@ struct OnboardingView: View {
                             .background(Theme.surface, in: .circle)
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel("رجوع")
+                    .accessibilityLabel("Back")
 
                     Spacer()
 
-                    Text("الخطوة \(index + 1) من \(OnboardingStep.progressSteps.count)")
+                    Text("Step \(index + 1) of \(OnboardingStep.progressSteps.count)")
                         .font(.footnote.weight(.semibold))
                         .foregroundStyle(Theme.textSecondary)
                 }
@@ -89,19 +89,19 @@ struct OnboardingView: View {
                     .frame(width: 62, height: 62)
                     .background(Theme.lime, in: .rect(cornerRadius: 18))
 
-                Text("أموالك، بخطة واضحة")
+                Text("Your money, with a clear plan")
                     .font(.system(size: 34, weight: .bold))
                     .foregroundStyle(Theme.textPrimary)
 
-                Text("سجّل دخلك ومصاريفك وديونك، ثم احصل على خطة سداد شهرية تعرف بالضبط متى تنتهي.")
+                Text("Record your income, expenses and debts, then get a monthly payoff plan that tells you exactly when you'll be done.")
                     .font(.body)
                     .foregroundStyle(Theme.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
 
                 VStack(alignment: .leading, spacing: 12) {
-                    highlight(icon: "chart.line.downtrend.xyaxis", text: "خطة سداد بطريقة الأعلى فائدة أولًا")
-                    highlight(icon: "bell.badge", text: "تابع استحقاقاتك القادمة قبل موعدها")
-                    highlight(icon: "lock.shield", text: "بياناتك محفوظة على جهازك فقط")
+                    highlight(icon: "chart.line.downtrend.xyaxis", text: "A payoff plan that clears the priciest debt first")
+                    highlight(icon: "bell.badge", text: "See what's due before it lands")
+                    highlight(icon: "lock.shield", text: "Your data stays on your device")
                 }
                 .padding(.top, 6)
             }
@@ -111,8 +111,8 @@ struct OnboardingView: View {
             Spacer()
 
             VStack(spacing: 10) {
-                PrimaryButton(title: "لنبدأ الإعداد") { step = .income }
-                SecondaryButton(title: "تجربة ببيانات نموذجية") { finishWithSampleData() }
+                PrimaryButton(title: "Let's set up") { step = .income }
+                SecondaryButton(title: "Try it with sample data") { finishWithSampleData() }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 8)
@@ -135,24 +135,24 @@ struct OnboardingView: View {
 
     private var incomeStep: some View {
         EntryStep(
-            title: "ما مصادر دخلك؟",
-            subtitle: "أضف صافي ما تستلمه شهريًا. يمكنك تعديل ذلك لاحقًا.",
-            namePlaceholder: "مثال: الراتب",
+            title: "What do you earn?",
+            subtitle: "Add what you actually receive each month. You can change this later.",
+            namePlaceholder: "e.g. Salary",
             accent: Theme.lime,
             entries: $income,
-            primaryTitle: income.isEmpty ? "تخطٍّ" : "متابعة",
+            primaryTitle: income.isEmpty ? "Skip" : "Continue",
             onContinue: { step = .expenses }
         )
     }
 
     private var expensesStep: some View {
         EntryStep(
-            title: "ما مصاريفك الثابتة؟",
-            subtitle: "الإيجار، الفواتير، الاشتراكات — أي التزام شهري متكرر. لا تُدرج أقساط الديون هنا؛ ستضيفها في الخطوة التالية.",
-            namePlaceholder: "مثال: الإيجار",
+            title: "What are your fixed expenses?",
+            subtitle: "Rent, bills, subscriptions — any recurring monthly commitment. Don't include debt payments here; you'll add those next.",
+            namePlaceholder: "e.g. Rent",
             accent: Theme.yellow,
             entries: $expenses,
-            primaryTitle: expenses.isEmpty ? "تخطٍّ" : "متابعة",
+            primaryTitle: expenses.isEmpty ? "Skip" : "Continue",
             onContinue: { step = .debts }
         )
     }
@@ -166,8 +166,8 @@ struct OnboardingView: View {
 
     private var targetStep: some View {
         OnboardingScaffold(
-            title: "خلال كم شهر تريد إنهاء ديونك؟",
-            subtitle: "سنحسب القسط الشهري اللازم، ونخبرك بصراحة إن كانت المدة غير واقعية بدخلك الحالي."
+            title: "In how many months do you want to be debt free?",
+            subtitle: "We'll work out the monthly payment needed, and tell you honestly if the period isn't realistic on your income."
         ) {
             VStack(spacing: 18) {
                 Text("\(targetMonths)")
@@ -178,14 +178,14 @@ struct OnboardingView: View {
                     .padding(.vertical, 22)
                     .background(Theme.lime, in: .rect(cornerRadius: Theme.Radius.card))
                     .overlay(alignment: .bottom) {
-                        Text("شهرًا")
+                        Text("months")
                             .font(.footnote.weight(.bold))
                             .foregroundStyle(Theme.lime.readableForeground.opacity(0.7))
                             .padding(.bottom, 12)
                     }
 
                 Stepper(value: $targetMonths, in: 3...120, step: 1) {
-                    Text("المدة المستهدفة")
+                    Text("Target period")
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Theme.textPrimary)
                 }
@@ -214,35 +214,35 @@ struct OnboardingView: View {
                 }
             }
         } actions: {
-            PrimaryButton(title: "متابعة") { step = .summary }
+            PrimaryButton(title: "Continue") { step = .summary }
         }
     }
 
     private var summaryStep: some View {
         let plan = previewPlan()
         return OnboardingScaffold(
-            title: "هذه خطتك",
-            subtitle: "راجع الأرقام قبل البدء. كل شيء قابل للتعديل لاحقًا."
+            title: "Here's your plan",
+            subtitle: "Check the numbers before you start. Everything can be changed later."
         ) {
             VStack(spacing: 14) {
                 AccentCard(
-                    eyebrow: "صافي التدفق المتاح",
+                    eyebrow: "Net available flow",
                     amount: netCashFlow,
-                    caption: netCashFlow >= 0 ? "بعد المصاريف والأقساط" : "التزاماتك تتجاوز دخلك",
+                    caption: netCashFlow >= 0 ? "After expenses and payments" : "Your commitments exceed your income",
                     progress: 0,
-                    progressLabel: "\(targetMonths) شهر",
+                    progressLabel: String(localized: "\(targetMonths) months"),
                     accent: netCashFlow >= 0 ? Theme.lime : Theme.red
                 )
 
                 GroupedCard {
-                    summaryRow("الدخل الشهري", totalIncome, Theme.green)
+                    summaryRow("Monthly income", totalIncome, Theme.green)
                     RowDivider()
-                    summaryRow("المصاريف الثابتة", totalExpenses, Theme.yellow)
+                    summaryRow("Fixed expenses", totalExpenses, Theme.yellow)
                     RowDivider()
-                    summaryRow("إجمالي الديون", totalDebt, Theme.red)
+                    summaryRow("Total debt", totalDebt, Theme.red)
                     if !debts.isEmpty {
                         RowDivider()
-                        summaryRow("القسط الشهري المطلوب", plan.requiredMonthly, Theme.blue)
+                        summaryRow("Monthly payment needed", plan.requiredMonthly, Theme.blue)
                     }
                 }
 
@@ -252,7 +252,7 @@ struct OnboardingView: View {
                     HStack(alignment: .top, spacing: 10) {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundStyle(Theme.red)
-                        Text("بدخلك الحالي، هذه المدة غير واقعية. جرّب مدة أطول أو راجع مصاريفك.")
+                        Text("On your current income this period isn't realistic. Try a longer one, or review your expenses.")
                             .font(.footnote)
                             .foregroundStyle(Theme.textPrimary)
                             .fixedSize(horizontal: false, vertical: true)
@@ -263,9 +263,9 @@ struct OnboardingView: View {
                 }
             }
         } actions: {
-            PrimaryButton(title: "ابدأ الاستخدام") { finish() }
+            PrimaryButton(title: "Get started") { finish() }
             if !debts.isEmpty && !plan.isFeasible {
-                SecondaryButton(title: "تعديل المدة") { step = .target }
+                SecondaryButton(title: "Adjust the period") { step = .target }
             }
         }
     }

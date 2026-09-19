@@ -244,10 +244,10 @@ struct FloatingTabBar: View {
     let onAction: () -> Void
 
     private let tabs: [(icon: String, label: LocalizedStringKey)] = [
-        ("house.fill", "الرئيسية"),
-        ("chart.pie.fill", "التحليلات"),
-        ("bell.fill", "التنبيهات"),
-        ("person.fill", "الحساب")
+        ("house.fill", "Home"),
+        ("chart.pie.fill", "Analytics"),
+        ("bell.fill", "Alerts"),
+        ("person.fill", "Account")
     ]
 
     var body: some View {

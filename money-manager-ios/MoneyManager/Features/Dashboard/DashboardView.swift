@@ -33,13 +33,13 @@ struct DashboardView: View {
     /// The headline figure, on a fill that states whether it is good news.
     private var heroCard: some View {
         AccentCard(
-            eyebrow: "صافي التدفق المتاح",
+            eyebrow: "Net available flow",
             amount: summary.netCashFlow,
             caption: summary.netCashFlow >= 0
-                ? "بعد المصاريف والأقساط"
-                : "التزاماتك تتجاوز دخلك هذا الشهر",
+                ? "After expenses and payments"
+                : "Your commitments exceed your income this month",
             progress: summary.progressFraction,
-            progressLabel: "\(summary.progressPercent)% مسدد",
+            progressLabel: String(localized: "\(summary.progressPercent)% paid off"),
             accent: summary.netCashFlow >= 0 ? Theme.lime : Theme.red
         )
     }
@@ -52,18 +52,20 @@ struct DashboardView: View {
                 style: .outlined(summary.plan.isFeasible ? Theme.lime : Theme.red)
             )
             Pill(
-                text: summary.plan.isFeasible ? "قابلة للتنفيذ" : "تحتاج تعديل",
+                text: summary.plan.isFeasible
+                    ? String(localized: "Achievable")
+                    : String(localized: "Needs adjusting"),
                 style: .muted(dot: summary.plan.isFeasible ? Theme.green : Theme.red)
             )
-            Pill(text: "\(summary.plan.targetMonths) شهر")
+            Pill(text: String(localized: "\(summary.plan.targetMonths) months"))
             Spacer(minLength: 0)
         }
     }
 
     private var breakdown: some View {
         VStack(spacing: 12) {
-            SectionHeader(title: "التدفق الشهري") {
-                Text("\(income.count + expenses.count) بند")
+            SectionHeader(title: "Monthly flow") {
+                Text("\(income.count + expenses.count) items")
                     .font(.subheadline)
                     .foregroundStyle(Theme.textSecondary)
             }
@@ -71,12 +73,12 @@ struct DashboardView: View {
             GroupedCard {
                 NavigationLink(value: EntryKind.income) {
                     DetailRow(
-                        title: "الدخل الشهري",
-                        subtitle: "مجموع مصادر الدخل النشطة.",
+                        title: "Monthly income",
+                        subtitle: "The sum of your active income sources.",
                         value: CurrencyFormat.string(summary.totalIncome),
-                        statusText: "نشط",
+                        statusText: String(localized: "Active"),
                         statusDot: Theme.green,
-                        tag: "دخل",
+                        tag: String(localized: "Income"),
                         tagColor: Theme.lime
                     )
                 }
@@ -86,12 +88,12 @@ struct DashboardView: View {
 
                 NavigationLink(value: EntryKind.expense) {
                     DetailRow(
-                        title: "المصاريف الأساسية",
-                        subtitle: "الالتزامات الشهرية الثابتة.",
+                        title: "Core expenses",
+                        subtitle: "Your fixed monthly commitments.",
                         value: CurrencyFormat.string(summary.totalExpenses),
-                        statusText: "شهري",
+                        statusText: String(localized: "Monthly"),
                         statusDot: Theme.yellow,
-                        tag: "مصروف",
+                        tag: String(localized: "Expense"),
                         tagColor: Theme.yellow
                     )
                 }
@@ -101,12 +103,12 @@ struct DashboardView: View {
 
                 NavigationLink(value: EntryKind.debt) {
                     DetailRow(
-                        title: "أقساط الديون",
-                        subtitle: "الحد الأدنى المستحق على كل الديون.",
+                        title: "Debt payments",
+                        subtitle: "The minimum due across all your debts.",
                         value: CurrencyFormat.string(summary.totalDebtMinimums),
-                        statusText: "مستحق",
+                        statusText: String(localized: "Due"),
                         statusDot: Theme.red,
-                        tag: "قسط",
+                        tag: String(localized: "Payment"),
                         tagColor: Theme.red
                     )
                 }
@@ -117,7 +119,7 @@ struct DashboardView: View {
 
     private var debtList: some View {
         VStack(spacing: 12) {
-            SectionHeader(title: "الديون") {
+            SectionHeader(title: "Debts") {
                 Text(CurrencyFormat.string(summary.totalDebt))
                     .font(.subheadline.weight(.bold))
                     .monospacedDigit()
@@ -130,11 +132,13 @@ struct DashboardView: View {
                     NavigationLink(value: EntryKind.debt) {
                     DetailRow(
                         title: LocalizedStringKey(debt.name),
-                        subtitle: "الحد الأدنى \(CurrencyFormat.string(debt.minimumPayment)) شهريًا.",
+                        subtitle: "Minimum \(CurrencyFormat.string(debt.minimumPayment)) per month.",
                         value: CurrencyFormat.string(debt.balance),
-                        statusText: debt.apr > 0 ? "\(debt.apr.percentText)% فائدة" : "بدون فائدة",
+                        statusText: debt.apr > 0
+                            ? String(localized: "\(debt.apr.percentText)% interest")
+                            : String(localized: "No interest"),
                         statusDot: debt.apr > 0 ? Theme.red : Theme.green,
-                        tag: debt.apr > 0 ? "أولوية" : "عادي",
+                        tag: debt.apr > 0 ? String(localized: "Priority") : String(localized: "Standard"),
                         tagColor: debt.apr > 0 ? Theme.red : Theme.blue
                     )
                     }

@@ -26,9 +26,9 @@ struct AnalyticsView: View {
     private var allocation: [Slice] {
         let leftover = max(0, summary.netCashFlow)
         return [
-            Slice(label: "المصاريف", amount: summary.totalExpenses, color: Theme.yellow),
-            Slice(label: "أقساط الديون", amount: summary.totalDebtMinimums, color: Theme.red),
-            Slice(label: "المتبقي", amount: leftover, color: Theme.lime)
+            Slice(label: String(localized: "Expenses"), amount: summary.totalExpenses, color: Theme.yellow),
+            Slice(label: String(localized: "Debt payments"), amount: summary.totalDebtMinimums, color: Theme.red),
+            Slice(label: String(localized: "Left over"), amount: leftover, color: Theme.lime)
         ].filter { $0.amount > 0 }
     }
 
@@ -42,7 +42,7 @@ struct AnalyticsView: View {
         guard active.count > 3 else {
             return active.map { SankeyChart.Node(id: "exp-\($0.persistentModelID.hashValue)", label: $0.name, color: Theme.yellow) }
         }
-        return [SankeyChart.Node(id: "exp-all", label: "المصاريف", color: Theme.yellow)]
+        return [SankeyChart.Node(id: "exp-all", label: String(localized: "Expenses"), color: Theme.yellow)]
     }
 
     private var expenseAmounts: [String: Decimal] {
@@ -66,7 +66,7 @@ struct AnalyticsView: View {
         var labels: [(id: String, label: String)] = expenseNodes.map { ($0.id, $0.label) }
         labels += debts.map { ("debt-\($0.remoteID)", $0.name) }
         if summary.netCashFlow > 0 {
-            labels.append(("left", "المتبقي"))
+            labels.append(("left", String(localized: "Left over")))
         }
         return labels.enumerated().map { index, item in
             SankeyChart.Node(id: item.id, label: item.label, color: Theme.categorical(index))
@@ -107,7 +107,7 @@ struct AnalyticsView: View {
     private var sankeyCard: some View {
         SankeyCard(
             total: summary.totalIncome,
-            caption: "إجمالي المخصص شهريًا",
+            caption: "Allocated each month",
             sources: sankeySources,
             targets: sankeyTargets,
             flows: sankeyFlows
@@ -133,8 +133,8 @@ struct AnalyticsView: View {
             } else {
                 EmptyStateView(
                     icon: "chart.pie",
-                    title: "لا توجد بيانات بعد",
-                    message: "أضف دخلك ومصاريفك لترى تحليلًا لتدفقك الشهري."
+                    title: "No data yet",
+                    message: "Add your income and expenses to see how your month breaks down."
                 )
                 .padding(.top, 60)
             }
@@ -143,16 +143,16 @@ struct AnalyticsView: View {
     }
 
     private var allocationCard: some View {
-        ChartCard(title: "إلى أين يذهب دخلك", subtitle: "توزيع دخلك الشهري") {
+        ChartCard(title: "Where your income goes", subtitle: "How your monthly income splits") {
             if allocation.isEmpty {
-                Text("لا توجد التزامات لعرضها.")
+                Text("No commitments to show.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.textSecondary)
                     .frame(maxWidth: .infinity, minHeight: 200)
             } else {
                 Chart(allocation) { slice in
                     SectorMark(
-                        angle: .value("المبلغ", (slice.amount as NSDecimalNumber).doubleValue),
+                        angle: .value("Amount", (slice.amount as NSDecimalNumber).doubleValue),
                         innerRadius: .ratio(0.62),
                         angularInset: 2
                     )
@@ -184,11 +184,11 @@ struct AnalyticsView: View {
     }
 
     private var payoffCard: some View {
-        ChartCard(title: "تخفيض الديون بمرور الوقت", subtitle: "الرصيد المتبقي شهرًا بشهر") {
+        ChartCard(title: "Debt reduction over time", subtitle: "Remaining balance, month by month") {
             Chart(Array(summary.plan.months.enumerated()), id: \.offset) { index, month in
                 AreaMark(
-                    x: .value("الشهر", index),
-                    y: .value("المتبقي", (month.remainingDebt as NSDecimalNumber).doubleValue)
+                    x: .value("Month", index),
+                    y: .value("Left over", (month.remainingDebt as NSDecimalNumber).doubleValue)
                 )
                 .foregroundStyle(
                     .linearGradient(
@@ -198,8 +198,8 @@ struct AnalyticsView: View {
                     )
                 )
                 LineMark(
-                    x: .value("الشهر", index),
-                    y: .value("المتبقي", (month.remainingDebt as NSDecimalNumber).doubleValue)
+                    x: .value("Month", index),
+                    y: .value("Left over", (month.remainingDebt as NSDecimalNumber).doubleValue)
                 )
                 .foregroundStyle(Theme.lime)
                 .lineStyle(StrokeStyle(lineWidth: 2.5))
@@ -234,11 +234,11 @@ struct AnalyticsView: View {
     }
 
     private var debtMixCard: some View {
-        ChartCard(title: "الديون حسب الرصيد", subtitle: "أيها يستهلك أكبر قدر") {
+        ChartCard(title: "Debts by balance", subtitle: "Which one takes the most") {
             Chart(debts, id: \.remoteID) { debt in
                 BarMark(
-                    x: .value("الرصيد", (debt.balance as NSDecimalNumber).doubleValue),
-                    y: .value("الدين", debt.name)
+                    x: .value("Balance", (debt.balance as NSDecimalNumber).doubleValue),
+                    y: .value("Debt", debt.name)
                 )
                 .foregroundStyle(debt.apr > 0 ? Theme.red : Theme.blue)
                 .cornerRadius(6)

@@ -60,7 +60,7 @@ struct EntryChipRow: View {
                     .background(Theme.surfaceElevated, in: .circle)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("حذف \(title)")
+            .accessibilityLabel(Text("Delete \(title)"))
         }
         .padding(.vertical, 10)
     }
@@ -122,7 +122,7 @@ struct StepProgress: View {
             }
         }
         .accessibilityElement()
-        .accessibilityLabel("الخطوة \(current + 1) من \(total)")
+        .accessibilityLabel(Text("Step \(current + 1) of \(total)"))
     }
 }
 

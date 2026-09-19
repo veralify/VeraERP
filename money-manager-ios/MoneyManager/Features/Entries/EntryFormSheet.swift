@@ -86,7 +86,7 @@ struct EntryFormSheet: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         if !kindIsFixed {
-                            Picker("النوع", selection: $kind) {
+                            Picker("Type", selection: $kind) {
                                 ForEach(EntryKind.allCases) { option in
                                     Text(option.shortTitle).tag(option)
                                 }
@@ -95,7 +95,7 @@ struct EntryFormSheet: View {
                         }
 
                         VStack(spacing: 12) {
-                            FieldRow(label: "الاسم", placeholder: "الاسم", text: $name)
+                            FieldRow(label: "Name", placeholder: "Name", text: $name)
                             FieldRow(
                                 label: kind.amountLabel,
                                 placeholder: "0.00",
@@ -104,14 +104,14 @@ struct EntryFormSheet: View {
                             )
                             if kind == .debt {
                                 HStack(spacing: 12) {
-                                    FieldRow(label: "الفائدة السنوية %", placeholder: "0", text: $apr, keyboard: .decimalPad)
-                                    FieldRow(label: "الحد الأدنى", placeholder: "0.00", text: $minimum, keyboard: .decimalPad)
+                                    FieldRow(label: "Annual interest %", placeholder: "0", text: $apr, keyboard: .decimalPad)
+                                    FieldRow(label: "Minimum", placeholder: "0.00", text: $minimum, keyboard: .decimalPad)
                                 }
                             }
                             // Income has no due date; the other two drive alerts.
                             if kind != .income {
                                 FieldRow(
-                                    label: "يوم الاستحقاق (اختياري)",
+                                    label: "Due day (optional)",
                                     placeholder: "1–31",
                                     text: $dueDay,
                                     keyboard: .numberPad
@@ -121,13 +121,13 @@ struct EntryFormSheet: View {
                         .padding(16)
                         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
 
-                        PrimaryButton(title: "حفظ", enabled: canSave, action: save)
+                        PrimaryButton(title: "Save", enabled: canSave, action: save)
 
                         if isEditing {
                             Button(role: .destructive) {
                                 isConfirmingDelete = true
                             } label: {
-                                Text("حذف")
+                                Text("Delete")
                                     .font(.subheadline.weight(.bold))
                                     .foregroundStyle(Theme.red)
                                     .frame(maxWidth: .infinity)
@@ -141,21 +141,21 @@ struct EntryFormSheet: View {
                 }
                 .scrollIndicators(.hidden)
             }
-            .navigationTitle(isEditing ? "تعديل" : "إضافة")
+            .navigationTitle(isEditing ? "Edit" : "Add")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("إلغاء") { dismiss() }
+                    Button("Cancel") { dismiss() }
                         .foregroundStyle(Theme.textSecondary)
                 }
             }
             .toolbarBackground(Theme.background, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .confirmationDialog("حذف هذا البند؟", isPresented: $isConfirmingDelete, titleVisibility: .visible) {
-                Button("حذف", role: .destructive) { delete() }
-                Button("إلغاء", role: .cancel) {}
+            .confirmationDialog("Delete this item?", isPresented: $isConfirmingDelete, titleVisibility: .visible) {
+                Button("Delete", role: .destructive) { delete() }
+                Button("Cancel", role: .cancel) {}
             } message: {
-                Text("لا يمكن التراجع عن هذا الإجراء.")
+                Text("This cannot be undone.")
             }
         }
     }

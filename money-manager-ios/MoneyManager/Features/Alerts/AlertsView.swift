@@ -60,8 +60,8 @@ struct AlertsView: View {
                 if hasDeficit {
                     AlertBanner(
                         icon: "exclamationmark.triangle.fill",
-                        title: "التزاماتك تتجاوز دخلك",
-                        message: "أنت بالسالب \(CurrencyFormat.string(abs(summary.netCashFlow))) شهريًا. راجع المصاريف أو الأقساط.",
+                        title: "Your commitments exceed your income",
+                        message: "You're \(CurrencyFormat.string(abs(summary.netCashFlow))) short each month. Review your expenses or payments.",
                         accent: Theme.red
                     )
                 }
@@ -69,8 +69,8 @@ struct AlertsView: View {
                 if hasPlanWarning {
                     AlertBanner(
                         icon: "calendar.badge.exclamationmark",
-                        title: "الخطة غير قابلة للتنفيذ",
-                        message: "تحتاج \(CurrencyFormat.string(summary.plan.requiredMonthly)) شهريًا خلال \(summary.plan.targetMonths) شهرًا، وهو أكثر مما هو متاح.",
+                        title: "This plan isn't achievable",
+                        message: "You'd need \(CurrencyFormat.string(summary.plan.requiredMonthly)) a month across \(summary.plan.targetMonths) months, which is more than you have.",
                         accent: Theme.yellow
                     )
                 }
@@ -79,12 +79,12 @@ struct AlertsView: View {
                     if !hasDeficit && !hasPlanWarning {
                         EmptyStateView(
                             icon: "checkmark.circle",
-                            title: "لا شيء يحتاج انتباهك",
-                            message: "لا توجد استحقاقات خلال الثلاثين يومًا القادمة."
+                            title: "Nothing needs your attention",
+                            message: "Nothing is due in the next 30 days."
                         )
                         .padding(.top, 40)
                     } else {
-                        Text("لا توجد استحقاقات خلال الثلاثين يومًا القادمة.")
+                        Text("Nothing is due in the next 30 days.")
                             .font(.subheadline)
                             .foregroundStyle(Theme.textSecondary)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -92,7 +92,7 @@ struct AlertsView: View {
                     }
                 } else {
                     VStack(spacing: 12) {
-                        SectionHeader(title: "استحقاقات قادمة") {
+                        SectionHeader(title: "Upcoming payments") {
                             Text("\(upcoming.count)")
                                 .font(.subheadline.weight(.bold))
                                 .monospacedDigit()
@@ -110,7 +110,7 @@ struct AlertsView: View {
 
                 // A due date can only be tracked if one was recorded.
                 if missingDueDates > 0 {
-                    Text("\(missingDueDates) بندًا بلا تاريخ استحقاق، لذا لا يمكن تنبيهك بشأنها.")
+                    Text("\(missingDueDates) items have no due date, so they can't be flagged.")
                         .font(.caption)
                         .foregroundStyle(Theme.textTertiary)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -145,11 +145,13 @@ struct AlertsView: View {
 
             HStack(spacing: 10) {
                 Pill(
-                    text: bill.daysUntil == 0 ? "اليوم" : "بعد \(bill.daysUntil) يوم",
+                    text: bill.daysUntil == 0
+                        ? String(localized: "Today")
+                        : String(localized: "in \(bill.daysUntil) days"),
                     style: .muted(dot: urgent ? Theme.red : Theme.blue)
                 )
                 Pill(
-                    text: bill.isDebt ? "قسط" : "مصروف",
+                    text: bill.isDebt ? String(localized: "Payment") : String(localized: "Expense"),
                     style: .accent(bill.isDebt ? Theme.red : Theme.yellow)
                 )
                 Spacer(minLength: 0)

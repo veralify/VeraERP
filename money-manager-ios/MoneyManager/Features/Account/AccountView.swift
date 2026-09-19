@@ -36,24 +36,24 @@ struct AccountView: View {
         }
         .scrollIndicators(.hidden)
         .confirmationDialog(
-            "حذف كل البيانات؟",
+            "Delete all data?",
             isPresented: $isConfirmingReset,
             titleVisibility: .visible
         ) {
-            Button("حذف كل شيء", role: .destructive) { resetEverything() }
-            Button("إلغاء", role: .cancel) {}
+            Button("Delete everything", role: .destructive) { resetEverything() }
+            Button("Cancel", role: .cancel) {}
         } message: {
-            Text("سيُحذف دخلك ومصاريفك وديونك نهائيًا، وتبدأ الإعداد من جديد. لا يمكن التراجع.")
+            Text("Your income, expenses and debts will be permanently deleted and setup will start again. This cannot be undone.")
         }
     }
 
     private var planCard: some View {
         VStack(spacing: 12) {
-            SectionHeader(title: "الخطة") { EmptyView() }
+            SectionHeader(title: "Plan") { EmptyView() }
 
             GroupedCard {
                 HStack {
-                    Text("المدة المستهدفة")
+                    Text("Target period")
                         .font(.subheadline)
                         .foregroundStyle(Theme.textSecondary)
                     Spacer(minLength: 8)
@@ -68,7 +68,7 @@ struct AccountView: View {
                             EmptyView()
                         }
                         .labelsHidden()
-                        Text("\(planSettings.targetMonths) شهر")
+                        Text("\(planSettings.targetMonths) months")
                             .font(.subheadline.weight(.bold))
                             .monospacedDigit()
                             .foregroundStyle(Theme.textPrimary)
@@ -80,37 +80,37 @@ struct AccountView: View {
 
                 RowDivider()
 
-                infoRow("طريقة السداد", "الأعلى فائدة أولًا")
+                infoRow("Payoff method", String(localized: "Highest interest first"))
                 RowDivider()
-                infoRow("العملة", "EUR €")
+                infoRow("Currency", "EUR €")
             }
         }
     }
 
     private var dataCard: some View {
         VStack(spacing: 12) {
-            SectionHeader(title: "بياناتك") { EmptyView() }
+            SectionHeader(title: "Your data") { EmptyView() }
             GroupedCard {
-                infoRow("مصادر الدخل", "\(income.count)")
+                infoRow("Income sources", "\(income.count)")
                 RowDivider()
-                infoRow("المصاريف", "\(expenses.count)")
+                infoRow("Expenses", "\(expenses.count)")
                 RowDivider()
-                infoRow("الديون", "\(debts.count)")
+                infoRow("Debts", "\(debts.count)")
             }
         }
     }
 
     private var aboutCard: some View {
         VStack(spacing: 12) {
-            SectionHeader(title: "عن التطبيق") { EmptyView() }
+            SectionHeader(title: "About") { EmptyView() }
             GroupedCard {
-                infoRow("الإصدار", appVersion)
+                infoRow("Version", appVersion)
                 RowDivider()
                 HStack(alignment: .top, spacing: 10) {
                     Image(systemName: "lock.shield")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(Theme.lime)
-                    Text("بياناتك محفوظة على هذا الجهاز فقط، ولا تُرسل إلى أي خادم.")
+                    Text("Your data is stored on this device only and is never sent to a server.")
                         .font(.footnote)
                         .foregroundStyle(Theme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -125,7 +125,7 @@ struct AccountView: View {
         Button {
             isConfirmingReset = true
         } label: {
-            Text("حذف كل البيانات وإعادة الإعداد")
+            Text("Delete all data and start over")
                 .font(.subheadline.weight(.bold))
                 .foregroundStyle(Theme.red)
                 .frame(maxWidth: .infinity)
