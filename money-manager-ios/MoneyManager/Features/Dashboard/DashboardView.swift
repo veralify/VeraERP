@@ -8,45 +8,26 @@ struct DashboardView: View {
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
 
-    @State private var selectedTab = 0
-
     private var summary: DashboardSummary {
         DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
     }
 
+    /// Content only — the tab bar, title and add sheet belong to `MainTabView`,
+    /// so they persist across tab changes instead of being rebuilt per screen.
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Theme.background.ignoresSafeArea()
-
-            ScrollView {
-                VStack(spacing: 18) {
-                    heroCard
-                    planStrip
-                    breakdown
-                    debtList
-                }
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
-                // Clear the floating bar so the last row is never trapped under it.
-                .padding(.bottom, 108)
+        ScrollView {
+            VStack(spacing: 18) {
+                heroCard
+                planStrip
+                breakdown
+                debtList
             }
-            .scrollIndicators(.hidden)
-
-            FloatingTabBar(selection: $selectedTab, actionTitle: "إضافة") {
-                // Wired up with the add/edit flows.
-            }
-            .padding(.bottom, 8)
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            // Clear the floating bar so the last row is never trapped under it.
+            .padding(.bottom, 108)
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("لوحة التحكم")
-                    .font(.headline.weight(.semibold))
-                    .foregroundStyle(Theme.textPrimary)
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Theme.background, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .scrollIndicators(.hidden)
     }
 
     /// The headline figure, on a fill that states whether it is good news.
@@ -88,35 +69,48 @@ struct DashboardView: View {
             }
 
             GroupedCard {
-                DetailRow(
-                    title: "الدخل الشهري",
-                    subtitle: "مجموع مصادر الدخل النشطة.",
-                    value: CurrencyFormat.string(summary.totalIncome),
-                    statusText: "نشط",
-                    statusDot: Theme.green,
-                    tag: "دخل",
-                    tagColor: Theme.lime
-                )
+                NavigationLink(value: EntryKind.income) {
+                    DetailRow(
+                        title: "الدخل الشهري",
+                        subtitle: "مجموع مصادر الدخل النشطة.",
+                        value: CurrencyFormat.string(summary.totalIncome),
+                        statusText: "نشط",
+                        statusDot: Theme.green,
+                        tag: "دخل",
+                        tagColor: Theme.lime
+                    )
+                }
+                .buttonStyle(.plain)
+
                 RowDivider()
-                DetailRow(
-                    title: "المصاريف الأساسية",
-                    subtitle: "الالتزامات الشهرية الثابتة.",
-                    value: CurrencyFormat.string(summary.totalExpenses),
-                    statusText: "شهري",
-                    statusDot: Theme.yellow,
-                    tag: "مصروف",
-                    tagColor: Theme.yellow
-                )
+
+                NavigationLink(value: EntryKind.expense) {
+                    DetailRow(
+                        title: "المصاريف الأساسية",
+                        subtitle: "الالتزامات الشهرية الثابتة.",
+                        value: CurrencyFormat.string(summary.totalExpenses),
+                        statusText: "شهري",
+                        statusDot: Theme.yellow,
+                        tag: "مصروف",
+                        tagColor: Theme.yellow
+                    )
+                }
+                .buttonStyle(.plain)
+
                 RowDivider()
-                DetailRow(
-                    title: "أقساط الديون",
-                    subtitle: "الحد الأدنى المستحق على كل الديون.",
-                    value: CurrencyFormat.string(summary.totalDebtMinimums),
-                    statusText: "مستحق",
-                    statusDot: Theme.red,
-                    tag: "قسط",
-                    tagColor: Theme.red
-                )
+
+                NavigationLink(value: EntryKind.debt) {
+                    DetailRow(
+                        title: "أقساط الديون",
+                        subtitle: "الحد الأدنى المستحق على كل الديون.",
+                        value: CurrencyFormat.string(summary.totalDebtMinimums),
+                        statusText: "مستحق",
+                        statusDot: Theme.red,
+                        tag: "قسط",
+                        tagColor: Theme.red
+                    )
+                }
+                .buttonStyle(.plain)
             }
         }
     }
@@ -133,6 +127,7 @@ struct DashboardView: View {
             GroupedCard {
                 ForEach(Array(debts.enumerated()), id: \.element.remoteID) { index, debt in
                     if index > 0 { RowDivider() }
+                    NavigationLink(value: EntryKind.debt) {
                     DetailRow(
                         title: LocalizedStringKey(debt.name),
                         subtitle: "الحد الأدنى \(CurrencyFormat.string(debt.minimumPayment)) شهريًا.",
@@ -142,6 +137,8 @@ struct DashboardView: View {
                         tag: debt.apr > 0 ? "أولوية" : "عادي",
                         tagColor: debt.apr > 0 ? Theme.red : Theme.blue
                     )
+                    }
+                    .buttonStyle(.plain)
                 }
             }
         }

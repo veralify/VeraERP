@@ -36,6 +36,24 @@ enum Theme {
     /// For text and glyphs sitting on top of a vivid accent fill.
     static let onAccent = Color(hex: 0x0C0C0F)
 
+    /// Distinct hues for flow destinations.
+    ///
+    /// The dashboard colours by meaning (lime surplus, red deficit). A Sankey
+    /// cannot: several debts would all be red and their ribbons would be
+    /// indistinguishable, so destinations are told apart by hue instead.
+    static let categorical: [Color] = [
+        Color(hex: 0x9FC5F0),
+        Color(hex: 0x7FD98C),
+        Color(hex: 0xF2D14E),
+        Color(hex: 0xF0A0A0),
+        Color(hex: 0xB9A6F5),
+        Color(hex: 0x6FD6C8)
+    ]
+
+    static func categorical(_ index: Int) -> Color {
+        categorical[index % categorical.count]
+    }
+
     enum Radius {
         static let pill: CGFloat = 999
         static let card: CGFloat = 20

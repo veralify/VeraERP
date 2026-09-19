@@ -1,14 +1,16 @@
 import Foundation
 import SwiftData
 
-/// Seeds the same starting data the web app ships with, so the two surfaces can
-/// be compared side by side during the port.
+/// The same starting data the web app ships with, so the two surfaces can be
+/// compared side by side during the port.
 ///
-/// Temporary: replace with real onboarding before this ever reaches a user —
-/// shipping an app pre-filled with someone else's debts is not acceptable.
+/// This is opt-in: it runs only when someone picks "try with sample data" in
+/// onboarding. It is never seeded on launch — an app that opens pre-filled with
+/// somebody else's debts reads as a bug, and in this data set it reads as a
+/// deficit the user did not create.
 enum SampleData {
     @MainActor
-    static func seedIfEmpty(_ context: ModelContext) {
+    static func insertDemoData(_ context: ModelContext) {
         let existing = try? context.fetch(FetchDescriptor<IncomeSource>())
         guard existing?.isEmpty ?? true else { return }
 

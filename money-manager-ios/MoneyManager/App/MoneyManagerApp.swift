@@ -15,18 +15,11 @@ struct MoneyManagerApp: App {
             // empty app would look like data loss, so fail loudly in debug.
             fatalError("Could not open the Money Manager store: \(error)")
         }
-        SampleData.seedIfEmpty(container.mainContext)
     }
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                DashboardView()
-            }
-            .tint(Theme.lime)
-            // The design is dark-only: its accents are light, saturated tones
-            // that carry near-black text and have no light-mode counterpart yet.
-            .preferredColorScheme(.dark)
+            RootView()
         }
         .modelContainer(container)
     }
