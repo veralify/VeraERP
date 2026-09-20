@@ -25,6 +25,7 @@ struct EntryFormSheet: View {
     @State private var minimum: String
     @State private var dueDay: String
     @State private var isConfirmingDelete = false
+    @FocusState private var isEditingField: Bool
 
     init(mode: Mode) {
         self.mode = mode
@@ -95,12 +96,13 @@ struct EntryFormSheet: View {
                         }
 
                         VStack(spacing: 12) {
-                            FieldRow(label: "Name", placeholder: "Name", text: $name)
+                            FieldRow(label: "Name", placeholder: "Name", text: $name, focus: $isEditingField)
                             FieldRow(
                                 label: kind.amountLabel,
                                 placeholder: "0.00",
                                 text: $amount,
-                                keyboard: .decimalPad
+                                keyboard: .decimalPad,
+                                focus: $isEditingField
                             )
                             if kind == .debt {
                                 HStack(spacing: 12) {
@@ -134,12 +136,13 @@ struct EntryFormSheet: View {
                                     .padding(.vertical, 15)
                                     .background(Theme.red.opacity(0.13), in: .capsule)
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(.pressable)
                         }
                     }
                     .padding(20)
                 }
                 .scrollIndicators(.hidden)
+                .dismissibleKeyboard(focus: $isEditingField)
             }
             .navigationTitle(isEditing ? "Edit" : "Add")
             .navigationBarTitleDisplayMode(.inline)

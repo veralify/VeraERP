@@ -8,6 +8,14 @@ struct DashboardView: View {
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
 
+    /// Days until the nearest due payment, or nil when nothing is scheduled.
+    private var soonestDueInDays: Int? {
+        let now = Date()
+        let days = (expenses.filter(\.isActive).compactMap(\.dueDay) + debts.compactMap(\.dueDay))
+            .compactMap { BillSchedule.daysUntil(dueDay: $0, from: now) }
+        return days.min()
+    }
+
     private var summary: DashboardSummary {
         DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
     }
@@ -17,10 +25,14 @@ struct DashboardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 18) {
-                heroCard
-                planStrip
-                breakdown
-                debtList
+                heroCard.staggeredAppearance(0)
+                planStrip.staggeredAppearance(1)
+                ProgressSection(
+                    netCashFlow: summary.netCashFlow,
+                    soonestDueInDays: soonestDueInDays
+                )
+                breakdown.staggeredAppearance(3)
+                debtList.staggeredAppearance(4)
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)
@@ -82,7 +94,7 @@ struct DashboardView: View {
                         tagColor: Theme.lime
                     )
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressableRow)
 
                 RowDivider()
 
@@ -97,7 +109,7 @@ struct DashboardView: View {
                         tagColor: Theme.yellow
                     )
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressableRow)
 
                 RowDivider()
 
@@ -112,7 +124,7 @@ struct DashboardView: View {
                         tagColor: Theme.red
                     )
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressableRow)
             }
         }
     }
@@ -142,7 +154,7 @@ struct DashboardView: View {
                         tagColor: debt.apr > 0 ? Theme.red : Theme.blue
                     )
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.pressableRow)
                 }
             }
         }

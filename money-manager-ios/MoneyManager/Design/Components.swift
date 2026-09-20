@@ -237,43 +237,56 @@ struct RowDivider: View {
     }
 }
 
-/// Floating tab bar with a prominent accent action, as in the reference.
+/// Floating navigation: one capsule holding the destinations with the accent
+/// action inline, between them.
 struct FloatingTabBar: View {
     @Binding var selection: Int
     let actionTitle: LocalizedStringKey
+    /// When the action has opened something, it turns into a dismiss.
+    var isActionActive: Bool = false
     let onAction: () -> Void
 
     private let tabs: [(icon: String, label: LocalizedStringKey)] = [
         ("house.fill", "Home"),
-        ("chart.pie.fill", "Analytics"),
-        ("bell.fill", "Alerts"),
-        ("person.fill", "Account")
+        ("list.bullet.rectangle.fill", "Entries"),
+        ("chart.pie.fill", "Analytics")
     ]
+    /// Destinations before the action; the rest sit after it.
+    private let actionIndex = 2
 
     var body: some View {
         HStack(spacing: 4) {
-            tabButton(index: 0)
-            tabButton(index: 1)
-
-            Button(action: onAction) {
-                Text(actionTitle)
-                    .font(.subheadline.weight(.bold))
-                    .foregroundStyle(Theme.onAccent)
-                    .padding(.horizontal, 18)
-                    .padding(.vertical, 11)
-                    .background(Theme.lime, in: .capsule)
-            }
-            .buttonStyle(.plain)
-            .padding(.horizontal, 2)
-
-            tabButton(index: 2)
-            tabButton(index: 3)
+            ForEach(0..<actionIndex, id: \.self) { tabButton(index: $0) }
+            actionButton
+            ForEach(actionIndex..<tabs.count, id: \.self) { tabButton(index: $0) }
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 9)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 8)
         .background(Theme.surface, in: .capsule)
         .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
         .shadow(color: .black.opacity(0.5), radius: 18, y: 8)
+    }
+
+    private var actionButton: some View {
+        Button(action: onAction) {
+            Group {
+                if isActionActive {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 15, weight: .bold))
+                } else {
+                    Label(actionTitle, systemImage: "plus")
+                        .font(.subheadline.weight(.bold))
+                }
+            }
+            .foregroundStyle(isActionActive ? Theme.textPrimary : Theme.onAccent)
+            .frame(height: 40)
+            .padding(.horizontal, isActionActive ? 14 : 16)
+            .background(isActionActive ? Theme.surfaceElevated : Theme.lime, in: .capsule)
+        }
+        .buttonStyle(.pressable)
+        .padding(.horizontal, 2)
+        .animation(.bouncy(duration: 0.34), value: isActionActive)
+        .accessibilityLabel(isActionActive ? "Close" : actionTitle)
     }
 
     private func tabButton(index: Int) -> some View {
@@ -283,9 +296,10 @@ struct FloatingTabBar: View {
             Image(systemName: tabs[index].icon)
                 .font(.system(size: 17, weight: .medium))
                 .foregroundStyle(selection == index ? Theme.textPrimary : Theme.textTertiary)
-                .frame(width: 44, height: 40)
+                .symbolEffect(.bounce, value: selection == index)
+                .frame(width: 46, height: 40)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressable)
         .accessibilityLabel(tabs[index].label)
     }
 }

@@ -2,20 +2,11 @@ import SwiftUI
 import SwiftData
 import MoneyManagerCore
 
-/// What needs attention: an infeasible plan, then what falls due soonest.
-struct AlertsView: View {
-    @Query(sort: \IncomeSource.createdAt) private var income: [IncomeSource]
-    @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
-    @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
-    @Query private var settings: [PlanSettings]
-
-    /// Anything further out than this is not yet worth nagging about.
-    private let horizonDays = 30
-
-    private var summary: DashboardSummary {
-        DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
-    }
-
+/// What currently needs attention, derived once and shared.
+///
+/// Both the nav-bar badge and the alerts screen read this, so the badge can
+/// never claim a number the screen does not show.
+struct AlertsSummary {
     struct UpcomingBill: Identifiable {
         let id = UUID()
         let name: String
@@ -24,59 +15,139 @@ struct AlertsView: View {
         let isDebt: Bool
     }
 
-    private var upcoming: [UpcomingBill] {
-        let now = Date()
-        var bills: [UpcomingBill] = []
+    /// Anything further out than this is not yet worth nagging about.
+    static let horizonDays = 30
 
+    let dashboard: DashboardSummary
+    let upcoming: [UpcomingBill]
+    let itemsMissingDueDate: Int
+
+    var isInDeficit: Bool { dashboard.netCashFlow < 0 }
+    var isPlanInfeasible: Bool { hasDebts && !dashboard.plan.isFeasible }
+
+    private let hasDebts: Bool
+
+    /// Total things worth surfacing on the badge.
+    var count: Int {
+        (isInDeficit ? 1 : 0) + (isPlanInfeasible ? 1 : 0) + upcoming.count
+    }
+
+    init(
+        income: [IncomeSource],
+        expenses: [ExpenseItem],
+        debts: [DebtRecord],
+        settings: PlanSettings?,
+        now: Date = .now
+    ) {
+        dashboard = DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings)
+        hasDebts = !debts.isEmpty
+
+        var bills: [UpcomingBill] = []
         for expense in expenses where expense.isActive {
             guard let day = expense.dueDay,
                   let days = BillSchedule.daysUntil(dueDay: day, from: now),
-                  days <= horizonDays
+                  days <= Self.horizonDays
             else { continue }
-            bills.append(
-                UpcomingBill(name: expense.name, amount: expense.amount, daysUntil: days, isDebt: false)
-            )
+            bills.append(UpcomingBill(name: expense.name, amount: expense.amount, daysUntil: days, isDebt: false))
         }
-
         for debt in debts {
             guard let day = debt.dueDay,
                   let days = BillSchedule.daysUntil(dueDay: day, from: now),
-                  days <= horizonDays
+                  days <= Self.horizonDays
             else { continue }
-            bills.append(
-                UpcomingBill(name: debt.name, amount: debt.minimumPayment, daysUntil: days, isDebt: true)
-            )
+            bills.append(UpcomingBill(name: debt.name, amount: debt.minimumPayment, daysUntil: days, isDebt: true))
         }
+        upcoming = bills.sorted { $0.daysUntil < $1.daysUntil }
 
-        return bills.sorted { $0.daysUntil < $1.daysUntil }
+        itemsMissingDueDate = expenses.filter { $0.isActive && $0.dueDay == nil }.count
+            + debts.filter { $0.dueDay == nil }.count
+    }
+}
+
+/// Bell for the navigation bar, badged with the number of live alerts.
+struct AlertsToolbarButton: View {
+    @Query(sort: \IncomeSource.createdAt) private var income: [IncomeSource]
+    @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
+    @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
+    @Query private var settings: [PlanSettings]
+
+    let onTap: () -> Void
+
+    private var summary: AlertsSummary {
+        AlertsSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
     }
 
-    private var hasPlanWarning: Bool { !debts.isEmpty && !summary.plan.isFeasible }
-    private var hasDeficit: Bool { summary.netCashFlow < 0 }
+    var body: some View {
+        let count = summary.count
+        Button(action: onTap) {
+            Image(systemName: count > 0 ? "bell.badge.fill" : "bell")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundStyle(count > 0 ? Theme.red : Theme.textSecondary)
+                .symbolRenderingMode(count > 0 ? .hierarchical : .monochrome)
+                .symbolEffect(.bounce, value: count)
+                .frame(width: 34, height: 34)
+                .contentShape(.rect)
+        }
+        .buttonStyle(.pressable)
+        .accessibilityLabel(count > 0 ? "Alerts, \(count) needing attention" : "Alerts")
+    }
+}
+
+/// What needs attention: an infeasible plan, then what falls due soonest.
+struct AlertsView: View {
+    @Query(sort: \IncomeSource.createdAt) private var income: [IncomeSource]
+    @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
+    @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
+    @Query private var settings: [PlanSettings]
+
+    @Environment(\.dismiss) private var dismiss
+
+    private var summary: AlertsSummary {
+        AlertsSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
+    }
 
     var body: some View {
-        ScrollView {
+        NavigationStack {
+            ZStack {
+                Theme.background.ignoresSafeArea()
+                content
+            }
+            .navigationTitle("Alerts")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Theme.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }.foregroundStyle(Theme.lime)
+                }
+            }
+        }
+    }
+
+    private var content: some View {
+        let state = summary
+        return ScrollView {
             VStack(spacing: 18) {
-                if hasDeficit {
+                if state.isInDeficit {
                     AlertBanner(
                         icon: "exclamationmark.triangle.fill",
                         title: "Your commitments exceed your income",
-                        message: "You're \(CurrencyFormat.string(abs(summary.netCashFlow))) short each month. Review your expenses or payments.",
+                        message: "You're \(CurrencyFormat.string(abs(state.dashboard.netCashFlow))) short each month. Review your expenses or payments.",
                         accent: Theme.red
                     )
                 }
 
-                if hasPlanWarning {
+                if state.isPlanInfeasible {
                     AlertBanner(
                         icon: "calendar.badge.exclamationmark",
                         title: "This plan isn't achievable",
-                        message: "You'd need \(CurrencyFormat.string(summary.plan.requiredMonthly)) a month across \(summary.plan.targetMonths) months, which is more than you have.",
+                        message: "You'd need \(CurrencyFormat.string(state.dashboard.plan.requiredMonthly)) a month across \(state.dashboard.plan.targetMonths) months, which is more than you have.",
                         accent: Theme.yellow
                     )
                 }
 
-                if upcoming.isEmpty {
-                    if !hasDeficit && !hasPlanWarning {
+                if state.upcoming.isEmpty {
+                    if state.count == 0 {
                         EmptyStateView(
                             icon: "checkmark.circle",
                             title: "Nothing needs your attention",
@@ -93,14 +164,14 @@ struct AlertsView: View {
                 } else {
                     VStack(spacing: 12) {
                         SectionHeader(title: "Upcoming payments") {
-                            Text("\(upcoming.count)")
+                            Text("\(state.upcoming.count)")
                                 .font(.subheadline.weight(.bold))
                                 .monospacedDigit()
                                 .foregroundStyle(Theme.textSecondary)
                         }
 
                         GroupedCard {
-                            ForEach(Array(upcoming.enumerated()), id: \.element.id) { index, bill in
+                            ForEach(Array(state.upcoming.enumerated()), id: \.element.id) { index, bill in
                                 if index > 0 { RowDivider() }
                                 billRow(bill)
                             }
@@ -109,8 +180,8 @@ struct AlertsView: View {
                 }
 
                 // A due date can only be tracked if one was recorded.
-                if missingDueDates > 0 {
-                    Text("\(missingDueDates) items have no due date, so they can't be flagged.")
+                if state.itemsMissingDueDate > 0 {
+                    Text("\(state.itemsMissingDueDate) items have no due date, so they can't be flagged.")
                         .font(.caption)
                         .foregroundStyle(Theme.textTertiary)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -119,17 +190,12 @@ struct AlertsView: View {
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)
-            .padding(.bottom, 108)
+            .padding(.bottom, 32)
         }
         .scrollIndicators(.hidden)
     }
 
-    private var missingDueDates: Int {
-        expenses.filter { $0.isActive && $0.dueDay == nil }.count
-            + debts.filter { $0.dueDay == nil }.count
-    }
-
-    private func billRow(_ bill: UpcomingBill) -> some View {
+    private func billRow(_ bill: AlertsSummary.UpcomingBill) -> some View {
         let urgent = bill.daysUntil <= 3
         return VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .firstTextBaseline) {

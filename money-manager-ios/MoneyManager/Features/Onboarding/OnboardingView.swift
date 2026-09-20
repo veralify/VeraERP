@@ -47,7 +47,7 @@ struct OnboardingView: View {
                             .frame(width: 36, height: 36)
                             .background(Theme.surface, in: .circle)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.pressable)
                     .accessibilityLabel("Back")
 
                     Spacer()
@@ -209,7 +209,7 @@ struct OnboardingView: View {
                                     in: .capsule
                                 )
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(.pressable)
                     }
                 }
             }

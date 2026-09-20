@@ -128,7 +128,7 @@ struct EntryListView: View {
             .padding(.vertical, 15)
             .contentShape(.rect)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressableRow)
         // `.swipeActions` is a List-only modifier and silently does nothing in a
         // stack, so deletion is offered by long-press here and by the button
         // inside the edit sheet — both of which actually work.

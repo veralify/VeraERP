@@ -12,6 +12,7 @@ struct EntryStep: View {
 
     @State private var name = ""
     @State private var amount = ""
+    @FocusState private var isEditingField: Bool
 
     private var parsedAmount: Decimal? { AmountParser.parse(amount) }
     private var canAdd: Bool {
@@ -19,11 +20,11 @@ struct EntryStep: View {
     }
 
     var body: some View {
-        OnboardingScaffold(title: title, subtitle: subtitle) {
+        OnboardingScaffold(title: title, subtitle: subtitle, keyboardFocus: $isEditingField) {
             VStack(spacing: 16) {
                 VStack(spacing: 12) {
-                    FieldRow(label: "Name", placeholder: namePlaceholder, text: $name)
-                    FieldRow(label: "Monthly amount", placeholder: "0.00", text: $amount, keyboard: .decimalPad)
+                    FieldRow(label: "Name", placeholder: namePlaceholder, text: $name, focus: $isEditingField, submitLabel: .next)
+                    FieldRow(label: "Monthly amount", placeholder: "0.00", text: $amount, keyboard: .decimalPad, focus: $isEditingField)
 
                     Button(action: add) {
                         Label("Add", systemImage: "plus")
@@ -33,7 +34,7 @@ struct EntryStep: View {
                             .padding(.vertical, 12)
                             .background(Theme.surfaceElevated, in: .capsule)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.pressable)
                     .disabled(!canAdd)
                 }
                 .padding(16)
@@ -89,6 +90,7 @@ struct DebtStep: View {
     @State private var apr = ""
     @State private var minimum = ""
     @State private var dueDay = ""
+    @FocusState private var isEditingField: Bool
 
     private var canAdd: Bool {
         !name.trimmingCharacters(in: .whitespaces).isEmpty
@@ -99,17 +101,18 @@ struct DebtStep: View {
     var body: some View {
         OnboardingScaffold(
             title: "Which debts are you paying off?",
-            subtitle: "The balance left and the minimum payment. If you don't know the interest rate, leave it at zero."
+            subtitle: "The balance left and the minimum payment. If you don't know the interest rate, leave it at zero.",
+            keyboardFocus: $isEditingField
         ) {
             VStack(spacing: 16) {
                 VStack(spacing: 12) {
-                    FieldRow(label: "Debt name", placeholder: "e.g. Credit card", text: $name)
-                    FieldRow(label: "Remaining balance", placeholder: "0.00", text: $balance, keyboard: .decimalPad)
+                    FieldRow(label: "Debt name", placeholder: "e.g. Credit card", text: $name, focus: $isEditingField, submitLabel: .next)
+                    FieldRow(label: "Remaining balance", placeholder: "0.00", text: $balance, keyboard: .decimalPad, focus: $isEditingField)
                     HStack(spacing: 12) {
-                        FieldRow(label: "Annual interest %", placeholder: "0", text: $apr, keyboard: .decimalPad)
-                        FieldRow(label: "Minimum", placeholder: "0.00", text: $minimum, keyboard: .decimalPad)
+                        FieldRow(label: "Annual interest %", placeholder: "0", text: $apr, keyboard: .decimalPad, focus: $isEditingField)
+                        FieldRow(label: "Minimum", placeholder: "0.00", text: $minimum, keyboard: .decimalPad, focus: $isEditingField)
                     }
-                    FieldRow(label: "Due day (optional)", placeholder: "1–31", text: $dueDay, keyboard: .numberPad)
+                    FieldRow(label: "Due day (optional)", placeholder: "1–31", text: $dueDay, keyboard: .numberPad, focus: $isEditingField)
 
                     Button(action: add) {
                         Label("Add debt", systemImage: "plus")
@@ -119,7 +122,7 @@ struct DebtStep: View {
                             .padding(.vertical, 12)
                             .background(Theme.surfaceElevated, in: .capsule)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.pressable)
                     .disabled(!canAdd)
                 }
                 .padding(16)

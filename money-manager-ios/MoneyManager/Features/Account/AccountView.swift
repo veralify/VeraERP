@@ -10,8 +10,11 @@ struct AccountView: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var transactions: [TransactionRecord]
+    @Query private var questCompletions: [QuestCompletion]
 
     @State private var isConfirmingReset = false
+    @Environment(\.dismiss) private var dismiss
 
     private var planSettings: PlanSettings? { settings.first }
 
@@ -23,18 +26,32 @@ struct AccountView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 18) {
-                planCard
-                dataCard
-                aboutCard
-                resetCard
+        NavigationStack {
+            ZStack {
+                Theme.background.ignoresSafeArea()
+                ScrollView {
+                    VStack(spacing: 18) {
+                        planCard
+                        dataCard
+                        aboutCard
+                        resetCard
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
+                    .padding(.bottom, 32)
+                }
+                .scrollIndicators(.hidden)
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
-            .padding(.bottom, 108)
+            .navigationTitle("Account")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Theme.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }.foregroundStyle(Theme.lime)
+                }
+            }
         }
-        .scrollIndicators(.hidden)
         .confirmationDialog(
             "Delete all data?",
             isPresented: $isConfirmingReset,
@@ -43,7 +60,7 @@ struct AccountView: View {
             Button("Delete everything", role: .destructive) { resetEverything() }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Your income, expenses and debts will be permanently deleted and setup will start again. This cannot be undone.")
+            Text("Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.")
         }
     }
 
@@ -132,7 +149,7 @@ struct AccountView: View {
                 .padding(.vertical, 15)
                 .background(Theme.red.opacity(0.13), in: .capsule)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressable)
     }
 
     private func infoRow(_ label: LocalizedStringKey, _ value: String) -> some View {
@@ -151,13 +168,19 @@ struct AccountView: View {
     }
 
     private func resetEverything() {
+        // Every store the app owns. Leaving transactions or quest history
+        // behind made "delete all data" a lie — the ledger and the day's
+        // progress survived a reset that claimed to wipe everything.
         for item in income { context.delete(item) }
         for item in expenses { context.delete(item) }
         for item in debts { context.delete(item) }
         for item in settings { context.delete(item) }
+        for item in transactions { context.delete(item) }
+        for item in questCompletions { context.delete(item) }
         try? context.save()
         // Send the user back through setup so the app is never left in a state
         // with no income, no debts and no way to add the first one.
         hasCompletedOnboarding = false
+        dismiss()
     }
 }

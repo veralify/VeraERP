@@ -1,11 +1,40 @@
 import SwiftUI
 
+/// Adds a Done bar above the keyboard and lets a scroll dismiss it.
+///
+/// Number pads have no return key, so a form of amount fields is otherwise a
+/// trap: the keyboard covers the primary action and nothing dismisses it.
+struct DismissibleKeyboard: ViewModifier {
+    @FocusState.Binding var focus: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .scrollDismissesKeyboard(.interactively)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") { focus = false }
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(Theme.lime)
+                }
+            }
+    }
+}
+
+extension View {
+    func dismissibleKeyboard(focus: FocusState<Bool>.Binding) -> some View {
+        modifier(DismissibleKeyboard(focus: focus))
+    }
+}
+
 /// Labelled text field in the app's dark style.
 struct FieldRow: View {
     let label: LocalizedStringKey
     var placeholder: LocalizedStringKey = ""
     @Binding var text: String
     var keyboard: UIKeyboardType = .default
+    var focus: FocusState<Bool>.Binding? = nil
+    var submitLabel: SubmitLabel = .done
 
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
@@ -14,6 +43,8 @@ struct FieldRow: View {
                 .foregroundStyle(Theme.textSecondary)
             TextField(placeholder, text: $text)
                 .keyboardType(keyboard)
+                .submitLabel(submitLabel)
+                .modifier(OptionalFocus(focus: focus))
                 .font(.body.weight(.medium))
                 .foregroundStyle(Theme.textPrimary)
                 .padding(.horizontal, 14)
@@ -59,7 +90,7 @@ struct EntryChipRow: View {
                     .frame(width: 30, height: 30)
                     .background(Theme.surfaceElevated, in: .circle)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.pressable)
             .accessibilityLabel(Text("Delete \(title)"))
         }
         .padding(.vertical, 10)
@@ -84,7 +115,7 @@ struct PrimaryButton: View {
                 // drops to a neutral surface instead.
                 .background(enabled ? Theme.lime : Theme.surfaceElevated, in: .capsule)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressable)
         .disabled(!enabled)
     }
 }
@@ -103,7 +134,7 @@ struct SecondaryButton: View {
                 .background(Theme.surface, in: .capsule)
                 .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressable)
     }
 }
 
@@ -130,6 +161,7 @@ struct StepProgress: View {
 struct OnboardingScaffold<Content: View, Actions: View>: View {
     let title: LocalizedStringKey
     let subtitle: LocalizedStringKey
+    var keyboardFocus: FocusState<Bool>.Binding? = nil
     @ViewBuilder var content: Content
     @ViewBuilder var actions: Actions
 
@@ -153,6 +185,8 @@ struct OnboardingScaffold<Content: View, Actions: View>: View {
                 .padding(.bottom, 24)
             }
             .scrollIndicators(.hidden)
+            .scrollDismissesKeyboard(.interactively)
+            .modifier(OptionalKeyboardBar(focus: keyboardFocus))
 
             VStack(spacing: 10) {
                 actions
@@ -161,6 +195,40 @@ struct OnboardingScaffold<Content: View, Actions: View>: View {
             .padding(.top, 12)
             .padding(.bottom, 8)
             .background(Theme.background)
+        }
+    }
+}
+
+
+/// Applies a focus binding only when one was supplied.
+private struct OptionalFocus: ViewModifier {
+    let focus: FocusState<Bool>.Binding?
+
+    func body(content: Content) -> some View {
+        if let focus {
+            content.focused(focus)
+        } else {
+            content
+        }
+    }
+}
+
+/// Adds the keyboard Done bar only when the screen has a focusable field.
+private struct OptionalKeyboardBar: ViewModifier {
+    let focus: FocusState<Bool>.Binding?
+
+    func body(content: Content) -> some View {
+        if let focus {
+            content.toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") { focus.wrappedValue = false }
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(Theme.lime)
+                }
+            }
+        } else {
+            content
         }
     }
 }

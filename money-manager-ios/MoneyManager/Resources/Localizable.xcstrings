@@ -20,8 +20,93 @@
         }
       }
     },
+    "%@%@": {
+      "shouldTranslate": false
+    },
     "%lld": {
       "shouldTranslate": false
+    },
+    "%lld days": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld أيام"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld يومًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "يوم واحد"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld يوم"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "يومان"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا أيام"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld day"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld days"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld giorno"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld giorni"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "%lld items": {
       "localizations": {
@@ -279,6 +364,66 @@
         }
       }
     },
+    "%lld/%lld XP": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld نقطة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld/%2$lld XP"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld XP"
+          }
+        }
+      }
+    },
+    "%lld/%lld completed": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld مكتملة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld/%2$lld completed"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld completate"
+          }
+        }
+      }
+    },
+    "+%lld XP": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld نقطة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld XP"
+          }
+        }
+      }
+    },
     ", ": {
       "localizations": {
         "ar": {
@@ -400,6 +545,22 @@
         }
       }
     },
+    "Add an entry and I'll keep score.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف حركة وسأتتبع الحساب."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi una voce e terrò il conto."
+          }
+        }
+      }
+    },
     "Add debt": {
       "localizations": {
         "ar": {
@@ -460,6 +621,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi i tuoi debiti e creeremo il piano di rimborso."
+          }
+        }
+      }
+    },
+    "Add your first credit or debit to start the ledger.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف أول إيداع أو سحب لتبدأ السجل."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi la prima entrata o uscita per iniziare il registro."
           }
         }
       }
@@ -540,6 +717,104 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avvisi"
+          }
+        }
+      }
+    },
+    "Alerts, %lld needing attention": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "التنبيهات، %lld بنود تحتاج انتباهك"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "التنبيهات، %lld بندًا يحتاج انتباهك"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "التنبيهات، بند واحد يحتاج انتباهك"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "التنبيهات، %lld بند يحتاج انتباهك"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "التنبيهات، بندان يحتاجان انتباهك"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "التنبيهات، لا شيء يحتاج انتباهك"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alerts, %lld needing attention"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alerts, %lld needing attention"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Avvisi, %lld richiede attenzione"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Avvisi, %lld richiedono attenzione"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "All done for today": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتهيت لليوم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutto fatto per oggi"
           }
         }
       }
@@ -640,6 +915,38 @@
         }
       }
     },
+    "Business": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأعمال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lavoro"
+          }
+        }
+      }
+    },
+    "CURRENT STREAK": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التتابع الحالي"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SERIE ATTUALE"
+          }
+        }
+      }
+    },
     "Cancel": {
       "localizations": {
         "ar": {
@@ -656,6 +963,22 @@
         }
       }
     },
+    "Category": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التصنيف"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria"
+          }
+        }
+      }
+    },
     "Check the numbers before you start. Everything can be changed later.": {
       "localizations": {
         "ar": {
@@ -668,6 +991,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Controlla i numeri prima di iniziare. Tutto è modificabile in seguito."
+          }
+        }
+      }
+    },
+    "Close": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إغلاق"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiudi"
           }
         }
       }
@@ -704,6 +1043,54 @@
         }
       }
     },
+    "Credit": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيداع"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrata"
+          }
+        }
+      }
+    },
+    "Credit added": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمت إضافة الإيداع"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrata aggiunta"
+          }
+        }
+      }
+    },
+    "Credited by %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيداع عبر %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accreditato da %@"
+          }
+        }
+      }
+    },
     "Currency": {
       "localizations": {
         "ar": {
@@ -732,6 +1119,86 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dashboard"
+          }
+        }
+      }
+    },
+    "Date": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التاريخ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        }
+      }
+    },
+    "Dead even so far.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متعادل حتى الآن."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Per ora sei in pari."
+          }
+        }
+      }
+    },
+    "Debit": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سحب"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uscita"
+          }
+        }
+      }
+    },
+    "Debit added": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمت إضافة السحب"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uscita aggiunta"
+          }
+        }
+      }
+    },
+    "Debited by %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سحب عبر %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Addebitato da %@"
           }
         }
       }
@@ -912,6 +1379,22 @@
         }
       }
     },
+    "Delete this entry?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف هذه الحركة؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare questa voce?"
+          }
+        }
+      }
+    },
     "Delete this item?": {
       "localizations": {
         "ar": {
@@ -924,6 +1407,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eliminare questa voce?"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fatto"
           }
         }
       }
@@ -988,6 +1487,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modifica"
+          }
+        }
+      }
+    },
+    "Edit entry": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعديل الحركة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica voce"
+          }
+        }
+      }
+    },
+    "Entries": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحركات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voci"
           }
         }
       }
@@ -1184,6 +1715,22 @@
         }
       }
     },
+    "Keep income ahead of expenses and payments.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أبقِ دخلك أعلى من مصاريفك وأقساطك."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantieni le entrate sopra spese e rate."
+          }
+        }
+      }
+    },
     "Left over": {
       "localizations": {
         "ar": {
@@ -1212,6 +1759,70 @@
           "stringUnit": {
             "state": "translated",
             "value": "Iniziamo"
+          }
+        }
+      }
+    },
+    "Level %lld": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المستوى %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Livello %lld"
+          }
+        }
+      }
+    },
+    "Log today's money": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل حركة اليوم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra i movimenti di oggi"
+          }
+        }
+      }
+    },
+    "Mark as done": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وضع علامة كمكتمل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segna come completato"
+          }
+        }
+      }
+    },
+    "Mark as not done": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلغاء علامة الإكمال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segna come non completato"
           }
         }
       }
@@ -1392,6 +2003,22 @@
         }
       }
     },
+    "NET BALANCE": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صافي الرصيد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SALDO NETTO"
+          }
+        }
+      }
+    },
     "Name": {
       "localizations": {
         "ar": {
@@ -1440,6 +2067,22 @@
         }
       }
     },
+    "Nice — you're up this month.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ممتاز — أنت رابح هذا الشهر."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bene — questo mese sei in attivo."
+          }
+        }
+      }
+    },
     "No commitments to show.": {
       "localizations": {
         "ar": {
@@ -1472,6 +2115,22 @@
         }
       }
     },
+    "No entries yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد حركات بعد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ancora nessuna voce"
+          }
+        }
+      }
+    },
     "No interest": {
       "localizations": {
         "ar": {
@@ -1484,6 +2143,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Senza interessi"
+          }
+        }
+      }
+    },
+    "No payment creeping up on you.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا دفعة تقترب منك."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun pagamento in arrivo."
+          }
+        }
+      }
+    },
+    "Nothing due in 3 days": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا استحقاق خلال 3 أيام"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna scadenza entro 3 giorni"
           }
         }
       }
@@ -1552,6 +2243,22 @@
         }
       }
     },
+    "Open the plan and check where you stand.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح الخطة وراجع موقفك."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri il piano e controlla a che punto sei."
+          }
+        }
+      }
+    },
     "Open to edit, or press and hold to delete": {
       "localizations": {
         "ar": {
@@ -1600,6 +2307,22 @@
         }
       }
     },
+    "Personal": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شخصي"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personale"
+          }
+        }
+      }
+    },
     "Plan": {
       "localizations": {
         "ar": {
@@ -1628,6 +2351,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Priorità"
+          }
+        }
+      }
+    },
+    "Quests reset at midnight.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتجدد المهام عند منتصف الليل."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le missioni si azzerano a mezzanotte."
+          }
+        }
+      }
+    },
+    "Record at least one credit or debit.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل إيداعًا أو سحبًا واحدًا على الأقل."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra almeno un'entrata o un'uscita."
           }
         }
       }
@@ -1696,6 +2451,22 @@
         }
       }
     },
+    "Review your payoff plan": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "راجع خطة السداد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rivedi il piano di rimborso"
+          }
+        }
+      }
+    },
     "Save": {
       "localizations": {
         "ar": {
@@ -1712,6 +2483,22 @@
         }
       }
     },
+    "Scope": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النطاق"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ambito"
+          }
+        }
+      }
+    },
     "See what's due before it lands": {
       "localizations": {
         "ar": {
@@ -1724,6 +2511,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vedi le scadenze prima che arrivino"
+          }
+        }
+      }
+    },
+    "Showing %lld entries": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "عرض %lld حركات"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "عرض %lld حركة"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "حركة واحدة"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "عرض %lld حركة"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "حركتان"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا حركات"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Showing %lld entry"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Showing %lld entries"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld voce mostrata"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld voci mostrate"
+                }
+              }
+            }
           }
         }
       }
@@ -1760,6 +2629,22 @@
         }
       }
     },
+    "Stay in surplus": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابقَ في الفائض"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resta in attivo"
+          }
+        }
+      }
+    },
     "Step %lld of %lld": {
       "localizations": {
         "ar": {
@@ -1778,6 +2663,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Passo %lld di %lld"
+          }
+        }
+      }
+    },
+    "Swipe right to confirm": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسحب لليمين للتأكيد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scorri a destra per confermare"
+          }
+        }
+      }
+    },
+    "Swipe to add entry": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسحب لإضافة الحركة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scorri per aggiungere"
           }
         }
       }
@@ -1890,6 +2807,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oggi"
+          }
+        }
+      }
+    },
+    "Today's quests": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مهام اليوم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Missioni di oggi"
           }
         }
       }
@@ -2102,6 +3035,22 @@
         }
       }
     },
+    "Who's it for?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لمن هذه؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Per chi è?"
+          }
+        }
+      }
+    },
     "You'd need %@ a month across %lld months, which is more than you have.": {
       "localizations": {
         "ar": {
@@ -2136,6 +3085,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ti mancano %@ al mese. Rivedi le spese o le rate."
+          }
+        }
+      }
+    },
+    "You're spending more than you take in.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إنفاقك أكبر من دخلك."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stai spendendo più di quanto guadagni."
           }
         }
       }
@@ -2237,6 +3202,7 @@
       }
     },
     "Your income, expenses and debts will be permanently deleted and setup will start again. This cannot be undone.": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -2248,6 +3214,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entrate, spese e debiti saranno eliminati definitivamente e la configurazione ripartirà. L'operazione è irreversibile."
+          }
+        }
+      }
+    },
+    "Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سيُحذف دخلك ومصاريفك وديونك وحركاتك المسجلة نهائيًا، وتبدأ الإعداد من جديد. لا يمكن التراجع."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrate, spese, debiti e movimenti registrati saranno eliminati definitivamente e la configurazione ripartirà. L'operazione è irreversibile."
           }
         }
       }
@@ -2434,6 +3416,9 @@
       "shouldTranslate": false
     },
     "€": {
+      "shouldTranslate": false
+    },
+    "🐷": {
       "shouldTranslate": false
     }
   },
