@@ -21,6 +21,8 @@ public enum DebtPayoffEngine {
         let paid: [Int: Decimal]
         let interest: Decimal
         let remainingDebt: Decimal
+        let remainingByDebt: [Int: Decimal]
+        let interestByDebt: [Int: Decimal]
     }
 
     struct Simulation {
@@ -51,9 +53,11 @@ public enum DebtPayoffEngine {
         var month = 0
         while month < months, balances.contains(where: { $0 > settledThreshold }) {
             var interest: Decimal = 0
+            var interestByDebt = [Int: Decimal]()
             for index in balances.indices {
                 let charge = balances[index] * Money.monthlyRate(apr: ordered[index].apr)
                 interest += charge
+                interestByDebt[ordered[index].id] = charge
                 balances[index] += charge
             }
 
@@ -79,11 +83,18 @@ public enum DebtPayoffEngine {
                 remaining -= payment
             }
 
+            var remainingByDebt = [Int: Decimal]()
+            for index in ordered.indices {
+                remainingByDebt[ordered[index].id] = balances[index]
+            }
+
             schedule.append(
                 MonthSimulation(
                     paid: paid,
                     interest: interest,
-                    remainingDebt: balances.reduce(0, +)
+                    remainingDebt: balances.reduce(0, +),
+                    remainingByDebt: remainingByDebt,
+                    interestByDebt: interestByDebt
                 )
             )
             month += 1
@@ -149,15 +160,21 @@ public enum DebtPayoffEngine {
         let months = (0..<targetMonths).map { offset -> PayoffMonth in
             let simulated = offset < simulation.schedule.count ? simulation.schedule[offset] : nil
             var payments = [Int: Decimal]()
+            var remainingByDebt = [Int: Decimal]()
+            var interestByDebt = [Int: Decimal]()
             for debt in ordered {
                 payments[debt.id] = Money.rounded(simulated?.paid[debt.id] ?? 0)
+                remainingByDebt[debt.id] = Money.rounded(simulated?.remainingByDebt[debt.id] ?? 0)
+                interestByDebt[debt.id] = Money.rounded(simulated?.interestByDebt[debt.id] ?? 0)
             }
             return PayoffMonth(
                 month: Self.monthKey(startDate: startDate, offset: offset, calendar: calendar),
                 payments: payments,
                 totalPayment: Money.rounded(payments.values.reduce(0, +)),
                 interestAccrued: Money.rounded(simulated?.interest ?? 0),
-                remainingDebt: Money.rounded(simulated?.remainingDebt ?? 0)
+                remainingDebt: Money.rounded(simulated?.remainingDebt ?? 0),
+                remainingByDebt: remainingByDebt,
+                interestByDebt: interestByDebt
             )
         }
 

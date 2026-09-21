@@ -3,11 +3,17 @@ import SwiftData
 import MoneyManagerCore
 
 struct DashboardView: View {
+    /// Switches to the Roadmap tab. The card opens the same screen the tab does
+    /// rather than pushing a second copy with different chrome.
+    var onOpenRoadmap: () -> Void = {}
+
     @Query(sort: \IncomeSource.createdAt) private var income: [IncomeSource]
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
     @Query private var snapshots: [MonthlySnapshot]
+    @Query private var familyMembers: [FamilyMember]
+    @Query private var familyExpenses: [FamilyExpense]
 
     @Environment(\.modelContext) private var context
 
@@ -59,6 +65,8 @@ struct DashboardView: View {
                 heroCard.staggeredAppearance(0)
                 planStrip.staggeredAppearance(1)
                 metricCards.staggeredAppearance(2)
+                roadmapCard.staggeredAppearance(3)
+                familyCard.staggeredAppearance(4)
                 ProgressSection(
                     netCashFlow: summary.netCashFlow,
                     soonestDueInDays: soonestDueInDays
@@ -73,6 +81,111 @@ struct DashboardView: View {
         .scrollIndicators(.hidden)
         .task { captureBaselineIfNeeded() }
         .sheet(item: $payingDebt) { DebtPaymentSheet(debt: $0) }
+    }
+
+    /// Shared household costs. Its figures stay out of the plan totals above —
+    /// those are recurring commitments, these are one-off events between people.
+    private var familyCard: some View {
+        let start = MonthlySnapshot.monthStart(for: .now)
+        let thisMonth = familyExpenses.filter { $0.date >= start }
+        let total = thisMonth.reduce(Decimal(0)) { $0 + $1.amount }
+
+        return NavigationLink(value: FamilyRoute()) {
+            HStack(spacing: 12) {
+                Image(systemName: "person.2.fill")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.blue)
+                    .frame(width: 30, height: 30)
+                    .background(Theme.blue.opacity(0.16), in: .rect(cornerRadius: 9))
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Family")
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(Theme.textPrimary)
+                    Text(familyMembers.isEmpty
+                         ? "Split costs with the people you live with"
+                         : "\(thisMonth.count) shared this month")
+                        .font(.caption)
+                        .foregroundStyle(Theme.textTertiary)
+                        .lineLimit(1)
+                }
+
+                Spacer(minLength: 8)
+
+                if !familyMembers.isEmpty {
+                    Text(CurrencyFormat.string(total))
+                        .font(.subheadline.weight(.bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.textPrimary)
+                }
+
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.textTertiary)
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity)
+            .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+        }
+        .buttonStyle(.pressable)
+    }
+
+    /// A glance at the payoff route, and the way into the full map.
+    @ViewBuilder
+    private var roadmapCard: some View {
+        let steps = JourneyBuilder.steps(plan: summary.plan, debts: debts.map(\.asDebt))
+        let position = steps.firstIndex { $0.month >= JourneyStep.monthKey(for: .now) } ?? 0
+
+        if let step = steps.indices.contains(position) ? steps[position] : nil {
+            Button(action: onOpenRoadmap) {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "map.fill")
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(Theme.blue)
+                            .frame(width: 24, height: 24)
+                            .background(Theme.blue.opacity(0.16), in: .rect(cornerRadius: 8))
+
+                        Text("Your roadmap")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(Theme.textSecondary)
+
+                        Spacer(minLength: 0)
+
+                        Image(systemName: "chevron.right")
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(Theme.textTertiary)
+                    }
+
+                    HStack(alignment: .firstTextBaseline, spacing: 8) {
+                        Text("Step \(position + 1) of \(steps.count)")
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.textPrimary)
+                        Text(JourneyStep.title(for: step.month))
+                            .font(.subheadline)
+                            .foregroundStyle(Theme.textSecondary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
+                        Spacer(minLength: 0)
+                    }
+
+                    // Distance along the route, not the share of debt the plan
+                    // expects to clear — that reads 100% before a euro is paid.
+                    ProgressTrack(
+                        progress: steps.isEmpty ? 0 : Double(position) / Double(steps.count),
+                        foreground: Theme.textTertiary
+                    )
+
+                    Text("\(CurrencyFormat.string(step.payment)) this month")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.textTertiary)
+                }
+                .padding(16)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+            }
+            .buttonStyle(.pressable)
+        }
     }
 
     /// Income, core expenses and debts as their own cards, each carrying what it

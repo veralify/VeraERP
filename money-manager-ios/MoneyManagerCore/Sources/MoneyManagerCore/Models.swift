@@ -41,6 +41,34 @@ public struct PayoffMonth: Hashable, Sendable {
     public let interestAccrued: Decimal
     /// Total debt remaining across all debts at the end of the month.
     public let remainingDebt: Decimal
+    /// Remaining balance per debt at the end of the month, keyed by `Debt.id`.
+    ///
+    /// Published by the engine rather than re-derived by callers: working out
+    /// when a debt clears needs per-debt balances, and a second implementation
+    /// of the amortisation would be free to disagree with this one.
+    public let remainingByDebt: [Int: Decimal]
+    /// Interest charged per debt this month, keyed by `Debt.id`. Same reasoning
+    /// as `remainingByDebt`: the engine already has it, so nothing else has to
+    /// reimplement the accrual to report it.
+    public let interestByDebt: [Int: Decimal]
+
+    public init(
+        month: String,
+        payments: [Int: Decimal],
+        totalPayment: Decimal,
+        interestAccrued: Decimal,
+        remainingDebt: Decimal,
+        remainingByDebt: [Int: Decimal] = [:],
+        interestByDebt: [Int: Decimal] = [:]
+    ) {
+        self.month = month
+        self.payments = payments
+        self.totalPayment = totalPayment
+        self.interestAccrued = interestAccrued
+        self.remainingDebt = remainingDebt
+        self.remainingByDebt = remainingByDebt
+        self.interestByDebt = interestByDebt
+    }
 }
 
 /// The result of running the payoff planner.

@@ -14,9 +14,18 @@ struct AccountView: View {
     @Query private var questCompletions: [QuestCompletion]
     @Query private var payments: [DebtPayment]
     @Query private var snapshots: [MonthlySnapshot]
+    @Query private var familyMembers: [FamilyMember]
+    @Query private var familyExpenses: [FamilyExpense]
+    @Query private var familySettlements: [FamilySettlement]
 
     @State private var isConfirmingReset = false
+    @State private var isShowingRestartNote = false
     @Environment(\.dismiss) private var dismiss
+
+    @AppStorage(AppSettings.Key.currencyCode) private var currencyCode = AppSettings.defaultCurrencyCode
+    /// Mirrors `Language.current`, but as state so the picker updates the row
+    /// straight away rather than only after a relaunch.
+    @State private var language = Language.current
 
     private var planSettings: PlanSettings? { settings.first }
 
@@ -34,6 +43,7 @@ struct AccountView: View {
                 ScrollView {
                     VStack(spacing: 18) {
                         planCard
+                        displayCard
                         dataCard
                         aboutCard
                         resetCard
@@ -63,6 +73,11 @@ struct AccountView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.")
+        }
+        .alert("Reopen to finish", isPresented: $isShowingRestartNote) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Close and reopen Money Manager to see it in \(language.title).")
         }
     }
 
@@ -100,9 +115,61 @@ struct AccountView: View {
                 RowDivider()
 
                 infoRow("Payoff method", String(localized: "Highest interest first"))
-                RowDivider()
-                infoRow("Currency", "EUR €")
             }
+        }
+    }
+
+    /// Currency and language. A language change needs a relaunch, so the row
+    /// says so rather than looking broken until the user happens to restart.
+    private var displayCard: some View {
+        VStack(spacing: 12) {
+            SectionHeader(title: "Display") { EmptyView() }
+
+            GroupedCard {
+                HStack {
+                    Text("Currency")
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.textSecondary)
+                    Spacer(minLength: 8)
+                    Picker("Currency", selection: $currencyCode) {
+                        ForEach(SupportedCurrency.all) { currency in
+                            Text("\(currency.symbol)  \(String(localized: currency.name))")
+                                .tag(currency.code)
+                        }
+                    }
+                    .labelsHidden()
+                    .tint(Theme.textPrimary)
+                }
+                .padding(.vertical, 8)
+
+                RowDivider()
+
+                HStack {
+                    Text("Language")
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.textSecondary)
+                    Spacer(minLength: 8)
+                    Picker("Language", selection: $language) {
+                        ForEach(Language.allCases) { option in
+                            Text(option.title).tag(option)
+                        }
+                    }
+                    .labelsHidden()
+                    .tint(Theme.textPrimary)
+                    .onChange(of: language) { _, newValue in
+                        AppSettings.setLanguage(newValue)
+                        isShowingRestartNote = true
+                    }
+                }
+                .padding(.vertical, 8)
+            }
+
+            Text("Amounts change straight away. A new language applies when you reopen the app.")
+                .font(.caption)
+                .foregroundStyle(Theme.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 4)
         }
     }
 
@@ -181,6 +248,9 @@ struct AccountView: View {
         for item in questCompletions { context.delete(item) }
         for item in payments { context.delete(item) }
         for item in snapshots { context.delete(item) }
+        for item in familyMembers { context.delete(item) }
+        for item in familyExpenses { context.delete(item) }
+        for item in familySettlements { context.delete(item) }
         try? context.save()
         // Send the user back through setup so the app is never left in a state
         // with no income, no debts and no way to add the first one.

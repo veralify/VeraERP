@@ -6,9 +6,13 @@ import SwiftUI
 /// matches that rather than the device locale — otherwise the same figure reads
 /// differently on the two surfaces.
 enum CurrencyFormat {
+    /// Amounts render in the currency the user picked, but always with en_US
+    /// separators. The app's own text fields parse and re-emit numbers in that
+    /// form, so letting the separators follow the display language would make a
+    /// figure read back differently from how it was typed.
     static func string(_ amount: Decimal) -> String {
         amount.formatted(
-            .currency(code: "EUR")
+            .currency(code: AppSettings.currencyCode)
                 .locale(Locale(identifier: "en_US"))
                 .precision(.fractionLength(2))
         )
@@ -248,10 +252,12 @@ struct FloatingTabBar: View {
 
     private let tabs: [(icon: String, label: LocalizedStringKey)] = [
         ("house.fill", "Home"),
+        ("map.fill", "Roadmap"),
         ("list.bullet.rectangle.fill", "Entries"),
         ("chart.pie.fill", "Analytics")
     ]
-    /// Destinations before the action; the rest sit after it.
+    /// Destinations before the action; the rest sit after it. Two either side
+    /// keeps the accent button centred.
     private let actionIndex = 2
 
     var body: some View {

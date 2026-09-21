@@ -15,6 +15,9 @@ struct RootView: View {
                         .navigationDestination(for: EntryKind.self) { kind in
                             EntryListView(kind: kind)
                         }
+                        .navigationDestination(for: FamilyRoute.self) { _ in
+                            FamilyView()
+                        }
                 }
             } else {
                 OnboardingView { hasCompletedOnboarding = true }

@@ -31,12 +31,13 @@ struct MainTabView: View {
     @State private var router = QuickAddRouter.shared
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private var isLedger: Bool { selection == 1 }
+    private var isLedger: Bool { selection == 2 }
 
     private var title: LocalizedStringKey {
         switch selection {
-        case 1:  "Entries"
-        case 2:  "Analytics"
+        case 1:  "Roadmap"
+        case 2:  "Entries"
+        case 3:  "Analytics"
         default: "Dashboard"
         }
     }
@@ -47,11 +48,15 @@ struct MainTabView: View {
 
             Group {
                 switch selection {
-                case 1:  TransactionsView()
-                case 2:  AnalyticsView()
-                default: DashboardView()
+                case 1:  JourneyView()
+                case 2:  TransactionsView()
+                case 3:  AnalyticsView()
+                default: DashboardView { selection = 1 }
                 }
             }
+            // Scoped to the destinations rather than the whole screen: a
+            // currency change must not tear down the sheet it was made in.
+            .redrawsOnCurrencyChange()
 
             // Dim behind the fan-out so the two choices read as a modal step.
             if isChoosingDirection {

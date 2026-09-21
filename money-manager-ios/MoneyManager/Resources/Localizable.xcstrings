@@ -4,6 +4,28 @@
     "": {
       "shouldTranslate": false
     },
+    "%@  %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@  %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@  %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@  %@"
+          }
+        }
+      }
+    },
     "%@ charged, of which %@ comes off the debt.": {
       "localizations": {
         "ar": {
@@ -28,22 +50,110 @@
     },
     "%@ due each month": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ due each month"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ مستحقة كل شهر"
           }
         },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ due each month"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ dovuti ogni mese"
+          }
+        }
+      }
+    },
+    "%@ interest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ interest"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ فوائد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ di interessi"
+          }
+        }
+      }
+    },
+    "%@ left after this": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يتبقّى %@ بعدها"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ left after this"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restano %@ dopo questa"
+          }
+        }
+      }
+    },
+    "%@ of it is your share": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "منها %@ حصتك"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ of it is your share"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di cui %@ è la tua quota"
+          }
+        }
+      }
+    },
+    "%@ paid off": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم سداد %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ paid off"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ estinto"
           }
         }
       }
@@ -66,6 +176,72 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pagati finora %@"
+          }
+        }
+      }
+    },
+    "%@ paid · %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دفع %@ · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ paid · %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ha pagato %@ · %@"
+          }
+        }
+      }
+    },
+    "%@ pays %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ يدفع لـ%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ pays %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ paga %@"
+          }
+        }
+      }
+    },
+    "%@ this month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ هذا الشهر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ this month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ questo mese"
           }
         }
       }
@@ -415,6 +591,50 @@
         }
       }
     },
+    "%lld shared this month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld مشتركة هذا الشهر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld shared this month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld condivise questo mese"
+          }
+        }
+      }
+    },
+    "%lld%% of it": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%% of it"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%% منه"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "il %lld%% del totale"
+          }
+        }
+      }
+    },
     "%lld%% paid off": {
       "localizations": {
         "ar": {
@@ -548,6 +768,28 @@
         }
       }
     },
+    "About you": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عنك"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About you"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su di te"
+          }
+        }
+      }
+    },
     "Account": {
       "localizations": {
         "ar": {
@@ -613,6 +855,28 @@
         }
       }
     },
+    "Add a debt and a target period and your roadmap appears here.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف دينًا ومدة مستهدفة لتظهر خارطة طريقك هنا."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a debt and a target period and your roadmap appears here."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi un debito e una durata obiettivo e il percorso comparirà qui."
+          }
+        }
+      }
+    },
     "Add an entry and I'll keep score.": {
       "localizations": {
         "ar": {
@@ -625,6 +889,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi una voce e terrò il conto."
+          }
+        }
+      }
+    },
+    "Add an expense": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف مصروفًا"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add an expense"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi una spesa"
           }
         }
       }
@@ -657,6 +943,72 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi affitto, bollette e ogni impegno mensile ricorrente."
+          }
+        }
+      }
+    },
+    "Add someone": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف شخصًا"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add someone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi qualcuno"
+          }
+        }
+      }
+    },
+    "Add the first person": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف أول شخص"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add the first person"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi la prima persona"
+          }
+        }
+      }
+    },
+    "Add the people you split money with. Log what each of you pays and the app works out who owes whom.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف من تتقاسم معهم المال. سجّل ما يدفعه كل واحد وسيحسب التطبيق من يدين لمن."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add the people you split money with. Log what each of you pays and the app works out who owes whom."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi le persone con cui dividi le spese. Registra quanto paga ciascuno e l'app calcola chi deve cosa a chi."
           }
         }
       }
@@ -979,6 +1331,28 @@
         }
       }
     },
+    "Amounts change straight away. A new language applies when you reopen the app.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتغيّر المبالغ فورًا. أما اللغة الجديدة فتُطبَّق عند إعادة فتح التطبيق."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amounts change straight away. A new language applies when you reopen the app."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli importi cambiano subito. La nuova lingua si applica riaprendo l'app."
+          }
+        }
+      }
+    },
     "Analytics": {
       "localizations": {
         "ar": {
@@ -1007,6 +1381,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Interesse annuo %"
+          }
+        }
+      }
+    },
+    "At %@ a month you'd still owe %@ after %lld months. Lengthen the target period or free up more each month.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بمبلغ %@ شهريًا سيبقى عليك %@ بعد %lld شهرًا. أطل المدة المستهدفة أو وفّر مبلغًا أكبر كل شهر."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "At %1$@ a month you'd still owe %2$@ after %3$lld months. Lengthen the target period or free up more each month."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con %@ al mese ti resterebbero %@ dopo %lld mesi. Allunga la durata obiettivo o libera più soldi ogni mese."
+          }
+        }
+      }
+    },
+    "Australian Dollar": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دولار أسترالي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Australian Dollar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dollaro australiano"
           }
         }
       }
@@ -1043,6 +1461,50 @@
         }
       }
     },
+    "Bills": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فواتير"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bills"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bollette"
+          }
+        }
+      }
+    },
+    "British Pound": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جنيه إسترليني"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "British Pound"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sterlina britannica"
+          }
+        }
+      }
+    },
     "Business": {
       "localizations": {
         "ar": {
@@ -1071,6 +1533,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "SERIE ATTUALE"
+          }
+        }
+      }
+    },
+    "Canadian Dollar": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دولار كندي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canadian Dollar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dollaro canadese"
           }
         }
       }
@@ -1129,6 +1613,28 @@
         }
       }
     },
+    "Change it if they paid back only part of it.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غيّره إذا سدّدوا جزءًا فقط."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change it if they paid back only part of it."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modificalo se hanno restituito solo una parte."
+          }
+        }
+      }
+    },
     "Check the numbers before you start. Everything can be changed later.": {
       "localizations": {
         "ar": {
@@ -1157,6 +1663,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chiudi"
+          }
+        }
+      }
+    },
+    "Close and reopen Money Manager to see it in %@.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أغلق التطبيق وافتحه من جديد لتراه بـ%@."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close and reopen Money Manager to see it in %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiudi e riapri Money Manager per vederlo in %@."
           }
         }
       }
@@ -1385,6 +1913,28 @@
         }
       }
     },
+    "Debt free": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خالٍ من الديون"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt free"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senza debiti"
+          }
+        }
+      }
+    },
     "Debt name": {
       "localizations": {
         "ar": {
@@ -1577,6 +2127,28 @@
         }
       }
     },
+    "Display": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "العرض"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Display"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visualizzazione"
+          }
+        }
+      }
+    },
     "Done": {
       "localizations": {
         "ar": {
@@ -1595,16 +2167,16 @@
     },
     "Down %@ this month": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Down %@ this month"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "انخفاض %@ هذا الشهر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Down %@ this month"
           }
         },
         "it": {
@@ -1708,6 +2280,28 @@
         }
       }
     },
+    "Eating out": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مطاعم"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eating out"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ristoranti"
+          }
+        }
+      }
+    },
     "Edit": {
       "localizations": {
         "ar": {
@@ -1740,6 +2334,28 @@
         }
       }
     },
+    "Egyptian Pound": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جنيه مصري"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Egyptian Pound"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sterlina egiziana"
+          }
+        }
+      }
+    },
     "Entries": {
       "localizations": {
         "ar": {
@@ -1752,6 +2368,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Voci"
+          }
+        }
+      }
+    },
+    "Euro": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يورو"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Euro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Euro"
+          }
+        }
+      }
+    },
+    "Everyone": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الجميع"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Everyone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutti"
           }
         }
       }
@@ -1788,6 +2448,28 @@
         }
       }
     },
+    "Family": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "العائلة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Family"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Famiglia"
+          }
+        }
+      }
+    },
     "Finish setup": {
       "localizations": {
         "ar": {
@@ -1820,6 +2502,28 @@
         }
       }
     },
+    "General": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عام"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "General"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Generale"
+          }
+        }
+      }
+    },
     "Get started": {
       "localizations": {
         "ar": {
@@ -1832,6 +2536,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inizia"
+          }
+        }
+      }
+    },
+    "Groceries": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بقالة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Groceries"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spesa"
+          }
+        }
+      }
+    },
+    "Health": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صحة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Health"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salute"
           }
         }
       }
@@ -1964,6 +2712,50 @@
         }
       }
     },
+    "Indian Rupee": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "روبية هندية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indian Rupee"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rupia indiana"
+          }
+        }
+      }
+    },
+    "Interest": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفوائد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interessi"
+          }
+        }
+      }
+    },
     "Interest and fees": {
       "localizations": {
         "ar": {
@@ -1982,6 +2774,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Interessi e spese"
+          }
+        }
+      }
+    },
+    "Japanese Yen": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ين ياباني"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Japanese Yen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yen giapponese"
           }
         }
       }
@@ -2024,6 +2838,28 @@
         }
       }
     },
+    "Kids": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأطفال"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kids"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bambini"
+          }
+        }
+      }
+    },
     "Kind": {
       "localizations": {
         "ar": {
@@ -2042,6 +2878,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo"
+          }
+        }
+      }
+    },
+    "Kuwaiti Dinar": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دينار كويتي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kuwaiti Dinar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinaro kuwaitiano"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اللغة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Language"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lingua"
           }
         }
       }
@@ -2431,6 +3311,28 @@
         }
       }
     },
+    "Moroccan Dirham": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درهم مغربي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moroccan Dirham"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dirham marocchino"
+          }
+        }
+      }
+    },
     "NET BALANCE": {
       "localizations": {
         "ar": {
@@ -2535,16 +3437,16 @@
     },
     "No change this month": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No change this month"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "لا تغيير هذا الشهر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No change this month"
           }
         },
         "it": {
@@ -2635,6 +3537,72 @@
         }
       }
     },
+    "No route yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يوجد مسار بعد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No route yet"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun percorso"
+          }
+        }
+      }
+    },
+    "None": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا أحد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "None"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuno"
+          }
+        }
+      }
+    },
+    "Norwegian Krone": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كرونة نرويجية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Norwegian Krone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corona norvegese"
+          }
+        }
+      }
+    },
     "Not paid yet": {
       "localizations": {
         "ar": {
@@ -2717,6 +3685,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nulla richiede la tua attenzione"
+          }
+        }
+      }
+    },
+    "Nothing shared yet. Add an expense and it splits between whoever you pick.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يوجد شيء مشترك بعد. أضف مصروفًا وسيُقسَّم على من تختارهم."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing shared yet. Add an expense and it splits between whoever you pick."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ancora niente di condiviso. Aggiungi una spesa e verrà divisa tra chi scegli."
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حسنًا"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
           }
         }
       }
@@ -2836,6 +3848,28 @@
         }
       }
     },
+    "Owed": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Owed"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المستحق"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dovuto"
+          }
+        }
+      }
+    },
     "Paid": {
       "localizations": {
         "ar": {
@@ -2950,6 +3984,28 @@
         }
       }
     },
+    "Picture": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصورة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Picture"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immagine"
+          }
+        }
+      }
+    },
     "Plan": {
       "localizations": {
         "ar": {
@@ -3032,6 +4088,28 @@
         }
       }
     },
+    "Polish Zloty": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "زلوتي بولندي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polish Zloty"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zloty polacco"
+          }
+        }
+      }
+    },
     "Priority": {
       "localizations": {
         "ar": {
@@ -3044,6 +4122,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Priorità"
+          }
+        }
+      }
+    },
+    "Qatari Riyal": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ريال قطري"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qatari Riyal"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riyal qatariota"
           }
         }
       }
@@ -3098,16 +4198,16 @@
     },
     "Record a payment": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record a payment"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "تسجيل دفعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record a payment"
           }
         },
         "it": {
@@ -3120,16 +4220,16 @@
     },
     "Record a payment for %@": {
       "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record a payment for %@"
-          }
-        },
         "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "تسجيل دفعة لـ%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record a payment for %@"
           }
         },
         "it": {
@@ -3152,6 +4252,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra almeno un'entrata o un'uscita."
+          }
+        }
+      }
+    },
+    "Record it": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّله"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record it"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra"
           }
         }
       }
@@ -3190,6 +4312,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra entrate, spese e debiti e ottieni un piano mensile che ti dice esattamente quando finirai."
+          }
+        }
+      }
+    },
+    "Recording this clears what they owe.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل هذا يُصفّي ما عليهم."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recording this clears what they owe."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrandolo azzeri quello che devono."
           }
         }
       }
@@ -3248,6 +4392,28 @@
         }
       }
     },
+    "Rent": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيجار"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rent"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affitto"
+          }
+        }
+      }
+    },
     "Rent, bills, subscriptions — any recurring monthly commitment. Don't include debt payments here; you'll add those next.": {
       "localizations": {
         "ar": {
@@ -3264,6 +4430,28 @@
         }
       }
     },
+    "Reopen to finish": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أعد الفتح لإتمام التغيير"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reopen to finish"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riapri per completare"
+          }
+        }
+      }
+    },
     "Review your payoff plan": {
       "localizations": {
         "ar": {
@@ -3276,6 +4464,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rivedi il piano di rimborso"
+          }
+        }
+      }
+    },
+    "Roadmap": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خارطة الطريق"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Roadmap"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Percorso"
+          }
+        }
+      }
+    },
+    "Saudi Riyal": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ريال سعودي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saudi Riyal"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riyal saudita"
           }
         }
       }
@@ -3328,6 +4560,28 @@
         }
       }
     },
+    "Settle up": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسوية الحساب"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settle up"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salda i conti"
+          }
+        }
+      }
+    },
     "Setup complete": {
       "localizations": {
         "ar": {
@@ -3340,6 +4594,72 @@
           "stringUnit": {
             "state": "translated",
             "value": "Configurazione completata"
+          }
+        }
+      }
+    },
+    "Share costs with your family": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شارك المصاريف مع عائلتك"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share costs with your family"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condividi le spese con la famiglia"
+          }
+        }
+      }
+    },
+    "Shared expense": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مصروف مشترك"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shared expense"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spesa condivisa"
+          }
+        }
+      }
+    },
+    "Shared expenses": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المصاريف المشتركة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shared expenses"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spese condivise"
           }
         }
       }
@@ -3442,6 +4762,72 @@
         }
       }
     },
+    "Someone": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شخص ما"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Someone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualcuno"
+          }
+        }
+      }
+    },
+    "Split between": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مقسوم بين"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Split between"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diviso tra"
+          }
+        }
+      }
+    },
+    "Split costs with the people you live with": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قاسم من تعيش معهم المصاريف"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Split costs with the people you live with"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividi le spese con chi vive con te"
+          }
+        }
+      }
+    },
     "Spread what is left over the same remaining term.": {
       "localizations": {
         "ar": {
@@ -3512,6 +4898,50 @@
         }
       }
     },
+    "Step": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخطوة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo"
+          }
+        }
+      }
+    },
+    "Step %lld": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخطوة %lld"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo %lld"
+          }
+        }
+      }
+    },
     "Step %lld of %lld": {
       "localizations": {
         "ar": {
@@ -3530,6 +4960,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Passo %lld di %lld"
+          }
+        }
+      }
+    },
+    "Swedish Krona": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كرونة سويدية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Swedish Krona"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corona svedese"
           }
         }
       }
@@ -3562,6 +5014,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scorri per aggiungere"
+          }
+        }
+      }
+    },
+    "Swiss Franc": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فرنك سويسري"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Swiss Franc"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Franco svizzero"
+          }
+        }
+      }
+    },
+    "System": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النظام"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sistema"
           }
         }
       }
@@ -3670,6 +5166,50 @@
         }
       }
     },
+    "This first person is you. Add the others afterwards.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هذا الشخص الأول هو أنت. أضف الباقين لاحقًا."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This first person is you. Add the others afterwards."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questa prima persona sei tu. Aggiungi gli altri dopo."
+          }
+        }
+      }
+    },
+    "This month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هذا الشهر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo mese"
+          }
+        }
+      }
+    },
     "This plan isn't achievable": {
       "localizations": {
         "ar": {
@@ -3682,6 +5222,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il piano non è realizzabile"
+          }
+        }
+      }
+    },
+    "This route doesn't reach the end": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هذا المسار لا يصل إلى النهاية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This route doesn't reach the end"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo percorso non arriva in fondo"
           }
         }
       }
@@ -3766,24 +5328,68 @@
         }
       }
     },
-    "Tracking from this month": {
+    "Total to pay": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tracking from this month"
+            "value": "Total to pay"
           }
         },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إجمالي ما ستدفعه"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Totale da pagare"
+          }
+        }
+      }
+    },
+    "Tracking from this month": {
+      "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "التتبّع يبدأ من هذا الشهر"
           }
         },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tracking from this month"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Monitoraggio da questo mese"
+          }
+        }
+      }
+    },
+    "Travel": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سفر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Travel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viaggi"
           }
         }
       }
@@ -3804,6 +5410,50 @@
         }
       }
     },
+    "Tunisian Dinar": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دينار تونسي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tunisian Dinar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinaro tunisino"
+          }
+        }
+      }
+    },
+    "Turkish Lira": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ليرة تركية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turkish Lira"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lira turca"
+          }
+        }
+      }
+    },
     "Type": {
       "localizations": {
         "ar": {
@@ -3820,18 +5470,62 @@
         }
       }
     },
-    "Up %@ this month": {
+    "UAE Dirham": {
       "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "درهم إماراتي"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Up %@ this month"
+            "value": "UAE Dirham"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dirham degli Emirati"
+          }
+        }
+      }
+    },
+    "US Dollar": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دولار أمريكي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "US Dollar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dollaro USA"
+          }
+        }
+      }
+    },
+    "Up %@ this month": {
+      "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
             "value": "ارتفاع %@ هذا الشهر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Up %@ this month"
           }
         },
         "it": {
@@ -3922,6 +5616,72 @@
         }
       }
     },
+    "What was it?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما هو؟"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What was it?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di cosa si tratta?"
+          }
+        }
+      }
+    },
+    "What you still owe": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What you still owe"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما تبقّى عليك"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quanto devi ancora"
+          }
+        }
+      }
+    },
+    "Where the money goes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Where the money goes"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إلى أين يذهب المال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dove vanno i soldi"
+          }
+        }
+      }
+    },
     "Where your income goes": {
       "localizations": {
         "ar": {
@@ -3966,6 +5726,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quale pesa di più"
+          }
+        }
+      }
+    },
+    "Who paid?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "من دفع؟"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Who paid?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chi ha pagato?"
           }
         }
       }
@@ -4268,6 +6050,50 @@
         }
       }
     },
+    "Your roadmap": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خارطة طريقك"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your roadmap"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo percorso"
+          }
+        }
+      }
+    },
+    "clear by %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "clear by %@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يُسدَّد بحلول %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "estinto entro %@"
+          }
+        }
+      }
+    },
     "day %lld": {
       "localizations": {
         "ar": {
@@ -4426,6 +6252,116 @@
           "stringUnit": {
             "state": "translated",
             "value": "mesi"
+          }
+        }
+      }
+    },
+    "not cleared in this plan": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "not cleared in this plan"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يُسدَّد ضمن هذه الخطة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "non estinto in questo piano"
+          }
+        }
+      }
+    },
+    "of %lld": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "من %lld"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "of %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "di %lld"
+          }
+        }
+      }
+    },
+    "over %lld months": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "over %lld months"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "على مدى %lld شهرًا"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "in %lld mesi"
+          }
+        }
+      }
+    },
+    "settled": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسوّاة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "settled"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "in pari"
+          }
+        }
+      }
+    },
+    "you %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنت %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "you %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tu %@"
           }
         }
       }
