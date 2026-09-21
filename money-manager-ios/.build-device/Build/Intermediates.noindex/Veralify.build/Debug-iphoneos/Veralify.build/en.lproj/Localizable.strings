@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ due each month</key>
+	<string>%@ due each month</string>
+	<key>%@ interest</key>
+	<string>%@ interest</string>
+	<key>%@ left after this</key>
+	<string>%@ left after this</string>
+	<key>%@ of it is your share</key>
+	<string>%@ of it is your share</string>
+	<key>%@ paid off</key>
+	<string>%@ paid off</string>
+	<key>%@ paid so far</key>
+	<string>%@ paid so far</string>
+	<key>%@ this month</key>
+	<string>%@ this month</string>
+	<key>%@%%</key>
+	<string>%@%%</string>
+	<key>%lld shared this month</key>
+	<string>%lld shared this month</string>
+	<key>%lld%% of it</key>
+	<string>%lld%% of it</string>
+	<key>%lld%% paid</key>
+	<string>%lld%% paid</string>
+	<key>A scheduled payment against this debt.</key>
+	<string>A scheduled payment against this debt.</string>
+	<key>About you</key>
+	<string>About you</string>
+	<key>Add a debt and a target period and your roadmap appears here.</key>
+	<string>Add a debt and a target period and your roadmap appears here.</string>
+	<key>Add someone</key>
+	<string>Add someone</string>
+	<key>Add the first person</key>
+	<string>Add the first person</string>
+	<key>Add the people you split money with. Log what each of you pays and the app works out who owes whom.</key>
+	<string>Add the people you split money with. Log what each of you pays and the app works out who owes whom.</string>
+	<key>After this payment</key>
+	<string>After this payment</string>
+	<key>Already paid</key>
+	<string>Already paid</string>
+	<key>Amounts change straight away. A new language applies when you reopen the app.</key>
+	<string>Amounts change straight away. A new language applies when you reopen the app.</string>
+	<key>Australian Dollar</key>
+	<string>Australian Dollar</string>
+	<key>Bills</key>
+	<string>Bills</string>
+	<key>British Pound</key>
+	<string>British Pound</string>
+	<key>Canadian Dollar</key>
+	<string>Canadian Dollar</string>
+	<key>Capital repaid</key>
+	<string>Capital repaid</string>
+	<key>Change it if they paid back only part of it.</key>
+	<string>Change it if they paid back only part of it.</string>
+	<key>Clear</key>
+	<string>Clear</string>
+	<key>Close and reopen Veralify to see it in %@.</key>
+	<string>Close and reopen Veralify to see it in %@.</string>
+	<key>Debt free</key>
+	<string>Debt free</string>
+	<key>Display</key>
+	<string>Display</string>
+	<key>Down %@ this month</key>
+	<string>Down %@ this month</string>
+	<key>Early payoff</key>
+	<string>Early payoff</string>
+	<key>Early payoff · %@ interest</key>
+	<string>Early payoff · %@ interest</string>
+	<key>Eating out</key>
+	<string>Eating out</string>
+	<key>Edit %@</key>
+	<string>Edit %@</string>
+	<key>Egyptian Pound</key>
+	<string>Egyptian Pound</string>
+	<key>Euro</key>
+	<string>Euro</string>
+	<key>Everyone</key>
+	<string>Everyone</string>
+	<key>Family</key>
+	<string>Family</string>
+	<key>General</key>
+	<string>General</string>
+	<key>Groceries</key>
+	<string>Groceries</string>
+	<key>Health</key>
+	<string>Health</string>
+	<key>Indian Rupee</key>
+	<string>Indian Rupee</string>
+	<key>Interest</key>
+	<string>Interest</string>
+	<key>Interest and fees</key>
+	<string>Interest and fees</string>
+	<key>It was deleted. Go back to see the ones you still have.</key>
+	<string>It was deleted. Go back to see the ones you still have.</string>
+	<key>Japanese Yen</key>
+	<string>Japanese Yen</string>
+	<key>Keep paying the same each month and finish sooner.</key>
+	<string>Keep paying the same each month and finish sooner.</string>
+	<key>Kids</key>
+	<string>Kids</string>
+	<key>Kind</key>
+	<string>Kind</string>
+	<key>Kuwaiti Dinar</key>
+	<string>Kuwaiti Dinar</string>
+	<key>Language</key>
+	<string>Language</string>
+	<key>Left</key>
+	<string>Left</string>
+	<key>Lower the monthly payment</key>
+	<string>Lower the monthly payment</string>
+	<key>Mark as not paid</key>
+	<string>Mark as not paid</string>
+	<key>Mark paid</key>
+	<string>Mark paid</string>
+	<key>Monthly</key>
+	<string>Monthly</string>
+	<key>More</key>
+	<string>More</string>
+	<key>Moroccan Dirham</key>
+	<string>Moroccan Dirham</string>
+	<key>New monthly payment</key>
+	<string>New monthly payment</string>
+	<key>No change this month</key>
+	<string>No change this month</string>
+	<key>No payments recorded yet. Add one and this debt starts showing its progress.</key>
+	<string>No payments recorded yet. Add one and this debt starts showing its progress.</string>
+	<key>No route yet</key>
+	<string>No route yet</string>
+	<key>None</key>
+	<string>None</string>
+	<key>Norwegian Krone</key>
+	<string>Norwegian Krone</string>
+	<key>Not paid yet</key>
+	<string>Not paid yet</string>
+	<key>Nothing shared yet. Add an expense and it splits between whoever you pick.</key>
+	<string>Nothing shared yet. Add an expense and it splits between whoever you pick.</string>
+	<key>OK</key>
+	<string>OK</string>
+	<key>Once you mark it paid</key>
+	<string>Once you mark it paid</string>
+	<key>Open for progress and payments</key>
+	<string>Open for progress and payments</string>
+	<key>Open to edit</key>
+	<string>Open to edit</string>
+	<key>Opens the debt so you can mark it paid</key>
+	<string>Opens the debt so you can mark it paid</string>
+	<key>Owed</key>
+	<string>Owed</string>
+	<key>Paid</key>
+	<string>Paid</string>
+	<key>Paid ahead of schedule, straight off the balance.</key>
+	<string>Paid ahead of schedule, straight off the balance.</string>
+	<key>Pay</key>
+	<string>Pay</string>
+	<key>Pay off</key>
+	<string>Pay off</string>
+	<key>Payments</key>
+	<string>Payments</string>
+	<key>Payments: %lld</key>
+	<string>Payments: %lld</string>
+	<key>Picture</key>
+	<string>Picture</string>
+	<key>Planned</key>
+	<string>Planned</string>
+	<key>Planned payments</key>
+	<string>Planned payments</string>
+	<key>Planned — the balance changes when you mark it paid.</key>
+	<string>Planned — the balance changes when you mark it paid.</string>
+	<key>Polish Zloty</key>
+	<string>Polish Zloty</string>
+	<key>Qatari Riyal</key>
+	<string>Qatari Riyal</string>
+	<key>Record a payment</key>
+	<string>Record a payment</string>
+	<key>Record a payment for %@</key>
+	<string>Record a payment for %@</string>
+	<key>Record it</key>
+	<string>Record it</string>
+	<key>Record payment</key>
+	<string>Record payment</string>
+	<key>Recording this clears what they owe.</key>
+	<string>Recording this clears what they owe.</string>
+	<key>Reduces the balance now.</key>
+	<string>Reduces the balance now.</string>
+	<key>Remaining</key>
+	<string>Remaining</string>
+	<key>Rent</key>
+	<string>Rent</string>
+	<key>Reopen to finish</key>
+	<string>Reopen to finish</string>
+	<key>Roadmap</key>
+	<string>Roadmap</string>
+	<key>Route</key>
+	<string>Route</string>
+	<key>Saudi Riyal</key>
+	<string>Saudi Riyal</string>
+	<key>Settle up</key>
+	<string>Settle up</string>
+	<key>Share costs with your family</key>
+	<string>Share costs with your family</string>
+	<key>Shared expense</key>
+	<string>Shared expense</string>
+	<key>Shared expenses</key>
+	<string>Shared expenses</string>
+	<key>Someone</key>
+	<string>Someone</string>
+	<key>Split between</key>
+	<string>Split between</string>
+	<key>Split costs with the people you live with</key>
+	<string>Split costs with the people you live with</string>
+	<key>Spread what is left over the same remaining term.</key>
+	<string>Spread what is left over the same remaining term.</string>
+	<key>Start using Veralify</key>
+	<string>Start using Veralify</string>
+	<key>Step</key>
+	<string>Step</string>
+	<key>Step %lld</key>
+	<string>Step %lld</string>
+	<key>Swedish Krona</key>
+	<string>Swedish Krona</string>
+	<key>Swiss Franc</key>
+	<string>Swiss Franc</string>
+	<key>System</key>
+	<string>System</string>
+	<key>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</key>
+	<string>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</string>
+	<key>This debt is gone</key>
+	<string>This debt is gone</string>
+	<key>This first person is you. Add the others afterwards.</key>
+	<string>This first person is you. Add the others afterwards.</string>
+	<key>This month</key>
+	<string>This month</string>
+	<key>This route doesn't reach the end</key>
+	<string>This route doesn't reach the end</string>
+	<key>Total to pay</key>
+	<string>Total to pay</string>
+	<key>Tracking from this month</key>
+	<string>Tracking from this month</string>
+	<key>Travel</key>
+	<string>Travel</string>
+	<key>Tunisian Dinar</key>
+	<string>Tunisian Dinar</string>
+	<key>Turkish Lira</key>
+	<string>Turkish Lira</string>
+	<key>UAE Dirham</key>
+	<string>UAE Dirham</string>
+	<key>US Dollar</key>
+	<string>US Dollar</string>
+	<key>Up %@ this month</key>
+	<string>Up %@ this month</string>
+	<key>View</key>
+	<string>View</string>
+	<key>What was it?</key>
+	<string>What was it?</string>
+	<key>What you still owe</key>
+	<string>What you still owe</string>
+	<key>Where the money goes</key>
+	<string>Where the money goes</string>
+	<key>Who paid?</key>
+	<string>Who paid?</string>
+	<key>Your roadmap</key>
+	<string>Your roadmap</string>
+	<key>clear by %@</key>
+	<string>clear by %@</string>
+	<key>not cleared in this plan</key>
+	<string>not cleared in this plan</string>
+	<key>of %lld</key>
+	<string>of %lld</string>
+	<key>over %lld months</key>
+	<string>over %lld months</string>
+	<key>settled</key>
+	<string>settled</string>
+	<key>you %@</key>
+	<string>you %@</string>
+</dict>
+</plist>

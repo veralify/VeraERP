@@ -1,0 +1,6 @@
+Target dependency graph (3 targets)
+Target 'Veralify' in project 'Veralify'
+➜ Explicit dependency on target 'VeralifyCore-product' in project 'VeralifyCore'
+Target 'VeralifyCore-product' in project 'VeralifyCore'
+➜ Explicit dependency on target 'VeralifyCore' in project 'VeralifyCore'
+Target 'VeralifyCore' in project 'VeralifyCore' (no dependencies)

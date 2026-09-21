@@ -1,0 +1,4 @@
+module VeralifyCore {
+header "VeralifyCore-Swift.h"
+export *
+}

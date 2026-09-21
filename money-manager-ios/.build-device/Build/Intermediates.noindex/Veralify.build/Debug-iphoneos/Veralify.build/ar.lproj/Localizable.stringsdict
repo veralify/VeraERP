@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%lld days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld أيام</string>
+			<key>many</key>
+			<string>%lld يومًا</string>
+			<key>one</key>
+			<string>يوم واحد</string>
+			<key>other</key>
+			<string>%lld يوم</string>
+			<key>two</key>
+			<string>يومان</string>
+			<key>zero</key>
+			<string>لا أيام</string>
+		</dict>
+	</dict>
+	<key>%lld items have no due date, so they can't be flagged.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld بنود بلا تاريخ استحقاق، لذا لا يمكن تنبيهك بشأنها.</string>
+			<key>many</key>
+			<string>%lld بندًا بلا تاريخ استحقاق، لذا لا يمكن تنبيهك بشأنها.</string>
+			<key>one</key>
+			<string>بند واحد بلا تاريخ استحقاق، لذا لا يمكن تنبيهك بشأنه.</string>
+			<key>other</key>
+			<string>%lld بند بلا تاريخ استحقاق، لذا لا يمكن تنبيهك بشأنها.</string>
+			<key>two</key>
+			<string>بندان بلا تاريخ استحقاق، لذا لا يمكن تنبيهك بشأنهما.</string>
+		</dict>
+	</dict>
+	<key>%lld months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld أشهر</string>
+			<key>many</key>
+			<string>%lld شهرًا</string>
+			<key>one</key>
+			<string>شهر واحد</string>
+			<key>other</key>
+			<string>%lld شهر</string>
+			<key>two</key>
+			<string>شهران</string>
+			<key>zero</key>
+			<string>لا أشهر</string>
+		</dict>
+	</dict>
+	<key>%lld payments</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld دفعات</string>
+			<key>many</key>
+			<string>%lld دفعة</string>
+			<key>one</key>
+			<string>دفعة واحدة</string>
+			<key>other</key>
+			<string>%lld دفعة</string>
+			<key>two</key>
+			<string>دفعتان</string>
+			<key>zero</key>
+			<string>لا دفعات</string>
+		</dict>
+	</dict>
+	<key>Alerts, %lld needing attention</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>التنبيهات، %lld بنود تحتاج انتباهك</string>
+			<key>many</key>
+			<string>التنبيهات، %lld بندًا يحتاج انتباهك</string>
+			<key>one</key>
+			<string>التنبيهات، بند واحد يحتاج انتباهك</string>
+			<key>other</key>
+			<string>التنبيهات، %lld بند يحتاج انتباهك</string>
+			<key>two</key>
+			<string>التنبيهات، بندان يحتاجان انتباهك</string>
+			<key>zero</key>
+			<string>التنبيهات، لا شيء يحتاج انتباهك</string>
+		</dict>
+	</dict>
+	<key>Showing %lld entries</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>عرض %lld حركات</string>
+			<key>many</key>
+			<string>عرض %lld حركة</string>
+			<key>one</key>
+			<string>حركة واحدة</string>
+			<key>other</key>
+			<string>عرض %lld حركة</string>
+			<key>two</key>
+			<string>حركتان</string>
+			<key>zero</key>
+			<string>لا حركات</string>
+		</dict>
+	</dict>
+	<key>Worked out over the %lld payments you have left. If your lender's letter says otherwise, use their figure.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>محسوب على الدفعات الـ%lld المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه.</string>
+			<key>many</key>
+			<string>محسوب على الـ%lld دفعة المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه.</string>
+			<key>one</key>
+			<string>محسوب على الدفعة الواحدة المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه.</string>
+			<key>other</key>
+			<string>محسوب على الـ%lld دفعة المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه.</string>
+			<key>two</key>
+			<string>محسوب على الدفعتين المتبقيتين. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه.</string>
+			<key>zero</key>
+			<string>محسوب على الدفعات المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه.</string>
+		</dict>
+	</dict>
+	<key>in %lld days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>بعد %lld أيام</string>
+			<key>many</key>
+			<string>بعد %lld يومًا</string>
+			<key>one</key>
+			<string>بعد يوم واحد</string>
+			<key>other</key>
+			<string>بعد %lld يوم</string>
+			<key>two</key>
+			<string>بعد يومين</string>
+			<key>zero</key>
+			<string>اليوم</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
