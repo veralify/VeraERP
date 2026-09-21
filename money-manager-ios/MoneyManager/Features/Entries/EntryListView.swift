@@ -12,6 +12,7 @@ struct EntryListView: View {
 
     @State private var editing: EditTarget?
     @State private var isAdding = false
+    @State private var payingDebt: DebtRecord?
 
     private var targets: [EditTarget] {
         switch kind {
@@ -78,6 +79,10 @@ struct EntryListView: View {
             EntryFormSheet(mode: .add(kind))
                 .presentationBackground(Theme.background)
         }
+        .sheet(item: $payingDebt) { debt in
+            DebtPaymentSheet(debt: debt)
+                .presentationBackground(Theme.background)
+        }
     }
 
     private var totalCard: some View {
@@ -98,48 +103,68 @@ struct EntryListView: View {
 
     @ViewBuilder
     private func row(for target: EditTarget) -> some View {
-        Button {
-            editing = target
-        } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(title(for: target))
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(Theme.textPrimary)
-                    if let detail = detail(for: target) {
-                        Text(detail)
-                            .font(.footnote)
-                            .monospacedDigit()
-                            .foregroundStyle(Theme.textSecondary)
+        // The row and the Pay action are siblings, not nested: a Button inside
+        // another Button's label does not reliably receive taps, and an overlay
+        // would sit on top of the balance.
+        VStack(alignment: .leading, spacing: 0) {
+            Button {
+                editing = target
+            } label: {
+                HStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(title(for: target))
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundStyle(Theme.textPrimary)
+                        if let detail = detail(for: target) {
+                            Text(detail)
+                                .font(.footnote)
+                                .monospacedDigit()
+                                .foregroundStyle(Theme.textSecondary)
+                        }
                     }
+
+                    Spacer(minLength: 8)
+
+                    Text(CurrencyFormat.string(amount(for: target)))
+                        .font(.system(size: 17, weight: .bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.textPrimary)
+
+                    Image(systemName: "chevron.forward")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.textTertiary)
                 }
-
-                Spacer(minLength: 8)
-
-                Text(CurrencyFormat.string(amount(for: target)))
-                    .font(.system(size: 17, weight: .bold))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textPrimary)
-
-                Image(systemName: "chevron.forward")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Theme.textTertiary)
+                .padding(.vertical, 15)
+                .contentShape(.rect)
             }
-            .padding(.vertical, 15)
-            .contentShape(.rect)
+            .buttonStyle(.pressableRow)
+            .accessibilityHint("Open to edit")
+
+            if case .debt(let item) = target {
+                Button { payingDebt = item } label: {
+                    Label("Record payment", systemImage: "creditcard")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(Theme.onAccent)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 8)
+                        .background(Theme.lime, in: .capsule)
+                }
+                .buttonStyle(.pressable)
+                .padding(.bottom, 14)
+            }
         }
-        .buttonStyle(.pressableRow)
-        // `.swipeActions` is a List-only modifier and silently does nothing in a
-        // stack, so deletion is offered by long-press here and by the button
-        // inside the edit sheet — both of which actually work.
         .contextMenu {
+            if case .debt(let item) = target {
+                Button { payingDebt = item } label: {
+                    Label("Record payment", systemImage: "creditcard")
+                }
+            }
             Button(role: .destructive) {
                 delete(target)
             } label: {
                 Label("Delete", systemImage: "trash")
             }
         }
-        .accessibilityHint("Open to edit, or press and hold to delete")
     }
 
     // MARK: - Row content

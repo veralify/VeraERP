@@ -16,6 +16,9 @@ struct OnboardingView: View {
     @State private var expenses: [DraftEntry] = []
     @State private var debts: [DraftDebt] = []
     @State private var targetMonths: Int = 16
+    /// The success screen reads its tiles from the drafts, which the demo path
+    /// never fills — so it reads the saved records instead.
+    @State private var usedSampleData = false
 
     let onFinish: () -> Void
 
@@ -73,6 +76,7 @@ struct OnboardingView: View {
         case .debts:    debtsStep
         case .target:   targetStep
         case .summary:  summaryStep
+        case .success:  successStep
         }
     }
 
@@ -263,11 +267,89 @@ struct OnboardingView: View {
                 }
             }
         } actions: {
-            PrimaryButton(title: "Get started") { finish() }
+            PrimaryButton(title: "Finish setup") { commitAndCelebrate() }
             if !debts.isEmpty && !plan.isFeasible {
                 SecondaryButton(title: "Adjust the period") { step = .target }
             }
         }
+    }
+
+    private var successStep: some View {
+        let plan = previewPlan()
+        return SetupSuccessView(
+            cards: successCards,
+            statusText: debts.isEmpty || plan.isFeasible ? "Achievable" : "Needs adjusting",
+            statusIsGood: debts.isEmpty || plan.isFeasible,
+            targetMonths: targetMonths,
+            onContinue: onFinish
+        )
+    }
+
+    /// The user's own entries as tiles. Largest first, so the front — and
+    /// sharpest — card is the one that matters most.
+    private var successCards: [ScatterCard] {
+        if usedSampleData { return sampleCards }
+
+        let largestDebt = debts.map(\.balance).max() ?? 1
+        let debtCards = debts.sorted { $0.balance > $1.balance }.map { debt in
+            ScatterCard(
+                title: debt.name,
+                subtitle: String(localized: "Debt"),
+                amount: CurrencyFormat.string(debt.balance),
+                fill: largestDebt > 0 ? NSDecimalNumber(decimal: debt.balance / largestDebt).doubleValue : 0,
+                accent: debt.apr > 0 ? Theme.red : Theme.blue
+            )
+        }
+
+        let incomeCards = income.map { entry in
+            ScatterCard(
+                title: entry.name,
+                subtitle: String(localized: "Income"),
+                amount: CurrencyFormat.string(entry.amount),
+                fill: 1,
+                accent: Theme.lime
+            )
+        }
+
+        let expenseCards = expenses.map { entry in
+            ScatterCard(
+                title: entry.name,
+                subtitle: String(localized: "Expense"),
+                amount: CurrencyFormat.string(entry.amount),
+                fill: totalIncome > 0 ? NSDecimalNumber(decimal: entry.amount / totalIncome).doubleValue : 0.4,
+                accent: Theme.yellow
+            )
+        }
+
+        // Back to front: context first, the headline debt last.
+        return Array((incomeCards + expenseCards + debtCards).prefix(5))
+    }
+
+    /// Tiles built from what was just written to the store, for the demo path.
+    private var sampleCards: [ScatterCard] {
+        let savedDebts = (try? context.fetch(FetchDescriptor<DebtRecord>())) ?? []
+        let savedIncome = (try? context.fetch(FetchDescriptor<IncomeSource>())) ?? []
+        let largest = savedDebts.map(\.balance).max() ?? 1
+
+        let incomeCards = savedIncome.map { entry in
+            ScatterCard(
+                title: entry.name,
+                subtitle: String(localized: "Income"),
+                amount: CurrencyFormat.string(entry.amount),
+                fill: 1,
+                accent: Theme.lime
+            )
+        }
+        let debtCards = savedDebts.sorted { $0.balance > $1.balance }.map { debt in
+            ScatterCard(
+                title: debt.name,
+                subtitle: String(localized: "Debt"),
+                amount: CurrencyFormat.string(debt.balance),
+                fill: largest > 0 ? NSDecimalNumber(decimal: debt.balance / largest).doubleValue : 0,
+                accent: debt.apr > 0 ? Theme.red : Theme.blue
+            )
+        }
+        return Array((incomeCards + debtCards).prefix(5))
     }
 
     private func summaryRow(_ label: LocalizedStringKey, _ amount: Decimal, _ accent: Color) -> some View {
@@ -316,6 +398,11 @@ struct OnboardingView: View {
 
     // MARK: - Commit
 
+    private func commitAndCelebrate() {
+        finish()
+        step = .success
+    }
+
     private func finish() {
         for entry in income {
             context.insert(IncomeSource(name: entry.name, amount: entry.amount))
@@ -337,11 +424,11 @@ struct OnboardingView: View {
         }
         context.insert(PlanSettings(targetMonths: targetMonths, startDate: .now))
         try? context.save()
-        onFinish()
     }
 
     private func finishWithSampleData() {
         SampleData.insertDemoData(context)
-        onFinish()
+        usedSampleData = true
+        step = .success
     }
 }

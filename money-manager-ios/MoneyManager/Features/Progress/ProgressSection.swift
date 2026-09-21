@@ -15,8 +15,18 @@ struct ProgressSection: View {
     let soonestDueInDays: Int?
 
     /// Fires the burst when a quest is ticked.
-    @State private var burstTrigger = false
-    @State private var burstQuestID: String?
+    /// Per-task completion counter. The effect views stay mounted and watch
+    /// their own row's count, because `keyframeAnimator` ignores a trigger that
+    /// arrives with the view rather than after it.
+    @State private var celebrationIDs: [String: Int] = [:]
+    /// The task currently being celebrated, for the card's highlight.
+    @State private var celebratingQuestID: String?
+    @State private var rewardLabels: [String: String] = [:]
+    /// Guards against a second tap landing while a completion is in flight.
+    @State private var inFlight: Set<String> = []
+    @State private var levelUpTo: Int?
+    @State private var levelUpID = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// Quests held on screen for a beat after completing, so the tick and the
     /// burst are actually seen before the row dissolves away.
     @State private var lingering: Set<String> = []
@@ -96,6 +106,12 @@ struct ProgressSection: View {
         }
         .animation(.smooth(duration: 0.45), value: outstanding.map(\.id))
         .countUpOnAppear($isRolling)
+        .overlay(alignment: .top) {
+            if let levelUpTo {
+                LevelUpBanner(level: levelUpTo, trigger: levelUpID)
+                    .offset(y: -6)
+            }
+        }
     }
 
     // MARK: - Cards
@@ -214,6 +230,8 @@ struct ProgressSection: View {
 
     private func questCard(_ quest: Quest) -> some View {
         let done = isComplete(quest)
+        let celebrating = celebratingQuestID == quest.id
+
         return HStack(alignment: .top, spacing: 12) {
             Image(systemName: quest.icon)
                 .font(.system(size: 17, weight: .medium))
@@ -227,6 +245,7 @@ struct ProgressSection: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(quest.title)
                     .font(.system(size: 16, weight: .semibold))
+                    // Dimmed but still readable, not greyed into illegibility.
                     .foregroundStyle(done ? Theme.textSecondary : Theme.textPrimary)
                     .strikethrough(done, color: Theme.textTertiary)
                     .lineLimit(1)
@@ -243,30 +262,34 @@ struct ProgressSection: View {
 
             Spacer(minLength: 8)
 
-            Group {
-                if quest.kind == .manual {
-                    Button { toggle(quest) } label: {
-                        checkmark(done: done)
-                            .overlay {
-                                if burstQuestID == quest.id {
-                                    ParticleBurst(trigger: burstTrigger)
-                                }
-                            }
-                    }
-                    .buttonStyle(.pressable)
-                    .accessibilityLabel(done ? "Mark as not done" : "Mark as done")
-                } else {
-                    // Automatic quests are status, not a control.
-                    checkmark(done: done)
-                        .accessibilityHidden(true)
-                }
+            CompletionButton(
+                isComplete: done,
+                celebrationID: celebrationIDs[quest.id, default: 0],
+                isInteractive: quest.kind == .manual
+            ) {
+                completeTask(quest.id, reward: quest.xp)
+            }
+            // Mounted from the start, invisible until its count changes.
+            .overlay(alignment: .top) {
+                FloatingReward(
+                    text: rewardLabels[quest.id] ?? "+\(quest.xp) XP",
+                    trigger: celebrationIDs[quest.id, default: 0]
+                )
+                .offset(y: -6)
             }
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
-        .animation(.snappy(duration: 0.25), value: done)
-        .sensoryFeedback(.success, trigger: done) { _, isDone in isDone }
+        // A brief highlight, then it settles back.
+        .overlay(
+            RoundedRectangle(cornerRadius: Theme.Radius.card)
+                .strokeBorder(Theme.green.opacity(celebrating ? 0.55 : 0), lineWidth: 1.5)
+        )
+        .shadow(color: Theme.green.opacity(celebrating ? 0.28 : 0), radius: 18, y: 6)
+        .scaleEffect(celebrating && !reduceMotion ? 1.015 : 1)
+        .animation(.bouncy(duration: 0.45), value: celebrating)
+        .sensoryFeedback(.success, trigger: celebrationIDs[quest.id, default: 0])
         .accessibilityElement(children: .combine)
     }
 
@@ -282,26 +305,6 @@ struct ProgressSection: View {
         .padding(.horizontal, 9)
         .padding(.vertical, 4)
         .background(Theme.lime.opacity(0.12), in: .capsule)
-    }
-
-    private func checkmark(done: Bool) -> some View {
-        ZStack {
-            if done {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 26))
-                    .foregroundStyle(Theme.green)
-            } else {
-                // Dashed rather than solid: an outstanding quest reads as a
-                // slot waiting to be filled, not as a control already drawn.
-                Circle()
-                    .strokeBorder(
-                        Theme.textTertiary,
-                        style: StrokeStyle(lineWidth: 1.5, dash: [3.5, 3.5])
-                    )
-                    .frame(width: 26, height: 26)
-            }
-        }
-        .frame(width: 34, height: 34)
     }
 
     // MARK: - Evaluation
@@ -326,22 +329,51 @@ struct ProgressSection: View {
         }
     }
 
-    private func toggle(_ quest: Quest) {
-        guard !isComplete(quest) else { return }
+    /// Completes a task and pays out its reward.
+    ///
+    /// The single entry point for completion: it owns the guards, the state
+    /// write and the choreography, so no caller can produce a celebration
+    /// without the persisted change that earns it.
+    ///
+    /// - Parameters:
+    ///   - questID: the task to complete.
+    ///   - reward: XP awarded. Stored on the record so past days keep the value
+    ///     they were worth at the time.
+    private func completeTask(_ questID: String, reward: Int) {
+        guard let quest = Quest.all.first(where: { $0.id == questID }) else { return }
+        // Already done, or a second tap landed while the first was in flight.
+        guard quest.kind == .manual, !isComplete(quest), !inFlight.contains(questID) else { return }
 
-        context.insert(QuestCompletion(questID: quest.id, day: today, xp: quest.xp))
+        let levelBefore = LevelProgress.forXP(totalXP).level
+
+        inFlight.insert(questID)
+        context.insert(QuestCompletion(questID: questID, day: today, xp: reward))
         try? context.save()
 
-        // Keep the row up while the tick and burst play, then dissolve it.
-        lingering.insert(quest.id)
-        burstQuestID = quest.id
-        burstTrigger.toggle()
+        // Keep the row up while the tick, burst and reward play out.
+        lingering.insert(questID)
+        celebratingQuestID = questID
+        rewardLabels[questID] = "+\(reward) XP"
+        celebrationIDs[questID, default: 0] += 1
+
+        let levelAfter = LevelProgress.forXP(totalXP).level
+        if levelAfter > levelBefore {
+            levelUpTo = levelAfter
+            levelUpID += 1
+        }
 
         Task {
-            try? await Task.sleep(for: .milliseconds(620))
+            // Main beat: tick, pop, particles, reward. Then the row leaves.
+            try? await Task.sleep(for: .milliseconds(760))
             withAnimation(.smooth(duration: 0.45)) {
-                _ = lingering.remove(quest.id)
+                _ = lingering.remove(questID)
             }
+            celebratingQuestID = nil
+            inFlight.remove(questID)
+
+            // The level banner outlasts the row so it is not cut short.
+            try? await Task.sleep(for: .milliseconds(900))
+            levelUpTo = nil
         }
     }
 }

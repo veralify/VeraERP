@@ -28,6 +28,9 @@ enum OnboardingStep: Int, CaseIterable {
     case debts
     case target
     case summary
+    /// Celebration after the data is committed. A cover, like `welcome`, so it
+    /// is excluded from the step count.
+    case success
 
     var next: OnboardingStep? { OnboardingStep(rawValue: rawValue + 1) }
     var previous: OnboardingStep? { OnboardingStep(rawValue: rawValue - 1) }

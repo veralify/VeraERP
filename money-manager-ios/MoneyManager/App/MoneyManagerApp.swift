@@ -9,7 +9,8 @@ struct MoneyManagerApp: App {
         do {
             container = try ModelContainer(
                 for: DebtRecord.self, IncomeSource.self, ExpenseItem.self, PlanSettings.self,
-                TransactionRecord.self, QuestCompletion.self
+                TransactionRecord.self, QuestCompletion.self,
+                DebtPayment.self, MonthlySnapshot.self
             )
         } catch {
             // A store that cannot open is unrecoverable and silently showing an

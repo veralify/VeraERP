@@ -7,6 +7,13 @@ struct DashboardView: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var snapshots: [MonthlySnapshot]
+
+    @Environment(\.modelContext) private var context
+
+    /// Set by the quick-pay chips, which open the payment sheet straight from
+    /// the dashboard rather than by way of the debts list.
+    @State private var payingDebt: DebtRecord?
 
     /// Days until the nearest due payment, or nil when nothing is scheduled.
     private var soonestDueInDays: Int? {
@@ -20,6 +27,30 @@ struct DashboardView: View {
         DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
     }
 
+    /// What the plan looked like when this month began, if the app was open to
+    /// see it.
+    private var baseline: MonthlySnapshot? {
+        let start = MonthlySnapshot.monthStart(for: .now)
+        return snapshots.first { $0.month == start }
+    }
+
+    /// Records this month's starting figures the first time the app is opened
+    /// in it. Idempotent: it only ever inserts when the month has no row.
+    private func captureBaselineIfNeeded() {
+        guard baseline == nil else { return }
+        let state = summary
+        context.insert(
+            MonthlySnapshot(
+                month: MonthlySnapshot.monthStart(for: .now),
+                income: state.totalIncome,
+                expenses: state.totalExpenses,
+                debtMinimums: state.totalDebtMinimums,
+                debtBalance: state.totalDebt
+            )
+        )
+        try? context.save()
+    }
+
     /// Content only — the tab bar, title and add sheet belong to `MainTabView`,
     /// so they persist across tab changes instead of being rebuilt per screen.
     var body: some View {
@@ -27,11 +58,11 @@ struct DashboardView: View {
             VStack(spacing: 18) {
                 heroCard.staggeredAppearance(0)
                 planStrip.staggeredAppearance(1)
+                metricCards.staggeredAppearance(2)
                 ProgressSection(
                     netCashFlow: summary.netCashFlow,
                     soonestDueInDays: soonestDueInDays
                 )
-                breakdown.staggeredAppearance(3)
                 debtList.staggeredAppearance(4)
             }
             .padding(.horizontal, 16)
@@ -40,6 +71,111 @@ struct DashboardView: View {
             .padding(.bottom, 108)
         }
         .scrollIndicators(.hidden)
+        .task { captureBaselineIfNeeded() }
+        .sheet(item: $payingDebt) { DebtPaymentSheet(debt: $0) }
+    }
+
+    /// Income, core expenses and debts as their own cards, each carrying what it
+    /// has done since the month began.
+    private var metricCards: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 12) {
+                NavigationLink(value: EntryKind.income) {
+                    MetricCard(
+                        title: "Income",
+                        icon: "arrow.down.left",
+                        accent: Theme.lime,
+                        amount: summary.totalIncome,
+                        delta: MonthlyDelta.since(
+                            baseline?.income, now: summary.totalIncome, risingIsGood: true
+                        ),
+                        isCompact: true
+                    )
+                }
+                .buttonStyle(.pressable)
+
+                NavigationLink(value: EntryKind.expense) {
+                    MetricCard(
+                        title: "Core expenses",
+                        icon: "arrow.up.right",
+                        accent: Theme.yellow,
+                        amount: summary.totalExpenses,
+                        delta: MonthlyDelta.since(
+                            baseline?.expenses, now: summary.totalExpenses, risingIsGood: false
+                        ),
+                        isCompact: true
+                    )
+                }
+                .buttonStyle(.pressable)
+            }
+            .fixedSize(horizontal: false, vertical: true)
+
+            NavigationLink(value: EntryKind.debt) {
+                MetricCard(
+                    title: "Debts",
+                    icon: "creditcard.fill",
+                    accent: Theme.red,
+                    amount: summary.totalDebt,
+                    delta: MonthlyDelta.since(
+                        baseline?.debtBalance, now: summary.totalDebt, risingIsGood: false
+                    ),
+                    footnote: "\(CurrencyFormat.string(summary.totalDebtMinimums)) due each month"
+                )
+            }
+            .buttonStyle(.pressable)
+
+            if !debts.isEmpty { quickPayRow }
+        }
+    }
+
+    /// One tap from the dashboard to the payment sheet, already pointed at the
+    /// right debt and prefilled with its instalment — recording a payment is
+    /// the thing people come back to do, and it was three screens deep.
+    ///
+    /// Sibling of the debts card rather than inside it: a button nested in a
+    /// `NavigationLink` competes with it for the tap.
+    private var quickPayRow: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Record a payment")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Theme.textTertiary)
+                .padding(.horizontal, 2)
+
+            ScrollView(.horizontal) {
+                HStack(spacing: 8) {
+                    ForEach(debts) { debt in
+                        Button {
+                            payingDebt = debt
+                        } label: {
+                            HStack(spacing: 7) {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.caption.weight(.bold))
+                                    .foregroundStyle(Theme.lime)
+                                Text(LocalizedStringKey(debt.name))
+                                    .font(.subheadline.weight(.semibold))
+                                    .foregroundStyle(Theme.textPrimary)
+                                Text(CurrencyFormat.string(debt.minimumPayment))
+                                    .font(.subheadline.weight(.bold))
+                                    .monospacedDigit()
+                                    .foregroundStyle(Theme.textSecondary)
+                            }
+                            .lineLimit(1)
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 10)
+                            .background(Theme.surface, in: .capsule)
+                            .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
+                        }
+                        .buttonStyle(.pressable)
+                        .accessibilityLabel("Record a payment for \(debt.name)")
+                    }
+                }
+                .padding(.horizontal, 2)
+            }
+            .scrollIndicators(.hidden)
+            // The row is one screen edge to the other, so it must not be
+            // clipped by the page's own gutter.
+            .scrollClipDisabled()
+        }
     }
 
     /// The headline figure, on a fill that states whether it is good news.
@@ -71,61 +207,6 @@ struct DashboardView: View {
             )
             Pill(text: String(localized: "\(summary.plan.targetMonths) months"))
             Spacer(minLength: 0)
-        }
-    }
-
-    private var breakdown: some View {
-        VStack(spacing: 12) {
-            SectionHeader(title: "Monthly flow") {
-                Text("\(income.count + expenses.count) items")
-                    .font(.subheadline)
-                    .foregroundStyle(Theme.textSecondary)
-            }
-
-            GroupedCard {
-                NavigationLink(value: EntryKind.income) {
-                    DetailRow(
-                        title: "Monthly income",
-                        subtitle: "The sum of your active income sources.",
-                        value: CurrencyFormat.string(summary.totalIncome),
-                        statusText: String(localized: "Active"),
-                        statusDot: Theme.green,
-                        tag: String(localized: "Income"),
-                        tagColor: Theme.lime
-                    )
-                }
-                .buttonStyle(.pressableRow)
-
-                RowDivider()
-
-                NavigationLink(value: EntryKind.expense) {
-                    DetailRow(
-                        title: "Core expenses",
-                        subtitle: "Your fixed monthly commitments.",
-                        value: CurrencyFormat.string(summary.totalExpenses),
-                        statusText: String(localized: "Monthly"),
-                        statusDot: Theme.yellow,
-                        tag: String(localized: "Expense"),
-                        tagColor: Theme.yellow
-                    )
-                }
-                .buttonStyle(.pressableRow)
-
-                RowDivider()
-
-                NavigationLink(value: EntryKind.debt) {
-                    DetailRow(
-                        title: "Debt payments",
-                        subtitle: "The minimum due across all your debts.",
-                        value: CurrencyFormat.string(summary.totalDebtMinimums),
-                        statusText: String(localized: "Due"),
-                        statusDot: Theme.red,
-                        tag: String(localized: "Payment"),
-                        tagColor: Theme.red
-                    )
-                }
-                .buttonStyle(.pressableRow)
-            }
         }
     }
 

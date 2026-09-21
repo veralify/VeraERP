@@ -6,8 +6,10 @@ import SwiftUI
 /// reading as reward and starts reading as an obstacle between the user and
 /// the next thing they wanted to do.
 struct ParticleBurst: View {
-    /// Changing this fires a burst.
-    let trigger: Bool
+    /// Changing this fires a burst. Must change on an already-mounted view —
+    /// creating the burst at the moment of completion leaves it on its first
+    /// keyframe, which is invisible.
+    let trigger: Int
     var tint: Color = Theme.green
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion

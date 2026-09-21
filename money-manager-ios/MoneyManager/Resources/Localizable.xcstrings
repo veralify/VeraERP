@@ -4,6 +4,72 @@
     "": {
       "shouldTranslate": false
     },
+    "%@ charged, of which %@ comes off the debt.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم خصم %@، منها %@ تُخفّض الدين."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ charged, of which %2$@ comes off the debt."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Addebitati %@, di cui %@ riducono il debito."
+          }
+        }
+      }
+    },
+    "%@ due each month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ due each month"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ مستحقة كل شهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dovuti ogni mese"
+          }
+        }
+      }
+    },
+    "%@ paid so far": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم دفع %@ حتى الآن"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ paid so far"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagati finora %@"
+          }
+        }
+      }
+    },
     "%@%% interest": {
       "localizations": {
         "ar": {
@@ -109,6 +175,7 @@
       }
     },
     "%lld items": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "variations": {
@@ -514,6 +581,7 @@
       }
     },
     "Active": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -641,6 +709,22 @@
         }
       }
     },
+    "Add your income and debts whenever you're ready": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أضف دخلك وديونك متى شئت"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi entrate e debiti quando vuoi"
+          }
+        }
+      }
+    },
     "Add your income and expenses to see how your month breaks down.": {
       "localizations": {
         "ar": {
@@ -701,6 +785,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dopo spese e rate"
+          }
+        }
+      }
+    },
+    "After this payment": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بعد هذه الدفعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After this payment"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dopo questo pagamento"
           }
         }
       }
@@ -835,6 +941,28 @@
         }
       }
     },
+    "Already paid": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مدفوعة بالفعل"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already paid"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Già pagata"
+          }
+        }
+      }
+    },
     "Amount": {
       "localizations": {
         "ar": {
@@ -963,6 +1091,28 @@
         }
       }
     },
+    "Capital repaid": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رأس المال المسدَّد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capital repaid"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capitale rimborsato"
+          }
+        }
+      }
+    },
     "Category": {
       "localizations": {
         "ar": {
@@ -1007,6 +1157,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chiudi"
+          }
+        }
+      }
+    },
+    "Completed": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مكتملة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completata"
           }
         }
       }
@@ -1427,7 +1593,30 @@
         }
       }
     },
+    "Down %@ this month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Down %@ this month"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انخفاض %@ هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In calo di %@ questo mese"
+          }
+        }
+      }
+    },
     "Due": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -1471,6 +1660,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scade il giorno %lld"
+          }
+        }
+      }
+    },
+    "Early payoff": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سداد مبكر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Early payoff"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimborso anticipato"
+          }
+        }
+      }
+    },
+    "Early payoff · %@ interest": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سداد مبكر · فوائد %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Early payoff · %@ interest"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimborso anticipato · %@ di interessi"
           }
         }
       }
@@ -1551,6 +1784,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spese"
+          }
+        }
+      }
+    },
+    "Finish setup": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إنهاء الإعداد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completa la configurazione"
           }
         }
       }
@@ -1715,6 +1964,28 @@
         }
       }
     },
+    "Interest and fees": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفوائد والرسوم"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest and fees"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interessi e spese"
+          }
+        }
+      }
+    },
     "Keep income ahead of expenses and payments.": {
       "localizations": {
         "ar": {
@@ -1727,6 +1998,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mantieni le entrate sopra spese e rate."
+          }
+        }
+      }
+    },
+    "Keep paying the same each month and finish sooner.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استمر بدفع المبلغ نفسه شهريًا وانتهِ أبكر."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep paying the same each month and finish sooner."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continua a pagare lo stesso importo e finisci prima."
+          }
+        }
+      }
+    },
+    "Kind": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النوع"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kind"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         }
       }
@@ -1795,6 +2110,28 @@
         }
       }
     },
+    "Lower the monthly payment": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خفّض القسط الشهري"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lower the monthly payment"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riduci la rata mensile"
+          }
+        }
+      }
+    },
     "Mark as done": {
       "localizations": {
         "ar": {
@@ -1812,6 +2149,7 @@
       }
     },
     "Mark as not done": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -1823,6 +2161,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Segna come non completato"
+          }
+        }
+      }
+    },
+    "Mark as not paid": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وضع علامة غير مدفوعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark as not paid"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segna come non pagata"
+          }
+        }
+      }
+    },
+    "Mark paid": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وضع علامة مدفوعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark paid"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segna pagata"
           }
         }
       }
@@ -1908,6 +2290,7 @@
       }
     },
     "Monthly": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -1919,6 +2302,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mensile"
+          }
+        }
+      }
+    },
+    "Monthly %@ → %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الشهري %@ ← %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Monthly %1$@ → %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensile %@ → %@"
           }
         }
       }
@@ -1940,6 +2345,7 @@
       }
     },
     "Monthly flow": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -1999,6 +2405,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Totale mensile"
+          }
+        }
+      }
+    },
+    "More": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المزيد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altro"
           }
         }
       }
@@ -2067,6 +2495,28 @@
         }
       }
     },
+    "New monthly payment": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القسط الشهري الجديد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New monthly payment"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuova rata mensile"
+          }
+        }
+      }
+    },
     "Nice — you're up this month.": {
       "localizations": {
         "ar": {
@@ -2079,6 +2529,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bene — questo mese sei in attivo."
+          }
+        }
+      }
+    },
+    "No change this month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No change this month"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا تغيير هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna variazione questo mese"
           }
         }
       }
@@ -2163,6 +2635,28 @@
         }
       }
     },
+    "Not paid yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم تُدفع بعد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not paid yet"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non ancora pagata"
+          }
+        }
+      }
+    },
     "Nothing due in 3 days": {
       "localizations": {
         "ar": {
@@ -2243,6 +2737,28 @@
         }
       }
     },
+    "Once you mark it paid": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بمجرد وضع علامة مدفوعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Once you mark it paid"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando la segni come pagata"
+          }
+        }
+      }
+    },
     "Open the plan and check where you stand.": {
       "localizations": {
         "ar": {
@@ -2259,7 +2775,30 @@
         }
       }
     },
+    "Open to edit": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح للتعديل"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open to edit"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri per modificare"
+          }
+        }
+      }
+    },
     "Open to edit, or press and hold to delete": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -2271,6 +2810,72 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apri per modificare o tieni premuto per eliminare"
+          }
+        }
+      }
+    },
+    "Opens the debt so you can mark it paid": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يفتح الدين لتتمكن من وضع علامة مدفوعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opens the debt so you can mark it paid"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apre il debito per segnarlo come pagato"
+          }
+        }
+      }
+    },
+    "Paid": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مدفوعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paid"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagata"
+          }
+        }
+      }
+    },
+    "Pay off": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سداد كامل"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pay off"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estingui"
           }
         }
       }
@@ -2287,6 +2892,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rata"
+          }
+        }
+      }
+    },
+    "Payments": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الدفعات"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payments"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamenti"
           }
         }
       }
@@ -2339,6 +2966,72 @@
         }
       }
     },
+    "Planned": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مخطَّطة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planned"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pianificata"
+          }
+        }
+      }
+    },
+    "Planned payments": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الدفعات المخطَّطة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planned payments"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamenti pianificati"
+          }
+        }
+      }
+    },
+    "Planned — the balance changes when you mark it paid.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مخطَّطة — يتغيّر الرصيد عند وضع علامة مدفوعة."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planned — the balance changes when you mark it paid."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pianificata: il saldo cambia quando la segni come pagata."
+          }
+        }
+      }
+    },
     "Priority": {
       "localizations": {
         "ar": {
@@ -2351,6 +3044,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Priorità"
+          }
+        }
+      }
+    },
+    "Quests reset at midnight": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتجدد المهام عند منتصف الليل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le missioni si azzerano a mezzanotte"
           }
         }
       }
@@ -2371,6 +3080,66 @@
         }
       }
     },
+    "Reached level %lld": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وصلت إلى المستوى %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hai raggiunto il livello %lld"
+          }
+        }
+      }
+    },
+    "Record a payment": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record a payment"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل دفعة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra un pagamento"
+          }
+        }
+      }
+    },
+    "Record a payment for %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record a payment for %@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل دفعة لـ%@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra un pagamento per %@"
+          }
+        }
+      }
+    },
     "Record at least one credit or debit.": {
       "localizations": {
         "ar": {
@@ -2387,6 +3156,28 @@
         }
       }
     },
+    "Record payment": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل دفعة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record payment"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra pagamento"
+          }
+        }
+      }
+    },
     "Record your income, expenses and debts, then get a monthly payoff plan that tells you exactly when you'll be done.": {
       "localizations": {
         "ar": {
@@ -2399,6 +3190,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra entrate, spese e debiti e ottieni un piano mensile che ti dice esattamente quando finirai."
+          }
+        }
+      }
+    },
+    "Reduces the balance now.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُخفّض الرصيد الآن."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reduces the balance now."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riduce subito il saldo."
           }
         }
       }
@@ -2515,6 +3328,22 @@
         }
       }
     },
+    "Setup complete": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اكتمل الإعداد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurazione completata"
+          }
+        }
+      }
+    },
     "Showing %lld entries": {
       "localizations": {
         "ar": {
@@ -2613,6 +3442,28 @@
         }
       }
     },
+    "Spread what is left over the same remaining term.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وزّع المتبقي على المدة المتبقية نفسها."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spread what is left over the same remaining term."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Distribuisci il residuo sulla stessa durata rimanente."
+          }
+        }
+      }
+    },
     "Standard": {
       "localizations": {
         "ar": {
@@ -2625,6 +3476,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Standard"
+          }
+        }
+      }
+    },
+    "Start using Money Manager": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابدأ استخدام Money Manager"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia a usare Money Manager"
           }
         }
       }
@@ -2732,6 +3599,7 @@
       }
     },
     "The minimum due across all your debts.": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -2748,6 +3616,7 @@
       }
     },
     "The sum of your active income sources.": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -2759,6 +3628,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "La somma delle fonti di reddito attive."
+          }
+        }
+      }
+    },
+    "There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد معلومات كافية لحساب قسط شهري جديد — يحتاج الدين إلى نسبة فائدة وقسط شهري يغطيها."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non ci sono dati sufficienti per calcolare una nuova rata: il debito richiede un tasso di interesse e una rata che lo copra."
           }
         }
       }
@@ -2875,6 +3766,28 @@
         }
       }
     },
+    "Tracking from this month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tracking from this month"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التتبّع يبدأ من هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monitoraggio da questo mese"
+          }
+        }
+      }
+    },
     "Try it with sample data": {
       "localizations": {
         "ar": {
@@ -2903,6 +3816,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo"
+          }
+        }
+      }
+    },
+    "Up %@ this month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Up %@ this month"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ارتفاع %@ هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In aumento di %@ questo mese"
           }
         }
       }
@@ -3051,6 +3986,88 @@
         }
       }
     },
+    "Worked out over the %lld payments you have left. If your lender's letter says otherwise, use their figure.": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "محسوب على الدفعات الـ%lld المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "محسوب على الـ%lld دفعة المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "محسوب على الدفعة الواحدة المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "محسوب على الـ%lld دفعة المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه."
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "محسوب على الدفعتين المتبقيتين. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه."
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "محسوب على الدفعات المتبقية. إذا ذكر خطاب المُقرض غير ذلك، فاعتمد رقمه."
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Worked out over the %lld payment you have left. If your lender's letter says otherwise, use their figure."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Worked out over the %lld payments you have left. If your lender's letter says otherwise, use their figure."
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Calcolata sulla %lld rata che ti resta. Se la lettera del tuo istituto dice altro, usa il loro importo."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Calcolata sulle %lld rate che ti restano. Se la lettera del tuo istituto dice altro, usa il loro importo."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "You'd need %@ a month across %lld months, which is more than you have.": {
       "localizations": {
         "ar": {
@@ -3186,6 +4203,7 @@
       }
     },
     "Your fixed monthly commitments.": {
+      "extractionState": "stale",
       "localizations": {
         "ar": {
           "stringUnit": {

@@ -15,11 +15,25 @@ struct AlertsSummary {
         let isDebt: Bool
     }
 
+    /// A payment the user planned for a specific date and has not marked paid.
+    struct ScheduledPayment: Identifiable {
+        let id: PersistentIdentifier
+        let debtRemoteID: Int
+        let name: String
+        let amount: Decimal
+        let date: Date
+        /// Negative once the date has passed.
+        let daysUntil: Int
+
+        var isOverdue: Bool { daysUntil < 0 }
+    }
+
     /// Anything further out than this is not yet worth nagging about.
     static let horizonDays = 30
 
     let dashboard: DashboardSummary
     let upcoming: [UpcomingBill]
+    let scheduled: [ScheduledPayment]
     let itemsMissingDueDate: Int
 
     var isInDeficit: Bool { dashboard.netCashFlow < 0 }
@@ -29,7 +43,7 @@ struct AlertsSummary {
 
     /// Total things worth surfacing on the badge.
     var count: Int {
-        (isInDeficit ? 1 : 0) + (isPlanInfeasible ? 1 : 0) + upcoming.count
+        (isInDeficit ? 1 : 0) + (isPlanInfeasible ? 1 : 0) + upcoming.count + scheduled.count
     }
 
     init(
@@ -37,10 +51,41 @@ struct AlertsSummary {
         expenses: [ExpenseItem],
         debts: [DebtRecord],
         settings: PlanSettings?,
+        payments: [DebtPayment] = [],
         now: Date = .now
     ) {
         dashboard = DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings)
         hasDebts = !debts.isEmpty
+
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: now)
+        let namesByID = Dictionary(uniqueKeysWithValues: debts.map { ($0.remoteID, $0.name) })
+
+        var planned: [ScheduledPayment] = []
+        for payment in payments where !payment.isPaid {
+            guard let name = namesByID[payment.debtRemoteID] else { continue }
+            let days = calendar.dateComponents(
+                [.day], from: today, to: calendar.startOfDay(for: payment.date)
+            ).day ?? 0
+            // Overdue ones stay visible however old they are — an unpaid payment
+            // the user planned is exactly the thing they need reminding about.
+            guard days <= Self.horizonDays else { continue }
+            planned.append(
+                ScheduledPayment(
+                    id: payment.persistentModelID,
+                    debtRemoteID: payment.debtRemoteID,
+                    name: name,
+                    amount: payment.amount,
+                    date: payment.date,
+                    daysUntil: days
+                )
+            )
+        }
+        scheduled = planned.sorted { $0.daysUntil < $1.daysUntil }
+
+        // A debt with a payment already planned in this window does not also need
+        // its generic minimum listed — the planned amount is the deliberate one.
+        let debtsWithPlannedPayment = Set(scheduled.map(\.debtRemoteID))
 
         var bills: [UpcomingBill] = []
         for expense in expenses where expense.isActive {
@@ -50,7 +95,7 @@ struct AlertsSummary {
             else { continue }
             bills.append(UpcomingBill(name: expense.name, amount: expense.amount, daysUntil: days, isDebt: false))
         }
-        for debt in debts {
+        for debt in debts where !debtsWithPlannedPayment.contains(debt.remoteID) {
             guard let day = debt.dueDay,
                   let days = BillSchedule.daysUntil(dueDay: day, from: now),
                   days <= Self.horizonDays
@@ -70,11 +115,15 @@ struct AlertsToolbarButton: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var payments: [DebtPayment]
 
     let onTap: () -> Void
 
     private var summary: AlertsSummary {
-        AlertsSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
+        AlertsSummary(
+            income: income, expenses: expenses, debts: debts,
+            settings: settings.first, payments: payments
+        )
     }
 
     var body: some View {
@@ -99,11 +148,16 @@ struct AlertsView: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var payments: [DebtPayment]
 
     @Environment(\.dismiss) private var dismiss
+    @State private var payingDebt: DebtRecord?
 
     private var summary: AlertsSummary {
-        AlertsSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
+        AlertsSummary(
+            income: income, expenses: expenses, debts: debts,
+            settings: settings.first, payments: payments
+        )
     }
 
     var body: some View {
@@ -121,6 +175,7 @@ struct AlertsView: View {
                     Button("Done") { dismiss() }.foregroundStyle(Theme.lime)
                 }
             }
+            .sheet(item: $payingDebt) { DebtPaymentSheet(debt: $0) }
         }
     }
 
@@ -146,6 +201,24 @@ struct AlertsView: View {
                     )
                 }
 
+                if !state.scheduled.isEmpty {
+                    VStack(spacing: 12) {
+                        SectionHeader(title: "Planned payments") {
+                            Text("\(state.scheduled.count)")
+                                .font(.subheadline.weight(.bold))
+                                .monospacedDigit()
+                                .foregroundStyle(Theme.textSecondary)
+                        }
+
+                        GroupedCard {
+                            ForEach(Array(state.scheduled.enumerated()), id: \.element.id) { index, payment in
+                                if index > 0 { RowDivider() }
+                                scheduledRow(payment)
+                            }
+                        }
+                    }
+                }
+
                 if state.upcoming.isEmpty {
                     if state.count == 0 {
                         EmptyStateView(
@@ -154,7 +227,7 @@ struct AlertsView: View {
                             message: "Nothing is due in the next 30 days."
                         )
                         .padding(.top, 40)
-                    } else {
+                    } else if state.scheduled.isEmpty {
                         Text("Nothing is due in the next 30 days.")
                             .font(.subheadline)
                             .foregroundStyle(Theme.textSecondary)
@@ -225,6 +298,48 @@ struct AlertsView: View {
         }
         .padding(.vertical, 14)
         .accessibilityElement(children: .combine)
+    }
+
+    /// A payment the user planned. Tapping reopens the debt so it can be marked
+    /// paid — an alert you cannot act on is just noise.
+    private func scheduledRow(_ payment: AlertsSummary.ScheduledPayment) -> some View {
+        Button {
+            payingDebt = debts.first { $0.remoteID == payment.debtRemoteID }
+        } label: {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(payment.name)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                    Spacer(minLength: 8)
+                    Text(CurrencyFormat.string(payment.amount))
+                        .font(.system(size: 17, weight: .bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.textPrimary)
+                }
+
+                HStack(spacing: 10) {
+                    Pill(
+                        text: payment.date.formatted(.dateTime.day().month(.abbreviated)),
+                        style: .muted(dot: payment.isOverdue ? Theme.red : Theme.lime)
+                    )
+                    if payment.isOverdue {
+                        Pill(text: String(localized: "Not paid yet"), style: .accent(Theme.red))
+                    } else {
+                        Pill(text: String(localized: "Planned"), style: .accent(Theme.lime))
+                    }
+                    Spacer(minLength: 0)
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(Theme.textTertiary)
+                }
+            }
+            .padding(.vertical, 14)
+            .contentShape(.rect)
+        }
+        .buttonStyle(.pressable)
+        .accessibilityElement(children: .combine)
+        .accessibilityHint("Opens the debt so you can mark it paid")
     }
 }
 

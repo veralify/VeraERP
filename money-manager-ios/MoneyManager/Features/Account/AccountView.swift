@@ -12,6 +12,8 @@ struct AccountView: View {
     @Query private var settings: [PlanSettings]
     @Query private var transactions: [TransactionRecord]
     @Query private var questCompletions: [QuestCompletion]
+    @Query private var payments: [DebtPayment]
+    @Query private var snapshots: [MonthlySnapshot]
 
     @State private var isConfirmingReset = false
     @Environment(\.dismiss) private var dismiss
@@ -177,6 +179,8 @@ struct AccountView: View {
         for item in settings { context.delete(item) }
         for item in transactions { context.delete(item) }
         for item in questCompletions { context.delete(item) }
+        for item in payments { context.delete(item) }
+        for item in snapshots { context.delete(item) }
         try? context.save()
         // Send the user back through setup so the app is never left in a state
         // with no income, no debts and no way to add the first one.
