@@ -1,6 +1,6 @@
-# Money Manager — iOS
+# Veralify — iOS
 
-Native SwiftUI app for Money Manager, the Arabic-first (RTL) personal finance
+Native SwiftUI app for Veralify, the Arabic-first (RTL) personal finance
 and debt-payoff product. Ported from `../money-manager-web-mvp-v1`.
 
 - **iOS 18+**, Swift 6, strict concurrency
@@ -11,9 +11,9 @@ and debt-payoff product. Ported from `../money-manager-web-mvp-v1`.
 
 | Path | What it is |
 |---|---|
-| `MoneyManagerCore/` | Swift package: domain types + the payoff engine. No UI, no persistence. |
-| `MoneyManager/` | The app: SwiftData records, design tokens, screens. |
-| `MoneyManagerTests/` | App-level tests. |
+| `VeralifyCore/` | Swift package: domain types + the payoff engine. No UI, no persistence. |
+| `Veralify/` | The app: SwiftData records, design tokens, screens. |
+| `VeralifyTests/` | App-level tests. |
 | `Tools/generate-parity-fixtures.mjs` | Regenerates payoff fixtures from the web engine. |
 
 Keeping the engine in its own package is deliberate: it makes the money maths
@@ -25,7 +25,7 @@ concerns leaking into it.
 ```sh
 brew install xcodegen          # once
 xcodegen generate
-open MoneyManager.xcodeproj
+open Veralify.xcodeproj
 ```
 
 ## Tests
@@ -33,13 +33,13 @@ open MoneyManager.xcodeproj
 The engine's tests are the fast ones and cover the highest-risk code:
 
 ```sh
-cd MoneyManagerCore && swift test
+cd VeralifyCore && swift test
 ```
 
 The whole suite, on a simulator:
 
 ```sh
-xcodebuild test -project MoneyManager.xcodeproj -scheme MoneyManager \
+xcodebuild test -project Veralify.xcodeproj -scheme Veralify \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 ```
 
@@ -57,7 +57,7 @@ After any change to the web payoff logic:
 
 ```sh
 node Tools/generate-parity-fixtures.mjs
-cd MoneyManagerCore && swift test
+cd VeralifyCore && swift test
 ```
 
 A failure means the two products would quote a user different payoff plans.

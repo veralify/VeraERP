@@ -1,4 +1,4 @@
-name: MoneyManager
+name: Veralify
 
 options:
   bundleIdPrefix: com.veralify
@@ -15,48 +15,48 @@ settings:
     CODE_SIGNING_ALLOWED: NO
 
 packages:
-  MoneyManagerCore:
-    path: MoneyManagerCore
+  VeralifyCore:
+    path: VeralifyCore
 
 targets:
-  MoneyManager:
+  Veralify:
     type: application
     platform: iOS
     sources:
-      - path: MoneyManager
+      - path: Veralify
     dependencies:
-      - package: MoneyManagerCore
-        product: MoneyManagerCore
+      - package: VeralifyCore
+        product: VeralifyCore
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.veralify.moneymanager
         GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_CFBundleDisplayName: Money Manager
+        INFOPLIST_KEY_CFBundleDisplayName: Veralify
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
         TARGETED_DEVICE_FAMILY: "1,2"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
 
-  MoneyManagerTests:
+  VeralifyTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: MoneyManagerTests
+      - path: VeralifyTests
     dependencies:
-      - target: MoneyManager
-      - package: MoneyManagerCore
-        product: MoneyManagerCore
+      - target: Veralify
+      - package: VeralifyCore
+        product: VeralifyCore
 
 schemes:
-  MoneyManager:
+  Veralify:
     build:
       targets:
-        MoneyManager: all
-        MoneyManagerTests: [test]
+        Veralify: all
+        VeralifyTests: [test]
     run:
       config: Debug
     test:
       config: Debug
       targets:
-        - MoneyManagerTests
+        - VeralifyTests

@@ -19,7 +19,7 @@
 // Refresh after any change to the web payoff logic:
 //   node Tools/generate-parity-fixtures.mjs
 //
-// Output: MoneyManagerCore/Tests/MoneyManagerCoreTests/Fixtures/payoff-parity.json
+// Output: VeralifyCore/Tests/VeralifyCoreTests/Fixtures/payoff-parity.json
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -151,7 +151,7 @@ const fixtures = scenarios.map(s => ({
   expected: debtPlan({ income: s.income, expenses: s.expenses, debts: s.debts, target: s.target, start: s.start })
 }));
 
-const out = join(here, "..", "MoneyManagerCore", "Tests", "MoneyManagerCoreTests", "Fixtures", "payoff-parity.json");
+const out = join(here, "..", "VeralifyCore", "Tests", "VeralifyCoreTests", "Fixtures", "payoff-parity.json");
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, JSON.stringify({ generatedBy: "Tools/generate-parity-fixtures.mjs", source: "money-manager-web-mvp-v1/server.js", scenarios: fixtures }, null, 2));
 console.log(`wrote ${fixtures.length} scenarios to ${out}`);
