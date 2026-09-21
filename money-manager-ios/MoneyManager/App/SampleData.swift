@@ -27,7 +27,7 @@ enum SampleData {
         for debt in [
             (1, "Court", Decimal(0), Decimal(2500), Decimal(300), 1),
             (2, "Gam3yaa", Decimal(0), Decimal(2500), Decimal(500), 2),
-            (3, "Intesa", Decimal(string: "11.49")!, Decimal(string: "6491.72")!, Decimal(string: "105")!, 3),
+            (3, "Intesa", Decimal(string: "11.49")!, Decimal(string: "2985.72")!, Decimal(string: "105")!, 3),
             (4, "UniCredit", Decimal(string: "8.75")!, Decimal(string: "6663.60")!, Decimal(string: "315.75")!, 4)
         ] {
             context.insert(
