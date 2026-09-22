@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>%@ is due in %lld days.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%2$#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%1$@ is due in %2$lld day.</string>
+			<key>other</key>
+			<string>%1$@ is due in %2$lld days.</string>
+		</dict>
+	</dict>
 	<key>%lld days</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,38 @@
 			<string>%lld day</string>
 			<key>other</key>
 			<string>%lld days</string>
+		</dict>
+	</dict>
+	<key>%lld days late</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld day late</string>
+			<key>other</key>
+			<string>%lld days late</string>
+		</dict>
+	</dict>
+	<key>%lld items have no due date, so nothing can be scheduled for them.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld item has no due date, so nothing can be scheduled for it.</string>
+			<key>other</key>
+			<string>%lld items have no due date, so nothing can be scheduled for them.</string>
 		</dict>
 	</dict>
 	<key>%lld items have no due date, so they can't be flagged.</key>
@@ -66,6 +114,54 @@
 			<string>%lld payments</string>
 		</dict>
 	</dict>
+	<key>%lld recurring</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld recurring</string>
+			<key>other</key>
+			<string>%lld recurring</string>
+		</dict>
+	</dict>
+	<key>%lld scheduled</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld scheduled</string>
+			<key>other</key>
+			<string>%lld scheduled</string>
+		</dict>
+	</dict>
+	<key>%lld sources</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld source</string>
+			<key>other</key>
+			<string>%lld sources</string>
+		</dict>
+	</dict>
 	<key>Alerts, %lld needing attention</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +176,22 @@
 			<string>Alerts, %lld needing attention</string>
 			<key>other</key>
 			<string>Alerts, %lld needing attention</string>
+		</dict>
+	</dict>
+	<key>In %lld days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>In %lld day</string>
+			<key>other</key>
+			<string>In %lld days</string>
 		</dict>
 	</dict>
 	<key>Showing %lld entries</key>
@@ -128,6 +240,22 @@
 			<string>in %lld day</string>
 			<key>other</key>
 			<string>in %lld days</string>
+		</dict>
+	</dict>
+	<key>minimums on %lld debts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>minimum on %lld debt</string>
+			<key>other</key>
+			<string>minimums on %lld debts</string>
 		</dict>
 	</dict>
 </dict>

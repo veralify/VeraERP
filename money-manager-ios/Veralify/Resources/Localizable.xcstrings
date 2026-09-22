@@ -114,6 +114,28 @@
         }
       }
     },
+    "%@ in hand": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ رصيد تراكمي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ in hand"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ in cassa"
+          }
+        }
+      }
+    },
     "%@ interest": {
       "localizations": {
         "ar": {
@@ -136,24 +158,128 @@
         }
       }
     },
-    "%@ left after this": {
+    "%@ is due in %lld days.": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ مستحقة خلال %lld أيام."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ مستحقة خلال %lld يومًا."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ مستحقة خلال يوم."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ مستحقة خلال %lld يوم."
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ مستحقة خلال يومين."
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ مستحقة اليوم."
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ is due in %lld day."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ is due in %lld days."
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ in scadenza fra %lld giorno."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%@ in scadenza fra %lld giorni."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%@ is due today.": {
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "يتبقّى %@ بعدها"
+            "value": "%@ مستحقة اليوم."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ left after this"
+            "value": "%@ is due today."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Restano %@ dopo questa"
+            "value": "%@ in scadenza oggi."
+          }
+        }
+      }
+    },
+    "%@ is due tomorrow.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ مستحقة غدًا."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is due tomorrow."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ in scadenza domani."
           }
         }
       }
@@ -308,6 +434,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ paga %@"
+          }
+        }
+      }
+    },
+    "%@ still owed": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ديون متبقية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ still owed"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ancora dovuti"
           }
         }
       }
@@ -504,6 +652,170 @@
         }
       }
     },
+    "%lld days late": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "متأخر بـ %lld أيام"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "متأخر بـ %lld يومًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "متأخر بيوم"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "متأخر بـ %lld يوم"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "متأخر بيومين"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "متأخر"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld day late"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld days late"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "In ritardo di %lld giorno"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "In ritardo di %lld giorni"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld items have no due date, so nothing can be scheduled for them.": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld عناصر بلا تاريخ استحقاق، فلا يمكن جدولة شيء لها."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld عنصرًا بلا تاريخ استحقاق، فلا يمكن جدولة شيء لها."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "عنصر واحد بلا تاريخ استحقاق، فلا يمكن جدولة شيء له."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld عنصر بلا تاريخ استحقاق، فلا يمكن جدولة شيء لها."
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "عنصران بلا تاريخ استحقاق، فلا يمكن جدولة شيء لهما."
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا عناصر بلا تاريخ استحقاق."
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld item has no due date, so nothing can be scheduled for it."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld items have no due date, so nothing can be scheduled for them."
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld voce non ha una scadenza, quindi non si può programmare nulla."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld voci non hanno una scadenza, quindi non si può programmare nulla."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld items have no due date, so they can't be flagged.": {
       "localizations": {
         "ar": {
@@ -662,6 +974,88 @@
         }
       }
     },
+    "%lld months left of your plan": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "بقيت %lld أشهر من خطتك"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "بقي %lld شهرًا من خطتك"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "بقي شهر واحد من خطتك"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "بقي %lld شهر من خطتك"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "بقي شهران من خطتك"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لم يتبقَّ من خطتك شيء"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld month left of your plan"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld months left of your plan"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mese rimasto del tuo piano"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mesi rimasti del tuo piano"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld of %lld pay %@, the rest pay %@. That way it adds up to the bill exactly.": {
       "localizations": {
         "ar": {
@@ -788,6 +1182,252 @@
         }
       }
     },
+    "%lld recurring": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld بنود متكررة"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld بندًا متكررًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "بند متكرر"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld بند متكرر"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "بندان متكرران"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا بنود متكررة"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld recurring"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld recurring"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ricorrente"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ricorrenti"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld scheduled": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld مجدولة"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld مجدولًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "واحد مجدول"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld مجدول"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "اثنان مجدولان"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا شيء مجدول"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld scheduled"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld scheduled"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld programmato"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld programmati"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld sources": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld مصادر"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld مصدرًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "مصدر واحد"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld مصدر"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "مصدران"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا مصادر"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld source"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sources"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fonte"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fonti"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld%% of it": {
       "localizations": {
         "ar": {
@@ -904,6 +1544,28 @@
           "stringUnit": {
             "state": "translated",
             "value": ", "
+          }
+        }
+      }
+    },
+    "/month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/شهريًا"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/mese"
           }
         }
       }
@@ -1137,6 +1799,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account"
+          }
+        }
+      }
+    },
+    "Account, level %lld": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحساب، المستوى %lld"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account, level %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account, livello %lld"
           }
         }
       }
@@ -1641,6 +2325,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tutto fatto per oggi"
+          }
+        }
+      }
+    },
+    "All entries": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كل الحركات"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All entries"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutte le voci"
           }
         }
       }
@@ -2157,6 +2863,28 @@
         }
       }
     },
+    "Cheapest": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأقل تكلفة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cheapest"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il più economico"
+          }
+        }
+      }
+    },
     "Check the details": {
       "localizations": {
         "ar": {
@@ -2251,6 +2979,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chiudi e riapri Veralify per vederlo in %@."
+          }
+        }
+      }
+    },
+    "Compare": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قارن"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compare"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confronta"
           }
         }
       }
@@ -2385,6 +3135,28 @@
         }
       }
     },
+    "Current method": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الطريقة الحالية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current method"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metodo attuale"
+          }
+        }
+      }
+    },
     "Custom": {
       "localizations": {
         "ar": {
@@ -2429,18 +3201,24 @@
         }
       }
     },
-    "Dashboard": {
+    "Daily nudge": {
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "لوحة التحكم"
+            "value": "تذكير يومي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily nudge"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dashboard"
+            "value": "Promemoria giornaliero"
           }
         }
       }
@@ -2521,6 +3299,28 @@
         }
       }
     },
+    "Debt free by": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خالٍ من الديون بحلول"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt free by"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senza debiti entro"
+          }
+        }
+      }
+    },
     "Debt name": {
       "localizations": {
         "ar": {
@@ -2549,6 +3349,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rate dei debiti"
+          }
+        }
+      }
+    },
+    "Debt payments count against what's left because they are due every month, the same as rent. Anything you pay above the minimum comes out of what's left over.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُحتسب أقساط الديون ضمن ما يُخصم لأنها مستحقة كل شهر، مثل الإيجار تمامًا. وأي مبلغ تدفعه فوق الحد الأدنى يأتي مما تبقّى."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt payments count against what's left because they are due every month, the same as rent. Anything you pay above the minimum comes out of what's left over."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le rate dei debiti pesano su quello che resta perché sono dovute ogni mese, come l'affitto. Tutto ciò che paghi oltre il minimo esce da quello che avanza."
           }
         }
       }
@@ -2829,28 +3651,6 @@
         }
       }
     },
-    "Documents": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "المستندات"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Documents"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Documenti"
-          }
-        }
-      }
-    },
     "Done": {
       "localizations": {
         "ar": {
@@ -2863,6 +3663,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fatto"
+          }
+        }
+      }
+    },
+    "Done today": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمّ اليوم"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done today"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fatto oggi"
           }
         }
       }
@@ -2965,6 +3787,28 @@
         }
       }
     },
+    "Due soon": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مستحق قريبًا"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Due soon"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In scadenza"
+          }
+        }
+      }
+    },
     "Each person pays": {
       "localizations": {
         "ar": {
@@ -3027,6 +3871,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rimborso anticipato · %@ di interessi"
+          }
+        }
+      }
+    },
+    "Earned so far": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المكتسب حتى الآن"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Earned so far"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guadagnati finora"
           }
         }
       }
@@ -3189,6 +4055,28 @@
         }
       }
     },
+    "Entry": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حركة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entry"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voce"
+          }
+        }
+      }
+    },
     "Euro": {
       "localizations": {
         "ar": {
@@ -3207,6 +4095,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Euro"
+          }
+        }
+      }
+    },
+    "Every debt keeps getting its minimum payment whichever you choose. This only decides where the money left over goes.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كل دين يظل يتلقى حده الأدنى من السداد أيًّا كان اختيارك. هذا يحدد فقط وجهة المبلغ المتبقي."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every debt keeps getting its minimum payment whichever you choose. This only decides where the money left over goes."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ogni debito continua a ricevere la sua rata minima, qualunque cosa scegli. Questa scelta decide solo dove va quello che avanza."
           }
         }
       }
@@ -3353,28 +4263,6 @@
         }
       }
     },
-    "Family": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "العائلة"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Family"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Famiglia"
-          }
-        }
-      }
-    },
     "Finish setup": {
       "localizations": {
         "ar": {
@@ -3391,6 +4279,28 @@
         }
       }
     },
+    "First one gone": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أول دين يُسدَّد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First one gone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il primo che sparisce"
+          }
+        }
+      }
+    },
     "Fixed expenses": {
       "localizations": {
         "ar": {
@@ -3403,6 +4313,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spese fisse"
+          }
+        }
+      }
+    },
+    "Free each month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متاح كل شهر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free each month"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liberi ogni mese"
           }
         }
       }
@@ -3543,22 +4475,6 @@
         }
       }
     },
-    "Home": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الرئيسية"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Home"
-          }
-        }
-      }
-    },
     "How your monthly income splits": {
       "localizations": {
         "ar": {
@@ -3657,6 +4573,88 @@
         }
       }
     },
+    "In %lld days": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "خلال %lld أيام"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "خلال %lld يومًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "خلال يوم"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "خلال %lld يوم"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "خلال يومين"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "اليوم"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "In %lld day"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "In %lld days"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Fra %lld giorno"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Fra %lld giorni"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "In from %@": {
       "localizations": {
         "ar": {
@@ -3675,6 +4673,72 @@
           "stringUnit": {
             "state": "translated",
             "value": "In entrata da %@"
+          }
+        }
+      }
+    },
+    "In hand": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرصيد التراكمي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In hand"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In cassa"
+          }
+        }
+      }
+    },
+    "In hand at the end": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرصيد في النهاية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In hand at the end"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In cassa alla fine"
+          }
+        }
+      }
+    },
+    "In hand at the finish": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرصيد عند خط النهاية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In hand at the finish"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In cassa al traguardo"
           }
         }
       }
@@ -3789,6 +4853,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Interessi e spese"
+          }
+        }
+      }
+    },
+    "Interest over the plan": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفوائد طوال الخطة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest over the plan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interessi sull'intero piano"
           }
         }
       }
@@ -3915,6 +5001,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Continua a pagare lo stesso importo e finisci prima."
+          }
+        }
+      }
+    },
+    "Keep this method": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإبقاء على هذه الطريقة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep this method"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantieni questo metodo"
           }
         }
       }
@@ -4111,6 +5219,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra i movimenti di oggi"
+          }
+        }
+      }
+    },
+    "Log what you spent or received to keep your streak going.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل ما أنفقته أو استلمته للحفاظ على سلسلتك."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log what you spent or received to keep your streak going."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra cosa hai speso o incassato per non perdere la serie."
           }
         }
       }
@@ -4485,6 +5615,50 @@
         }
       }
     },
+    "Move down": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحريك لأسفل"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move down"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sposta giù"
+          }
+        }
+      }
+    },
+    "Move up": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحريك لأعلى"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move up"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sposta su"
+          }
+        }
+      }
+    },
     "NET BALANCE": {
       "localizations": {
         "ar": {
@@ -4611,6 +5785,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nuova rata mensile"
+          }
+        }
+      }
+    },
+    "Next level at": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المستوى التالي عند"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next level at"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prossimo livello a"
           }
         }
       }
@@ -4893,6 +6089,50 @@
         }
       }
     },
+    "Not within the target": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ليس ضمن المدة المستهدفة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not within the target"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non entro il periodo scelto"
+          }
+        }
+      }
+    },
+    "Not yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ليس بعد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not yet"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non ancora"
+          }
+        }
+      }
+    },
     "Nothing due in 3 days": {
       "localizations": {
         "ar": {
@@ -4937,6 +6177,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna scadenza nei prossimi 30 giorni."
+          }
+        }
+      }
+    },
+    "Nothing logged yet today": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم تُسجَّل حركات اليوم"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing logged yet today"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi non hai registrato nulla"
           }
         }
       }
@@ -4997,6 +6259,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ancora niente di condiviso. Aggiungi una spesa e verrà divisa tra chi scegli."
+          }
+        }
+      }
+    },
+    "Nothing you owe falls due in the next three days. If something does, pay it — the bell in the corner lists what is coming — or correct its due date if it is wrong.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا شيء مستحق عليك خلال الأيام الثلاثة القادمة. وإن وُجد، فادفعه — الجرس في الزاوية يعرض ما هو قادم — أو صحّح تاريخ استحقاقه إن كان خطأً."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing you owe falls due in the next three days. If something does, pay it — the bell in the corner lists what is coming — or correct its due date if it is wrong."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non hai nulla in scadenza nei prossimi tre giorni. Se c'è qualcosa, pagala — la campanella in alto elenca cosa sta arrivando — oppure correggi la data di scadenza se è sbagliata."
+          }
+        }
+      }
+    },
+    "Notifications are off": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإشعارات مغلقة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are off"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le notifiche sono disattivate"
           }
         }
       }
@@ -5067,6 +6373,28 @@
         }
       }
     },
+    "On the day": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "في يوم الاستحقاق"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On the day"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il giorno stesso"
+          }
+        }
+      }
+    },
     "On your current income this period isn't realistic. Try a longer one, or review your expenses.": {
       "localizations": {
         "ar": {
@@ -5127,6 +6455,50 @@
         }
       }
     },
+    "One reminder a day to log what you spent": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تذكير واحد يوميًا لتسجيل ما أنفقته"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One reminder a day to log what you spent"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un promemoria al giorno per registrare le spese"
+          }
+        }
+      }
+    },
+    "Only you can say whether you have done this, so this one is yours to tick.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنت وحدك من يعرف إن كنت قد فعلت ذلك، لذا هذه المهمة تؤشّرها بنفسك."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only you can say whether you have done this, so this one is yours to tick."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo tu puoi dire se l'hai fatto, quindi questa la spunti tu."
+          }
+        }
+      }
+    },
     "Open for progress and payments": {
       "localizations": {
         "ar": {
@@ -5145,6 +6517,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apri per progressi e pagamenti"
+          }
+        }
+      }
+    },
+    "Open the Plan tab and look at where you are on the route: what this month costs, what is left after it, and when the next debt clears. Then mark this done.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح تبويب الخطة وانظر أين أنت على المسار: كم يكلّف هذا الشهر، وكم يتبقّى بعده، ومتى يُسدَّد الدين التالي. ثم أشِّر على إتمامها."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the Plan tab and look at where you are on the route: what this month costs, what is left after it, and when the next debt clears. Then mark this done."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri la scheda Piano e guarda a che punto sei del percorso: quanto costa questo mese, quanto resta dopo e quando si chiude il prossimo debito. Poi segnala come fatta."
           }
         }
       }
@@ -5275,6 +6669,28 @@
         }
       }
     },
+    "Over budget": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يتجاوز الميزانية"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Over budget"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuori budget"
+          }
+        }
+      }
+    },
     "Owed": {
       "localizations": {
         "ar": {
@@ -5381,28 +6797,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Passaporto"
-          }
-        }
-      }
-    },
-    "Passports and IDs": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "جوازات السفر والهويات"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passports and IDs"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Passaporti e documenti"
           }
         }
       }
@@ -5713,6 +7107,28 @@
         }
       }
     },
+    "Plan settings": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعدادات الخطة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan settings"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impostazioni del piano"
+          }
+        }
+      }
+    },
     "Planned": {
       "localizations": {
         "ar": {
@@ -5819,6 +7235,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Riyal qatariota"
+          }
+        }
+      }
+    },
+    "Quest": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مهمة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quest"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Missione"
           }
         }
       }
@@ -5981,18 +7419,24 @@
         }
       }
     },
-    "Record at least one credit or debit.": {
+    "Record at least one thing you spent or received.": {
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "سجّل إيداعًا أو سحبًا واحدًا على الأقل."
+            "value": "سجّل شيئًا واحدًا على الأقل أنفقته أو استلمته."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record at least one thing you spent or received."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Registra almeno un'entrata o un'uscita."
+            "value": "Registra almeno una cosa che hai speso o incassato."
           }
         }
       }
@@ -6161,6 +7605,28 @@
         }
       }
     },
+    "Reminders": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التذكيرات"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Promemoria"
+          }
+        }
+      }
+    },
     "Reminders %@": {
       "localizations": {
         "ar": {
@@ -6201,6 +7667,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "I promemoria sono disattivati"
+          }
+        }
+      }
+    },
+    "Reminders come from this phone's own clock. Nothing is sent to a server, so no amount or due date ever leaves the device.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تأتي التذكيرات من ساعة هذا الهاتف نفسه. لا يُرسل شيء إلى أي خادم، فلا يغادر الجهاز أي مبلغ أو تاريخ استحقاق."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders come from this phone's own clock. Nothing is sent to a server, so no amount or due date ever leaves the device."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I promemoria arrivano dall'orologio di questo telefono. Non viene inviato nulla a un server, quindi nessun importo o scadenza lascia il dispositivo."
           }
         }
       }
@@ -6391,28 +7879,6 @@
         }
       }
     },
-    "Roadmap": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "خارطة الطريق"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Roadmap"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Percorso"
-          }
-        }
-      }
-    },
     "Route": {
       "localizations": {
         "ar": {
@@ -6431,6 +7897,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Percorso"
+          }
+        }
+      }
+    },
+    "Same debts, same target period. What changes is which debt the spare money goes to — and what that ends up costing.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الديون نفسها والمدة نفسها. ما يتغير هو الدين الذي يذهب إليه الفائض — وما يكلّفه ذلك في النهاية."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Same debts, same target period. What changes is which debt the spare money goes to — and what that ends up costing."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stessi debiti, stesso periodo. Cambia solo a quale debito va quello che avanza — e quanto ti costa alla fine."
           }
         }
       }
@@ -6605,28 +8093,6 @@
         }
       }
     },
-    "Scan once, copy any field, get told before they expire": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "امسحه مرة، وانسخ أي حقل، واعرف قبل انتهاء صلاحيته"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scan once, copy any field, get told before they expire"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scansiona una volta, copia ogni campo, sappi quando scadono"
-          }
-        }
-      }
-    },
     "Scan receipt": {
       "localizations": {
         "ar": {
@@ -6702,6 +8168,10 @@
           }
         }
       }
+    },
+    "Series": {
+      "extractionState": "manual",
+      "shouldTranslate": false
     },
     "Settle up": {
       "localizations": {
@@ -6911,6 +8381,28 @@
         }
       }
     },
+    "Shows what to do": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض ما ينبغي فعله"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shows what to do"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra cosa fare"
+          }
+        }
+      }
+    },
     "Skip": {
       "localizations": {
         "ar": {
@@ -6923,6 +8415,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Salta"
+          }
+        }
+      }
+    },
+    "Smallest balance first": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الأصغر رصيدًا أولًا"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smallest balance first"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prima il saldo più piccolo"
           }
         }
       }
@@ -6945,6 +8459,94 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qualcuno"
+          }
+        }
+      }
+    },
+    "Spare money follows your own order": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفائض يتبع ترتيبك الخاص"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spare money follows your own order"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quello che avanza segue il tuo ordine"
+          }
+        }
+      }
+    },
+    "Spare money goes to the dearest debt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفائض يذهب إلى الدين الأعلى فائدة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spare money goes to the dearest debt"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quello che avanza va al debito più caro"
+          }
+        }
+      }
+    },
+    "Spare money goes to the smallest debt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفائض يذهب إلى الدين الأصغر"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spare money goes to the smallest debt"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quello che avanza va al debito più piccolo"
+          }
+        }
+      }
+    },
+    "Split": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التقسيم"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Split"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividi"
           }
         }
       }
@@ -7141,6 +8743,28 @@
         }
       }
     },
+    "Still to go": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المتبقي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Still to go"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mancano"
+          }
+        }
+      }
+    },
     "Swedish Krona": {
       "localizations": {
         "ar": {
@@ -7239,6 +8863,28 @@
         }
       }
     },
+    "Tap Add — it is on every tab — type the amount, pick money in or money out, and swipe to confirm. One entry is enough to finish this.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط «إضافة» — وهو موجود في كل تبويب — أدخل المبلغ، واختر وارد أو صادر، ثم اسحب للتأكيد. حركة واحدة تكفي لإتمامها."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap Add — it is on every tab — type the amount, pick money in or money out, and swipe to confirm. One entry is enough to finish this."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tocca Aggiungi — c'è in ogni scheda — inserisci l'importo, scegli entrate o uscite e scorri per confermare. Basta una voce per completarla."
+          }
+        }
+      }
+    },
     "Target period": {
       "localizations": {
         "ar": {
@@ -7315,6 +8961,28 @@
         }
       }
     },
+    "The day before": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قبل يوم"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The day before"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il giorno prima"
+          }
+        }
+      }
+    },
     "The document's details stay. Only the image is deleted.": {
       "localizations": {
         "ar": {
@@ -7355,6 +9023,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Le cifre di controllo del documento confermano la lettura. Vale comunque un'occhiata."
+          }
+        }
+      }
+    },
+    "The order I choose": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بالترتيب الذي أختاره"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The order I choose"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'ordine che scelgo io"
+          }
+        }
+      }
+    },
+    "Then it's yours": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ثم يصبح لك"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Then it's yours"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poi è tutto tuo"
           }
         }
       }
@@ -7501,6 +9213,28 @@
         }
       }
     },
+    "Time of day": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وقت اليوم"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time of day"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ora del giorno"
+          }
+        }
+      }
+    },
     "Tip": {
       "localizations": {
         "ar": {
@@ -7573,6 +9307,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Missioni di oggi"
+          }
+        }
+      }
+    },
+    "Tomorrow": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غدًا"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomorrow"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domani"
           }
         }
       }
@@ -7773,6 +9529,28 @@
         }
       }
     },
+    "Turn them on for Veralify in Settings and these reminders start arriving.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فعّلها لـ Veralify من الإعدادات وستبدأ هذه التذكيرات بالوصول."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn them on for Veralify in Settings and these reminders start arriving."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attivale per Veralify nelle Impostazioni e questi promemoria inizieranno ad arrivare."
+          }
+        }
+      }
+    },
     "Type": {
       "localizations": {
         "ar": {
@@ -7871,6 +9649,28 @@
         }
       }
     },
+    "Use this method": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخدام هذه الطريقة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use this method"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa questo metodo"
+          }
+        }
+      }
+    },
     "VERALIFY": {
       "shouldTranslate": false
     },
@@ -7892,6 +9692,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Venmo"
+          }
+        }
+      }
+    },
+    "Veralify ticks this one for you, the moment it is true. There is nothing to confirm.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تؤشّرها Veralify نيابةً عنك لحظة تحقّقها. لا شيء عليك تأكيده."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veralify ticks this one for you, the moment it is true. There is nothing to confirm."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veralify la spunta per te nel momento in cui è vera. Non c'è nulla da confermare."
           }
         }
       }
@@ -7956,6 +9778,28 @@
         }
       }
     },
+    "Wallet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المحفظة"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wallet"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portafoglio"
+          }
+        }
+      }
+    },
     "We'll work out the monthly payment needed, and tell you honestly if the period isn't realistic on your income.": {
       "localizations": {
         "ar": {
@@ -8004,6 +9848,28 @@
         }
       }
     },
+    "What to do": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما ينبغي فعله"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What to do"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa fare"
+          }
+        }
+      }
+    },
     "What was it?": {
       "localizations": {
         "ar": {
@@ -8044,6 +9910,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quanto devi ancora"
+          }
+        }
+      }
+    },
+    "What's left": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المتبقي"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's left"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quello che resta"
           }
         }
       }
@@ -8260,6 +10148,28 @@
         }
       }
     },
+    "XP comes from finishing the day's quests on Today. Nothing else earns it, and nothing takes it away.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تأتي نقاط الخبرة من إنهاء مهام اليوم في تبويب «اليوم». لا شيء آخر يمنحها، ولا شيء يسلبها."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "XP comes from finishing the day's quests on Today. Nothing else earns it, and nothing takes it away."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli XP arrivano dal completare le missioni del giorno nella scheda Oggi. Nient'altro li fa guadagnare e nulla li toglie."
+          }
+        }
+      }
+    },
     "You pay": {
       "localizations": {
         "ar": {
@@ -8422,6 +10332,28 @@
         }
       }
     },
+    "Your income has to cover your expenses and your debt payments with something left over. Tap the big figure on Today to see the three numbers that make it up, and which one is eating the difference.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يجب أن يغطي دخلك مصاريفك وأقساط ديونك مع بقاء فائض. اضغط على الرقم الكبير في «اليوم» لترى الأرقام الثلاثة التي تكوّنه، وأيّها يلتهم الفارق."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your income has to cover your expenses and your debt payments with something left over. Tap the big figure on Today to see the three numbers that make it up, and which one is eating the difference."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le tue entrate devono coprire spese e rate dei debiti lasciando qualcosa. Tocca la cifra grande su Oggi per vedere i tre numeri che la compongono, e quale si sta mangiando la differenza."
+          }
+        }
+      }
+    },
     "Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.": {
       "localizations": {
         "ar": {
@@ -8438,6 +10370,28 @@
         }
       }
     },
+    "Your level": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مستواك"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your level"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo livello"
+          }
+        }
+      }
+    },
     "Your money, with a clear plan": {
       "localizations": {
         "ar": {
@@ -8450,6 +10404,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "I tuoi soldi, con un piano chiaro"
+          }
+        }
+      }
+    },
+    "Your payoff plan": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خطة السداد"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your payoff plan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo piano di rimborso"
           }
         }
       }
@@ -8472,6 +10448,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zelle"
+          }
+        }
+      }
+    },
+    "by %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بحلول %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "by %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "entro %@"
           }
         }
       }
@@ -8644,6 +10642,88 @@
         }
       }
     },
+    "minimums on %lld debts": {
+      "localizations": {
+        "ar": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الحد الأدنى على %lld ديون"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الحد الأدنى على %lld دينًا"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الحد الأدنى على دين واحد"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الحد الأدنى على %lld دين"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الحد الأدنى على دينين"
+                }
+              },
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا ديون"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "minimum on %lld debt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "minimums on %lld debts"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "minimo su %lld debito"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "minimi su %lld debiti"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "months": {
       "localizations": {
         "ar": {
@@ -8656,6 +10736,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "mesi"
+          }
+        }
+      }
+    },
+    "no payment leaving": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا أقساط تخرج"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no payment leaving"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nessuna rata in uscita"
           }
         }
       }
@@ -8835,6 +10937,10 @@
           }
         }
       }
+    },
+    "·": {
+      "extractionState": "manual",
+      "shouldTranslate": false
     },
     "—": {
       "shouldTranslate": false

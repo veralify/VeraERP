@@ -10,11 +10,17 @@ import VeralifyCore
 /// left this month, and what is owed — and offers the one action people come
 /// back to perform.
 struct DashboardView: View {
+    /// Switches to the Plan tab. The plan strip summarises the plan, so tapping
+    /// it opens the plan rather than a second copy of it.
+    var onOpenPlan: () -> Void = {}
+
     @Query(sort: \IncomeSource.createdAt) private var income: [IncomeSource]
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
     @Query private var snapshots: [MonthlySnapshot]
+    @Query(sort: \TransactionRecord.occurredAt, order: .reverse) private var transactions: [TransactionRecord]
+    @Query private var payments: [DebtPayment]
 
     @Environment(\.modelContext) private var context
 
@@ -65,7 +71,9 @@ struct DashboardView: View {
             VStack(spacing: 18) {
                 heroCard.staggeredAppearance(0)
                 planStrip.staggeredAppearance(1)
+                dueSoon.staggeredAppearance(2)
                 metricCards.staggeredAppearance(2)
+                todaySection.staggeredAppearance(3)
                 // Last, under its own heading: the streak and the daily quests
                 // are encouragement, and encouragement does not belong between
                 // two financial facts.
@@ -73,7 +81,7 @@ struct DashboardView: View {
                     netCashFlow: summary.netCashFlow,
                     soonestDueInDays: soonestDueInDays
                 )
-                .staggeredAppearance(3)
+                .staggeredAppearance(4)
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)
@@ -134,7 +142,7 @@ struct DashboardView: View {
             }
             .buttonStyle(.pressable)
 
-            if !debts.isEmpty { quickPayRow }
+            quickPayRow
         }
     }
 
@@ -144,16 +152,26 @@ struct DashboardView: View {
     ///
     /// Sibling of the debts card rather than inside it: a button nested in a
     /// `NavigationLink` competes with it for the tap.
+    ///
+    /// Anything already sitting in "Due soon" is left out: that card carries the
+    /// same debt with its date attached and opens the same sheet, and listing a
+    /// debt twice on one screen is how this dashboard got crowded in the first
+    /// place. So this row is the debts nothing is chasing you about yet.
+    @ViewBuilder
     private var quickPayRow: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Record a payment")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(Theme.textTertiary)
-                .padding(.horizontal, 2)
+        let dated = Set(dueItems.compactMap { $0.debt?.remoteID })
+        let rest = debts.filter { !dated.contains($0.remoteID) }
 
-            ScrollView(.horizontal) {
-                HStack(spacing: 8) {
-                    ForEach(debts) { debt in
+        if !rest.isEmpty {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Record a payment")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Theme.textTertiary)
+                    .padding(.horizontal, 2)
+
+                ScrollView(.horizontal) {
+                    HStack(spacing: 8) {
+                        ForEach(rest) { debt in
                         Button {
                             payingDebt = debt
                         } label: {
@@ -175,17 +193,302 @@ struct DashboardView: View {
                             .background(Theme.surface, in: .capsule)
                             .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
                         }
-                        .buttonStyle(.pressable)
-                        .accessibilityLabel("Record a payment for \(debt.name)")
+                            .buttonStyle(.pressable)
+                            .accessibilityLabel("Record a payment for \(debt.name)")
+                        }
+                    }
+                    .padding(.horizontal, 2)
+                }
+                .scrollIndicators(.hidden)
+                // The row is one screen edge to the other, so it must not be
+                // clipped by the page's own gutter.
+                .scrollClipDisabled()
+            }
+        }
+    }
+
+    // MARK: - Due soon
+
+    /// One thing the household owes on a particular day.
+    private struct DueItem: Identifiable {
+        let id: String
+        let name: String
+        let amount: Decimal
+        let date: Date
+        /// Negative once the day has passed.
+        let daysUntil: Int
+        /// The debt to open when tapped. Nil for a recurring expense, which the
+        /// app does not record payments against.
+        let debt: DebtRecord?
+
+        var isOverdue: Bool { daysUntil < 0 }
+        var isToday: Bool { daysUntil == 0 }
+        var isPressing: Bool { daysUntil <= 3 }
+    }
+
+    /// Anything owed inside a fortnight, plus anything already late.
+    ///
+    /// A month's worth lives behind the bell; the near stuff belongs on the
+    /// screen you open every day. "The 1st is next week and rent comes out" is
+    /// not a notification, it is the thing you came to find out.
+    ///
+    /// Fourteen days rather than seven: household bills cluster on a couple of
+    /// dates in the month, so a week-long window is empty most of the time and
+    /// the section would blink in and out of existence.
+    private var dueItems: [DueItem] {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        let horizon = 14
+        var items: [DueItem] = []
+
+        // Payments the user planned for a date and has not marked paid. These
+        // win over the debt's generic minimum: the planned amount is the
+        // deliberate one.
+        let planned = Set(payments.filter { !$0.isPaid }.map(\.debtRemoteID))
+        for payment in payments where !payment.isPaid {
+            guard let debt = debts.first(where: { $0.remoteID == payment.debtRemoteID }) else { continue }
+            let day = calendar.startOfDay(for: payment.date)
+            let days = calendar.dateComponents([.day], from: today, to: day).day ?? 0
+            guard days <= horizon else { continue }
+            items.append(
+                DueItem(
+                    id: "planned-\(payment.persistentModelID.hashValue)",
+                    name: debt.name,
+                    amount: payment.amount,
+                    date: day,
+                    daysUntil: days,
+                    debt: debt
+                )
+            )
+        }
+
+        for debt in debts where !planned.contains(debt.remoteID) {
+            guard let dueDay = debt.dueDay,
+                  let days = BillSchedule.daysUntil(dueDay: dueDay, from: .now),
+                  days <= horizon,
+                  let date = calendar.date(byAdding: .day, value: days, to: today)
+            else { continue }
+            items.append(
+                DueItem(
+                    id: "debt-\(debt.remoteID)",
+                    name: debt.name,
+                    amount: debt.minimumPayment,
+                    date: date,
+                    daysUntil: days,
+                    debt: debt
+                )
+            )
+        }
+
+        for expense in expenses where expense.isActive {
+            guard let dueDay = expense.dueDay,
+                  let days = BillSchedule.daysUntil(dueDay: dueDay, from: .now),
+                  days <= horizon,
+                  let date = calendar.date(byAdding: .day, value: days, to: today)
+            else { continue }
+            items.append(
+                DueItem(
+                    id: "expense-\(expense.persistentModelID.hashValue)",
+                    name: expense.name,
+                    amount: expense.amount,
+                    date: date,
+                    daysUntil: days,
+                    debt: nil
+                )
+            )
+        }
+
+        return items.sorted { $0.daysUntil < $1.daysUntil }
+    }
+
+    @ViewBuilder
+    private var dueSoon: some View {
+        let items = dueItems
+
+        if !items.isEmpty {
+            VStack(spacing: 10) {
+                SectionHeader(title: "Due soon") {
+                    Text(CurrencyFormat.string(items.reduce(Decimal(0)) { $0 + $1.amount }))
+                        .font(.subheadline.weight(.bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.textSecondary)
+                }
+
+                ScrollView(.horizontal) {
+                    HStack(spacing: 10) {
+                        ForEach(items) { dueCard($0) }
+                    }
+                    .padding(.horizontal, 2)
+                }
+                .scrollIndicators(.hidden)
+                // The row runs edge to edge, so the page's gutter must not clip
+                // the card that is half off screen.
+                .scrollClipDisabled()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func dueCard(_ item: DueItem) -> some View {
+        let accent: Color = item.isOverdue || item.isToday
+            ? Theme.red
+            : (item.isPressing ? Theme.yellow : Theme.blue)
+
+        let card = VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 10) {
+                VStack(spacing: 0) {
+                    Text(item.date.formatted(.dateTime.day()))
+                        .font(.system(size: 19, weight: .bold, design: .rounded))
+                        .monospacedDigit()
+                        .foregroundStyle(accent)
+                    Text(item.date.formatted(.dateTime.month(.abbreviated)))
+                        .font(.system(size: 9, weight: .bold))
+                        .textCase(.uppercase)
+                        .foregroundStyle(accent.opacity(0.8))
+                }
+                .frame(width: 42, height: 42)
+                .background(accent.opacity(0.14), in: .rect(cornerRadius: 11))
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(LocalizedStringKey(item.name))
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(Theme.textPrimary)
+                        .lineLimit(1)
+                    Text(whenLabel(item))
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(accent)
+                        .lineLimit(1)
+                }
+
+                Spacer(minLength: 0)
+            }
+
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(CurrencyFormat.string(item.amount))
+                    .font(.system(size: 17, weight: .bold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                Spacer(minLength: 0)
+                if item.debt != nil {
+                    Text("Pay")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(Theme.lime)
+                }
+            }
+        }
+        .padding(13)
+        .frame(width: 208, alignment: .leading)
+        .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+        .overlay(
+            RoundedRectangle(cornerRadius: Theme.Radius.card)
+                .strokeBorder(item.isOverdue || item.isToday ? accent.opacity(0.5) : Theme.stroke, lineWidth: 1)
+        )
+
+        // A debt can be paid from here; a recurring expense has nothing to
+        // record against it, so it opens the list it belongs to instead.
+        if let debt = item.debt {
+            Button { payingDebt = debt } label: { card }
+                .buttonStyle(.pressable)
+                .accessibilityLabel("Record a payment for \(item.name)")
+        } else {
+            NavigationLink(value: EntryKind.expense) { card }
+                .buttonStyle(.pressable)
+        }
+    }
+
+    private func whenLabel(_ item: DueItem) -> LocalizedStringKey {
+        if item.daysUntil < 0 { return "\(-item.daysUntil) days late" }
+        if item.daysUntil == 0 { return "Today" }
+        if item.daysUntil == 1 { return "Tomorrow" }
+        return "In \(item.daysUntil) days"
+    }
+
+    /// What you logged today, with the full history one push behind it.
+    ///
+    /// This is the part of the retired Entries tab worth seeing daily. The rest
+    /// of it — every entry ever recorded, by day, by scope — is a reference, and
+    /// references live behind a link.
+    private var todaySection: some View {
+        let startOfDay = Calendar.current.startOfDay(for: .now)
+        let today = transactions.filter { $0.occurredAt >= startOfDay }
+
+        return VStack(spacing: 12) {
+            SectionHeader(title: "Today") {
+                NavigationLink(value: LedgerRoute()) {
+                    HStack(spacing: 3) {
+                        Text("All entries")
+                            .font(.caption.weight(.bold))
+                        Image(systemName: "chevron.right")
+                            .font(.caption2.weight(.bold))
+                    }
+                    .foregroundStyle(Theme.lime)
+                }
+                .buttonStyle(.pressable)
+            }
+
+            if today.isEmpty {
+                NavigationLink(value: LedgerRoute()) {
+                    HStack(spacing: 10) {
+                        Image(systemName: "square.and.pencil")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Theme.textTertiary)
+                        Text("Nothing logged yet today")
+                            .font(.subheadline)
+                            .foregroundStyle(Theme.textSecondary)
+                        Spacer(minLength: 0)
+                        Image(systemName: "chevron.right")
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(Theme.textTertiary)
+                    }
+                    .padding(14)
+                    .frame(maxWidth: .infinity)
+                    .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+                }
+                .buttonStyle(.pressable)
+            } else {
+                GroupedCard {
+                    ForEach(Array(today.prefix(4).enumerated()), id: \.element.id) { index, record in
+                        if index > 0 { RowDivider() }
+                        entryRow(record)
                     }
                 }
-                .padding(.horizontal, 2)
             }
-            .scrollIndicators(.hidden)
-            // The row is one screen edge to the other, so it must not be
-            // clipped by the page's own gutter.
-            .scrollClipDisabled()
         }
+    }
+
+    private func entryRow(_ record: TransactionRecord) -> some View {
+        NavigationLink(value: LedgerRoute()) {
+            HStack(spacing: 12) {
+                Image(systemName: record.direction.icon)
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(record.direction.accent)
+                    .frame(width: 30, height: 30)
+                    .background(record.direction.accent.opacity(0.14), in: .rect(cornerRadius: 9))
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(record.name.isEmpty ? String(localized: "Entry") : record.name)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                        .lineLimit(1)
+                    Text(record.category)
+                        .font(.caption)
+                        .foregroundStyle(Theme.textTertiary)
+                        .lineLimit(1)
+                }
+
+                Spacer(minLength: 8)
+
+                Text("\(record.direction.sign)\(CurrencyFormat.string(record.amount))")
+                    .font(.subheadline.weight(.bold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.textPrimary)
+            }
+            .padding(.vertical, 11)
+            .contentShape(.rect)
+        }
+        .buttonStyle(.pressableRow)
     }
 
     /// What has actually come off the debt since the app first saw it.
@@ -208,10 +511,14 @@ struct DashboardView: View {
     }
 
     /// The headline figure, on a fill that states whether it is good news.
+    ///
+    /// Tapping it opens the arithmetic behind it. It was the biggest number on
+    /// the screen and the only one that led nowhere.
     private var heroCard: some View {
         let cleared = clearedSoFar
 
-        return AccentCard(
+        return NavigationLink(value: CashFlowRoute()) {
+            AccentCard(
             eyebrow: "Net available flow",
             amount: summary.netCashFlow,
             caption: summary.netCashFlow >= 0
@@ -219,8 +526,10 @@ struct DashboardView: View {
                 : "Your commitments exceed your income this month",
             progress: cleared?.fraction ?? 0,
             progressLabel: progressLabel(for: cleared),
-            accent: summary.netCashFlow >= 0 ? Theme.lime : Theme.red
-        )
+                accent: summary.netCashFlow >= 0 ? Theme.lime : Theme.red
+            )
+        }
+        .buttonStyle(.pressable)
     }
 
     private func progressLabel(for cleared: (amount: Decimal, fraction: Double)?) -> String {
@@ -229,8 +538,17 @@ struct DashboardView: View {
         return String(localized: "\(CurrencyFormat.string(cleared.amount)) paid off")
     }
 
-    /// Mirrors the reference's timer row: the plan's key numbers as pills.
+    /// The plan's key numbers as pills — and a way into the plan itself, which
+    /// is what they are a summary of.
     private var planStrip: some View {
+        Button(action: onOpenPlan) {
+            planPills
+        }
+        .buttonStyle(.pressable)
+        .accessibilityLabel("Your payoff plan")
+    }
+
+    private var planPills: some View {
         HStack(spacing: 10) {
             Pill(
                 text: CurrencyFormat.string(summary.plan.requiredMonthly),
@@ -244,7 +562,11 @@ struct DashboardView: View {
             )
             Pill(text: String(localized: "\(summary.plan.targetMonths) months"))
             Spacer(minLength: 0)
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(Theme.textTertiary)
         }
+        .contentShape(.rect)
     }
 
 }
@@ -275,7 +597,8 @@ struct DashboardSummary {
             monthlyIncome: totalIncome,
             monthlyExpenses: totalExpenses,
             targetMonths: settings?.targetMonths ?? 16,
-            startDate: settings?.startDate ?? PlanCache.sessionStart
+            startDate: settings?.startDate ?? PlanCache.sessionStart,
+            strategy: settings?.payoffStrategy ?? .highestInterest
         )
     }
 

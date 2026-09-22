@@ -8,16 +8,22 @@
 	<string>%@ all in.</string>
 	<key>%@ due each month</key>
 	<string>%@ due each month</string>
+	<key>%@ in hand</key>
+	<string>%@ in hand</string>
 	<key>%@ interest</key>
 	<string>%@ interest</string>
-	<key>%@ left after this</key>
-	<string>%@ left after this</string>
+	<key>%@ is due today.</key>
+	<string>%@ is due today.</string>
+	<key>%@ is due tomorrow.</key>
+	<string>%@ is due tomorrow.</string>
 	<key>%@ of it is your share</key>
 	<string>%@ of it is your share</string>
 	<key>%@ paid off</key>
 	<string>%@ paid off</string>
 	<key>%@ paid so far</key>
 	<string>%@ paid so far</string>
+	<key>%@ still owed</key>
+	<string>%@ still owed</string>
 	<key>%@ total</key>
 	<string>%@ total</string>
 	<key>%@%%</key>
@@ -30,6 +36,8 @@
 	<string>%lld%% of it</string>
 	<key>%lld%% paid</key>
 	<string>%lld%% paid</string>
+	<key>/month</key>
+	<string>/month</string>
 	<key>1 month before</key>
 	<string>1 month before</string>
 	<key>2 months before</key>
@@ -46,6 +54,8 @@
 	<string>AB1234567</string>
 	<key>About you</key>
 	<string>About you</string>
+	<key>Account, level %lld</key>
+	<string>Account, level %lld</string>
 	<key>Add a debt and a target period and your roadmap appears here.</key>
 	<string>Add a debt and a target period and your roadmap appears here.</string>
 	<key>Add a photo</key>
@@ -64,6 +74,8 @@
 	<string>Add your Venmo, PayPal or Cash App and they'll be included in the message.</string>
 	<key>After this payment</key>
 	<string>After this payment</string>
+	<key>All entries</key>
+	<string>All entries</string>
 	<key>Already paid</key>
 	<string>Already paid</string>
 	<key>Amounts change straight away. A new language applies when you reopen the app.</key>
@@ -94,26 +106,38 @@
 	<string>Cash App</string>
 	<key>Change it if they paid back only part of it.</key>
 	<string>Change it if they paid back only part of it.</string>
+	<key>Cheapest</key>
+	<string>Cheapest</string>
 	<key>Check the details</key>
 	<string>Check the details</string>
 	<key>Clear</key>
 	<string>Clear</string>
 	<key>Close and reopen Veralify to see it in %@.</key>
 	<string>Close and reopen Veralify to see it in %@.</string>
+	<key>Compare</key>
+	<string>Compare</string>
 	<key>Copied %@</key>
 	<string>Copied %@</string>
 	<key>Couldn't read that document. You can enter it by hand.</key>
 	<string>Couldn't read that document. You can enter it by hand.</string>
 	<key>Couldn't read that one. Type the total instead.</key>
 	<string>Couldn't read that one. Type the total instead.</string>
+	<key>Current method</key>
+	<string>Current method</string>
 	<key>Custom</key>
 	<string>Custom</string>
 	<key>Custom tip %</key>
 	<string>Custom tip %</string>
+	<key>Daily nudge</key>
+	<string>Daily nudge</string>
 	<key>Date of birth</key>
 	<string>Date of birth</string>
 	<key>Debt free</key>
 	<string>Debt free</string>
+	<key>Debt free by</key>
+	<string>Debt free by</string>
+	<key>Debt payments count against what's left because they are due every month, the same as rent. Anything you pay above the minimum comes out of what's left over.</key>
+	<string>Debt payments count against what's left because they are due every month, the same as rent. Anything you pay above the minimum comes out of what's left over.</string>
 	<key>Debt-free</key>
 	<string>Debt-free</string>
 	<key>Delete document</key>
@@ -126,20 +150,24 @@
 	<string>Document</string>
 	<key>Document number</key>
 	<string>Document number</string>
-	<key>Documents</key>
-	<string>Documents</string>
+	<key>Done today</key>
+	<string>Done today</string>
 	<key>Double tap to copy</key>
 	<string>Double tap to copy</string>
 	<key>Down %@ this month</key>
 	<string>Down %@ this month</string>
 	<key>Driving licence</key>
 	<string>Driving licence</string>
+	<key>Due soon</key>
+	<string>Due soon</string>
 	<key>Each person pays</key>
 	<string>Each person pays</string>
 	<key>Early payoff</key>
 	<string>Early payoff</string>
 	<key>Early payoff · %@ interest</key>
 	<string>Early payoff · %@ interest</string>
+	<key>Earned so far</key>
+	<string>Earned so far</string>
 	<key>Eating out</key>
 	<string>Eating out</string>
 	<key>Edit %@</key>
@@ -150,8 +178,12 @@
 	<string>Egyptian Pound</string>
 	<key>Enter the bill to see the split.</key>
 	<string>Enter the bill to see the split.</string>
+	<key>Entry</key>
+	<string>Entry</string>
 	<key>Euro</key>
 	<string>Euro</string>
+	<key>Every debt keeps getting its minimum payment whichever you choose. This only decides where the money left over goes.</key>
+	<string>Every debt keeps getting its minimum payment whichever you choose. This only decides where the money left over goes.</string>
 	<key>Everyone</key>
 	<string>Everyone</string>
 	<key>Everything stays on this device, behind your passcode. Photos are yours to add or leave out.</key>
@@ -162,8 +194,8 @@
 	<string>Expires</string>
 	<key>Expires in %lld days</key>
 	<string>Expires in %lld days</string>
-	<key>Family</key>
-	<string>Family</string>
+	<key>First one gone</key>
+	<string>First one gone</string>
 	<key>General</key>
 	<string>General</string>
 	<key>Groceries</key>
@@ -180,12 +212,16 @@
 	<string>ITA</string>
 	<key>In from %@</key>
 	<string>In from %@</string>
+	<key>In hand</key>
+	<string>In hand</string>
 	<key>Indian Rupee</key>
 	<string>Indian Rupee</string>
 	<key>Interest</key>
 	<string>Interest</string>
 	<key>Interest and fees</key>
 	<string>Interest and fees</string>
+	<key>Interest over the plan</key>
+	<string>Interest over the plan</string>
 	<key>Issued by</key>
 	<string>Issued by</string>
 	<key>It was deleted. Go back to see the ones you still have.</key>
@@ -196,6 +232,8 @@
 	<string>Japanese Yen</string>
 	<key>Keep paying the same each month and finish sooner.</key>
 	<string>Keep paying the same each month and finish sooner.</string>
+	<key>Keep this method</key>
+	<string>Keep this method</string>
 	<key>Kept on this device, behind your passcode</key>
 	<string>Kept on this device, behind your passcode</string>
 	<key>Kids</key>
@@ -208,6 +246,8 @@
 	<string>Language</string>
 	<key>Left</key>
 	<string>Left</string>
+	<key>Log what you spent or received to keep your streak going.</key>
+	<string>Log what you spent or received to keep your streak going.</string>
 	<key>Lower the monthly payment</key>
 	<string>Lower the monthly payment</string>
 	<key>Mark as not paid</key>
@@ -228,12 +268,18 @@
 	<string>More</string>
 	<key>Moroccan Dirham</key>
 	<string>Moroccan Dirham</string>
+	<key>Move down</key>
+	<string>Move down</string>
+	<key>Move up</key>
+	<string>Move up</string>
 	<key>Nationality</key>
 	<string>Nationality</string>
 	<key>New document</key>
 	<string>New document</string>
 	<key>New monthly payment</key>
 	<string>New monthly payment</string>
+	<key>Next level at</key>
+	<string>Next level at</string>
 	<key>No change this month</key>
 	<string>No change this month</string>
 	<key>No documents yet</key>
@@ -252,22 +298,40 @@
 	<string>Norwegian Krone</string>
 	<key>Not paid yet</key>
 	<string>Not paid yet</string>
+	<key>Not within the target</key>
+	<string>Not within the target</string>
+	<key>Not yet</key>
+	<string>Not yet</string>
+	<key>Nothing logged yet today</key>
+	<string>Nothing logged yet today</string>
 	<key>Nothing paid off yet</key>
 	<string>Nothing paid off yet</string>
 	<key>Nothing shared yet. Add an expense and it splits between whoever you pick.</key>
 	<string>Nothing shared yet. Add an expense and it splits between whoever you pick.</string>
+	<key>Nothing you owe falls due in the next three days. If something does, pay it — the bell in the corner lists what is coming — or correct its due date if it is wrong.</key>
+	<string>Nothing you owe falls due in the next three days. If something does, pay it — the bell in the corner lists what is coming — or correct its due date if it is wrong.</string>
+	<key>Notifications are off</key>
+	<string>Notifications are off</string>
 	<key>Notifications are off for Veralify, so these won't arrive until you turn them on in Settings.</key>
 	<string>Notifications are off for Veralify, so these won't arrive until you turn them on in Settings.</string>
 	<key>Number</key>
 	<string>Number</string>
 	<key>OK</key>
 	<string>OK</string>
+	<key>On the day</key>
+	<string>On the day</string>
 	<key>Once you mark it paid</key>
 	<string>Once you mark it paid</string>
 	<key>One field didn't add up</key>
 	<string>One field didn't add up</string>
+	<key>One reminder a day to log what you spent</key>
+	<string>One reminder a day to log what you spent</string>
+	<key>Only you can say whether you have done this, so this one is yours to tick.</key>
+	<string>Only you can say whether you have done this, so this one is yours to tick.</string>
 	<key>Open for progress and payments</key>
 	<string>Open for progress and payments</string>
+	<key>Open the Plan tab and look at where you are on the route: what this month costs, what is left after it, and when the next debt clears. Then mark this done.</key>
+	<string>Open the Plan tab and look at where you are on the route: what this month costs, what is left after it, and when the next debt clears. Then mark this done.</string>
 	<key>Open to edit</key>
 	<string>Open to edit</string>
 	<key>Opens the debt so you can mark it paid</key>
@@ -278,6 +342,8 @@
 	<string>Other</string>
 	<key>Out from %@</key>
 	<string>Out from %@</string>
+	<key>Over budget</key>
+	<string>Over budget</string>
 	<key>Owed</key>
 	<string>Owed</string>
 	<key>PHOTO</key>
@@ -288,8 +354,6 @@
 	<string>Paid ahead of schedule, straight off the balance.</string>
 	<key>Passport</key>
 	<string>Passport</string>
-	<key>Passports and IDs</key>
-	<string>Passports and IDs</string>
 	<key>Pay</key>
 	<string>Pay</string>
 	<key>Pay me back</key>
@@ -312,6 +376,8 @@
 	<string>Phone or email</string>
 	<key>Picture</key>
 	<string>Picture</string>
+	<key>Plan settings</key>
+	<string>Plan settings</string>
 	<key>Planned</key>
 	<string>Planned</string>
 	<key>Planned payments</key>
@@ -322,6 +388,8 @@
 	<string>Polish Zloty</string>
 	<key>Qatari Riyal</key>
 	<string>Qatari Riyal</string>
+	<key>Quest</key>
+	<string>Quest</string>
 	<key>Read %@ from the receipt. Check it before you share.</key>
 	<string>Read %@ from the receipt. Check it before you share.</string>
 	<key>Read and verified</key>
@@ -332,6 +400,8 @@
 	<string>Record a payment</string>
 	<key>Record a payment for %@</key>
 	<string>Record a payment for %@</string>
+	<key>Record at least one thing you spent or received.</key>
+	<string>Record at least one thing you spent or received.</string>
 	<key>Record it</key>
 	<string>Record it</string>
 	<key>Record payment</key>
@@ -344,10 +414,14 @@
 	<string>Remaining</string>
 	<key>Remind me</key>
 	<string>Remind me</string>
+	<key>Reminders</key>
+	<string>Reminders</string>
 	<key>Reminders %@</key>
 	<string>Reminders %@</string>
 	<key>Reminders are off</key>
 	<string>Reminders are off</string>
+	<key>Reminders come from this phone's own clock. Nothing is sent to a server, so no amount or due date ever leaves the device.</key>
+	<string>Reminders come from this phone's own clock. Nothing is sent to a server, so no amount or due date ever leaves the device.</string>
 	<key>Remove</key>
 	<string>Remove</string>
 	<key>Remove photo</key>
@@ -362,10 +436,10 @@
 	<string>Replace</string>
 	<key>Residence permit</key>
 	<string>Residence permit</string>
-	<key>Roadmap</key>
-	<string>Roadmap</string>
 	<key>Route</key>
 	<string>Route</string>
+	<key>Same debts, same target period. What changes is which debt the spare money goes to — and what that ends up costing.</key>
+	<string>Same debts, same target period. What changes is which debt the spare money goes to — and what that ends up costing.</string>
 	<key>Saudi Riyal</key>
 	<string>Saudi Riyal</string>
 	<key>Save changes</key>
@@ -380,12 +454,12 @@
 	<string>Scan a passport or ID and Veralify keeps its details to hand — and reminds you before it expires.</string>
 	<key>Scan failed</key>
 	<string>Scan failed</string>
-	<key>Scan once, copy any field, get told before they expire</key>
-	<string>Scan once, copy any field, get told before they expire</string>
 	<key>Scan receipt</key>
 	<string>Scan receipt</string>
 	<key>Scanning needs a camera, so it only works on a device.</key>
 	<string>Scanning needs a camera, so it only works on a device.</string>
+	<key>Series</key>
+	<string>Series</string>
 	<key>Settle up</key>
 	<string>Settle up</string>
 	<key>Share costs with your family</key>
@@ -396,8 +470,20 @@
 	<string>Shared expense</string>
 	<key>Shared expenses</key>
 	<string>Shared expenses</string>
+	<key>Shows what to do</key>
+	<string>Shows what to do</string>
+	<key>Smallest balance first</key>
+	<string>Smallest balance first</string>
 	<key>Someone</key>
 	<string>Someone</string>
+	<key>Spare money follows your own order</key>
+	<string>Spare money follows your own order</string>
+	<key>Spare money goes to the dearest debt</key>
+	<string>Spare money goes to the dearest debt</string>
+	<key>Spare money goes to the smallest debt</key>
+	<string>Spare money goes to the smallest debt</string>
+	<key>Split</key>
+	<string>Split</string>
 	<key>Split a bill</key>
 	<string>Split a bill</string>
 	<key>Split between</key>
@@ -412,16 +498,24 @@
 	<string>Step</string>
 	<key>Step %lld</key>
 	<string>Step %lld</string>
+	<key>Still to go</key>
+	<string>Still to go</string>
 	<key>Swedish Krona</key>
 	<string>Swedish Krona</string>
 	<key>Swiss Franc</key>
 	<string>Swiss Franc</string>
 	<key>System</key>
 	<string>System</string>
+	<key>Tap Add — it is on every tab — type the amount, pick money in or money out, and swipe to confirm. One entry is enough to finish this.</key>
+	<string>Tap Add — it is on every tab — type the amount, pick money in or money out, and swipe to confirm. One entry is enough to finish this.</string>
+	<key>The day before</key>
+	<string>The day before</string>
 	<key>The document's details stay. Only the image is deleted.</key>
 	<string>The document's details stay. Only the image is deleted.</string>
 	<key>The document's own check digits confirm these were read correctly. Worth a glance anyway.</key>
 	<string>The document's own check digits confirm these were read correctly. Worth a glance anyway.</string>
+	<key>The order I choose</key>
+	<string>The order I choose</string>
 	<key>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</key>
 	<string>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</string>
 	<key>This debt is gone</key>
@@ -432,10 +526,14 @@
 	<string>This month</string>
 	<key>This route doesn't reach the end</key>
 	<string>This route doesn't reach the end</string>
+	<key>Time of day</key>
+	<string>Time of day</string>
 	<key>Tip</key>
 	<string>Tip</string>
 	<key>Tip %lld%%</key>
 	<string>Tip %lld%%</string>
+	<key>Tomorrow</key>
+	<string>Tomorrow</string>
 	<key>Total to pay</key>
 	<string>Total to pay</string>
 	<key>Tracking from this month</key>
@@ -448,30 +546,50 @@
 	<string>Turkish Lira</string>
 	<key>Turn on notifications in Settings and Veralify can warn you before a document expires.</key>
 	<string>Turn on notifications in Settings and Veralify can warn you before a document expires.</string>
+	<key>Turn them on for Veralify in Settings and these reminders start arriving.</key>
+	<string>Turn them on for Veralify in Settings and these reminders start arriving.</string>
 	<key>UAE Dirham</key>
 	<string>UAE Dirham</string>
 	<key>US Dollar</key>
 	<string>US Dollar</string>
 	<key>Up %@ this month</key>
 	<string>Up %@ this month</string>
+	<key>Use this method</key>
+	<string>Use this method</string>
 	<key>Venmo</key>
 	<string>Venmo</string>
+	<key>Veralify ticks this one for you, the moment it is true. There is nothing to confirm.</key>
+	<string>Veralify ticks this one for you, the moment it is true. There is nothing to confirm.</string>
 	<key>View</key>
 	<string>View</string>
 	<key>View the document photo full screen</key>
 	<string>View the document photo full screen</string>
+	<key>Wallet</key>
+	<string>Wallet</string>
+	<key>What to do</key>
+	<string>What to do</string>
 	<key>What was it?</key>
 	<string>What was it?</string>
 	<key>What you still owe</key>
 	<string>What you still owe</string>
+	<key>What's left</key>
+	<string>What's left</string>
 	<key>Where the money goes</key>
 	<string>Where the money goes</string>
 	<key>Who paid?</key>
 	<string>Who paid?</string>
 	<key>Work out the tip and who owes what, then send it</key>
 	<string>Work out the tip and who owes what, then send it</string>
+	<key>XP comes from finishing the day's quests on Today. Nothing else earns it, and nothing takes it away.</key>
+	<string>XP comes from finishing the day's quests on Today. Nothing else earns it, and nothing takes it away.</string>
 	<key>You pay</key>
 	<string>You pay</string>
+	<key>Your income has to cover your expenses and your debt payments with something left over. Tap the big figure on Today to see the three numbers that make it up, and which one is eating the difference.</key>
+	<string>Your income has to cover your expenses and your debt payments with something left over. Tap the big figure on Today to see the three numbers that make it up, and which one is eating the difference.</string>
+	<key>Your level</key>
+	<string>Your level</string>
+	<key>Your payoff plan</key>
+	<string>Your payoff plan</string>
 	<key>Zelle</key>
 	<string>Zelle</string>
 	<key>clear by %@</key>
@@ -492,5 +610,7 @@
 	<string>yourcashtag</string>
 	<key>yourhandle</key>
 	<string>yourhandle</string>
+	<key>·</key>
+	<string>·</string>
 </dict>
 </plist>

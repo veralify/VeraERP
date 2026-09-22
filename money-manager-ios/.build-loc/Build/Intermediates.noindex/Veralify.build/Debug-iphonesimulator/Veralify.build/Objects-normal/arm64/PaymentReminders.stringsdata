@@ -1,0 +1,72 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Reminders/PaymentReminders.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "On the day",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "The day before",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days before",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today's quests",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 292
+        }
+      },
+      {
+        "comment": "",
+        "key": "Log what you spent or received to keep your streak going.",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 293
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ is due today.",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 282
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ is due tomorrow.",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 283
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ is due in %lld days.",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 284
+        }
+      }
+    ]
+  },
+  "version": 1
+}

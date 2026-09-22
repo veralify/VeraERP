@@ -6,7 +6,7 @@
 	<integer>13</integer>
 	<key>logs</key>
 	<dict>
-		<key>350DAC95-DE82-424D-91CD-26CAB0E6CB36</key>
+		<key>3D63D202-FB71-482D-AECE-537BAD96DB6B</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>350DAC95-DE82-424D-91CD-26CAB0E6CB36.xcactivitylog</string>
+			<string>3D63D202-FB71-482D-AECE-537BAD96DB6B.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -29,7 +29,7 @@
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>2</integer>
+				<integer>3</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>Veralify project</string>
@@ -40,15 +40,15 @@
 			<key>signature</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>timeStartedRecording</key>
-			<real>811757186.38013995</real>
+			<real>811759918.20694196</real>
 			<key>timeStoppedRecording</key>
-			<real>811757193.09492302</real>
+			<real>811759922.41375506</real>
 			<key>title</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>uniqueIdentifier</key>
-			<string>350DAC95-DE82-424D-91CD-26CAB0E6CB36</string>
+			<string>3D63D202-FB71-482D-AECE-537BAD96DB6B</string>
 		</dict>
-		<key>FFC515AB-4568-422C-BCF3-DB21B9279FC2</key>
+		<key>A3138751-9830-49DF-877B-D041AB81C879</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -57,7 +57,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>FFC515AB-4568-422C-BCF3-DB21B9279FC2.xcactivitylog</string>
+			<string>A3138751-9830-49DF-877B-D041AB81C879.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -82,13 +82,13 @@
 			<key>signature</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>timeStartedRecording</key>
-			<real>811756339.91289997</real>
+			<real>811761658.31633794</real>
 			<key>timeStoppedRecording</key>
-			<real>811756345.33622801</real>
+			<real>811761662.67634404</real>
 			<key>title</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>uniqueIdentifier</key>
-			<string>FFC515AB-4568-422C-BCF3-DB21B9279FC2</string>
+			<string>A3138751-9830-49DF-877B-D041AB81C879</string>
 		</dict>
 	</dict>
 </dict>

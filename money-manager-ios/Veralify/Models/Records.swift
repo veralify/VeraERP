@@ -113,9 +113,23 @@ final class ExpenseItem {
 final class PlanSettings {
     var targetMonths: Int
     var startDate: Date
+    /// Which debt spare money goes to. Defaulted in the declaration as well as
+    /// the initialiser so an existing store migrates without a mapping: every
+    /// plan made before this existed was an avalanche.
+    var payoffStrategyRaw: String = PayoffStrategy.highestInterest.rawValue
 
-    init(targetMonths: Int = 16, startDate: Date = .now) {
+    init(
+        targetMonths: Int = 16,
+        startDate: Date = .now,
+        payoffStrategy: PayoffStrategy = .highestInterest
+    ) {
         self.targetMonths = targetMonths
         self.startDate = startDate
+        self.payoffStrategyRaw = payoffStrategy.rawValue
+    }
+
+    var payoffStrategy: PayoffStrategy {
+        get { PayoffStrategy(rawValue: payoffStrategyRaw) ?? .highestInterest }
+        set { payoffStrategyRaw = newValue.rawValue }
     }
 }

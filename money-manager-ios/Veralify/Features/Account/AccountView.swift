@@ -1,7 +1,11 @@
 import SwiftUI
 import SwiftData
 
-/// Plan settings, what is stored, and the ways out.
+/// Preferences, what is stored, and the ways out.
+///
+/// Only preferences. The payoff plan's own controls sit on the Plan tab, where
+/// the plan is, and the document wallet is a tab — neither was a setting, and
+/// both were unfindable in here.
 struct AccountView: View {
     @Environment(\.modelContext) private var context
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
@@ -28,8 +32,6 @@ struct AccountView: View {
     /// straight away rather than only after a relaunch.
     @State private var language = Language.current
 
-    private var planSettings: PlanSettings? { settings.first }
-
     private var appVersion: String {
         let bundle = Bundle.main.infoDictionary
         let version = bundle?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -43,8 +45,8 @@ struct AccountView: View {
                 Theme.background.ignoresSafeArea()
                 ScrollView {
                     VStack(spacing: 18) {
-                        planCard
-                        documentsCard
+                        LevelPanel()
+                        RemindersCard()
                         displayCard
                         dataCard
                         aboutCard
@@ -55,12 +57,6 @@ struct AccountView: View {
                     .padding(.bottom, 32)
                 }
                 .scrollIndicators(.hidden)
-            }
-            // The Account screen is presented as a sheet, so it has its own
-            // navigation stack. A destination registered in `RootView` is on a
-            // different stack entirely and the link silently does nothing.
-            .navigationDestination(for: VaultRoute.self) { _ in
-                IDVaultView()
             }
             .navigationTitle("Account")
             .navigationBarTitleDisplayMode(.inline)
@@ -86,83 +82,6 @@ struct AccountView: View {
             Button("OK", role: .cancel) {}
         } message: {
             Text("Close and reopen Veralify to see it in \(language.title).")
-        }
-    }
-
-    private var planCard: some View {
-        VStack(spacing: 12) {
-            SectionHeader(title: "Plan") { EmptyView() }
-
-            GroupedCard {
-                HStack {
-                    Text("Target period")
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.textSecondary)
-                    Spacer(minLength: 8)
-                    if let planSettings {
-                        Stepper(
-                            value: Binding(
-                                get: { planSettings.targetMonths },
-                                set: { planSettings.targetMonths = $0; try? context.save() }
-                            ),
-                            in: 3...120
-                        ) {
-                            EmptyView()
-                        }
-                        .labelsHidden()
-                        Text("\(planSettings.targetMonths) months")
-                            .font(.subheadline.weight(.bold))
-                            .monospacedDigit()
-                            .foregroundStyle(Theme.textPrimary)
-                    } else {
-                        Text("—").foregroundStyle(Theme.textTertiary)
-                    }
-                }
-                .padding(.vertical, 12)
-
-                RowDivider()
-
-                infoRow("Payoff method", String(localized: "Highest interest first"))
-            }
-        }
-    }
-
-    /// Passports and ID cards. Lives here rather than in the tab bar: it is
-    /// something you keep, not something you check daily.
-    private var documentsCard: some View {
-        VStack(spacing: 12) {
-            SectionHeader(title: "Documents") { EmptyView() }
-
-            NavigationLink(value: VaultRoute()) {
-                HStack(spacing: 12) {
-                    Image(systemName: "person.text.rectangle.fill")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundStyle(Theme.lime)
-                        .frame(width: 34, height: 34)
-                        .background(Theme.lime.opacity(0.16), in: .rect(cornerRadius: 10))
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Passports and IDs")
-                            .font(.subheadline.weight(.bold))
-                            .foregroundStyle(Theme.textPrimary)
-                        Text("Scan once, copy any field, get told before they expire")
-                            .font(.caption)
-                            .foregroundStyle(Theme.textTertiary)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.85)
-                    }
-
-                    Spacer(minLength: 8)
-
-                    Image(systemName: "chevron.right")
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(Theme.textTertiary)
-                }
-                .padding(14)
-                .frame(maxWidth: .infinity)
-                .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
-            }
-            .buttonStyle(.pressable)
         }
     }
 

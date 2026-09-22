@@ -260,10 +260,10 @@ struct FloatingTabBar: View {
     let onAction: () -> Void
 
     private let tabs: [(icon: String, label: LocalizedStringKey)] = [
-        ("house.fill", "Home"),
-        ("map.fill", "Roadmap"),
-        ("list.bullet.rectangle.fill", "Entries"),
-        ("person.2.fill", "Family")
+        ("house.fill", "Today"),
+        ("map.fill", "Plan"),
+        ("person.2.fill", "Split"),
+        ("wallet.pass.fill", "Wallet")
     ]
     /// Destinations before the action; the rest sit after it. Two either side
     /// keeps the accent button centred.

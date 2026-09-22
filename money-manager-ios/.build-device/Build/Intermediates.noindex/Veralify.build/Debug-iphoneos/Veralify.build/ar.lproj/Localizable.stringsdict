@@ -2,6 +2,30 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>%@ is due in %lld days.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%2$#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%1$@ مستحقة خلال %2$lld أيام.</string>
+			<key>many</key>
+			<string>%1$@ مستحقة خلال %2$lld يومًا.</string>
+			<key>one</key>
+			<string>%1$@ مستحقة خلال يوم.</string>
+			<key>other</key>
+			<string>%1$@ مستحقة خلال %2$lld يوم.</string>
+			<key>two</key>
+			<string>%1$@ مستحقة خلال يومين.</string>
+			<key>zero</key>
+			<string>%1$@ مستحقة اليوم.</string>
+		</dict>
+	</dict>
 	<key>%lld days</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -24,6 +48,54 @@
 			<string>يومان</string>
 			<key>zero</key>
 			<string>لا أيام</string>
+		</dict>
+	</dict>
+	<key>%lld days late</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>متأخر بـ %lld أيام</string>
+			<key>many</key>
+			<string>متأخر بـ %lld يومًا</string>
+			<key>one</key>
+			<string>متأخر بيوم</string>
+			<key>other</key>
+			<string>متأخر بـ %lld يوم</string>
+			<key>two</key>
+			<string>متأخر بيومين</string>
+			<key>zero</key>
+			<string>متأخر</string>
+		</dict>
+	</dict>
+	<key>%lld items have no due date, so nothing can be scheduled for them.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld عناصر بلا تاريخ استحقاق، فلا يمكن جدولة شيء لها.</string>
+			<key>many</key>
+			<string>%lld عنصرًا بلا تاريخ استحقاق، فلا يمكن جدولة شيء لها.</string>
+			<key>one</key>
+			<string>عنصر واحد بلا تاريخ استحقاق، فلا يمكن جدولة شيء له.</string>
+			<key>other</key>
+			<string>%lld عنصر بلا تاريخ استحقاق، فلا يمكن جدولة شيء لها.</string>
+			<key>two</key>
+			<string>عنصران بلا تاريخ استحقاق، فلا يمكن جدولة شيء لهما.</string>
+			<key>zero</key>
+			<string>لا عناصر بلا تاريخ استحقاق.</string>
 		</dict>
 	</dict>
 	<key>%lld items have no due date, so they can't be flagged.</key>
@@ -96,6 +168,78 @@
 			<string>لا دفعات</string>
 		</dict>
 	</dict>
+	<key>%lld recurring</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld بنود متكررة</string>
+			<key>many</key>
+			<string>%lld بندًا متكررًا</string>
+			<key>one</key>
+			<string>بند متكرر</string>
+			<key>other</key>
+			<string>%lld بند متكرر</string>
+			<key>two</key>
+			<string>بندان متكرران</string>
+			<key>zero</key>
+			<string>لا بنود متكررة</string>
+		</dict>
+	</dict>
+	<key>%lld scheduled</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld مجدولة</string>
+			<key>many</key>
+			<string>%lld مجدولًا</string>
+			<key>one</key>
+			<string>واحد مجدول</string>
+			<key>other</key>
+			<string>%lld مجدول</string>
+			<key>two</key>
+			<string>اثنان مجدولان</string>
+			<key>zero</key>
+			<string>لا شيء مجدول</string>
+		</dict>
+	</dict>
+	<key>%lld sources</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld مصادر</string>
+			<key>many</key>
+			<string>%lld مصدرًا</string>
+			<key>one</key>
+			<string>مصدر واحد</string>
+			<key>other</key>
+			<string>%lld مصدر</string>
+			<key>two</key>
+			<string>مصدران</string>
+			<key>zero</key>
+			<string>لا مصادر</string>
+		</dict>
+	</dict>
 	<key>Alerts, %lld needing attention</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -118,6 +262,30 @@
 			<string>التنبيهات، بندان يحتاجان انتباهك</string>
 			<key>zero</key>
 			<string>التنبيهات، لا شيء يحتاج انتباهك</string>
+		</dict>
+	</dict>
+	<key>In %lld days</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>خلال %lld أيام</string>
+			<key>many</key>
+			<string>خلال %lld يومًا</string>
+			<key>one</key>
+			<string>خلال يوم</string>
+			<key>other</key>
+			<string>خلال %lld يوم</string>
+			<key>two</key>
+			<string>خلال يومين</string>
+			<key>zero</key>
+			<string>اليوم</string>
 		</dict>
 	</dict>
 	<key>Showing %lld entries</key>
@@ -190,6 +358,30 @@
 			<string>بعد يومين</string>
 			<key>zero</key>
 			<string>اليوم</string>
+		</dict>
+	</dict>
+	<key>minimums on %lld debts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>الحد الأدنى على %lld ديون</string>
+			<key>many</key>
+			<string>الحد الأدنى على %lld دينًا</string>
+			<key>one</key>
+			<string>الحد الأدنى على دين واحد</string>
+			<key>other</key>
+			<string>الحد الأدنى على %lld دين</string>
+			<key>two</key>
+			<string>الحد الأدنى على دينين</string>
+			<key>zero</key>
+			<string>لا ديون</string>
 		</dict>
 	</dict>
 </dict>

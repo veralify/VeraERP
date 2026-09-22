@@ -56,4 +56,45 @@ struct BillScheduleTests {
         #expect(BillSchedule.nextOccurrence(dueDay: 0, from: try date("2026-09-05")) == nil)
         #expect(BillSchedule.nextOccurrence(dueDay: 32, from: try date("2026-09-05")) == nil)
     }
+
+    // MARK: - Scheduling ahead
+
+    @Test("Occurrences run forward one month at a time")
+    func occurrencesAdvanceMonthly() throws {
+        // 2026-09-22
+        let now = Date(timeIntervalSince1970: 1_790_000_000)
+        let dates = BillSchedule.occurrences(dueDay: 27, from: now, count: 4)
+
+        #expect(dates.count == 4)
+        let months = dates.map { Calendar.gregorianUTC.component(.month, from: $0) }
+        #expect(months == [9, 10, 11, 12])
+        #expect(dates.allSatisfy { Calendar.gregorianUTC.component(.day, from: $0) == 27 })
+    }
+
+    @Test("A 31st clamps to the last day of a short month")
+    func occurrencesClampShortMonths() {
+        let now = Date(timeIntervalSince1970: 1_790_000_000)
+        let dates = BillSchedule.occurrences(dueDay: 31, from: now, count: 6)
+        let days = dates.map { Calendar.gregorianUTC.component(.day, from: $0) }
+
+        // Sep 30, Oct 31, Nov 30, Dec 31, Jan 31, Feb 28.
+        #expect(days == [30, 31, 30, 31, 31, 28])
+    }
+
+    @Test("Occurrences never repeat and never go backwards")
+    func occurrencesAreStrictlyIncreasing() {
+        let now = Date(timeIntervalSince1970: 1_790_000_000)
+        let dates = BillSchedule.occurrences(dueDay: 1, from: now, count: 5)
+
+        #expect(dates.count == 5)
+        #expect(zip(dates, dates.dropFirst()).allSatisfy { $0 < $1 })
+    }
+
+    @Test("Asking for none, or for an impossible day, gives none")
+    func occurrencesRejectNonsense() {
+        let now = Date(timeIntervalSince1970: 1_790_000_000)
+        #expect(BillSchedule.occurrences(dueDay: 15, from: now, count: 0).isEmpty)
+        #expect(BillSchedule.occurrences(dueDay: 0, from: now, count: 3).isEmpty)
+        #expect(BillSchedule.occurrences(dueDay: 32, from: now, count: 3).isEmpty)
+    }
 }

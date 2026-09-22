@@ -186,6 +186,58 @@ struct JourneyTests {
         }
     }
 
+    @Test("The cumulative balance adds up each month's leftover cash")
+    func cumulativeBalanceAccumulates() {
+        let plan = plan(income: 4000, expenses: 1200)
+        let steps = JourneyBuilder.steps(plan: plan, debts: debts)
+
+        var expected = Decimal(0)
+        for (index, step) in steps.enumerated() {
+            expected += 4000 - 1200 - plan.months[index].totalPayment
+            #expect(step.cumulativeBalance == expected)
+        }
+    }
+
+    @Test("A month's balance is the one before it plus what that month leaves over")
+    func cumulativeBalanceIsMonotonicInLeftover() throws {
+        let plan = plan(income: 4000, expenses: 1200)
+        let steps = JourneyBuilder.steps(plan: plan, debts: debts)
+        try #require(steps.count > 1)
+
+        for index in 1..<steps.count {
+            let leftover = 4000 - 1200 - plan.months[index].totalPayment
+            #expect(steps[index].cumulativeBalance - steps[index - 1].cumulativeBalance == leftover)
+        }
+    }
+
+    /// The plan can never overspend: `usedMonthly` is capped at
+    /// `max(0, income - expenses)`, so a household that cannot afford its debts
+    /// simply pays less and ends every month on exactly zero.
+    @Test("A plan that spends every spare euro on debt ends each month at zero")
+    func cumulativeBalanceBottomsOutAtZero() throws {
+        let plan = plan(income: 1000, expenses: 900)
+        let steps = JourneyBuilder.steps(plan: plan, debts: debts)
+
+        #expect(plan.isFeasible == false)
+        #expect(steps.allSatisfy { $0.cumulativeBalance == 0 })
+    }
+
+    /// The one case that really does go below zero, and the reason this is not
+    /// clamped: the web app wraps the same figure in `Math.max(0, …)`, so a
+    /// household whose rent exceeds its salary reads €0.00 for sixteen months
+    /// instead of −€3,200.
+    @Test("Expenses above income carry the shortfall forward month after month")
+    func cumulativeBalanceCarriesADeficit() throws {
+        let plan = plan(income: 1000, expenses: 1200)
+        let steps = JourneyBuilder.steps(plan: plan, debts: debts)
+        let last = try #require(steps.last)
+
+        // Nothing is affordable, so nothing is paid and the gap is the whole story.
+        #expect(plan.available == 0)
+        #expect(steps[0].cumulativeBalance == -200)
+        #expect(last.cumulativeBalance == Decimal(-200 * steps.count))
+    }
+
     @Test("Per-debt balances sum to the plan's total each month")
     func perDebtBalancesAgreeWithTotal() {
         // The roadmap reads `remainingByDebt`; the dashboard reads
@@ -196,5 +248,74 @@ struct JourneyTests {
             let summed = month.remainingByDebt.values.reduce(Decimal(0), +)
             #expect(abs(summed - month.remainingDebt) <= Decimal(string: "0.02")!)
         }
+    }
+
+    // MARK: - After the finish line
+
+    /// Spare months appear when the minimum payments alone clear the debt
+    /// inside the target period: the plan's budget bisects down to the
+    /// minimums, and the route finishes early.
+    private func roomyPlan() -> PayoffPlan { plan(income: 4000, expenses: 1200, months: 24) }
+
+    @Test("A plan that finishes early reports the months it leaves over")
+    func afterPayoffCountsTheSpareMonths() throws {
+        let plan = roomyPlan()
+        let steps = JourneyBuilder.steps(plan: plan, debts: debts)
+        let after = try #require(JourneyBuilder.afterPayoff(plan: plan, debts: debts))
+
+        #expect(steps.count < 24)
+        #expect(after.months == 24 - steps.count)
+        #expect(after.endMonth == plan.months.last?.month)
+    }
+
+    @Test("Once the debt is gone the whole surplus accumulates")
+    func afterPayoffAccumulatesTheFullSurplus() throws {
+        let plan = roomyPlan()
+        let after = try #require(JourneyBuilder.afterPayoff(plan: plan, debts: debts))
+
+        // Nothing goes to debt any more, so every spare euro is free.
+        #expect(after.monthlySurplus == 2800)
+        #expect(after.accumulated == 2800 * Decimal(after.months))
+        #expect(after.balanceAtEnd == after.balanceAtPayoff + after.accumulated)
+    }
+
+    @Test("The balance it starts from is the one the last step ended on")
+    func afterPayoffContinuesFromTheFinish() throws {
+        let plan = roomyPlan()
+        let steps = JourneyBuilder.steps(plan: plan, debts: debts)
+        let after = try #require(JourneyBuilder.afterPayoff(plan: plan, debts: debts))
+        let finish = try #require(steps.last)
+
+        #expect(finish.isFinish)
+        #expect(after.balanceAtPayoff == finish.cumulativeBalance)
+    }
+
+    /// The usual case, and the reason this is not simply "target minus route":
+    /// the budget is bisected down to the smallest that clears the debt inside
+    /// the term, so a plan that needs the surplus uses every month of it.
+    @Test("A plan that needs every month of its term leaves nothing after it")
+    func afterPayoffIsNilWhenTheTermIsExactlyUsed() throws {
+        let plan = plan(income: 4000, expenses: 1200, months: 16)
+        let steps = JourneyBuilder.steps(plan: plan, debts: debts)
+
+        #expect(steps.count == 16)
+        #expect(JourneyBuilder.afterPayoff(plan: plan, debts: debts) == nil)
+    }
+
+    @Test("A plan that never clears the debt has no finish to be after")
+    func afterPayoffIsNilWhenUnaffordable() {
+        let plan = plan(income: 1000, expenses: 900, months: 16)
+
+        #expect(plan.isFeasible == false)
+        #expect(JourneyBuilder.afterPayoff(plan: plan, debts: debts) == nil)
+    }
+
+    @Test("No debts means no finish line and nothing after it")
+    func afterPayoffIsNilWithoutDebts() {
+        let empty = DebtPayoffEngine.plan(
+            debts: [], monthlyIncome: 4000, monthlyExpenses: 1200,
+            targetMonths: 16, startDate: Date(timeIntervalSince1970: 1_790_000_000)
+        )
+        #expect(JourneyBuilder.afterPayoff(plan: empty, debts: []) == nil)
     }
 }

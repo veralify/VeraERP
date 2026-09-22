@@ -1,6 +1,26 @@
 import Foundation
 
-/// The avalanche debt-payoff planner.
+/// Which debt the spare money goes to once every minimum is covered.
+///
+/// Only the *surplus* is affected. Every debt still receives its minimum every
+/// month whatever is chosen here — skipping a minimum is a missed payment, not
+/// a strategy.
+public enum PayoffStrategy: String, CaseIterable, Sendable, Hashable, Identifiable {
+    /// Avalanche. Mathematically the cheapest: interest is what makes debt
+    /// expensive, so the most expensive debt goes first. This is what the web
+    /// app does, and what `PayoffParityTests` pins.
+    case highestInterest
+    /// Snowball. Costs more in interest, but clears individual debts sooner,
+    /// which is the whole point — a debt that disappears is a payment you stop
+    /// having to think about.
+    case smallestBalance
+    /// Whatever order the user puts the debts in.
+    case custom
+
+    public var id: String { rawValue }
+}
+
+/// The debt-payoff planner.
 ///
 /// This is a deliberate port of `debtPlan()` / `simulate()` in the web app's
 /// `server.js`. The ordering rules, the interest-before-payment sequence, the
@@ -33,22 +53,24 @@ public enum DebtPayoffEngine {
     /// Runs `months` months of amortisation against a fixed monthly `budget`.
     ///
     /// Each month, in order: interest accrues, then every minimum payment is
-    /// made in debt-id order, then any surplus goes to the highest-APR debt.
-    static func simulate(debts: [Debt], budget: Decimal, months: Int) -> Simulation {
+    /// made in debt-id order, then any surplus goes to whichever debt the
+    /// strategy targets.
+    static func simulate(
+        debts: [Debt],
+        budget: Decimal,
+        months: Int,
+        strategy: PayoffStrategy = .highestInterest
+    ) -> Simulation {
         // Debt-id order is what the web app gets from `ORDER BY id`, and it
         // decides who receives a minimum payment when the budget runs dry.
         let ordered = debts.sorted { $0.id < $1.id }
         var balances = ordered.map(\.balance)
         var schedule: [MonthSimulation] = []
 
-        // Avalanche order: highest APR first, `priority` ascending as the
-        // tie-break. Stable across months, so it is computed once.
-        let avalanche = ordered.indices.sorted { lhs, rhs in
-            if ordered[lhs].apr != ordered[rhs].apr {
-                return ordered[lhs].apr > ordered[rhs].apr
-            }
-            return ordered[lhs].priority < ordered[rhs].priority
-        }
+        // Who the surplus goes to, worked out once: the ordering is decided by
+        // the balances the plan starts with, and a snowball that re-sorted every
+        // month would abandon a debt halfway down.
+        let target = surplusOrder(ordered, strategy: strategy)
 
         var month = 0
         while month < months, balances.contains(where: { $0 > settledThreshold }) {
@@ -73,8 +95,8 @@ public enum DebtPayoffEngine {
                 remaining -= payment
             }
 
-            // Then the surplus, highest APR first.
-            for index in avalanche {
+            // Then the surplus, to the strategy's target.
+            for index in target {
                 guard remaining > 0 else { break }
                 let payment = min(balances[index], remaining)
                 guard payment > 0 else { continue }
@@ -103,6 +125,30 @@ public enum DebtPayoffEngine {
         return Simulation(schedule: schedule, remaining: balances.reduce(0, +))
     }
 
+    /// The order the surplus is applied in.
+    ///
+    /// Every strategy falls back to `priority` and then `id`, so the result is
+    /// total and deterministic: two debts with the same rate, or the same
+    /// balance, must not swap places between runs and give a different plan.
+    static func surplusOrder(_ ordered: [Debt], strategy: PayoffStrategy) -> [Int] {
+        ordered.indices.sorted { lhs, rhs in
+            let left = ordered[lhs]
+            let right = ordered[rhs]
+
+            switch strategy {
+            case .highestInterest:
+                if left.apr != right.apr { return left.apr > right.apr }
+            case .smallestBalance:
+                if left.balance != right.balance { return left.balance < right.balance }
+            case .custom:
+                break
+            }
+
+            if left.priority != right.priority { return left.priority < right.priority }
+            return left.id < right.id
+        }
+    }
+
     /// Builds the payoff plan: finds the smallest monthly budget that clears
     /// every debt within `targetMonths`, then reports whether it is affordable.
     public static func plan(
@@ -111,6 +157,7 @@ public enum DebtPayoffEngine {
         monthlyExpenses: Decimal,
         targetMonths: Int,
         startDate: Date,
+        strategy: PayoffStrategy = .highestInterest,
         calendar: Calendar = .gregorianUTC
     ) -> PayoffPlan {
         let available = max(0, monthlyIncome - monthlyExpenses)
@@ -144,7 +191,7 @@ public enum DebtPayoffEngine {
 
         for _ in 0..<bisectionSteps {
             let mid = (low + high) / 2
-            if simulate(debts: debts, budget: mid, months: targetMonths).remaining <= clearedTolerance {
+            if simulate(debts: debts, budget: mid, months: targetMonths, strategy: strategy).remaining <= clearedTolerance {
                 high = mid
             } else {
                 low = mid
@@ -154,7 +201,7 @@ public enum DebtPayoffEngine {
         let requiredMonthly = high
         let isFeasible = requiredMonthly <= available + clearedTolerance
         let usedMonthly = isFeasible ? requiredMonthly : available
-        let simulation = simulate(debts: debts, budget: usedMonthly, months: targetMonths)
+        let simulation = simulate(debts: debts, budget: usedMonthly, months: targetMonths, strategy: strategy)
         let ordered = debts.sorted { $0.id < $1.id }
 
         let months = (0..<targetMonths).map { offset -> PayoffMonth in

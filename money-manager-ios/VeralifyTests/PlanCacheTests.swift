@@ -19,11 +19,15 @@ struct PlanCacheTests {
     private let start = Date(timeIntervalSince1970: 1_790_000_000)
 
     private func plan(
-        _ debts: [Debt], income: Decimal = 4000, expenses: Decimal = 1194, months: Int = 16
+        _ debts: [Debt],
+        income: Decimal = 4000,
+        expenses: Decimal = 1194,
+        months: Int = 16,
+        strategy: PayoffStrategy = .highestInterest
     ) -> PayoffPlan {
         PlanCache.plan(
             debts: debts, monthlyIncome: income, monthlyExpenses: expenses,
-            targetMonths: months, startDate: start
+            targetMonths: months, startDate: start, strategy: strategy
         )
     }
 
@@ -54,6 +58,26 @@ struct PlanCacheTests {
 
         #expect(after.totalDebt != before.totalDebt)
         #expect(after.totalDebt == changed.reduce(Decimal(0)) { $0 + $1.balance })
+    }
+
+    /// The payoff method was added to the key after the fact; without it,
+    /// switching from avalanche to snowball would redraw the whole route from
+    /// the plan it had already cached.
+    @Test("Changing the payoff method invalidates it")
+    func strategyChangeInvalidates() {
+        // A rate-free debt and a dear one, so the two strategies really differ.
+        let mixed = [
+            Debt(id: 1, name: "Card", balance: 4000, apr: 24, minimumPayment: 60),
+            Debt(id: 2, name: "Loan", balance: 900, apr: 0, minimumPayment: 60)
+        ]
+
+        let avalanche = plan(mixed, income: 1000, expenses: 700, strategy: .highestInterest)
+        let snowball = plan(mixed, income: 1000, expenses: 700, strategy: .smallestBalance)
+
+        #expect(avalanche != snowball)
+        // Same debts, so the two agree about the starting point and disagree
+        // only about the route.
+        #expect(avalanche.totalDebt == snowball.totalDebt)
     }
 
     @Test("Changing income, expenses or the target period invalidates it")

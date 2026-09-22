@@ -30,6 +30,34 @@ public enum BillSchedule {
         return occurrence(dueDay: dueDay, inMonthOf: nextMonth, calendar: calendar)
     }
 
+    /// The next `count` occurrences of `dueDay`, starting at or after `date`.
+    ///
+    /// Reminders are scheduled ahead rather than re-armed each month: a local
+    /// notification only fires if it was queued before the phone was last put
+    /// down, so a plan that depends on the app being opened is a plan that
+    /// stops reminding the people who most need reminding.
+    public static func occurrences(
+        dueDay: Int,
+        from date: Date,
+        count: Int,
+        calendar: Calendar = .gregorianUTC
+    ) -> [Date] {
+        guard count > 0 else { return [] }
+
+        var dates: [Date] = []
+        var cursor = date
+
+        while dates.count < count {
+            guard let next = nextOccurrence(dueDay: dueDay, from: cursor, calendar: calendar),
+                  let following = calendar.date(byAdding: .day, value: 1, to: next)
+            else { break }
+            dates.append(next)
+            cursor = following
+        }
+
+        return dates
+    }
+
     /// Whole days from `date` until the next occurrence. Nil when undetermined.
     public static func daysUntil(
         dueDay: Int,

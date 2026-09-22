@@ -2,9 +2,6 @@ import SwiftUI
 import SwiftData
 import VeralifyCore
 
-/// Navigation value for the document vault.
-struct VaultRoute: Hashable {}
-
 /// Navigation value for one document.
 struct DocumentRoute: Hashable {
     let id: UUID
@@ -12,6 +9,10 @@ struct DocumentRoute: Hashable {
 
 /// Saved identity documents: what they are, when they expire, and every field
 /// one tap from the clipboard.
+///
+/// Content only — the title and the tab bar belong to `MainTabView`. This was a
+/// row inside the Account sheet, filed next to "Delete all data"; it is a
+/// reason to open the app, so it is a place you can reach from the front door.
 struct IDVaultView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \StoredDocument.createdAt, order: .reverse) private var documents: [StoredDocument]
@@ -27,7 +28,9 @@ struct IDVaultView: View {
             Theme.background.ignoresSafeArea()
 
             if documents.isEmpty {
-                emptyState
+                // Clear of the floating tab bar, which this screen now sits
+                // behind rather than being pushed above.
+                emptyState.padding(.bottom, 92)
             } else {
                 ScrollView {
                     VStack(spacing: 18) {
@@ -59,10 +62,6 @@ struct IDVaultView: View {
                 DeletedDocumentScreen()
             }
         }
-        .navigationTitle("Documents")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Theme.background, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
         .task {
             await notifications.refreshPermission()
         }

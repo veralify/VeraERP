@@ -20,6 +20,7 @@ enum PlanCache {
         let expenses: Decimal
         let targetMonths: Int
         let startDate: Date
+        let strategy: PayoffStrategy
     }
 
     private static var key: Key?
@@ -30,14 +31,16 @@ enum PlanCache {
         monthlyIncome: Decimal,
         monthlyExpenses: Decimal,
         targetMonths: Int,
-        startDate: Date
+        startDate: Date,
+        strategy: PayoffStrategy
     ) -> PayoffPlan {
         let candidate = Key(
             debts: debts,
             income: monthlyIncome,
             expenses: monthlyExpenses,
             targetMonths: targetMonths,
-            startDate: startDate
+            startDate: startDate,
+            strategy: strategy
         )
         if candidate == key, let cached { return cached }
 
@@ -46,7 +49,8 @@ enum PlanCache {
             monthlyIncome: monthlyIncome,
             monthlyExpenses: monthlyExpenses,
             targetMonths: targetMonths,
-            startDate: startDate
+            startDate: startDate,
+            strategy: strategy
         )
         key = candidate
         cached = fresh

@@ -19,6 +19,7 @@ struct JourneyView: View {
     @Query private var settings: [PlanSettings]
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.modelContext) private var context
     @State private var hasAppeared = false
     @State private var mode: Mode = .route
 
@@ -46,6 +47,9 @@ struct JourneyView: View {
         let dashboard: DashboardSummary
         let steps: [JourneyStep]
         let analytics: JourneySummary
+        /// The stretch past the finish line, when the plan clears the debt
+        /// before its target period is up.
+        let afterPayoff: JourneyAfterPayoff?
         /// Where the user is now. Steps before it are behind them.
         let currentIndex: Int
 
@@ -78,6 +82,7 @@ struct JourneyView: View {
             dashboard: dashboard,
             steps: steps,
             analytics: JourneyBuilder.summary(plan: dashboard.plan, debts: values),
+            afterPayoff: JourneyBuilder.afterPayoff(plan: dashboard.plan, debts: values),
             currentIndex: steps.firstIndex { $0.month >= key } ?? max(0, steps.count - 1)
         )
     }
@@ -113,6 +118,13 @@ struct JourneyView: View {
                         case .route:     routeContent(roadmap)
                         case .analytics: analyticsContent(roadmap)
                         }
+
+                        // The two dials that decide the whole route. They used
+                        // to live in the Account sheet, three taps away from the
+                        // screen they govern.
+                        settingsCard
+                            .padding(.horizontal, 16)
+                            .padding(.top, 26)
                     }
                     .padding(.top, 8)
                     // Clear the floating bar so the last stop is never trapped
@@ -142,10 +154,101 @@ struct JourneyView: View {
             .padding(.horizontal, 16)
         }
 
+        if let after = roadmap.afterPayoff {
+            afterPayoffCard(after)
+                .padding(.horizontal, 16)
+                .padding(.top, 14)
+        }
+
         if !roadmap.dashboard.plan.isFeasible {
             infeasibleNote(roadmap)
                 .padding(.horizontal, 16)
                 .padding(.top, 20)
+        }
+    }
+
+    /// What the plan builds after the last debt goes.
+    ///
+    /// The route used to stop at the finish line, which hid the best part: a
+    /// sixteen-month plan that clears the debt in thirteen has three months
+    /// where the whole payment stops leaving and starts piling up instead.
+    private func afterPayoffCard(_ after: JourneyAfterPayoff) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(spacing: 10) {
+                Image(systemName: "sparkles")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(width: 34, height: 34)
+                    .background(Theme.onAccent.opacity(0.16), in: .rect(cornerRadius: 11))
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Then it's yours")
+                        .font(.headline.weight(.bold))
+                        .foregroundStyle(Theme.onAccent)
+                    Text("\(after.months) months left of your plan")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.onAccent.opacity(0.75))
+                }
+
+                Spacer(minLength: 0)
+            }
+
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(CurrencyFormat.string(after.accumulated))
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.onAccent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                Text("by \(JourneyStep.title(for: after.endMonth))")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.onAccent.opacity(0.75))
+            }
+
+            VStack(spacing: 7) {
+                afterRow(
+                    "Free each month",
+                    CurrencyFormat.string(after.monthlySurplus),
+                    detail: String(localized: "no payment leaving")
+                )
+                afterRow(
+                    "In hand at the finish",
+                    CurrencyFormat.string(after.balanceAtPayoff),
+                    detail: nil
+                )
+                afterRow(
+                    "In hand at the end",
+                    CurrencyFormat.string(after.balanceAtEnd),
+                    detail: nil
+                )
+            }
+        }
+        .padding(18)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.lime, in: .rect(cornerRadius: Theme.Radius.card))
+        .accessibilityElement(children: .combine)
+    }
+
+    private func afterRow(_ label: LocalizedStringKey, _ value: String, detail: String?) -> some View {
+        HStack(spacing: 8) {
+            Text(label)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Theme.onAccent.opacity(0.75))
+            if let detail {
+                // Two views rather than one interpolated string: "· %@" is a
+                // separator, not a phrase worth handing to a translator.
+                Group {
+                    Text("·")
+                    Text(detail).lineLimit(1)
+                }
+                .font(.caption)
+                .foregroundStyle(Theme.onAccent.opacity(0.55))
+            }
+            Spacer(minLength: 8)
+            Text(value)
+                .font(.caption.weight(.bold))
+                .monospacedDigit()
+                .foregroundStyle(Theme.onAccent)
         }
     }
 
@@ -159,6 +262,51 @@ struct JourneyView: View {
             AnalyticsView(summary: roadmap.dashboard, debts: debts)
         }
         .padding(.horizontal, 16)
+    }
+
+    /// Target period and payoff method, where the plan is.
+    private var settingsCard: some View {
+        VStack(spacing: 12) {
+            SectionHeader(title: "Plan settings") { EmptyView() }
+
+            GroupedCard {
+                HStack {
+                    Text("Target period")
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.textSecondary)
+                    Spacer(minLength: 8)
+                    if let planSettings = settings.first {
+                        Stepper(
+                            value: Binding(
+                                get: { planSettings.targetMonths },
+                                set: { planSettings.targetMonths = $0; try? context.save() }
+                            ),
+                            in: 3...120
+                        ) {
+                            EmptyView()
+                        }
+                        .labelsHidden()
+                        Text("\(planSettings.targetMonths) months")
+                            .font(.subheadline.weight(.bold))
+                            .monospacedDigit()
+                            .foregroundStyle(Theme.textPrimary)
+                    } else {
+                        Text("—").foregroundStyle(Theme.textTertiary)
+                    }
+                }
+                .padding(.vertical, 12)
+
+            }
+
+            if let planSettings = settings.first {
+                PayoffStrategyRow(
+                    settings: planSettings,
+                    debts: debts,
+                    income: income.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount },
+                    expenses: expenses.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount }
+                )
+            }
+        }
     }
 
     private func header(_ roadmap: Roadmap) -> some View {
@@ -331,9 +479,19 @@ private struct StepRow: View {
             // The finish carries a cent of bisection residue that the roadmap
             // already counts as settled. Printing it next to "Debt free" would
             // have the card argue with its own badge.
-            Text("\(CurrencyFormat.string(step.isFinish ? 0 : step.remainingDebt)) left after this")
-                .font(.caption)
-                .foregroundStyle(Theme.textTertiary)
+            HStack(spacing: 8) {
+                Text("\(CurrencyFormat.string(step.isFinish ? 0 : step.remainingDebt)) still owed")
+                Text("·")
+                // The cash side of the same month: what the plan leaves in your
+                // pocket, added up from the start. Not "saved" — nothing has
+                // been put anywhere, it is simply money the plan did not spend.
+                Text("\(CurrencyFormat.string(step.cumulativeBalance)) in hand")
+                    .foregroundStyle(step.cumulativeBalance < 0 ? Theme.red : Theme.textTertiary)
+            }
+            .font(.caption)
+            .foregroundStyle(Theme.textTertiary)
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
 
             if !step.clearedDebts.isEmpty {
                 ForEach(step.clearedDebts, id: \.self) { name in

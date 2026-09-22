@@ -1,7 +1,15 @@
 import SwiftUI
 import SwiftData
 
+/// Navigation value for the full ledger.
+struct LedgerRoute: Hashable {}
+
 /// The ledger: what actually happened, as opposed to the plan on the dashboard.
+///
+/// Pushed from Today's list of the day's entries rather than owning a tab. A
+/// complete history of everything ever typed is a reference you consult, not a
+/// place you go every day — and Today already shows the part of it that is
+/// still fresh.
 struct TransactionsView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \TransactionRecord.occurredAt, order: .reverse) private var all: [TransactionRecord]
@@ -55,7 +63,9 @@ struct TransactionsView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 8)
-                .padding(.bottom, 108)
+                // A pushed screen sits above the floating bar, so it only needs
+                // the ordinary bottom margin.
+                .padding(.bottom, 28)
             }
             .scrollIndicators(.hidden)
             .onChange(of: selectedDay) { _, day in
@@ -77,6 +87,10 @@ struct TransactionsView: View {
             TransactionEditSheet(record: record)
                 .presentationBackground(Theme.background)
         }
+        .navigationTitle("Entries")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Theme.background, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .onAppear { QuickAddRouter.shared.scope = scope }
         .onChange(of: scope) { _, value in QuickAddRouter.shared.scope = value }
     }

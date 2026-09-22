@@ -14,6 +14,17 @@ struct JourneyAnalytics: View {
 
     private var palette: [Color] { [Theme.lime, Theme.blue, Theme.yellow, Theme.red, Theme.green] }
 
+    private func legendKey(_ label: LocalizedStringKey, _ colour: Color) -> some View {
+        HStack(spacing: 5) {
+            Capsule()
+                .fill(colour)
+                .frame(width: 12, height: 3)
+            Text(label)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Theme.textTertiary)
+        }
+    }
+
     var body: some View {
         VStack(spacing: 14) {
             statTiles
@@ -47,9 +58,14 @@ struct JourneyAnalytics: View {
 
     private var balanceChart: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("What you still owe")
-                .font(.footnote.weight(.semibold))
-                .foregroundStyle(Theme.textSecondary)
+            HStack(spacing: 10) {
+                Text("What you still owe")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Theme.textSecondary)
+                Spacer(minLength: 8)
+                legendKey("Owed", Theme.lime)
+                legendKey("In hand", Theme.blue)
+            }
 
             Chart {
                 ForEach(steps) { step in
@@ -72,6 +88,20 @@ struct JourneyAnalytics: View {
                     )
                     .foregroundStyle(Theme.lime)
                     .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                    .interpolationMethod(.monotone)
+                }
+
+                // The cash the plan leaves behind, on the same months. Two
+                // lines rather than two charts: the whole point is that one
+                // rises as the other falls.
+                ForEach(steps) { step in
+                    LineMark(
+                        x: .value("Step", step.index),
+                        y: .value("In hand", step.cumulativeBalance.chartValue),
+                        series: .value("Series", "saved")
+                    )
+                    .foregroundStyle(Theme.blue)
+                    .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, dash: [4, 3]))
                     .interpolationMethod(.monotone)
                 }
 

@@ -32,6 +32,8 @@ struct ProgressSection: View {
     @State private var lingering: Set<String> = []
     /// False until the entrance roll has run, so figures start at zero.
     @State private var isRolling = false
+    /// The quest whose instructions are open.
+    @State private var opened: Quest?
 
     private var calendar: Calendar { .current }
     private var today: Date { calendar.startOfDay(for: .now) }
@@ -101,8 +103,13 @@ struct ProgressSection: View {
     var body: some View {
         VStack(spacing: 12) {
             streakCard.staggeredAppearance(0)
-            levelCard.staggeredAppearance(1)
-            questList.staggeredAppearance(2)
+            questList.staggeredAppearance(1)
+        }
+        .sheet(item: $opened) { quest in
+            QuestDetailSheet(quest: quest, isComplete: isComplete(quest)) {
+                completeTask(quest.id, reward: quest.xp)
+            }
+            .presentationBackground(Theme.background)
         }
         .animation(.smooth(duration: 0.45), value: outstanding.map(\.id))
         .countUpOnAppear($isRolling)
@@ -157,36 +164,6 @@ struct ProgressSection: View {
         .accessibilityElement(children: .combine)
     }
 
-    private var levelCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Label("Level \(level.level)", systemImage: "crown.fill")
-                    .font(.headline.weight(.bold))
-                    .foregroundStyle(Theme.textPrimary)
-                    .contentTransition(.numericText())
-                    .animation(.snappy(duration: 0.4), value: level.level)
-                Spacer(minLength: 8)
-                RollingNumber(value: isRolling ? Double(level.intoLevel) : 0) { value in
-                    Text("\(Int(value.rounded()))/\(level.levelSpan) XP")
-                        .font(.subheadline.weight(.semibold))
-                        .monospacedDigit()
-                        .foregroundStyle(Theme.lime)
-                }
-            }
-
-            MilestoneTrack(
-                fraction: isRolling ? level.fraction : 0,
-                milestones: milestones,
-                floor: level.levelFloor,
-                ceiling: level.nextLevelAt
-            )
-        }
-        .padding(18)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
-        .accessibilityElement(children: .combine)
-    }
-
     private var questList: some View {
         VStack(spacing: 10) {
             questHeader
@@ -233,32 +210,13 @@ struct ProgressSection: View {
         let celebrating = celebratingQuestID == quest.id
 
         return HStack(alignment: .top, spacing: 12) {
-            Image(systemName: quest.icon)
-                .font(.system(size: 17, weight: .medium))
-                .foregroundStyle(done ? Theme.green : Theme.textSecondary)
-                .frame(width: 40, height: 40)
-                .background(
-                    done ? Theme.green.opacity(0.14) : Theme.surfaceElevated,
-                    in: .rect(cornerRadius: 12)
-                )
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(quest.title)
-                    .font(.system(size: 16, weight: .semibold))
-                    // Dimmed but still readable, not greyed into illegibility.
-                    .foregroundStyle(done ? Theme.textSecondary : Theme.textPrimary)
-                    .strikethrough(done, color: Theme.textTertiary)
-                    .lineLimit(1)
-
-                Text(quest.detail)
-                    .font(.footnote)
-                    .foregroundStyle(Theme.textTertiary)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-
-                rewardChip(quest)
-                    .padding(.top, 2)
+            // The left of the card opens the instructions; the tick on the
+            // right stays its own control. Nesting the two would mean the outer
+            // button swallowed every tap meant for the inner one.
+            Button { opened = quest } label: {
+                questSummary(quest, done: done)
             }
+            .buttonStyle(.pressable)
 
             Spacer(minLength: 8)
 
@@ -290,7 +248,46 @@ struct ProgressSection: View {
         .scaleEffect(celebrating && !reduceMotion ? 1.015 : 1)
         .animation(.bouncy(duration: 0.45), value: celebrating)
         .sensoryFeedback(.success, trigger: celebrationIDs[quest.id, default: 0])
+    }
+
+    private func questSummary(_ quest: Quest, done: Bool) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: quest.icon)
+                .font(.system(size: 17, weight: .medium))
+                .foregroundStyle(done ? Theme.green : Theme.textSecondary)
+                .frame(width: 40, height: 40)
+                .background(
+                    done ? Theme.green.opacity(0.14) : Theme.surfaceElevated,
+                    in: .rect(cornerRadius: 12)
+                )
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(quest.title)
+                    .font(.system(size: 16, weight: .semibold))
+                    // Dimmed but still readable, not greyed into illegibility.
+                    .foregroundStyle(done ? Theme.textSecondary : Theme.textPrimary)
+                    .strikethrough(done, color: Theme.textTertiary)
+                    .lineLimit(1)
+
+                Text(quest.detail)
+                    .font(.footnote)
+                    .foregroundStyle(Theme.textTertiary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+
+                HStack(spacing: 7) {
+                    rewardChip(quest)
+                    // Says the card has more behind it than the truncated line.
+                    Image(systemName: "chevron.right")
+                        .font(.caption2.weight(.bold))
+                        .foregroundStyle(Theme.textTertiary)
+                }
+                .padding(.top, 2)
+            }
+        }
+        .contentShape(.rect)
         .accessibilityElement(children: .combine)
+        .accessibilityHint("Shows what to do")
     }
 
     private func rewardChip(_ quest: Quest) -> some View {

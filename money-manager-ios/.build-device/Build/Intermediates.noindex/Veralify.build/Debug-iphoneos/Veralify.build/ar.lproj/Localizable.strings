@@ -12,10 +12,14 @@
 	<string>تم خصم %@، منها %@ تُخفّض الدين.</string>
 	<key>%@ due each month</key>
 	<string>%@ مستحقة كل شهر</string>
+	<key>%@ in hand</key>
+	<string>%@ رصيد تراكمي</string>
 	<key>%@ interest</key>
 	<string>%@ فوائد</string>
-	<key>%@ left after this</key>
-	<string>يتبقّى %@ بعدها</string>
+	<key>%@ is due today.</key>
+	<string>%@ مستحقة اليوم.</string>
+	<key>%@ is due tomorrow.</key>
+	<string>%@ مستحقة غدًا.</string>
 	<key>%@ of %@</key>
 	<string>%@ من %@</string>
 	<key>%@ of it is your share</key>
@@ -30,6 +34,8 @@
 	<string>دفع %@ · %@</string>
 	<key>%@ pays %@</key>
 	<string>%@ يدفع لـ%@</string>
+	<key>%@ still owed</key>
+	<string>%@ ديون متبقية</string>
 	<key>%@ total</key>
 	<string>الإجمالي %@</string>
 	<key>%@ total, %lld%% tip included</key>
@@ -56,6 +62,8 @@
 	<string>+%lld نقطة</string>
 	<key>, </key>
 	<string>، </string>
+	<key>/month</key>
+	<string>/شهريًا</string>
 	<key>1 month before</key>
 	<string>قبل شهر</string>
 	<key>2 months before</key>
@@ -78,6 +86,8 @@
 	<string>عنك</string>
 	<key>Account</key>
 	<string>الحساب</string>
+	<key>Account, level %lld</key>
+	<string>الحساب، المستوى %lld</string>
 	<key>Achievable</key>
 	<string>قابلة للتنفيذ</string>
 	<key>Add</key>
@@ -124,6 +134,8 @@
 	<string>التنبيهات</string>
 	<key>All done for today</key>
 	<string>انتهيت لليوم</string>
+	<key>All entries</key>
+	<string>كل الحركات</string>
 	<key>Allocated each month</key>
 	<string>إجمالي المخصص شهريًا</string>
 	<key>Already paid</key>
@@ -176,6 +188,8 @@
 	<string>التصنيف</string>
 	<key>Change it if they paid back only part of it.</key>
 	<string>غيّره إذا سدّدوا جزءًا فقط.</string>
+	<key>Cheapest</key>
+	<string>الأقل تكلفة</string>
 	<key>Check the details</key>
 	<string>تحقّق من البيانات</string>
 	<key>Check the numbers before you start. Everything can be changed later.</key>
@@ -186,6 +200,8 @@
 	<string>إغلاق</string>
 	<key>Close and reopen Veralify to see it in %@.</key>
 	<string>أغلق التطبيق وافتحه من جديد لتراه بـ%@.</string>
+	<key>Compare</key>
+	<string>قارن</string>
 	<key>Completed</key>
 	<string>مكتملة</string>
 	<key>Continue</key>
@@ -200,12 +216,14 @@
 	<string>تعذّرت قراءة هذا الإيصال. اكتب الإجمالي يدويًا.</string>
 	<key>Currency</key>
 	<string>العملة</string>
+	<key>Current method</key>
+	<string>الطريقة الحالية</string>
 	<key>Custom</key>
 	<string>مخصّص</string>
 	<key>Custom tip %</key>
 	<string>نسبة بقشيش مخصّصة %</string>
-	<key>Dashboard</key>
-	<string>لوحة التحكم</string>
+	<key>Daily nudge</key>
+	<string>تذكير يومي</string>
 	<key>Date</key>
 	<string>التاريخ</string>
 	<key>Date of birth</key>
@@ -214,10 +232,14 @@
 	<string>دين</string>
 	<key>Debt free</key>
 	<string>خالٍ من الديون</string>
+	<key>Debt free by</key>
+	<string>خالٍ من الديون بحلول</string>
 	<key>Debt name</key>
 	<string>اسم الدين</string>
 	<key>Debt payments</key>
 	<string>أقساط الديون</string>
+	<key>Debt payments count against what's left because they are due every month, the same as rent. Anything you pay above the minimum comes out of what's left over.</key>
+	<string>تُحتسب أقساط الديون ضمن ما يُخصم لأنها مستحقة كل شهر، مثل الإيجار تمامًا. وأي مبلغ تدفعه فوق الحد الأدنى يأتي مما تبقّى.</string>
 	<key>Debt-free</key>
 	<string>لا ديون</string>
 	<key>Debts</key>
@@ -248,10 +270,10 @@
 	<string>مستند</string>
 	<key>Document number</key>
 	<string>رقم المستند</string>
-	<key>Documents</key>
-	<string>المستندات</string>
 	<key>Done</key>
 	<string>تم</string>
+	<key>Done today</key>
+	<string>تمّ اليوم</string>
 	<key>Double tap to copy</key>
 	<string>انقر مرّتين للنسخ</string>
 	<key>Down %@ this month</key>
@@ -262,12 +284,16 @@
 	<string>يوم الاستحقاق (اختياري)</string>
 	<key>Due on day %lld</key>
 	<string>يوم الاستحقاق %lld</string>
+	<key>Due soon</key>
+	<string>مستحق قريبًا</string>
 	<key>Each person pays</key>
 	<string>نصيب كل شخص</string>
 	<key>Early payoff</key>
 	<string>سداد مبكر</string>
 	<key>Early payoff · %@ interest</key>
 	<string>سداد مبكر · فوائد %@</string>
+	<key>Earned so far</key>
+	<string>المكتسب حتى الآن</string>
 	<key>Eating out</key>
 	<string>مطاعم</string>
 	<key>Edit</key>
@@ -284,8 +310,12 @@
 	<string>أدخل قيمة الفاتورة لترى التقسيم.</string>
 	<key>Entries</key>
 	<string>الحركات</string>
+	<key>Entry</key>
+	<string>حركة</string>
 	<key>Euro</key>
 	<string>يورو</string>
+	<key>Every debt keeps getting its minimum payment whichever you choose. This only decides where the money left over goes.</key>
+	<string>كل دين يظل يتلقى حده الأدنى من السداد أيًّا كان اختيارك. هذا يحدد فقط وجهة المبلغ المتبقي.</string>
 	<key>Everyone</key>
 	<string>الجميع</string>
 	<key>Everything stays on this device, behind your passcode. Photos are yours to add or leave out.</key>
@@ -300,10 +330,10 @@
 	<string>تنتهي في</string>
 	<key>Expires in %lld days</key>
 	<string>تنتهي خلال %lld يومًا</string>
-	<key>Family</key>
-	<string>العائلة</string>
 	<key>Finish setup</key>
 	<string>إنهاء الإعداد</string>
+	<key>First one gone</key>
+	<string>أول دين يُسدَّد</string>
 	<key>Fixed expenses</key>
 	<string>المصاريف الثابتة</string>
 	<key>General</key>
@@ -320,8 +350,6 @@
 	<string>هذه خطتك</string>
 	<key>Highest interest first</key>
 	<string>الأعلى فائدة أولًا</string>
-	<key>Home</key>
-	<string>الرئيسية</string>
 	<key>How your monthly income splits</key>
 	<string>توزيع دخلك الشهري</string>
 	<key>I have no debts</key>
@@ -334,6 +362,8 @@
 	<string>ITA</string>
 	<key>In from %@</key>
 	<string>وارد من %@</string>
+	<key>In hand</key>
+	<string>الرصيد التراكمي</string>
 	<key>In how many months do you want to be debt free?</key>
 	<string>خلال كم شهر تريد إنهاء ديونك؟</string>
 	<key>Income</key>
@@ -346,6 +376,8 @@
 	<string>الفوائد</string>
 	<key>Interest and fees</key>
 	<string>الفوائد والرسوم</string>
+	<key>Interest over the plan</key>
+	<string>الفوائد طوال الخطة</string>
 	<key>Issued by</key>
 	<string>جهة الإصدار</string>
 	<key>It was deleted. Go back to see the ones you still have.</key>
@@ -358,6 +390,8 @@
 	<string>أبقِ دخلك أعلى من مصاريفك وأقساطك.</string>
 	<key>Keep paying the same each month and finish sooner.</key>
 	<string>استمر بدفع المبلغ نفسه شهريًا وانتهِ أبكر.</string>
+	<key>Keep this method</key>
+	<string>الإبقاء على هذه الطريقة</string>
 	<key>Kept on this device, behind your passcode</key>
 	<string>تُحفظ على هذا الجهاز، خلف رمز الدخول</string>
 	<key>Kids</key>
@@ -378,6 +412,8 @@
 	<string>المستوى %lld</string>
 	<key>Log today's money</key>
 	<string>سجّل حركة اليوم</string>
+	<key>Log what you spent or received to keep your streak going.</key>
+	<string>سجّل ما أنفقته أو استلمته للحفاظ على سلسلتك.</string>
 	<key>Lower the monthly payment</key>
 	<string>خفّض القسط الشهري</string>
 	<key>Mark as done</key>
@@ -416,6 +452,10 @@
 	<string>المزيد</string>
 	<key>Moroccan Dirham</key>
 	<string>درهم مغربي</string>
+	<key>Move down</key>
+	<string>تحريك لأسفل</string>
+	<key>Move up</key>
+	<string>تحريك لأعلى</string>
 	<key>NET BALANCE</key>
 	<string>صافي الرصيد</string>
 	<key>Name</key>
@@ -430,6 +470,8 @@
 	<string>مستند جديد</string>
 	<key>New monthly payment</key>
 	<string>القسط الشهري الجديد</string>
+	<key>Next level at</key>
+	<string>المستوى التالي عند</string>
 	<key>No change this month</key>
 	<string>لا تغيير هذا الشهر</string>
 	<key>No commitments to show.</key>
@@ -458,32 +500,50 @@
 	<string>كرونة نرويجية</string>
 	<key>Not paid yet</key>
 	<string>لم تُدفع بعد</string>
+	<key>Not within the target</key>
+	<string>ليس ضمن المدة المستهدفة</string>
+	<key>Not yet</key>
+	<string>ليس بعد</string>
 	<key>Nothing due in 3 days</key>
 	<string>لا استحقاق خلال 3 أيام</string>
 	<key>Nothing here yet</key>
 	<string>لا توجد بنود بعد</string>
 	<key>Nothing is due in the next 30 days.</key>
 	<string>لا توجد استحقاقات خلال الثلاثين يومًا القادمة.</string>
+	<key>Nothing logged yet today</key>
+	<string>لم تُسجَّل حركات اليوم</string>
 	<key>Nothing needs your attention</key>
 	<string>لا شيء يحتاج انتباهك</string>
 	<key>Nothing paid off yet</key>
 	<string>لم يُسدَّد شيء بعد</string>
 	<key>Nothing shared yet. Add an expense and it splits between whoever you pick.</key>
 	<string>لا يوجد شيء مشترك بعد. أضف مصروفًا وسيُقسَّم على من تختارهم.</string>
+	<key>Nothing you owe falls due in the next three days. If something does, pay it — the bell in the corner lists what is coming — or correct its due date if it is wrong.</key>
+	<string>لا شيء مستحق عليك خلال الأيام الثلاثة القادمة. وإن وُجد، فادفعه — الجرس في الزاوية يعرض ما هو قادم — أو صحّح تاريخ استحقاقه إن كان خطأً.</string>
+	<key>Notifications are off</key>
+	<string>الإشعارات مغلقة</string>
 	<key>Notifications are off for Veralify, so these won't arrive until you turn them on in Settings.</key>
 	<string>الإشعارات معطّلة لـVeralify، لذا لن تصل هذه التذكيرات حتى تفعّلها من الإعدادات.</string>
 	<key>Number</key>
 	<string>الرقم</string>
 	<key>OK</key>
 	<string>حسنًا</string>
+	<key>On the day</key>
+	<string>في يوم الاستحقاق</string>
 	<key>On your current income this period isn't realistic. Try a longer one, or review your expenses.</key>
 	<string>بدخلك الحالي، هذه المدة غير واقعية. جرّب مدة أطول أو راجع مصاريفك.</string>
 	<key>Once you mark it paid</key>
 	<string>بمجرد وضع علامة مدفوعة</string>
 	<key>One field didn't add up</key>
 	<string>أحد الحقول لم يتطابق</string>
+	<key>One reminder a day to log what you spent</key>
+	<string>تذكير واحد يوميًا لتسجيل ما أنفقته</string>
+	<key>Only you can say whether you have done this, so this one is yours to tick.</key>
+	<string>أنت وحدك من يعرف إن كنت قد فعلت ذلك، لذا هذه المهمة تؤشّرها بنفسك.</string>
 	<key>Open for progress and payments</key>
 	<string>افتح لعرض التقدّم والدفعات</string>
+	<key>Open the Plan tab and look at where you are on the route: what this month costs, what is left after it, and when the next debt clears. Then mark this done.</key>
+	<string>افتح تبويب الخطة وانظر أين أنت على المسار: كم يكلّف هذا الشهر، وكم يتبقّى بعده، ومتى يُسدَّد الدين التالي. ثم أشِّر على إتمامها.</string>
 	<key>Open the plan and check where you stand.</key>
 	<string>افتح الخطة وراجع موقفك.</string>
 	<key>Open to edit</key>
@@ -496,6 +556,8 @@
 	<string>أخرى</string>
 	<key>Out from %@</key>
 	<string>صادر من %@</string>
+	<key>Over budget</key>
+	<string>يتجاوز الميزانية</string>
 	<key>Owed</key>
 	<string>المستحق</string>
 	<key>PHOTO</key>
@@ -506,8 +568,6 @@
 	<string>مدفوعة قبل موعدها، مباشرة من الرصيد.</string>
 	<key>Passport</key>
 	<string>جواز سفر</string>
-	<key>Passports and IDs</key>
-	<string>جوازات السفر والهويات</string>
 	<key>Pay</key>
 	<string>ادفع</string>
 	<key>Pay me back</key>
@@ -538,6 +598,8 @@
 	<string>الصورة</string>
 	<key>Plan</key>
 	<string>الخطة</string>
+	<key>Plan settings</key>
+	<string>إعدادات الخطة</string>
 	<key>Planned</key>
 	<string>مخطَّطة</string>
 	<key>Planned payments</key>
@@ -548,6 +610,8 @@
 	<string>زلوتي بولندي</string>
 	<key>Qatari Riyal</key>
 	<string>ريال قطري</string>
+	<key>Quest</key>
+	<string>مهمة</string>
 	<key>Quests reset at midnight</key>
 	<string>تتجدد المهام عند منتصف الليل</string>
 	<key>Quests reset at midnight.</key>
@@ -564,8 +628,8 @@
 	<string>تسجيل دفعة</string>
 	<key>Record a payment for %@</key>
 	<string>تسجيل دفعة لـ%@</string>
-	<key>Record at least one credit or debit.</key>
-	<string>سجّل إيداعًا أو سحبًا واحدًا على الأقل.</string>
+	<key>Record at least one thing you spent or received.</key>
+	<string>سجّل شيئًا واحدًا على الأقل أنفقته أو استلمته.</string>
 	<key>Record it</key>
 	<string>سجّله</string>
 	<key>Record payment</key>
@@ -582,10 +646,14 @@
 	<string>الرصيد المتبقي</string>
 	<key>Remind me</key>
 	<string>ذكّرني</string>
+	<key>Reminders</key>
+	<string>التذكيرات</string>
 	<key>Reminders %@</key>
 	<string>تذكيرات %@</string>
 	<key>Reminders are off</key>
 	<string>التذكيرات معطّلة</string>
+	<key>Reminders come from this phone's own clock. Nothing is sent to a server, so no amount or due date ever leaves the device.</key>
+	<string>تأتي التذكيرات من ساعة هذا الهاتف نفسه. لا يُرسل شيء إلى أي خادم، فلا يغادر الجهاز أي مبلغ أو تاريخ استحقاق.</string>
 	<key>Remove</key>
 	<string>إزالة</string>
 	<key>Remove photo</key>
@@ -604,10 +672,10 @@
 	<string>تصريح إقامة</string>
 	<key>Review your payoff plan</key>
 	<string>راجع خطة السداد</string>
-	<key>Roadmap</key>
-	<string>خارطة الطريق</string>
 	<key>Route</key>
 	<string>المسار</string>
+	<key>Same debts, same target period. What changes is which debt the spare money goes to — and what that ends up costing.</key>
+	<string>الديون نفسها والمدة نفسها. ما يتغير هو الدين الذي يذهب إليه الفائض — وما يكلّفه ذلك في النهاية.</string>
 	<key>Saudi Riyal</key>
 	<string>ريال سعودي</string>
 	<key>Save</key>
@@ -624,8 +692,6 @@
 	<string>امسح جواز سفر أو هوية ويحتفظ Veralify ببياناتها في متناول يدك، وينبّهك قبل انتهاء صلاحيتها.</string>
 	<key>Scan failed</key>
 	<string>فشل المسح</string>
-	<key>Scan once, copy any field, get told before they expire</key>
-	<string>امسحه مرة، وانسخ أي حقل، واعرف قبل انتهاء صلاحيته</string>
 	<key>Scan receipt</key>
 	<string>امسح الإيصال</string>
 	<key>Scanning needs a camera, so it only works on a device.</key>
@@ -646,10 +712,22 @@
 	<string>مصروف مشترك</string>
 	<key>Shared expenses</key>
 	<string>المصاريف المشتركة</string>
+	<key>Shows what to do</key>
+	<string>يعرض ما ينبغي فعله</string>
 	<key>Skip</key>
 	<string>تخطٍّ</string>
+	<key>Smallest balance first</key>
+	<string>الأصغر رصيدًا أولًا</string>
 	<key>Someone</key>
 	<string>شخص ما</string>
+	<key>Spare money follows your own order</key>
+	<string>الفائض يتبع ترتيبك الخاص</string>
+	<key>Spare money goes to the dearest debt</key>
+	<string>الفائض يذهب إلى الدين الأعلى فائدة</string>
+	<key>Spare money goes to the smallest debt</key>
+	<string>الفائض يذهب إلى الدين الأصغر</string>
+	<key>Split</key>
+	<string>التقسيم</string>
 	<key>Split a bill</key>
 	<string>قسّم فاتورة</string>
 	<key>Split between</key>
@@ -668,6 +746,8 @@
 	<string>الخطوة %lld</string>
 	<key>Step %lld of %lld</key>
 	<string>الخطوة %lld من %lld</string>
+	<key>Still to go</key>
+	<string>المتبقي</string>
 	<key>Swedish Krona</key>
 	<string>كرونة سويدية</string>
 	<key>Swipe right to confirm</key>
@@ -678,6 +758,8 @@
 	<string>فرنك سويسري</string>
 	<key>System</key>
 	<string>النظام</string>
+	<key>Tap Add — it is on every tab — type the amount, pick money in or money out, and swipe to confirm. One entry is enough to finish this.</key>
+	<string>اضغط «إضافة» — وهو موجود في كل تبويب — أدخل المبلغ، واختر وارد أو صادر، ثم اسحب للتأكيد. حركة واحدة تكفي لإتمامها.</string>
 	<key>Target period</key>
 	<string>المدة المستهدفة</string>
 	<key>That's %@ each — %lld of us round up to %@ so it comes out exact.</key>
@@ -686,10 +768,14 @@
 	<string>أي %@ لكل شخص، مقسومة على %lld.</string>
 	<key>The balance left and the minimum payment. If you don't know the interest rate, leave it at zero.</key>
 	<string>الرصيد المتبقي والحد الأدنى للقسط. إن لم تكن تعرف نسبة الفائدة، اتركها صفرًا.</string>
+	<key>The day before</key>
+	<string>قبل يوم</string>
 	<key>The document's details stay. Only the image is deleted.</key>
 	<string>تفاصيل المستند تبقى. تُحذف الصورة وحدها.</string>
 	<key>The document's own check digits confirm these were read correctly. Worth a glance anyway.</key>
 	<string>أرقام التحقّق في المستند نفسه تؤكّد صحّة القراءة. تستحق نظرة سريعة على أي حال.</string>
+	<key>The order I choose</key>
+	<string>بالترتيب الذي أختاره</string>
 	<key>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</key>
 	<string>لا توجد معلومات كافية لحساب قسط شهري جديد — يحتاج الدين إلى نسبة فائدة وقسط شهري يغطيها.</string>
 	<key>This cannot be undone.</key>
@@ -704,6 +790,8 @@
 	<string>الخطة غير قابلة للتنفيذ</string>
 	<key>This route doesn't reach the end</key>
 	<string>هذا المسار لا يصل إلى النهاية</string>
+	<key>Time of day</key>
+	<string>وقت اليوم</string>
 	<key>Tip</key>
 	<string>البقشيش</string>
 	<key>Tip %lld%%</key>
@@ -712,6 +800,8 @@
 	<string>اليوم</string>
 	<key>Today's quests</key>
 	<string>مهام اليوم</string>
+	<key>Tomorrow</key>
+	<string>غدًا</string>
 	<key>Total</key>
 	<string>المجموع</string>
 	<key>Total balance</key>
@@ -732,6 +822,8 @@
 	<string>ليرة تركية</string>
 	<key>Turn on notifications in Settings and Veralify can warn you before a document expires.</key>
 	<string>فعّل الإشعارات من الإعدادات ليتمكّن Veralify من تنبيهك قبل انتهاء صلاحية مستند.</string>
+	<key>Turn them on for Veralify in Settings and these reminders start arriving.</key>
+	<string>فعّلها لـ Veralify من الإعدادات وستبدأ هذه التذكيرات بالوصول.</string>
 	<key>Type</key>
 	<string>النوع</string>
 	<key>UAE Dirham</key>
@@ -742,24 +834,34 @@
 	<string>ارتفاع %@ هذا الشهر</string>
 	<key>Upcoming payments</key>
 	<string>استحقاقات قادمة</string>
+	<key>Use this method</key>
+	<string>استخدام هذه الطريقة</string>
 	<key>Venmo</key>
 	<string>Venmo</string>
+	<key>Veralify ticks this one for you, the moment it is true. There is nothing to confirm.</key>
+	<string>تؤشّرها Veralify نيابةً عنك لحظة تحقّقها. لا شيء عليك تأكيده.</string>
 	<key>Version</key>
 	<string>الإصدار</string>
 	<key>View</key>
 	<string>العرض</string>
 	<key>View the document photo full screen</key>
 	<string>عرض صورة المستند بملء الشاشة</string>
+	<key>Wallet</key>
+	<string>المحفظة</string>
 	<key>We'll work out the monthly payment needed, and tell you honestly if the period isn't realistic on your income.</key>
 	<string>سنحسب القسط الشهري اللازم، ونخبرك بصراحة إن كانت المدة غير واقعية بدخلك الحالي.</string>
 	<key>What are your fixed expenses?</key>
 	<string>ما مصاريفك الثابتة؟</string>
 	<key>What do you earn?</key>
 	<string>ما مصادر دخلك؟</string>
+	<key>What to do</key>
+	<string>ما ينبغي فعله</string>
 	<key>What was it?</key>
 	<string>ما هو؟</string>
 	<key>What you still owe</key>
 	<string>ما تبقّى عليك</string>
+	<key>What's left</key>
+	<string>المتبقي</string>
 	<key>Where the money goes</key>
 	<string>إلى أين يذهب المال</string>
 	<key>Where your income goes</key>
@@ -774,6 +876,8 @@
 	<string>لمن هذه؟</string>
 	<key>Work out the tip and who owes what, then send it</key>
 	<string>احسب البقشيش ومن يدين بماذا، ثم أرسله</string>
+	<key>XP comes from finishing the day's quests on Today. Nothing else earns it, and nothing takes it away.</key>
+	<string>تأتي نقاط الخبرة من إنهاء مهام اليوم في تبويب «اليوم». لا شيء آخر يمنحها، ولا شيء يسلبها.</string>
 	<key>You pay</key>
 	<string>أنت تدفع</string>
 	<key>You'd need %@ a month across %lld months, which is more than you have.</key>
@@ -792,10 +896,16 @@
 	<string>بياناتك محفوظة على هذا الجهاز فقط، ولا تُرسل إلى أي خادم.</string>
 	<key>Your data stays on your device</key>
 	<string>بياناتك محفوظة على جهازك فقط</string>
+	<key>Your income has to cover your expenses and your debt payments with something left over. Tap the big figure on Today to see the three numbers that make it up, and which one is eating the difference.</key>
+	<string>يجب أن يغطي دخلك مصاريفك وأقساط ديونك مع بقاء فائض. اضغط على الرقم الكبير في «اليوم» لترى الأرقام الثلاثة التي تكوّنه، وأيّها يلتهم الفارق.</string>
 	<key>Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.</key>
 	<string>سيُحذف دخلك ومصاريفك وديونك وحركاتك المسجلة نهائيًا، وتبدأ الإعداد من جديد. لا يمكن التراجع.</string>
+	<key>Your level</key>
+	<string>مستواك</string>
 	<key>Your money, with a clear plan</key>
 	<string>أموالك، بخطة واضحة</string>
+	<key>Your payoff plan</key>
+	<string>خطة السداد</string>
 	<key>Zelle</key>
 	<string>Zelle</string>
 	<key>clear by %@</key>

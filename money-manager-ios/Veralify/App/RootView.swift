@@ -21,8 +21,11 @@ struct RootView: View {
                         .navigationDestination(for: SplitRoute.self) { _ in
                             QuickSplitView()
                         }
-                        .navigationDestination(for: VaultRoute.self) { _ in
-                            IDVaultView()
+                        .navigationDestination(for: LedgerRoute.self) { _ in
+                            TransactionsView()
+                        }
+                        .navigationDestination(for: CashFlowRoute.self) { _ in
+                            CashFlowView()
                         }
                 }
             } else {

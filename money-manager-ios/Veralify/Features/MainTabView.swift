@@ -92,6 +92,10 @@ struct MainTabView: View {
                 router.pendingFlash = nil
             }
         }
+        // On the shell rather than on the tab's content: attached to the
+        // content it would be torn down and re-created on every tab change,
+        // re-reading the whole notification queue each time.
+        .background(ReminderTopUp())
         .sheet(item: $destination, content: sheet(for:))
         .sensoryFeedback(.selection, trigger: selection)
         .toolbar {
@@ -101,15 +105,7 @@ struct MainTabView: View {
                     .foregroundStyle(Theme.textPrimary)
             }
             ToolbarItem(placement: .topBarLeading) {
-                Button { destination = .account } label: {
-                    Image(systemName: "person.crop.circle")
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundStyle(Theme.textSecondary)
-                        .frame(width: 34, height: 34)
-                        .contentShape(.rect)
-                }
-                .buttonStyle(.pressable)
-                .accessibilityLabel("Account")
+                AccountBadge { destination = .account }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 AlertsToolbarButton { destination = .alerts }
