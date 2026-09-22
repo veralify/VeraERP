@@ -1,0 +1,48 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Models/StoredDocument.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Passport",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 129
+        }
+      },
+      {
+        "comment": "",
+        "key": "ID card",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "Driving licence",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 131
+        }
+      },
+      {
+        "comment": "",
+        "key": "Residence permit",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "Document",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 133
+        }
+      }
+    ]
+  },
+  "version": 1
+}

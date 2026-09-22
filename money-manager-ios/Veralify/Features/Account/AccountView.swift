@@ -17,6 +17,7 @@ struct AccountView: View {
     @Query private var familyMembers: [FamilyMember]
     @Query private var familyExpenses: [FamilyExpense]
     @Query private var familySettlements: [FamilySettlement]
+    @Query private var documents: [StoredDocument]
 
     @State private var isConfirmingReset = false
     @State private var isShowingRestartNote = false
@@ -43,6 +44,7 @@ struct AccountView: View {
                 ScrollView {
                     VStack(spacing: 18) {
                         planCard
+                        documentsCard
                         displayCard
                         dataCard
                         aboutCard
@@ -53,6 +55,12 @@ struct AccountView: View {
                     .padding(.bottom, 32)
                 }
                 .scrollIndicators(.hidden)
+            }
+            // The Account screen is presented as a sheet, so it has its own
+            // navigation stack. A destination registered in `RootView` is on a
+            // different stack entirely and the link silently does nothing.
+            .navigationDestination(for: VaultRoute.self) { _ in
+                IDVaultView()
             }
             .navigationTitle("Account")
             .navigationBarTitleDisplayMode(.inline)
@@ -116,6 +124,45 @@ struct AccountView: View {
 
                 infoRow("Payoff method", String(localized: "Highest interest first"))
             }
+        }
+    }
+
+    /// Passports and ID cards. Lives here rather than in the tab bar: it is
+    /// something you keep, not something you check daily.
+    private var documentsCard: some View {
+        VStack(spacing: 12) {
+            SectionHeader(title: "Documents") { EmptyView() }
+
+            NavigationLink(value: VaultRoute()) {
+                HStack(spacing: 12) {
+                    Image(systemName: "person.text.rectangle.fill")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Theme.lime)
+                        .frame(width: 34, height: 34)
+                        .background(Theme.lime.opacity(0.16), in: .rect(cornerRadius: 10))
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Passports and IDs")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(Theme.textPrimary)
+                        Text("Scan once, copy any field, get told before they expire")
+                            .font(.caption)
+                            .foregroundStyle(Theme.textTertiary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.85)
+                    }
+
+                    Spacer(minLength: 8)
+
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(Theme.textTertiary)
+                }
+                .padding(14)
+                .frame(maxWidth: .infinity)
+                .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+            }
+            .buttonStyle(.pressable)
         }
     }
 
@@ -251,6 +298,7 @@ struct AccountView: View {
         for item in familyMembers { context.delete(item) }
         for item in familyExpenses { context.delete(item) }
         for item in familySettlements { context.delete(item) }
+        for item in documents { context.delete(item) }
         try? context.save()
         // Send the user back through setup so the app is never left in a state
         // with no income, no debts and no way to add the first one.

@@ -1,0 +1,128 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/DashboardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Net available flow",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 215
+        }
+      },
+      {
+        "comment": "",
+        "key": "After expenses and payments",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 218
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your commitments exceed your income this month",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "Income",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "Core expenses",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debts",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 125
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ due each month",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record a payment",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 149
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record a payment for %@",
+        "location": {
+          "startingColumn": 45,
+          "startingLine": 179
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ paid off",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing paid off yet",
+        "location": {
+          "startingColumn": 79,
+          "startingLine": 228
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt-free",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 227
+        }
+      },
+      {
+        "comment": "",
+        "key": "Achievable",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 241
+        }
+      },
+      {
+        "comment": "",
+        "key": "Needs adjusting",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld months",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 245
+        }
+      }
+    ]
+  },
+  "version": 1
+}

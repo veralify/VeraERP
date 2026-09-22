@@ -20,11 +20,16 @@ struct FamilyView: View {
 
     private enum Sheet: Identifiable {
         case addMember
+        /// Owned here rather than by the tab bar's Add button: the add for a
+        /// list belongs on the list, and a button that means something
+        /// different on every tab means nothing on any of them.
+        case addExpense
         case settle(Settlement)
 
         var id: String {
             switch self {
             case .addMember:          "member"
+            case .addExpense:         "expense"
             case .settle(let value):  "settle-\(value.id)"
             }
         }
@@ -62,6 +67,7 @@ struct FamilyView: View {
                 ScrollView {
                     VStack(spacing: 18) {
                         summaryCard
+                        quickSplitLink
                         memberStrip
                         if !transfers.isEmpty { settleSection }
                         expenseSection
@@ -78,6 +84,9 @@ struct FamilyView: View {
             switch destination {
             case .addMember:
                 FamilyMemberSheet(existingCount: members.count, isFirst: members.isEmpty)
+                    .presentationBackground(Theme.background)
+            case .addExpense:
+                FamilyExpenseSheet(members: members, me: me)
                     .presentationBackground(Theme.background)
             case .settle(let transfer):
                 SettleUpSheet(transfer: transfer, members: members)
@@ -98,8 +107,44 @@ struct FamilyView: View {
             PrimaryButton(title: "Add the first person", enabled: true) {
                 sheet = .addMember
             }
+            quickSplitLink
         }
         .padding(.horizontal, 24)
+    }
+
+    /// A one-off bill split, for a table of people who are not household
+    /// members and do not need to be added as any.
+    private var quickSplitLink: some View {
+        NavigationLink(value: SplitRoute()) {
+            HStack(spacing: 12) {
+                Image(systemName: "divide.circle.fill")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(Theme.lime)
+                    .frame(width: 34, height: 34)
+                    .background(Theme.lime.opacity(0.16), in: .rect(cornerRadius: 10))
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Split a bill")
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(Theme.textPrimary)
+                    Text("Work out the tip and who owes what, then send it")
+                        .font(.caption)
+                        .foregroundStyle(Theme.textTertiary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
+                }
+
+                Spacer(minLength: 8)
+
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.textTertiary)
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity)
+            .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+        }
+        .buttonStyle(.pressable)
     }
 
     // MARK: - Summary
@@ -242,10 +287,20 @@ struct FamilyView: View {
     private var expenseSection: some View {
         VStack(spacing: 12) {
             SectionHeader(title: "Shared expenses") {
-                Text("\(expenses.count)")
-                    .font(.subheadline.weight(.bold))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textSecondary)
+                // Deliberately quiet, and named for what it adds. The lime
+                // capsule in the tab bar is the app's one primary action; a
+                // second lime "Add" on the same screen would put us straight
+                // back to a button whose meaning depends on where you tapped.
+                Button { sheet = .addExpense } label: {
+                    Label("Add expense", systemImage: "plus")
+                        .font(.caption.weight(.bold))
+                        .labelStyle(.titleAndIcon)
+                        .foregroundStyle(Theme.textSecondary)
+                        .padding(.horizontal, 11)
+                        .padding(.vertical, 6)
+                        .background(Theme.surfaceElevated, in: .capsule)
+                }
+                .buttonStyle(.pressable)
             }
 
             if expenses.isEmpty {

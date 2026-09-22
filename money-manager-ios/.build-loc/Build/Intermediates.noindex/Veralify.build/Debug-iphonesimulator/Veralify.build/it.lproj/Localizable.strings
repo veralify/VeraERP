@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@  %@</key>
+	<string>%@  %@</string>
+	<key>%@ all in, tip included.</key>
+	<string>%@ tutto compreso, mancia inclusa.</string>
+	<key>%@ all in.</key>
+	<string>%@ tutto compreso.</string>
+	<key>%@ charged, of which %@ comes off the debt.</key>
+	<string>Addebitati %@, di cui %@ riducono il debito.</string>
+	<key>%@ due each month</key>
+	<string>%@ dovuti ogni mese</string>
+	<key>%@ interest</key>
+	<string>%@ di interessi</string>
+	<key>%@ left after this</key>
+	<string>Restano %@ dopo questa</string>
+	<key>%@ of %@</key>
+	<string>%@ di %@</string>
+	<key>%@ of it is your share</key>
+	<string>Di cui %@ è la tua quota</string>
+	<key>%@ off the balance, %@ interest.</key>
+	<string>%@ tolti dal saldo, %@ di interessi.</string>
+	<key>%@ paid off</key>
+	<string>%@ estinto</string>
+	<key>%@ paid so far</key>
+	<string>Pagati finora %@</string>
+	<key>%@ paid · %@</key>
+	<string>Ha pagato %@ · %@</string>
+	<key>%@ pays %@</key>
+	<string>%@ paga %@</string>
+	<key>%@ this month</key>
+	<string>%@ questo mese</string>
+	<key>%@ total</key>
+	<string>%@ in totale</string>
+	<key>%@ total, %lld%% tip included</key>
+	<string>%@ in totale, mancia del %lld%% inclusa</string>
+	<key>%@%%</key>
+	<string>%@%%</string>
+	<key>%@%% interest</key>
+	<string>%@%% interessi</string>
+	<key>%lld days before</key>
+	<string>%lld giorni prima</string>
+	<key>%lld of %lld pay %@, the rest pay %@. That way it adds up to the bill exactly.</key>
+	<string>%lld su %lld pagano %@, gli altri %@. Così il totale corrisponde esattamente al conto.</string>
+	<key>%lld people</key>
+	<string>%lld persone</string>
+	<key>%lld shared this month</key>
+	<string>%lld condivise questo mese</string>
+	<key>%lld%% of it</key>
+	<string>il %lld%% del totale</string>
+	<key>%lld%% paid</key>
+	<string>%lld%% pagato</string>
+	<key>%lld%% paid off</key>
+	<string>%lld%% saldato</string>
+	<key>%lld/%lld XP</key>
+	<string>%lld/%lld XP</string>
+	<key>%lld/%lld completed</key>
+	<string>%lld/%lld completate</string>
+	<key>+%lld XP</key>
+	<string>+%lld XP</string>
+	<key>, </key>
+	<string>, </string>
+	<key>1 month before</key>
+	<string>1 mese prima</string>
+	<key>2 months before</key>
+	<string>2 mesi prima</string>
+	<key>3 months before</key>
+	<string>3 mesi prima</string>
+	<key>6 months before</key>
+	<string>6 mesi prima</string>
+	<key>A check digit in the machine-readable zone disagrees, so something was misread. Compare it against the document before saving.</key>
+	<string>Una cifra di controllo nella zona a lettura ottica non corrisponde: qualcosa è stato letto male. Confrontalo con il documento prima di salvare.</string>
+	<key>A payoff plan that clears the priciest debt first</key>
+	<string>Un piano che estingue prima il debito più caro</string>
+	<key>A scheduled payment against this debt.</key>
+	<string>Un pagamento programmato su questo debito.</string>
+	<key>AB1234567</key>
+	<string>AB1234567</string>
+	<key>About</key>
+	<string>Informazioni</string>
+	<key>About you</key>
+	<string>Su di te</string>
+	<key>Account</key>
+	<string>Account</string>
+	<key>Achievable</key>
+	<string>Realizzabile</string>
+	<key>Add</key>
+	<string>Aggiungi</string>
+	<key>Add a debt and a target period and your roadmap appears here.</key>
+	<string>Aggiungi un debito e una durata obiettivo e il percorso comparirà qui.</string>
+	<key>Add a photo</key>
+	<string>Aggiungi una foto</string>
+	<key>Add by hand</key>
+	<string>Aggiungi a mano</string>
+	<key>Add debt</key>
+	<string>Aggiungi debito</string>
+	<key>Add rent, bills and any recurring monthly commitment.</key>
+	<string>Aggiungi affitto, bollette e ogni impegno mensile ricorrente.</string>
+	<key>Add someone</key>
+	<string>Aggiungi qualcuno</string>
+	<key>Add the first person</key>
+	<string>Aggiungi la prima persona</string>
+	<key>Add the people you split money with. Log what each of you pays and the app works out who owes whom.</key>
+	<string>Aggiungi le persone con cui dividi le spese. Registra quanto paga ciascuno e l'app calcola chi deve cosa a chi.</string>
+	<key>Add what you actually receive each month. You can change this later.</key>
+	<string>Aggiungi quanto ricevi davvero ogni mese. Potrai modificarlo in seguito.</string>
+	<key>Add your Venmo, PayPal or Cash App and they'll be included in the message.</key>
+	<string>Aggiungi Venmo, PayPal o Cash App e verranno inclusi nel messaggio.</string>
+	<key>Add your debts and we'll build your payoff plan.</key>
+	<string>Aggiungi i tuoi debiti e creeremo il piano di rimborso.</string>
+	<key>Add your first credit or debit to start the ledger.</key>
+	<string>Aggiungi la prima entrata o uscita per iniziare il registro.</string>
+	<key>Add your income and debts whenever you're ready</key>
+	<string>Aggiungi entrate e debiti quando vuoi</string>
+	<key>Add your income and expenses to see how your month breaks down.</key>
+	<string>Aggiungi entrate e spese per vedere come si compone il mese.</string>
+	<key>Add your salary or any other monthly income.</key>
+	<string>Aggiungi lo stipendio o altre entrate mensili.</string>
+	<key>Adjust the period</key>
+	<string>Modifica il periodo</string>
+	<key>After expenses and payments</key>
+	<string>Dopo spese e rate</string>
+	<key>After this payment</key>
+	<string>Dopo questo pagamento</string>
+	<key>Alerts</key>
+	<string>Avvisi</string>
+	<key>All done for today</key>
+	<string>Tutto fatto per oggi</string>
+	<key>Allocated each month</key>
+	<string>Assegnato ogni mese</string>
+	<key>Already paid</key>
+	<string>Già pagata</string>
+	<key>Amount</key>
+	<string>Importo</string>
+	<key>Amounts change straight away. A new language applies when you reopen the app.</key>
+	<string>Gli importi cambiano subito. La nuova lingua si applica riaprendo l'app.</string>
+	<key>Analytics</key>
+	<string>Analisi</string>
+	<key>Annual interest %</key>
+	<string>Interesse annuo %</string>
+	<key>Anything else</key>
+	<string>Qualcos'altro</string>
+	<key>As printed</key>
+	<string>Come stampato</string>
+	<key>At %@ a month you'd still owe %@ after %lld months. Lengthen the target period or free up more each month.</key>
+	<string>Con %@ al mese ti resterebbero %@ dopo %lld mesi. Allunga la durata obiettivo o libera più soldi ogni mese.</string>
+	<key>Australian Dollar</key>
+	<string>Dollaro australiano</string>
+	<key>Back</key>
+	<string>Indietro</string>
+	<key>Balance</key>
+	<string>Saldo</string>
+	<key>Bill</key>
+	<string>Conto</string>
+	<key>Bill total</key>
+	<string>Totale del conto</string>
+	<key>Bills</key>
+	<string>Bollette</string>
+	<key>Born</key>
+	<string>Nato il</string>
+	<key>Breakdown</key>
+	<string>Dettaglio</string>
+	<key>British Pound</key>
+	<string>Sterlina britannica</string>
+	<key>Business</key>
+	<string>Lavoro</string>
+	<key>CURRENT STREAK</key>
+	<string>SERIE ATTUALE</string>
+	<key>Canadian Dollar</key>
+	<string>Dollaro canadese</string>
+	<key>Cancel</key>
+	<string>Annulla</string>
+	<key>Capital repaid</key>
+	<string>Capitale rimborsato</string>
+	<key>Cash App</key>
+	<string>Cash App</string>
+	<key>Category</key>
+	<string>Categoria</string>
+	<key>Change it if they paid back only part of it.</key>
+	<string>Modificalo se hanno restituito solo una parte.</string>
+	<key>Check the details</key>
+	<string>Controlla i dati</string>
+	<key>Check the numbers before you start. Everything can be changed later.</key>
+	<string>Controlla i numeri prima di iniziare. Tutto è modificabile in seguito.</string>
+	<key>Clear</key>
+	<string>Cancella</string>
+	<key>Close</key>
+	<string>Chiudi</string>
+	<key>Close and reopen Veralify to see it in %@.</key>
+	<string>Chiudi e riapri Veralify per vederlo in %@.</string>
+	<key>Completed</key>
+	<string>Completata</string>
+	<key>Continue</key>
+	<string>Continua</string>
+	<key>Copied %@</key>
+	<string>Copiato %@</string>
+	<key>Core expenses</key>
+	<string>Spese principali</string>
+	<key>Couldn't read that document. You can enter it by hand.</key>
+	<string>Non sono riuscito a leggere il documento. Puoi inserirlo a mano.</string>
+	<key>Couldn't read that one. Type the total instead.</key>
+	<string>Non sono riuscito a leggerlo. Scrivi il totale a mano.</string>
+	<key>Credit</key>
+	<string>Entrata</string>
+	<key>Credit added</key>
+	<string>Entrata aggiunta</string>
+	<key>Credited by %@</key>
+	<string>Accreditato da %@</string>
+	<key>Currency</key>
+	<string>Valuta</string>
+	<key>Custom</key>
+	<string>Personalizzata</string>
+	<key>Custom tip %</key>
+	<string>Mancia personalizzata %</string>
+	<key>Dashboard</key>
+	<string>Dashboard</string>
+	<key>Date</key>
+	<string>Data</string>
+	<key>Date of birth</key>
+	<string>Data di nascita</string>
+	<key>Debit</key>
+	<string>Uscita</string>
+	<key>Debit added</key>
+	<string>Uscita aggiunta</string>
+	<key>Debited by %@</key>
+	<string>Addebitato da %@</string>
+	<key>Debt</key>
+	<string>Debito</string>
+	<key>Debt free</key>
+	<string>Senza debiti</string>
+	<key>Debt name</key>
+	<string>Nome del debito</string>
+	<key>Debt payments</key>
+	<string>Rate dei debiti</string>
+	<key>Debts</key>
+	<string>Debiti</string>
+	<key>Debts by balance</key>
+	<string>Debiti per saldo</string>
+	<key>Delete</key>
+	<string>Elimina</string>
+	<key>Delete %@</key>
+	<string>Elimina %@</string>
+	<key>Delete all data and start over</key>
+	<string>Elimina tutti i dati e ricomincia</string>
+	<key>Delete all data?</key>
+	<string>Eliminare tutti i dati?</string>
+	<key>Delete document</key>
+	<string>Elimina documento</string>
+	<key>Delete everything</key>
+	<string>Elimina tutto</string>
+	<key>Delete this document?</key>
+	<string>Eliminare questo documento?</string>
+	<key>Delete this entry?</key>
+	<string>Eliminare questa voce?</string>
+	<key>Delete this item?</key>
+	<string>Eliminare questa voce?</string>
+	<key>Display</key>
+	<string>Visualizzazione</string>
+	<key>Document</key>
+	<string>Documento</string>
+	<key>Document number</key>
+	<string>Numero del documento</string>
+	<key>Documents</key>
+	<string>Documenti</string>
+	<key>Done</key>
+	<string>Fatto</string>
+	<key>Double tap to copy</key>
+	<string>Tocca due volte per copiare</string>
+	<key>Down %@ this month</key>
+	<string>In calo di %@ questo mese</string>
+	<key>Driving licence</key>
+	<string>Patente</string>
+	<key>Due day (optional)</key>
+	<string>Giorno di scadenza (facoltativo)</string>
+	<key>Due on day %lld</key>
+	<string>Scade il giorno %lld</string>
+	<key>Each person pays</key>
+	<string>Ciascuno paga</string>
+	<key>Early payoff</key>
+	<string>Rimborso anticipato</string>
+	<key>Early payoff · %@ interest</key>
+	<string>Rimborso anticipato · %@ di interessi</string>
+	<key>Eating out</key>
+	<string>Ristoranti</string>
+	<key>Edit</key>
+	<string>Modifica</string>
+	<key>Edit %@</key>
+	<string>Modifica %@</string>
+	<key>Edit document</key>
+	<string>Modifica documento</string>
+	<key>Edit entry</key>
+	<string>Modifica voce</string>
+	<key>Egyptian Pound</key>
+	<string>Sterlina egiziana</string>
+	<key>Enter the bill to see the split.</key>
+	<string>Inserisci il conto per vedere la divisione.</string>
+	<key>Entries</key>
+	<string>Voci</string>
+	<key>Euro</key>
+	<string>Euro</string>
+	<key>Everyone</key>
+	<string>Tutti</string>
+	<key>Everything stays on this device, behind your passcode. Photos are yours to add or leave out.</key>
+	<string>Tutto resta su questo dispositivo, dietro il tuo codice. Le foto le aggiungi tu, se vuoi.</string>
+	<key>Expense</key>
+	<string>Spesa</string>
+	<key>Expenses</key>
+	<string>Spese</string>
+	<key>Expired</key>
+	<string>Scaduto</string>
+	<key>Expires</key>
+	<string>Scade il</string>
+	<key>Expires in %lld days</key>
+	<string>Scade tra %lld giorni</string>
+	<key>Family</key>
+	<string>Famiglia</string>
+	<key>Finish setup</key>
+	<string>Completa la configurazione</string>
+	<key>Fixed expenses</key>
+	<string>Spese fisse</string>
+	<key>General</key>
+	<string>Generale</string>
+	<key>Get started</key>
+	<string>Inizia</string>
+	<key>Groceries</key>
+	<string>Spesa</string>
+	<key>Has an expiry date</key>
+	<string>Ha una data di scadenza</string>
+	<key>Health</key>
+	<string>Salute</string>
+	<key>Here's your plan</key>
+	<string>Ecco il tuo piano</string>
+	<key>Highest interest first</key>
+	<string>Interesse più alto per primo</string>
+	<key>Home</key>
+	<string>Home</string>
+	<key>How your monthly income splits</key>
+	<string>Come si divide il reddito mensile</string>
+	<key>I have no debts</key>
+	<string>Non ho debiti</string>
+	<key>IBAN, Revolut, a note</key>
+	<string>IBAN, Revolut, una nota</string>
+	<key>ID card</key>
+	<string>Carta d'identità</string>
+	<key>ITA</key>
+	<string>ITA</string>
+	<key>In how many months do you want to be debt free?</key>
+	<string>In quanti mesi vuoi estinguere i debiti?</string>
+	<key>Income</key>
+	<string>Entrata</string>
+	<key>Income sources</key>
+	<string>Fonti di reddito</string>
+	<key>Indian Rupee</key>
+	<string>Rupia indiana</string>
+	<key>Interest</key>
+	<string>Interessi</string>
+	<key>Interest and fees</key>
+	<string>Interessi e spese</string>
+	<key>Issued by</key>
+	<string>Rilasciato da</string>
+	<key>It was deleted. Go back to see the ones you still have.</key>
+	<string>È stato eliminato. Torna indietro per vedere quelli rimasti.</string>
+	<key>Its details and any reminders will be removed from this device.</key>
+	<string>I suoi dati e i promemoria verranno rimossi da questo dispositivo.</string>
+	<key>Japanese Yen</key>
+	<string>Yen giapponese</string>
+	<key>Keep income ahead of expenses and payments.</key>
+	<string>Mantieni le entrate sopra spese e rate.</string>
+	<key>Keep paying the same each month and finish sooner.</key>
+	<string>Continua a pagare lo stesso importo e finisci prima.</string>
+	<key>Kept on this device, behind your passcode</key>
+	<string>Conservata su questo dispositivo, dietro il tuo codice</string>
+	<key>Kids</key>
+	<string>Bambini</string>
+	<key>Kind</key>
+	<string>Tipo</string>
+	<key>Kuwaiti Dinar</key>
+	<string>Dinaro kuwaitiano</string>
+	<key>Language</key>
+	<string>Lingua</string>
+	<key>Left</key>
+	<string>Restanti</string>
+	<key>Left over</key>
+	<string>Rimanente</string>
+	<key>Let's set up</key>
+	<string>Iniziamo</string>
+	<key>Level %lld</key>
+	<string>Livello %lld</string>
+	<key>Log today's money</key>
+	<string>Registra i movimenti di oggi</string>
+	<key>Lower the monthly payment</key>
+	<string>Riduci la rata mensile</string>
+	<key>Mark as done</key>
+	<string>Segna come completato</string>
+	<key>Mark as not paid</key>
+	<string>Segna come non pagata</string>
+	<key>Mark paid</key>
+	<string>Segna pagata</string>
+	<key>Minimum</key>
+	<string>Minimo</string>
+	<key>Minimum %@</key>
+	<string>Minimo %@</string>
+	<key>Minimum %@ per month.</key>
+	<string>Minimo %@ al mese.</string>
+	<key>Money flow diagram</key>
+	<string>Diagramma del flusso di denaro</string>
+	<key>Monthly</key>
+	<string>Mensile</string>
+	<key>Monthly %@ → %@</key>
+	<string>Mensile %@ → %@</string>
+	<key>Monthly amount</key>
+	<string>Importo mensile</string>
+	<key>Monthly income</key>
+	<string>Entrate mensili</string>
+	<key>Monthly payment needed</key>
+	<string>Rata mensile necessaria</string>
+	<key>Monthly total</key>
+	<string>Totale mensile</string>
+	<key>More</key>
+	<string>Altro</string>
+	<key>Moroccan Dirham</key>
+	<string>Dirham marocchino</string>
+	<key>NET BALANCE</key>
+	<string>SALDO NETTO</string>
+	<key>Name</key>
+	<string>Nome</string>
+	<key>Nationality</key>
+	<string>Nazionalità</string>
+	<key>Needs adjusting</key>
+	<string>Da rivedere</string>
+	<key>Net available flow</key>
+	<string>Flusso netto disponibile</string>
+	<key>New document</key>
+	<string>Nuovo documento</string>
+	<key>New monthly payment</key>
+	<string>Nuova rata mensile</string>
+	<key>No change this month</key>
+	<string>Nessuna variazione questo mese</string>
+	<key>No commitments to show.</key>
+	<string>Nessun impegno da mostrare.</string>
+	<key>No data yet</key>
+	<string>Ancora nessun dato</string>
+	<key>No documents yet</key>
+	<string>Nessun documento</string>
+	<key>No entries yet</key>
+	<string>Ancora nessuna voce</string>
+	<key>No interest</key>
+	<string>Senza interessi</string>
+	<key>No payment creeping up on you.</key>
+	<string>Nessun pagamento in arrivo.</string>
+	<key>No payments recorded yet. Add one and this debt starts showing its progress.</key>
+	<string>Nessun pagamento registrato. Aggiungine uno e questo debito inizierà a mostrare i progressi.</string>
+	<key>No route yet</key>
+	<string>Nessun percorso</string>
+	<key>No total found on that receipt. Type it instead.</key>
+	<string>Nessun totale trovato su quello scontrino. Scrivilo a mano.</string>
+	<key>No total line found, so this is the largest amount on the receipt. Worth checking.</key>
+	<string>Nessuna riga del totale trovata, quindi questo è l'importo più alto dello scontrino. Meglio controllare.</string>
+	<key>None</key>
+	<string>Nessuno</string>
+	<key>Norwegian Krone</key>
+	<string>Corona norvegese</string>
+	<key>Not paid yet</key>
+	<string>Non ancora pagata</string>
+	<key>Nothing due in 3 days</key>
+	<string>Nessuna scadenza entro 3 giorni</string>
+	<key>Nothing here yet</key>
+	<string>Ancora nulla</string>
+	<key>Nothing is due in the next 30 days.</key>
+	<string>Nessuna scadenza nei prossimi 30 giorni.</string>
+	<key>Nothing needs your attention</key>
+	<string>Nulla richiede la tua attenzione</string>
+	<key>Nothing shared yet. Add an expense and it splits between whoever you pick.</key>
+	<string>Ancora niente di condiviso. Aggiungi una spesa e verrà divisa tra chi scegli.</string>
+	<key>Notifications are off for Veralify, so these won't arrive until you turn them on in Settings.</key>
+	<string>Le notifiche per Veralify sono disattivate, quindi non arriveranno finché non le attivi nelle Impostazioni.</string>
+	<key>Number</key>
+	<string>Numero</string>
+	<key>OK</key>
+	<string>OK</string>
+	<key>On your current income this period isn't realistic. Try a longer one, or review your expenses.</key>
+	<string>Con le entrate attuali questo periodo non è realistico. Prova un periodo più lungo o rivedi le spese.</string>
+	<key>Once you mark it paid</key>
+	<string>Quando la segni come pagata</string>
+	<key>One field didn't add up</key>
+	<string>Un campo non torna</string>
+	<key>Open for progress and payments</key>
+	<string>Apri per progressi e pagamenti</string>
+	<key>Open the plan and check where you stand.</key>
+	<string>Apri il piano e controlla a che punto sei.</string>
+	<key>Open to edit</key>
+	<string>Apri per modificare</string>
+	<key>Opens the debt so you can mark it paid</key>
+	<string>Apre il debito per segnarlo come pagato</string>
+	<key>Opens the share sheet with the split written out</key>
+	<string>Apre il menu di condivisione con la divisione già scritta</string>
+	<key>Other</key>
+	<string>Altro</string>
+	<key>Owed</key>
+	<string>Dovuto</string>
+	<key>PHOTO</key>
+	<string>FOTO</string>
+	<key>Paid</key>
+	<string>Pagata</string>
+	<key>Paid ahead of schedule, straight off the balance.</key>
+	<string>Pagato in anticipo, direttamente dal saldo.</string>
+	<key>Passport</key>
+	<string>Passaporto</string>
+	<key>Passports and IDs</key>
+	<string>Passaporti e documenti</string>
+	<key>Pay</key>
+	<string>Paga</string>
+	<key>Pay me back</key>
+	<string>Rimborsami</string>
+	<key>Pay me back:</key>
+	<string>Rimborsami:</string>
+	<key>Pay off</key>
+	<string>Estingui</string>
+	<key>PayPal</key>
+	<string>PayPal</string>
+	<key>PayPal.me</key>
+	<string>PayPal.me</string>
+	<key>Payment</key>
+	<string>Rata</string>
+	<key>Payment handles</key>
+	<string>Riferimenti di pagamento</string>
+	<key>Payments</key>
+	<string>Pagamenti</string>
+	<key>Payments: %lld</key>
+	<string>Pagamenti: %lld</string>
+	<key>Payoff method</key>
+	<string>Metodo di rimborso</string>
+	<key>Personal</key>
+	<string>Personale</string>
+	<key>Phone or email</key>
+	<string>Telefono o email</string>
+	<key>Picture</key>
+	<string>Immagine</string>
+	<key>Plan</key>
+	<string>Piano</string>
+	<key>Planned</key>
+	<string>Pianificata</string>
+	<key>Planned payments</key>
+	<string>Pagamenti pianificati</string>
+	<key>Planned — the balance changes when you mark it paid.</key>
+	<string>Pianificata: il saldo cambia quando la segni come pagata.</string>
+	<key>Polish Zloty</key>
+	<string>Zloty polacco</string>
+	<key>Priority</key>
+	<string>Priorità</string>
+	<key>Qatari Riyal</key>
+	<string>Riyal qatariota</string>
+	<key>Quests reset at midnight</key>
+	<string>Le missioni si azzerano a mezzanotte</string>
+	<key>Quests reset at midnight.</key>
+	<string>Le missioni si azzerano a mezzanotte.</string>
+	<key>Reached level %lld</key>
+	<string>Hai raggiunto il livello %lld</string>
+	<key>Read %@ from the receipt. Check it before you share.</key>
+	<string>Letto %@ dallo scontrino. Controlla prima di condividere.</string>
+	<key>Read and verified</key>
+	<string>Letto e verificato</string>
+	<key>Reads the total off the receipt. Everything stays on your phone.</key>
+	<string>Legge il totale dallo scontrino. Tutto resta sul telefono.</string>
+	<key>Record a payment</key>
+	<string>Registra un pagamento</string>
+	<key>Record a payment for %@</key>
+	<string>Registra un pagamento per %@</string>
+	<key>Record at least one credit or debit.</key>
+	<string>Registra almeno un'entrata o un'uscita.</string>
+	<key>Record it</key>
+	<string>Registra</string>
+	<key>Record payment</key>
+	<string>Registra pagamento</string>
+	<key>Record your income, expenses and debts, then get a monthly payoff plan that tells you exactly when you'll be done.</key>
+	<string>Registra entrate, spese e debiti e ottieni un piano mensile che ti dice esattamente quando finirai.</string>
+	<key>Recording this clears what they owe.</key>
+	<string>Registrandolo azzeri quello che devono.</string>
+	<key>Reduces the balance now.</key>
+	<string>Riduce subito il saldo.</string>
+	<key>Remaining</key>
+	<string>Residuo</string>
+	<key>Remaining balance</key>
+	<string>Saldo residuo</string>
+	<key>Remind me</key>
+	<string>Ricordamelo</string>
+	<key>Reminders %@</key>
+	<string>Promemoria %@</string>
+	<key>Reminders are off</key>
+	<string>I promemoria sono disattivati</string>
+	<key>Remove</key>
+	<string>Rimuovi</string>
+	<key>Remove photo</key>
+	<string>Rimuovi foto</string>
+	<key>Remove this photo?</key>
+	<string>Rimuovere questa foto?</string>
+	<key>Rent</key>
+	<string>Affitto</string>
+	<key>Rent, bills, subscriptions — any recurring monthly commitment. Don't include debt payments here; you'll add those next.</key>
+	<string>Affitto, bollette, abbonamenti — ogni impegno mensile ricorrente. Non inserire qui le rate dei debiti: le aggiungerai dopo.</string>
+	<key>Reopen to finish</key>
+	<string>Riapri per completare</string>
+	<key>Replace</key>
+	<string>Sostituisci</string>
+	<key>Residence permit</key>
+	<string>Permesso di soggiorno</string>
+	<key>Review your payoff plan</key>
+	<string>Rivedi il piano di rimborso</string>
+	<key>Roadmap</key>
+	<string>Percorso</string>
+	<key>Route</key>
+	<string>Percorso</string>
+	<key>Saudi Riyal</key>
+	<string>Riyal saudita</string>
+	<key>Save</key>
+	<string>Salva</string>
+	<key>Save changes</key>
+	<string>Salva modifiche</string>
+	<key>Save document</key>
+	<string>Salva documento</string>
+	<key>Saved on this device and only ever sent when you share a split.</key>
+	<string>Salvati su questo dispositivo e inviati solo quando condividi una divisione.</string>
+	<key>Scan a document</key>
+	<string>Scansiona un documento</string>
+	<key>Scan a passport or ID and Veralify keeps its details to hand — and reminds you before it expires.</key>
+	<string>Scansiona un passaporto o un documento e Veralify ne tiene i dati a portata di mano, avvisandoti prima della scadenza.</string>
+	<key>Scan failed</key>
+	<string>Scansione non riuscita</string>
+	<key>Scan once, copy any field, get told before they expire</key>
+	<string>Scansiona una volta, copia ogni campo, sappi quando scadono</string>
+	<key>Scan receipt</key>
+	<string>Scansiona lo scontrino</string>
+	<key>Scanning needs a camera, so it only works on a device.</key>
+	<string>La scansione richiede una fotocamera, quindi funziona solo su un dispositivo.</string>
+	<key>Scope</key>
+	<string>Ambito</string>
+	<key>See what's due before it lands</key>
+	<string>Vedi le scadenze prima che arrivino</string>
+	<key>Settle up</key>
+	<string>Salda i conti</string>
+	<key>Setup complete</key>
+	<string>Configurazione completata</string>
+	<key>Share costs with your family</key>
+	<string>Condividi le spese con la famiglia</string>
+	<key>Share the split</key>
+	<string>Condividi la divisione</string>
+	<key>Shared expense</key>
+	<string>Spesa condivisa</string>
+	<key>Shared expenses</key>
+	<string>Spese condivise</string>
+	<key>Skip</key>
+	<string>Salta</string>
+	<key>Someone</key>
+	<string>Qualcuno</string>
+	<key>Split a bill</key>
+	<string>Dividi un conto</string>
+	<key>Split between</key>
+	<string>Diviso tra</string>
+	<key>Split costs with the people you live with</key>
+	<string>Dividi le spese con chi vive con te</string>
+	<key>Splitting between</key>
+	<string>Divisa tra</string>
+	<key>Spread what is left over the same remaining term.</key>
+	<string>Distribuisci il residuo sulla stessa durata rimanente.</string>
+	<key>Standard</key>
+	<string>Standard</string>
+	<key>Start using Veralify</key>
+	<string>Inizia a usare Veralify</string>
+	<key>Stay in surplus</key>
+	<string>Resta in attivo</string>
+	<key>Step</key>
+	<string>Passo</string>
+	<key>Step %lld</key>
+	<string>Passo %lld</string>
+	<key>Step %lld of %lld</key>
+	<string>Passo %lld di %lld</string>
+	<key>Swedish Krona</key>
+	<string>Corona svedese</string>
+	<key>Swipe right to confirm</key>
+	<string>Scorri a destra per confermare</string>
+	<key>Swipe to add entry</key>
+	<string>Scorri per aggiungere</string>
+	<key>Swiss Franc</key>
+	<string>Franco svizzero</string>
+	<key>System</key>
+	<string>Sistema</string>
+	<key>Target period</key>
+	<string>Periodo obiettivo</string>
+	<key>That's %@ each — %lld of us round up to %@ so it comes out exact.</key>
+	<string>Fanno %@ a testa: %lld di noi arrotondano a %@ così torna esatto.</string>
+	<key>That's %@ each, %lld ways.</key>
+	<string>Fanno %@ a testa, divisi in %lld.</string>
+	<key>The balance left and the minimum payment. If you don't know the interest rate, leave it at zero.</key>
+	<string>Il saldo residuo e la rata minima. Se non conosci il tasso, lascialo a zero.</string>
+	<key>The document's details stay. Only the image is deleted.</key>
+	<string>I dati del documento restano. Viene eliminata solo l'immagine.</string>
+	<key>The document's own check digits confirm these were read correctly. Worth a glance anyway.</key>
+	<string>Le cifre di controllo del documento confermano la lettura. Vale comunque un'occhiata.</string>
+	<key>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</key>
+	<string>Non ci sono dati sufficienti per calcolare una nuova rata: il debito richiede un tasso di interesse e una rata che lo copra.</string>
+	<key>This cannot be undone.</key>
+	<string>L'operazione è irreversibile.</string>
+	<key>This debt is gone</key>
+	<string>Questo debito non c'è più</string>
+	<key>This first person is you. Add the others afterwards.</key>
+	<string>Questa prima persona sei tu. Aggiungi gli altri dopo.</string>
+	<key>This month</key>
+	<string>Questo mese</string>
+	<key>This plan isn't achievable</key>
+	<string>Il piano non è realizzabile</string>
+	<key>This route doesn't reach the end</key>
+	<string>Questo percorso non arriva in fondo</string>
+	<key>Tip</key>
+	<string>Mancia</string>
+	<key>Tip %lld%%</key>
+	<string>Mancia %lld%%</string>
+	<key>Today</key>
+	<string>Oggi</string>
+	<key>Today's quests</key>
+	<string>Missioni di oggi</string>
+	<key>Total</key>
+	<string>Totale</string>
+	<key>Total balance</key>
+	<string>Saldo totale</string>
+	<key>Total debt</key>
+	<string>Debito totale</string>
+	<key>Total to pay</key>
+	<string>Totale da pagare</string>
+	<key>Tracking from this month</key>
+	<string>Monitoraggio da questo mese</string>
+	<key>Travel</key>
+	<string>Viaggi</string>
+	<key>Try it with sample data</key>
+	<string>Prova con dati di esempio</string>
+	<key>Tunisian Dinar</key>
+	<string>Dinaro tunisino</string>
+	<key>Turkish Lira</key>
+	<string>Lira turca</string>
+	<key>Turn on notifications in Settings and Veralify can warn you before a document expires.</key>
+	<string>Attiva le notifiche nelle Impostazioni e Veralify potrà avvisarti prima che un documento scada.</string>
+	<key>Type</key>
+	<string>Tipo</string>
+	<key>UAE Dirham</key>
+	<string>Dirham degli Emirati</string>
+	<key>US Dollar</key>
+	<string>Dollaro USA</string>
+	<key>Up %@ this month</key>
+	<string>In aumento di %@ questo mese</string>
+	<key>Upcoming payments</key>
+	<string>Scadenze imminenti</string>
+	<key>Venmo</key>
+	<string>Venmo</string>
+	<key>Version</key>
+	<string>Versione</string>
+	<key>View</key>
+	<string>Vista</string>
+	<key>View the document photo full screen</key>
+	<string>Vedi la foto del documento a schermo intero</string>
+	<key>We'll work out the monthly payment needed, and tell you honestly if the period isn't realistic on your income.</key>
+	<string>Calcoleremo la rata necessaria e ti diremo con franchezza se il periodo non è realistico.</string>
+	<key>What are your fixed expenses?</key>
+	<string>Quali sono le tue spese fisse?</string>
+	<key>What do you earn?</key>
+	<string>Quali sono le tue entrate?</string>
+	<key>What was it?</key>
+	<string>Di cosa si tratta?</string>
+	<key>What you still owe</key>
+	<string>Quanto devi ancora</string>
+	<key>Where the money goes</key>
+	<string>Dove vanno i soldi</string>
+	<key>Where your income goes</key>
+	<string>Dove vanno le tue entrate</string>
+	<key>Which debts are you paying off?</key>
+	<string>Quali debiti stai rimborsando?</string>
+	<key>Which one takes the most</key>
+	<string>Quale pesa di più</string>
+	<key>Who paid?</key>
+	<string>Chi ha pagato?</string>
+	<key>Who's it for?</key>
+	<string>Per chi è?</string>
+	<key>Work out the tip and who owes what, then send it</key>
+	<string>Calcola la mancia e chi deve cosa, poi invialo</string>
+	<key>You pay</key>
+	<string>Paghi</string>
+	<key>You'd need %@ a month across %lld months, which is more than you have.</key>
+	<string>Servirebbero %@ al mese per %lld mesi, più di quanto hai.</string>
+	<key>You're %@ short each month. Review your expenses or payments.</key>
+	<string>Ti mancano %@ al mese. Rivedi le spese o le rate.</string>
+	<key>Your %@ (%@) expires in %lld days. Open Veralify to check the details.</key>
+	<string>Il tuo %@ (%@) scade tra %lld giorni. Apri Veralify per i dettagli.</string>
+	<key>Your commitments exceed your income</key>
+	<string>Gli impegni superano le entrate</string>
+	<key>Your commitments exceed your income this month</key>
+	<string>Questo mese gli impegni superano le entrate</string>
+	<key>Your data</key>
+	<string>I tuoi dati</string>
+	<key>Your data is stored on this device only and is never sent to a server.</key>
+	<string>I dati sono salvati solo su questo dispositivo e non vengono mai inviati a un server.</string>
+	<key>Your data stays on your device</key>
+	<string>I tuoi dati restano sul dispositivo</string>
+	<key>Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.</key>
+	<string>Entrate, spese, debiti e movimenti registrati saranno eliminati definitivamente e la configurazione ripartirà. L'operazione è irreversibile.</string>
+	<key>Your money, with a clear plan</key>
+	<string>I tuoi soldi, con un piano chiaro</string>
+	<key>Your roadmap</key>
+	<string>Il tuo percorso</string>
+	<key>Zelle</key>
+	<string>Zelle</string>
+	<key>clear by %@</key>
+	<string>estinto entro %@</string>
+	<key>day %lld</key>
+	<string>giorno %lld</string>
+	<key>e.g. Credit card</key>
+	<string>es. Carta di credito</string>
+	<key>e.g. Rent</key>
+	<string>es. Affitto</string>
+	<key>e.g. Salary</key>
+	<string>es. Stipendio</string>
+	<key>months</key>
+	<string>mesi</string>
+	<key>not cleared in this plan</key>
+	<string>non estinto in questo piano</string>
+	<key>of %lld</key>
+	<string>di %lld</string>
+	<key>over %lld months</key>
+	<string>in %lld mesi</string>
+	<key>paypal.me/yourname</key>
+	<string>paypal.me/tuonome</string>
+	<key>settled</key>
+	<string>in pari</string>
+	<key>you %@</key>
+	<string>tu %@</string>
+	<key>yourcashtag</key>
+	<string>tuocashtag</string>
+	<key>yourhandle</key>
+	<string>tuonome</string>
+</dict>
+</plist>

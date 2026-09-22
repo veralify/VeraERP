@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ all in, tip included.</key>
+	<string>%@ all in, tip included.</string>
+	<key>%@ all in.</key>
+	<string>%@ all in.</string>
+	<key>%@ due each month</key>
+	<string>%@ due each month</string>
+	<key>%@ interest</key>
+	<string>%@ interest</string>
+	<key>%@ left after this</key>
+	<string>%@ left after this</string>
+	<key>%@ of it is your share</key>
+	<string>%@ of it is your share</string>
+	<key>%@ paid off</key>
+	<string>%@ paid off</string>
+	<key>%@ paid so far</key>
+	<string>%@ paid so far</string>
+	<key>%@ this month</key>
+	<string>%@ this month</string>
+	<key>%@ total</key>
+	<string>%@ total</string>
+	<key>%@%%</key>
+	<string>%@%%</string>
+	<key>%lld days before</key>
+	<string>%lld days before</string>
+	<key>%lld people</key>
+	<string>%lld people</string>
+	<key>%lld shared this month</key>
+	<string>%lld shared this month</string>
+	<key>%lld%% of it</key>
+	<string>%lld%% of it</string>
+	<key>%lld%% paid</key>
+	<string>%lld%% paid</string>
+	<key>1 month before</key>
+	<string>1 month before</string>
+	<key>2 months before</key>
+	<string>2 months before</string>
+	<key>3 months before</key>
+	<string>3 months before</string>
+	<key>6 months before</key>
+	<string>6 months before</string>
+	<key>A check digit in the machine-readable zone disagrees, so something was misread. Compare it against the document before saving.</key>
+	<string>A check digit in the machine-readable zone disagrees, so something was misread. Compare it against the document before saving.</string>
+	<key>A scheduled payment against this debt.</key>
+	<string>A scheduled payment against this debt.</string>
+	<key>AB1234567</key>
+	<string>AB1234567</string>
+	<key>About you</key>
+	<string>About you</string>
+	<key>Add a debt and a target period and your roadmap appears here.</key>
+	<string>Add a debt and a target period and your roadmap appears here.</string>
+	<key>Add a photo</key>
+	<string>Add a photo</string>
+	<key>Add by hand</key>
+	<string>Add by hand</string>
+	<key>Add someone</key>
+	<string>Add someone</string>
+	<key>Add the first person</key>
+	<string>Add the first person</string>
+	<key>Add the people you split money with. Log what each of you pays and the app works out who owes whom.</key>
+	<string>Add the people you split money with. Log what each of you pays and the app works out who owes whom.</string>
+	<key>Add your Venmo, PayPal or Cash App and they'll be included in the message.</key>
+	<string>Add your Venmo, PayPal or Cash App and they'll be included in the message.</string>
+	<key>After this payment</key>
+	<string>After this payment</string>
+	<key>Already paid</key>
+	<string>Already paid</string>
+	<key>Amounts change straight away. A new language applies when you reopen the app.</key>
+	<string>Amounts change straight away. A new language applies when you reopen the app.</string>
+	<key>Anything else</key>
+	<string>Anything else</string>
+	<key>As printed</key>
+	<string>As printed</string>
+	<key>Australian Dollar</key>
+	<string>Australian Dollar</string>
+	<key>Bill</key>
+	<string>Bill</string>
+	<key>Bill total</key>
+	<string>Bill total</string>
+	<key>Bills</key>
+	<string>Bills</string>
+	<key>Born</key>
+	<string>Born</string>
+	<key>Breakdown</key>
+	<string>Breakdown</string>
+	<key>British Pound</key>
+	<string>British Pound</string>
+	<key>Canadian Dollar</key>
+	<string>Canadian Dollar</string>
+	<key>Capital repaid</key>
+	<string>Capital repaid</string>
+	<key>Cash App</key>
+	<string>Cash App</string>
+	<key>Change it if they paid back only part of it.</key>
+	<string>Change it if they paid back only part of it.</string>
+	<key>Check the details</key>
+	<string>Check the details</string>
+	<key>Clear</key>
+	<string>Clear</string>
+	<key>Close and reopen Veralify to see it in %@.</key>
+	<string>Close and reopen Veralify to see it in %@.</string>
+	<key>Copied %@</key>
+	<string>Copied %@</string>
+	<key>Couldn't read that document. You can enter it by hand.</key>
+	<string>Couldn't read that document. You can enter it by hand.</string>
+	<key>Couldn't read that one. Type the total instead.</key>
+	<string>Couldn't read that one. Type the total instead.</string>
+	<key>Custom</key>
+	<string>Custom</string>
+	<key>Custom tip %</key>
+	<string>Custom tip %</string>
+	<key>Date of birth</key>
+	<string>Date of birth</string>
+	<key>Debt free</key>
+	<string>Debt free</string>
+	<key>Delete document</key>
+	<string>Delete document</string>
+	<key>Delete this document?</key>
+	<string>Delete this document?</string>
+	<key>Display</key>
+	<string>Display</string>
+	<key>Document</key>
+	<string>Document</string>
+	<key>Document number</key>
+	<string>Document number</string>
+	<key>Documents</key>
+	<string>Documents</string>
+	<key>Double tap to copy</key>
+	<string>Double tap to copy</string>
+	<key>Down %@ this month</key>
+	<string>Down %@ this month</string>
+	<key>Driving licence</key>
+	<string>Driving licence</string>
+	<key>Each person pays</key>
+	<string>Each person pays</string>
+	<key>Early payoff</key>
+	<string>Early payoff</string>
+	<key>Early payoff · %@ interest</key>
+	<string>Early payoff · %@ interest</string>
+	<key>Eating out</key>
+	<string>Eating out</string>
+	<key>Edit %@</key>
+	<string>Edit %@</string>
+	<key>Edit document</key>
+	<string>Edit document</string>
+	<key>Egyptian Pound</key>
+	<string>Egyptian Pound</string>
+	<key>Enter the bill to see the split.</key>
+	<string>Enter the bill to see the split.</string>
+	<key>Euro</key>
+	<string>Euro</string>
+	<key>Everyone</key>
+	<string>Everyone</string>
+	<key>Everything stays on this device, behind your passcode. Photos are yours to add or leave out.</key>
+	<string>Everything stays on this device, behind your passcode. Photos are yours to add or leave out.</string>
+	<key>Expired</key>
+	<string>Expired</string>
+	<key>Expires</key>
+	<string>Expires</string>
+	<key>Expires in %lld days</key>
+	<string>Expires in %lld days</string>
+	<key>Family</key>
+	<string>Family</string>
+	<key>General</key>
+	<string>General</string>
+	<key>Groceries</key>
+	<string>Groceries</string>
+	<key>Has an expiry date</key>
+	<string>Has an expiry date</string>
+	<key>Health</key>
+	<string>Health</string>
+	<key>IBAN, Revolut, a note</key>
+	<string>IBAN, Revolut, a note</string>
+	<key>ID card</key>
+	<string>ID card</string>
+	<key>ITA</key>
+	<string>ITA</string>
+	<key>Indian Rupee</key>
+	<string>Indian Rupee</string>
+	<key>Interest</key>
+	<string>Interest</string>
+	<key>Interest and fees</key>
+	<string>Interest and fees</string>
+	<key>Issued by</key>
+	<string>Issued by</string>
+	<key>It was deleted. Go back to see the ones you still have.</key>
+	<string>It was deleted. Go back to see the ones you still have.</string>
+	<key>Its details and any reminders will be removed from this device.</key>
+	<string>Its details and any reminders will be removed from this device.</string>
+	<key>Japanese Yen</key>
+	<string>Japanese Yen</string>
+	<key>Keep paying the same each month and finish sooner.</key>
+	<string>Keep paying the same each month and finish sooner.</string>
+	<key>Kept on this device, behind your passcode</key>
+	<string>Kept on this device, behind your passcode</string>
+	<key>Kids</key>
+	<string>Kids</string>
+	<key>Kind</key>
+	<string>Kind</string>
+	<key>Kuwaiti Dinar</key>
+	<string>Kuwaiti Dinar</string>
+	<key>Language</key>
+	<string>Language</string>
+	<key>Left</key>
+	<string>Left</string>
+	<key>Lower the monthly payment</key>
+	<string>Lower the monthly payment</string>
+	<key>Mark as not paid</key>
+	<string>Mark as not paid</string>
+	<key>Mark paid</key>
+	<string>Mark paid</string>
+	<key>Monthly</key>
+	<string>Monthly</string>
+	<key>More</key>
+	<string>More</string>
+	<key>Moroccan Dirham</key>
+	<string>Moroccan Dirham</string>
+	<key>Nationality</key>
+	<string>Nationality</string>
+	<key>New document</key>
+	<string>New document</string>
+	<key>New monthly payment</key>
+	<string>New monthly payment</string>
+	<key>No change this month</key>
+	<string>No change this month</string>
+	<key>No documents yet</key>
+	<string>No documents yet</string>
+	<key>No payments recorded yet. Add one and this debt starts showing its progress.</key>
+	<string>No payments recorded yet. Add one and this debt starts showing its progress.</string>
+	<key>No route yet</key>
+	<string>No route yet</string>
+	<key>No total found on that receipt. Type it instead.</key>
+	<string>No total found on that receipt. Type it instead.</string>
+	<key>No total line found, so this is the largest amount on the receipt. Worth checking.</key>
+	<string>No total line found, so this is the largest amount on the receipt. Worth checking.</string>
+	<key>None</key>
+	<string>None</string>
+	<key>Norwegian Krone</key>
+	<string>Norwegian Krone</string>
+	<key>Not paid yet</key>
+	<string>Not paid yet</string>
+	<key>Nothing shared yet. Add an expense and it splits between whoever you pick.</key>
+	<string>Nothing shared yet. Add an expense and it splits between whoever you pick.</string>
+	<key>Notifications are off for Veralify, so these won't arrive until you turn them on in Settings.</key>
+	<string>Notifications are off for Veralify, so these won't arrive until you turn them on in Settings.</string>
+	<key>Number</key>
+	<string>Number</string>
+	<key>OK</key>
+	<string>OK</string>
+	<key>Once you mark it paid</key>
+	<string>Once you mark it paid</string>
+	<key>One field didn't add up</key>
+	<string>One field didn't add up</string>
+	<key>Open for progress and payments</key>
+	<string>Open for progress and payments</string>
+	<key>Open to edit</key>
+	<string>Open to edit</string>
+	<key>Opens the debt so you can mark it paid</key>
+	<string>Opens the debt so you can mark it paid</string>
+	<key>Opens the share sheet with the split written out</key>
+	<string>Opens the share sheet with the split written out</string>
+	<key>Other</key>
+	<string>Other</string>
+	<key>Owed</key>
+	<string>Owed</string>
+	<key>PHOTO</key>
+	<string>PHOTO</string>
+	<key>Paid</key>
+	<string>Paid</string>
+	<key>Paid ahead of schedule, straight off the balance.</key>
+	<string>Paid ahead of schedule, straight off the balance.</string>
+	<key>Passport</key>
+	<string>Passport</string>
+	<key>Passports and IDs</key>
+	<string>Passports and IDs</string>
+	<key>Pay</key>
+	<string>Pay</string>
+	<key>Pay me back</key>
+	<string>Pay me back</string>
+	<key>Pay me back:</key>
+	<string>Pay me back:</string>
+	<key>Pay off</key>
+	<string>Pay off</string>
+	<key>PayPal</key>
+	<string>PayPal</string>
+	<key>PayPal.me</key>
+	<string>PayPal.me</string>
+	<key>Payment handles</key>
+	<string>Payment handles</string>
+	<key>Payments</key>
+	<string>Payments</string>
+	<key>Payments: %lld</key>
+	<string>Payments: %lld</string>
+	<key>Phone or email</key>
+	<string>Phone or email</string>
+	<key>Picture</key>
+	<string>Picture</string>
+	<key>Planned</key>
+	<string>Planned</string>
+	<key>Planned payments</key>
+	<string>Planned payments</string>
+	<key>Planned — the balance changes when you mark it paid.</key>
+	<string>Planned — the balance changes when you mark it paid.</string>
+	<key>Polish Zloty</key>
+	<string>Polish Zloty</string>
+	<key>Qatari Riyal</key>
+	<string>Qatari Riyal</string>
+	<key>Read %@ from the receipt. Check it before you share.</key>
+	<string>Read %@ from the receipt. Check it before you share.</string>
+	<key>Read and verified</key>
+	<string>Read and verified</string>
+	<key>Reads the total off the receipt. Everything stays on your phone.</key>
+	<string>Reads the total off the receipt. Everything stays on your phone.</string>
+	<key>Record a payment</key>
+	<string>Record a payment</string>
+	<key>Record a payment for %@</key>
+	<string>Record a payment for %@</string>
+	<key>Record it</key>
+	<string>Record it</string>
+	<key>Record payment</key>
+	<string>Record payment</string>
+	<key>Recording this clears what they owe.</key>
+	<string>Recording this clears what they owe.</string>
+	<key>Reduces the balance now.</key>
+	<string>Reduces the balance now.</string>
+	<key>Remaining</key>
+	<string>Remaining</string>
+	<key>Remind me</key>
+	<string>Remind me</string>
+	<key>Reminders %@</key>
+	<string>Reminders %@</string>
+	<key>Reminders are off</key>
+	<string>Reminders are off</string>
+	<key>Remove</key>
+	<string>Remove</string>
+	<key>Remove photo</key>
+	<string>Remove photo</string>
+	<key>Remove this photo?</key>
+	<string>Remove this photo?</string>
+	<key>Rent</key>
+	<string>Rent</string>
+	<key>Reopen to finish</key>
+	<string>Reopen to finish</string>
+	<key>Replace</key>
+	<string>Replace</string>
+	<key>Residence permit</key>
+	<string>Residence permit</string>
+	<key>Roadmap</key>
+	<string>Roadmap</string>
+	<key>Route</key>
+	<string>Route</string>
+	<key>Saudi Riyal</key>
+	<string>Saudi Riyal</string>
+	<key>Save changes</key>
+	<string>Save changes</string>
+	<key>Save document</key>
+	<string>Save document</string>
+	<key>Saved on this device and only ever sent when you share a split.</key>
+	<string>Saved on this device and only ever sent when you share a split.</string>
+	<key>Scan a document</key>
+	<string>Scan a document</string>
+	<key>Scan a passport or ID and Veralify keeps its details to hand — and reminds you before it expires.</key>
+	<string>Scan a passport or ID and Veralify keeps its details to hand — and reminds you before it expires.</string>
+	<key>Scan failed</key>
+	<string>Scan failed</string>
+	<key>Scan once, copy any field, get told before they expire</key>
+	<string>Scan once, copy any field, get told before they expire</string>
+	<key>Scan receipt</key>
+	<string>Scan receipt</string>
+	<key>Scanning needs a camera, so it only works on a device.</key>
+	<string>Scanning needs a camera, so it only works on a device.</string>
+	<key>Settle up</key>
+	<string>Settle up</string>
+	<key>Share costs with your family</key>
+	<string>Share costs with your family</string>
+	<key>Share the split</key>
+	<string>Share the split</string>
+	<key>Shared expense</key>
+	<string>Shared expense</string>
+	<key>Shared expenses</key>
+	<string>Shared expenses</string>
+	<key>Someone</key>
+	<string>Someone</string>
+	<key>Split a bill</key>
+	<string>Split a bill</string>
+	<key>Split between</key>
+	<string>Split between</string>
+	<key>Split costs with the people you live with</key>
+	<string>Split costs with the people you live with</string>
+	<key>Splitting between</key>
+	<string>Splitting between</string>
+	<key>Spread what is left over the same remaining term.</key>
+	<string>Spread what is left over the same remaining term.</string>
+	<key>Start using Veralify</key>
+	<string>Start using Veralify</string>
+	<key>Step</key>
+	<string>Step</string>
+	<key>Step %lld</key>
+	<string>Step %lld</string>
+	<key>Swedish Krona</key>
+	<string>Swedish Krona</string>
+	<key>Swiss Franc</key>
+	<string>Swiss Franc</string>
+	<key>System</key>
+	<string>System</string>
+	<key>The document's details stay. Only the image is deleted.</key>
+	<string>The document's details stay. Only the image is deleted.</string>
+	<key>The document's own check digits confirm these were read correctly. Worth a glance anyway.</key>
+	<string>The document's own check digits confirm these were read correctly. Worth a glance anyway.</string>
+	<key>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</key>
+	<string>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</string>
+	<key>This debt is gone</key>
+	<string>This debt is gone</string>
+	<key>This first person is you. Add the others afterwards.</key>
+	<string>This first person is you. Add the others afterwards.</string>
+	<key>This month</key>
+	<string>This month</string>
+	<key>This route doesn't reach the end</key>
+	<string>This route doesn't reach the end</string>
+	<key>Tip</key>
+	<string>Tip</string>
+	<key>Tip %lld%%</key>
+	<string>Tip %lld%%</string>
+	<key>Total to pay</key>
+	<string>Total to pay</string>
+	<key>Tracking from this month</key>
+	<string>Tracking from this month</string>
+	<key>Travel</key>
+	<string>Travel</string>
+	<key>Tunisian Dinar</key>
+	<string>Tunisian Dinar</string>
+	<key>Turkish Lira</key>
+	<string>Turkish Lira</string>
+	<key>Turn on notifications in Settings and Veralify can warn you before a document expires.</key>
+	<string>Turn on notifications in Settings and Veralify can warn you before a document expires.</string>
+	<key>UAE Dirham</key>
+	<string>UAE Dirham</string>
+	<key>US Dollar</key>
+	<string>US Dollar</string>
+	<key>Up %@ this month</key>
+	<string>Up %@ this month</string>
+	<key>Venmo</key>
+	<string>Venmo</string>
+	<key>View</key>
+	<string>View</string>
+	<key>View the document photo full screen</key>
+	<string>View the document photo full screen</string>
+	<key>What was it?</key>
+	<string>What was it?</string>
+	<key>What you still owe</key>
+	<string>What you still owe</string>
+	<key>Where the money goes</key>
+	<string>Where the money goes</string>
+	<key>Who paid?</key>
+	<string>Who paid?</string>
+	<key>Work out the tip and who owes what, then send it</key>
+	<string>Work out the tip and who owes what, then send it</string>
+	<key>You pay</key>
+	<string>You pay</string>
+	<key>Your roadmap</key>
+	<string>Your roadmap</string>
+	<key>Zelle</key>
+	<string>Zelle</string>
+	<key>clear by %@</key>
+	<string>clear by %@</string>
+	<key>not cleared in this plan</key>
+	<string>not cleared in this plan</string>
+	<key>of %lld</key>
+	<string>of %lld</string>
+	<key>over %lld months</key>
+	<string>over %lld months</string>
+	<key>paypal.me/yourname</key>
+	<string>paypal.me/yourname</string>
+	<key>settled</key>
+	<string>settled</string>
+	<key>you %@</key>
+	<string>you %@</string>
+	<key>yourcashtag</key>
+	<string>yourcashtag</string>
+	<key>yourhandle</key>
+	<string>yourhandle</string>
+</dict>
+</plist>

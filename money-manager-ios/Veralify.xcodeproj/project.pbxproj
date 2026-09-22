@@ -12,6 +12,7 @@
 		1C704C19C663727CD8971A99 /* DateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E56A7611229CC802B8A072 /* DateField.swift */; };
 		1CC890A1D699CD495071DE45 /* PressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67295494371939015BF90E9E /* PressStyle.swift */; };
 		2A708DED83CB6C6AB3EFF8C7 /* SankeyChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 209F796484EF0C0976F79A4A /* SankeyChart.swift */; };
+		2E5AF820DAE2D6F57287D415 /* DocumentEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2D1DD2316DD8BF9AF56CD3 /* DocumentEditSheet.swift */; };
 		34CC14AD53A47D54BD0BADBF /* DebtPaymentSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB346BFB37FE5EF3599CC37 /* DebtPaymentSheet.swift */; };
 		379AE87FFC4742229FA06894 /* AlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E5FD050E20887F2C208CCF /* AlertsView.swift */; };
 		3B815E2447900D22E64A086B /* JourneyAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2F527FFA1F9F908653D7B0 /* JourneyAnalytics.swift */; };
@@ -25,6 +26,7 @@
 		5129D9899919BF614828DC84 /* TaskCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232C4663020EC3ACC47357 /* TaskCompletion.swift */; };
 		5195D9589052AD1DE491AB5D /* ProgressEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714272EE7E5EF6470FF79BF7 /* ProgressEffects.swift */; };
 		597CDEFDFE273CD24B85066E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 58DCE7BB062FCBFE078A6461 /* Localizable.xcstrings */; };
+		5B5913C9F5A986B8EE37B13C /* DocumentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D4A1A5EBC908961063A4AE /* DocumentDetailView.swift */; };
 		6BBB11300E641D8CDE2A00E6 /* OnboardingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A137AB7C237A316C4A2D02A /* OnboardingComponents.swift */; };
 		6D6CDEBB98CCDD230E154330 /* JourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18384D7DB83ED3BA8B92FAD0 /* JourneyView.swift */; };
 		6E65363EB8A003CA69B3A6BE /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = A829B1BD6EF8432D0C9ED9BB /* Family.swift */; };
@@ -32,6 +34,8 @@
 		756E035809D7B6CAED3EA0DB /* Records.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C293B13AC50686625F3A304 /* Records.swift */; };
 		7DBAFE8C9711EED4450BD709 /* QuestCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E49DD159181D904C62E1D1 /* QuestCompletion.swift */; };
 		7EE78EB0F3F625C7DF04FECA /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6242C0FE26B7C5E547E2AE /* SampleData.swift */; };
+		825ABD0EE69376FC60537F9F /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3FFAFFECC94AC6A3FF1DC9 /* NotificationManager.swift */; };
+		83BA61DDD41D56056ADD2084 /* IDVaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215AC2B6AFD2718AE61B0FE /* IDVaultView.swift */; };
 		85E185C9CC85A978D72F46EF /* VeralifyCore in Frameworks */ = {isa = PBXBuildFile; productRef = 24B9EE9710E461A4723CDD9A /* VeralifyCore */; };
 		8FF46C5C0F52E9F3CA05CE1E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8DA4CCBCE4A3561D194F3E /* MainTabView.swift */; };
 		906DF1AF358EF1BEB9CA4E9F /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D07711603102DB38F7C559F /* Quest.swift */; };
@@ -40,6 +44,8 @@
 		9DDC04F632B3196DB3F1AE1C /* MonthlySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F77CB533A8387E7D835F6D2 /* MonthlySnapshot.swift */; };
 		9F514D02A83A8065B3B3EFE0 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539587E7488B2A93D07D0DFF /* Components.swift */; };
 		A127A1C68497A0A62729DAE8 /* EntryFormSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CEDBD82656CA339D9E6170 /* EntryFormSheet.swift */; };
+		A7032D92FA164F2F21A060BE /* DocumentScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B5008D3E5F755B304BCFC5 /* DocumentScannerView.swift */; };
+		A7E09B7233D18A0895097A91 /* DocumentCardFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F04BA2AD22F2179D9CE21 /* DocumentCardFace.swift */; };
 		A92A767740C38FFDF8C10F0F /* VeralifyCore in Frameworks */ = {isa = PBXBuildFile; productRef = 49333D742A7CCE806AFA72FD /* VeralifyCore */; };
 		B042CDC7E13999EF78973A61 /* SwipeToConfirm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9BFABF40AC25C33188C14B /* SwipeToConfirm.swift */; };
 		B1D42FC0D1244096470260FD /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A58A965F193B5F2871899FB /* OnboardingView.swift */; };
@@ -49,14 +55,19 @@
 		B7B48A690B637289B0CCC33A /* DebtProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9895FCE36536B22131E62A /* DebtProgress.swift */; };
 		C2C5CFF9E4D75DD6E2CB7414 /* ProgressSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E41FDF5B69E634682572776 /* ProgressSection.swift */; };
 		C53E86DF2BEF0025BB99AC2D /* TransactionEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B62112F6674D4205F8E804 /* TransactionEditSheet.swift */; };
+		C6C342197C4B1D9E04AB82BC /* DocumentPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635904326668DA2FBF3C64AF /* DocumentPhotoTests.swift */; };
 		CBC7BEEA6784CCBDD2DEB391 /* DebtPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1407F159E08400ABDA85999 /* DebtPayment.swift */; };
 		D19A8D340EBECB54C21703E7 /* VeralifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEA134966D197236BDC48C0 /* VeralifyApp.swift */; };
 		D1C15F51DA51D45B6822685B /* DebtDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85B09601B0C990F5745C93F /* DebtDetailView.swift */; };
 		D45183718EE9350DF1F93EFF /* DebtPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3C532332ED12A58E7E0C51 /* DebtPaymentTests.swift */; };
 		D59BB830E4E590F29F1BB77A /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A9D4DDE5E4D0EDF95789CC /* AnalyticsView.swift */; };
+		D74FCA869881B08882543952 /* StoredDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85963FD13BD5D752A69FB40 /* StoredDocument.swift */; };
+		DE31BDA6C027CA8ECA552DB3 /* QuickSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A11694B1D89A11CDF3973B /* QuickSplitView.swift */; };
 		EA4635634FEEE80494830D22 /* FamilyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B369A90C734CFC2D5F4E4 /* FamilyView.swift */; };
 		EA744FC247E8B70F0DB45869 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D9B16882B80FE4D3F8B64D /* Theme.swift */; };
+		EC78103216574ECB16DB41A8 /* TapToCopyChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29025861981AF956CB9C512A /* TapToCopyChip.swift */; };
 		EFF3089702FBEDA39F026192 /* PlanCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B581A487CD2866C78E68CC71 /* PlanCacheTests.swift */; };
+		F3F614524A2F3323BC3B93EC /* ReceiptScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5620145B0A88375E916552D /* ReceiptScanner.swift */; };
 		F478653B9C9CC9A699AA148B /* DashboardSummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005543BF71B1684A7D2DDBE9 /* DashboardSummaryTests.swift */; };
 		F48A60DDA8AB14F13965698B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64F44443DB5FFBED9BFE9C3 /* RootView.swift */; };
 		F7770BCFFE0A67D120402344 /* PlanCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0338CE9025241575510A88BA /* PlanCache.swift */; };
@@ -84,6 +95,7 @@
 		18384D7DB83ED3BA8B92FAD0 /* JourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyView.swift; sourceTree = "<group>"; };
 		1B4F420740AF26FAF8E3DB7E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		209F796484EF0C0976F79A4A /* SankeyChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SankeyChart.swift; sourceTree = "<group>"; };
+		29025861981AF956CB9C512A /* TapToCopyChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapToCopyChip.swift; sourceTree = "<group>"; };
 		2E6AFAB1B999105B07D512B6 /* MonthlyDeltaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyDeltaTests.swift; sourceTree = "<group>"; };
 		323DA779AB96727DDB4DE2C7 /* OnboardingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModels.swift; sourceTree = "<group>"; };
 		33E56A7611229CC802B8A072 /* DateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateField.swift; sourceTree = "<group>"; };
@@ -97,15 +109,19 @@
 		58DCE7BB062FCBFE078A6461 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		59FBCB34294981A989605E67 /* VeralifyCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VeralifyCore; path = VeralifyCore; sourceTree = SOURCE_ROOT; };
 		5D9895FCE36536B22131E62A /* DebtProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtProgress.swift; sourceTree = "<group>"; };
+		635904326668DA2FBF3C64AF /* DocumentPhotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPhotoTests.swift; sourceTree = "<group>"; };
 		67295494371939015BF90E9E /* PressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressStyle.swift; sourceTree = "<group>"; };
 		687B369A90C734CFC2D5F4E4 /* FamilyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyView.swift; sourceTree = "<group>"; };
 		68D9B16882B80FE4D3F8B64D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6A137AB7C237A316C4A2D02A /* OnboardingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingComponents.swift; sourceTree = "<group>"; };
 		6F9E73413E5D93268A8FD38D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		714272EE7E5EF6470FF79BF7 /* ProgressEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressEffects.swift; sourceTree = "<group>"; };
+		71B5008D3E5F755B304BCFC5 /* DocumentScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScannerView.swift; sourceTree = "<group>"; };
 		77CEDBD82656CA339D9E6170 /* EntryFormSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryFormSheet.swift; sourceTree = "<group>"; };
 		7D07711603102DB38F7C559F /* Quest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quest.swift; sourceTree = "<group>"; };
+		7D3FFAFFECC94AC6A3FF1DC9 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		85E49DD159181D904C62E1D1 /* QuestCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestCompletion.swift; sourceTree = "<group>"; };
+		88A11694B1D89A11CDF3973B /* QuickSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSplitView.swift; sourceTree = "<group>"; };
 		8A58A965F193B5F2871899FB /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		8B916CE669A010296C2B4F8F /* SetupSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupSuccessView.swift; sourceTree = "<group>"; };
 		8F3C532332ED12A58E7E0C51 /* DebtPaymentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtPaymentTests.swift; sourceTree = "<group>"; };
@@ -119,15 +135,21 @@
 		A754E6CAB33E98A3F6F55BD8 /* TransactionRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRecord.swift; sourceTree = "<group>"; };
 		A829B1BD6EF8432D0C9ED9BB /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
 		ADEA134966D197236BDC48C0 /* VeralifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeralifyApp.swift; sourceTree = "<group>"; };
+		B215AC2B6AFD2718AE61B0FE /* IDVaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDVaultView.swift; sourceTree = "<group>"; };
 		B581A487CD2866C78E68CC71 /* PlanCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCacheTests.swift; sourceTree = "<group>"; };
 		B64F44443DB5FFBED9BFE9C3 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		B85B09601B0C990F5745C93F /* DebtDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtDetailView.swift; sourceTree = "<group>"; };
 		C1407F159E08400ABDA85999 /* DebtPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtPayment.swift; sourceTree = "<group>"; };
 		C8346F2EF1483AEDFDA6E0BF /* FamilySheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilySheets.swift; sourceTree = "<group>"; };
+		C85963FD13BD5D752A69FB40 /* StoredDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredDocument.swift; sourceTree = "<group>"; };
 		C9E5FD050E20887F2C208CCF /* AlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsView.swift; sourceTree = "<group>"; };
 		CE1A73CDFD00E4A5CC7960DD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		CF8DA4CCBCE4A3561D194F3E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		D5620145B0A88375E916552D /* ReceiptScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptScanner.swift; sourceTree = "<group>"; };
+		D7D4A1A5EBC908961063A4AE /* DocumentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailView.swift; sourceTree = "<group>"; };
 		DC0F07E7D0BB781E1FE92BFE /* TransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsView.swift; sourceTree = "<group>"; };
+		E48F04BA2AD22F2179D9CE21 /* DocumentCardFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCardFace.swift; sourceTree = "<group>"; };
+		EB2D1DD2316DD8BF9AF56CD3 /* DocumentEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentEditSheet.swift; sourceTree = "<group>"; };
 		F0D6BD17E936CA940E041169 /* OnboardingSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSteps.swift; sourceTree = "<group>"; };
 		F3A9D4DDE5E4D0EDF95789CC /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		FE0963AD29E4F3F024CE872E /* EntryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListView.swift; sourceTree = "<group>"; };
@@ -161,6 +183,7 @@
 				3F77CB533A8387E7D835F6D2 /* MonthlySnapshot.swift */,
 				85E49DD159181D904C62E1D1 /* QuestCompletion.swift */,
 				3C293B13AC50686625F3A304 /* Records.swift */,
+				C85963FD13BD5D752A69FB40 /* StoredDocument.swift */,
 				A754E6CAB33E98A3F6F55BD8 /* TransactionRecord.swift */,
 			);
 			path = Models;
@@ -172,6 +195,7 @@
 				0934D2AD81F6AD7DBDED8690 /* AmountParserTests.swift */,
 				005543BF71B1684A7D2DDBE9 /* DashboardSummaryTests.swift */,
 				8F3C532332ED12A58E7E0C51 /* DebtPaymentTests.swift */,
+				635904326668DA2FBF3C64AF /* DocumentPhotoTests.swift */,
 				2E6AFAB1B999105B07D512B6 /* MonthlyDeltaTests.swift */,
 				B581A487CD2866C78E68CC71 /* PlanCacheTests.swift */,
 			);
@@ -206,6 +230,20 @@
 				18384D7DB83ED3BA8B92FAD0 /* JourneyView.swift */,
 			);
 			path = Journey;
+			sourceTree = "<group>";
+		};
+		489DBB0EFDAB97C45DC27EC5 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				E48F04BA2AD22F2179D9CE21 /* DocumentCardFace.swift */,
+				D7D4A1A5EBC908961063A4AE /* DocumentDetailView.swift */,
+				EB2D1DD2316DD8BF9AF56CD3 /* DocumentEditSheet.swift */,
+				71B5008D3E5F755B304BCFC5 /* DocumentScannerView.swift */,
+				B215AC2B6AFD2718AE61B0FE /* IDVaultView.swift */,
+				7D3FFAFFECC94AC6A3FF1DC9 /* NotificationManager.swift */,
+				29025861981AF956CB9C512A /* TapToCopyChip.swift */,
+			);
+			path = Documents;
 			sourceTree = "<group>";
 		};
 		49D57E884816524AD4BE138E /* Design */ = {
@@ -249,11 +287,13 @@
 				9F1FBFFC8DA9FC5B20A93295 /* Analytics */,
 				8EFF2AA1F56CD456DF02D04A /* Dashboard */,
 				D8C1622A6F8A640599234E16 /* Debts */,
+				489DBB0EFDAB97C45DC27EC5 /* Documents */,
 				E72DDD3AEEB44822C86CD544 /* Entries */,
 				F628B67FD4D1A44E275CB430 /* Family */,
 				30BB26203E98820637E13646 /* Journey */,
 				2BE3D18C1BD075CFA6057E91 /* Onboarding */,
 				C4B60C78EDEB340EAB4AB1FD /* Progress */,
+				8768BE8FDE39006813167213 /* Split */,
 				9F192B32888C210439893712 /* Transactions */,
 			);
 			path = Features;
@@ -276,6 +316,15 @@
 				ADEA134966D197236BDC48C0 /* VeralifyApp.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		8768BE8FDE39006813167213 /* Split */ = {
+			isa = PBXGroup;
+			children = (
+				88A11694B1D89A11CDF3973B /* QuickSplitView.swift */,
+				D5620145B0A88375E916552D /* ReceiptScanner.swift */,
+			);
+			path = Split;
 			sourceTree = "<group>";
 		};
 		8EFF2AA1F56CD456DF02D04A /* Dashboard */ = {
@@ -482,6 +531,10 @@
 				CBC7BEEA6784CCBDD2DEB391 /* DebtPayment.swift in Sources */,
 				34CC14AD53A47D54BD0BADBF /* DebtPaymentSheet.swift in Sources */,
 				B7B48A690B637289B0CCC33A /* DebtProgress.swift in Sources */,
+				A7E09B7233D18A0895097A91 /* DocumentCardFace.swift in Sources */,
+				5B5913C9F5A986B8EE37B13C /* DocumentDetailView.swift in Sources */,
+				2E5AF820DAE2D6F57287D415 /* DocumentEditSheet.swift in Sources */,
+				A7032D92FA164F2F21A060BE /* DocumentScannerView.swift in Sources */,
 				4D280404CDE0358125E67135 /* Entrance.swift in Sources */,
 				A127A1C68497A0A62729DAE8 /* EntryFormSheet.swift in Sources */,
 				F9E194429495C6B3479AF202 /* EntryKind.swift in Sources */,
@@ -489,11 +542,13 @@
 				6E65363EB8A003CA69B3A6BE /* Family.swift in Sources */,
 				720F6E70A139F60656A71E7C /* FamilySheets.swift in Sources */,
 				EA4635634FEEE80494830D22 /* FamilyView.swift in Sources */,
+				83BA61DDD41D56056ADD2084 /* IDVaultView.swift in Sources */,
 				3B815E2447900D22E64A086B /* JourneyAnalytics.swift in Sources */,
 				6D6CDEBB98CCDD230E154330 /* JourneyView.swift in Sources */,
 				8FF46C5C0F52E9F3CA05CE1E /* MainTabView.swift in Sources */,
 				4BDE6D12A226ECC02E7C7D1C /* MetricCard.swift in Sources */,
 				9DDC04F632B3196DB3F1AE1C /* MonthlySnapshot.swift in Sources */,
+				825ABD0EE69376FC60537F9F /* NotificationManager.swift in Sources */,
 				6BBB11300E641D8CDE2A00E6 /* OnboardingComponents.swift in Sources */,
 				936A81C24867171E83388D89 /* OnboardingModels.swift in Sources */,
 				B5078914DBE8FBFF53BBFFE0 /* OnboardingSteps.swift in Sources */,
@@ -505,12 +560,16 @@
 				906DF1AF358EF1BEB9CA4E9F /* Quest.swift in Sources */,
 				7DBAFE8C9711EED4450BD709 /* QuestCompletion.swift in Sources */,
 				4A0FBD59A11BF2E9AE43C907 /* QuickAddSheet.swift in Sources */,
+				DE31BDA6C027CA8ECA552DB3 /* QuickSplitView.swift in Sources */,
+				F3F614524A2F3323BC3B93EC /* ReceiptScanner.swift in Sources */,
 				756E035809D7B6CAED3EA0DB /* Records.swift in Sources */,
 				F48A60DDA8AB14F13965698B /* RootView.swift in Sources */,
 				7EE78EB0F3F625C7DF04FECA /* SampleData.swift in Sources */,
 				2A708DED83CB6C6AB3EFF8C7 /* SankeyChart.swift in Sources */,
 				4E3698806BBF34C4C2A4F2CA /* SetupSuccessView.swift in Sources */,
+				D74FCA869881B08882543952 /* StoredDocument.swift in Sources */,
 				B042CDC7E13999EF78973A61 /* SwipeToConfirm.swift in Sources */,
+				EC78103216574ECB16DB41A8 /* TapToCopyChip.swift in Sources */,
 				5129D9899919BF614828DC84 /* TaskCompletion.swift in Sources */,
 				EA744FC247E8B70F0DB45869 /* Theme.swift in Sources */,
 				C53E86DF2BEF0025BB99AC2D /* TransactionEditSheet.swift in Sources */,
@@ -527,6 +586,7 @@
 				9A61207D9FEA965BD3B05F6A /* AmountParserTests.swift in Sources */,
 				F478653B9C9CC9A699AA148B /* DashboardSummaryTests.swift in Sources */,
 				D45183718EE9350DF1F93EFF /* DebtPaymentTests.swift in Sources */,
+				C6C342197C4B1D9E04AB82BC /* DocumentPhotoTests.swift in Sources */,
 				B3917E81CCA11E5E3577FC4B /* MonthlyDeltaTests.swift in Sources */,
 				EFF3089702FBEDA39F026192 /* PlanCacheTests.swift in Sources */,
 			);
@@ -551,6 +611,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Veralify;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Veralify uses the camera to scan a receipt or an identity document and read the details off it. The image is processed on your device and never leaves it.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -697,6 +758,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Veralify;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Veralify uses the camera to scan a receipt or an identity document and read the details off it. The image is processed on your device and never leaves it.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

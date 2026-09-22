@@ -1,0 +1,96 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Entries/EntryKind.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Income",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expense",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 13
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Income sources",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "Fixed expenses",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 21
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debts",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remaining balance",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "Monthly amount",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add your salary or any other monthly income.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 43
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add rent, bills and any recurring monthly commitment.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add your debts and we'll build your payoff plan.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 45
+        }
+      }
+    ]
+  },
+  "version": 1
+}

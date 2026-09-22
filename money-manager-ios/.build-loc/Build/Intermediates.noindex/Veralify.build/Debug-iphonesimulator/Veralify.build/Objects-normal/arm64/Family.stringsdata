@@ -1,0 +1,72 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Models/Family.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Groceries",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "Rent",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 134
+        }
+      },
+      {
+        "comment": "",
+        "key": "Bills",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "Kids",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 136
+        }
+      },
+      {
+        "comment": "",
+        "key": "Health",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 137
+        }
+      },
+      {
+        "comment": "",
+        "key": "Travel",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 138
+        }
+      },
+      {
+        "comment": "",
+        "key": "Eating out",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 139
+        }
+      },
+      {
+        "comment": "",
+        "key": "General",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 140
+        }
+      }
+    ]
+  },
+  "version": 1
+}

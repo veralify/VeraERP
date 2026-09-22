@@ -18,6 +18,12 @@ struct RootView: View {
                         .navigationDestination(for: DebtRoute.self) { route in
                             DebtDetailView(remoteID: route.remoteID)
                         }
+                        .navigationDestination(for: SplitRoute.self) { _ in
+                            QuickSplitView()
+                        }
+                        .navigationDestination(for: VaultRoute.self) { _ in
+                            IDVaultView()
+                        }
                 }
             } else {
                 OnboardingView { hasCompletedOnboarding = true }

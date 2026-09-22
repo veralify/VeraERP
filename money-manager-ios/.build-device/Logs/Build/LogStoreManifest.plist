@@ -6,7 +6,7 @@
 	<integer>13</integer>
 	<key>logs</key>
 	<dict>
-		<key>64F07CFE-B5CC-432D-83BC-49F6ABC83B2F</key>
+		<key>350DAC95-DE82-424D-91CD-26CAB0E6CB36</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>64F07CFE-B5CC-432D-83BC-49F6ABC83B2F.xcactivitylog</string>
+			<string>350DAC95-DE82-424D-91CD-26CAB0E6CB36.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -29,7 +29,7 @@
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>6</integer>
+				<integer>2</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>Veralify project</string>
@@ -40,15 +40,15 @@
 			<key>signature</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>timeStartedRecording</key>
-			<real>811697972.34175396</real>
+			<real>811757186.38013995</real>
 			<key>timeStoppedRecording</key>
-			<real>811698003.417997</real>
+			<real>811757193.09492302</real>
 			<key>title</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>uniqueIdentifier</key>
-			<string>64F07CFE-B5CC-432D-83BC-49F6ABC83B2F</string>
+			<string>350DAC95-DE82-424D-91CD-26CAB0E6CB36</string>
 		</dict>
-		<key>AB224499-90C4-4085-B5B0-2D2AF7FB9B07</key>
+		<key>FFC515AB-4568-422C-BCF3-DB21B9279FC2</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -57,21 +57,21 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>AB224499-90C4-4085-B5B0-2D2AF7FB9B07.xcactivitylog</string>
+			<string>FFC515AB-4568-422C-BCF3-DB21B9279FC2.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>E</string>
+				<string>W</string>
 				<key>totalNumberOfAnalyzerIssues</key>
 				<integer>0</integer>
 				<key>totalNumberOfErrors</key>
-				<integer>2</integer>
+				<integer>0</integer>
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
+				<integer>2</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>Veralify project</string>
@@ -82,13 +82,13 @@
 			<key>signature</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>timeStartedRecording</key>
-			<real>811697943.34123302</real>
+			<real>811756339.91289997</real>
 			<key>timeStoppedRecording</key>
-			<real>811697960.57678902</real>
+			<real>811756345.33622801</real>
 			<key>title</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>uniqueIdentifier</key>
-			<string>AB224499-90C4-4085-B5B0-2D2AF7FB9B07</string>
+			<string>FFC515AB-4568-422C-BCF3-DB21B9279FC2</string>
 		</dict>
 	</dict>
 </dict>

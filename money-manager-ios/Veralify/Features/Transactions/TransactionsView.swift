@@ -119,8 +119,8 @@ struct TransactionsView: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                balanceLine("Credit", credit, Theme.green)
-                balanceLine("Debit", debit, Theme.red)
+                balanceLine("Money in", credit, Theme.green)
+                balanceLine("Money out", debit, Theme.red)
             }
         }
         .padding(18)
@@ -196,8 +196,8 @@ struct TransactionRow: View {
                         .foregroundStyle(Theme.textPrimary)
                         .lineLimit(1)
                     Text(record.direction == .credit
-                         ? "Credited by \(record.account)"
-                         : "Debited by \(record.account)")
+                         ? "In from \(record.account)"
+                         : "Out from \(record.account)")
                         .font(.footnote)
                         .foregroundStyle(Theme.textSecondary)
                         .lineLimit(1)

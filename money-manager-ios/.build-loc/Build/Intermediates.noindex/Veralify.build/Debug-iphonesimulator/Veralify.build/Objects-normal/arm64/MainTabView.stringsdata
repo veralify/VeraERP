@@ -1,0 +1,72 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/MainTabView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Roadmap",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entries",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Family",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 35
+        }
+      },
+      {
+        "comment": "",
+        "key": "Dashboard",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 36
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add",
+        "location": {
+          "startingColumn": 64,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "Money in recorded",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 78
+        }
+      },
+      {
+        "comment": "",
+        "key": "Money out recorded",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 78
+        }
+      },
+      {
+        "comment": "",
+        "key": "Account",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 106
+        }
+      }
+    ]
+  },
+  "version": 1
+}

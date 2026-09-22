@@ -42,19 +42,27 @@ public enum FamilySplit {
     /// `amount / count` leaves €10 split three ways at €9.99, and that missing
     /// cent turns into a balance nobody can ever settle.
     public static func equalShares(of amount: Decimal, among participants: [UUID]) -> [UUID: Decimal] {
-        guard !participants.isEmpty else { return [:] }
+        let shares = equalShares(of: amount, ways: participants.count)
+        return Dictionary(uniqueKeysWithValues: zip(participants, shares))
+    }
+
+    /// Divides `amount` `count` ways, to the cent, in the order the shares are
+    /// returned — the first few carry the extra cent.
+    ///
+    /// Splitting a bill between people who are only a number, not a named
+    /// member, goes through here. Both callers share one implementation so a
+    /// plain N-way split and a family split can never round differently.
+    public static func equalShares(of amount: Decimal, ways count: Int) -> [Decimal] {
+        guard count > 0 else { return [] }
 
         let cents = NSDecimalNumber(decimal: Money.rounded(amount) * 100).intValue
-        let count = participants.count
         let base = cents / count
         let remainder = abs(cents % count)
 
-        var shares: [UUID: Decimal] = [:]
-        for (index, participant) in participants.enumerated() {
+        return (0..<count).map { index in
             let extra = index < remainder ? (cents < 0 ? -1 : 1) : 0
-            shares[participant] = Decimal(base + extra) / 100
+            return Decimal(base + extra) / 100
         }
-        return shares
     }
 
     /// Net position per member: positive means the family owes them, negative

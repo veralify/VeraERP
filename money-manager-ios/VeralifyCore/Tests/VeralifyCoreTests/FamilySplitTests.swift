@@ -39,6 +39,44 @@ struct FamilySplitTests {
         }
     }
 
+    @Test("An N-way split adds back up to the total", arguments: [
+        "10", "100", "0.01", "127.50", "87.41", "999.99"
+    ])
+    func nWaySplitIsExact(_ text: String) {
+        let amount = Decimal(string: text)!
+        for ways in 1...20 {
+            let shares = FamilySplit.equalShares(of: amount, ways: ways)
+            #expect(shares.count == ways)
+            #expect(shares.reduce(Decimal(0), +) == amount, "\(text) split \(ways) ways")
+        }
+    }
+
+    @Test("Shares differ by at most one cent, and the extra goes first")
+    func nWaySplitSpreadsTheRemainder() {
+        // €100 three ways is 33.34 / 33.33 / 33.33 — never 33.33 three times,
+        // which would collect a cent short of the bill.
+        let shares = FamilySplit.equalShares(of: 100, ways: 3)
+        #expect(shares == [Decimal(string: "33.34")!, Decimal(string: "33.33")!, Decimal(string: "33.33")!])
+
+        let spread = (shares.max() ?? 0) - (shares.min() ?? 0)
+        #expect(spread <= Decimal(string: "0.01")!)
+    }
+
+    @Test("Both overloads round identically")
+    func overloadsAgree() {
+        let people = [UUID(), UUID(), UUID()]
+        let byID = FamilySplit.equalShares(of: Decimal(string: "10")!, among: people)
+        let byCount = FamilySplit.equalShares(of: Decimal(string: "10")!, ways: 3)
+
+        #expect(byID.values.reduce(Decimal(0), +) == byCount.reduce(Decimal(0), +))
+        #expect(Set(byID.values.map(\.description)) == Set(byCount.map(\.description)))
+    }
+
+    @Test("Splitting zero ways produces nothing rather than dividing by zero")
+    func zeroWays() {
+        #expect(FamilySplit.equalShares(of: 50, ways: 0).isEmpty)
+    }
+
     @Test("Splitting among nobody produces nothing rather than crashing")
     func noParticipants() {
         #expect(FamilySplit.equalShares(of: 50, among: []).isEmpty)

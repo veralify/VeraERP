@@ -1,0 +1,136 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/JourneyAnalytics.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "over %lld months",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%% of it",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total to pay",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 38
+        }
+      },
+      {
+        "comment": "",
+        "key": "What you still owe",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Owed",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "Owed",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Owed",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 71
+        }
+      },
+      {
+        "comment": "",
+        "key": "Where the money goes",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 122
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ interest",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 164
+        }
+      },
+      {
+        "comment": "",
+        "key": "No interest",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 168
+        }
+      },
+      {
+        "comment": "",
+        "key": "not cleared in this plan",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 178
+        }
+      },
+      {
+        "comment": "",
+        "key": "clear by %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 174
+        }
+      }
+    ]
+  },
+  "version": 1
+}

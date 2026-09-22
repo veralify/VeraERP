@@ -1,0 +1,312 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Debts/DebtPaymentSheet.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Payment",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "Early payoff",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record payment",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 136
+        }
+      },
+      {
+        "comment": "",
+        "key": "Kind",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 220
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 150
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remaining balance",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 158
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ paid so far",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 205
+        }
+      },
+      {
+        "comment": "",
+        "key": "After this payment",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Once you mark it paid",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Monthly %@ → %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ charged, of which %@ comes off the debt.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 253
+        }
+      },
+      {
+        "comment": "",
+        "key": "Capital repaid",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 238
+        }
+      },
+      {
+        "comment": "",
+        "key": "Amount",
+        "location": {
+          "startingColumn": 66,
+          "startingLine": 238
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 239
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest and fees",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 246
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 247
+        }
+      },
+      {
+        "comment": "",
+        "key": "Date",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 277
+        }
+      },
+      {
+        "comment": "",
+        "key": "Minimum",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 367
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pay off",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 371
+        }
+      },
+      {
+        "comment": "",
+        "key": "Already paid",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 286
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reduces the balance now.",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 290
+        }
+      },
+      {
+        "comment": "",
+        "key": "Planned — the balance changes when you mark it paid.",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 291
+        }
+      },
+      {
+        "comment": "",
+        "key": "Worked out over the %lld payments you have left. If your lender's letter says otherwise, use their figure.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 333
+        }
+      },
+      {
+        "comment": "",
+        "key": "There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 341
+        }
+      },
+      {
+        "comment": "",
+        "key": "New monthly payment",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 326
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 327
+        }
+      },
+      {
+        "comment": "",
+        "key": "Lower the monthly payment",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 310
+        }
+      },
+      {
+        "comment": "",
+        "key": "Spread what is left over the same remaining term.",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 314
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keep paying the same each month and finish sooner.",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 315
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payments",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 378
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 379
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paid",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 420
+        }
+      },
+      {
+        "comment": "",
+        "key": "More",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 447
+        }
+      },
+      {
+        "comment": "",
+        "key": "Early payoff · %@ interest",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 410
+        }
+      },
+      {
+        "comment": "",
+        "key": "Early payoff",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 411
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mark paid",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 425
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mark as not paid",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 460
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 464
+        }
+      }
+    ]
+  },
+  "version": 1
+}

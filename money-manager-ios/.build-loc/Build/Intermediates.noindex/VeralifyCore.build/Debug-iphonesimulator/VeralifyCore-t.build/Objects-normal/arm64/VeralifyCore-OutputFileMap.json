@@ -1,0 +1,119 @@
+{
+  "" : {
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/VeralifyCore-primary.dia",
+    "emit-module-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/VeralifyCore-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/VeralifyCore-primary-emit-module.dia",
+    "pch" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/VeralifyCore-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/VeralifyCore-primary.swiftdeps"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/BillSchedule.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/BillSchedule~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/DebtPayoffEngine.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/DebtPayoffEngine~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/FamilySplit.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/FamilySplit~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/Journey.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Journey~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/LoanMath.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/LoanMath~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/MRZParser.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/MRZParser~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/Models.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Models~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/Money.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/Money~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/ReceiptParser.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/ReceiptParser~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/SankeyLayout.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/SankeyLayout~partial.swiftmodule"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/VeralifyCore/Sources/VeralifyCore/StreakCalculator.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator.dia",
+    "index-unit-output-path" : "/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator.o",
+    "llvm-bc" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator.bc",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator.swiftdeps",
+    "swiftmodule" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/VeralifyCore.build/Debug-iphonesimulator/VeralifyCore-t.build/Objects-normal/arm64/StreakCalculator~partial.swiftmodule"
+  }
+}

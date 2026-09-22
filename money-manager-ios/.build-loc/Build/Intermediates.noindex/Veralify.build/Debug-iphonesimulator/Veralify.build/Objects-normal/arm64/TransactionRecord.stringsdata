@@ -1,0 +1,40 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Models/TransactionRecord.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Money in",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "Money out",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 13
+        }
+      },
+      {
+        "comment": "",
+        "key": "Business",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "Personal",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 50
+        }
+      }
+    ]
+  },
+  "version": 1
+}

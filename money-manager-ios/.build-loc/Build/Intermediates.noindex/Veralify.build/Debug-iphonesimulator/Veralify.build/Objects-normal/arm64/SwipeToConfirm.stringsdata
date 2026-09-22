@@ -1,0 +1,16 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Transactions/SwipeToConfirm.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Swipe right to confirm",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 100
+        }
+      }
+    ]
+  },
+  "version": 1
+}

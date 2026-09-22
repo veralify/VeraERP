@@ -1,0 +1,168 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Family/FamilyView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Share costs with your family",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 104
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add the people you split money with. Log what each of you pays and the app works out who owes whom.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 105
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add the first person",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "Split a bill",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "Work out the tip and who owes what, then send it",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "This month",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 155
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ of it is your share",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add someone",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 223
+        }
+      },
+      {
+        "comment": "",
+        "key": "settled",
+        "location": {
+          "startingColumn": 51,
+          "startingLine": 232
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 216
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settle up",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 241
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing shared yet. Add an expense and it splits between whoever you pick.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 307
+        }
+      },
+      {
+        "comment": "",
+        "key": "Shared expenses",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 289
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add expense",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 295
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ paid · %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 340
+        }
+      },
+      {
+        "comment": "",
+        "key": "Someone",
+        "location": {
+          "startingColumn": 58,
+          "startingLine": 340
+        }
+      },
+      {
+        "comment": "",
+        "key": "you %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 354
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 367
+        }
+      },
+      {
+        "comment": "",
+        "key": "Someone",
+        "location": {
+          "startingColumn": 66,
+          "startingLine": 374
+        }
+      }
+    ]
+  },
+  "version": 1
+}

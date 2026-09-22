@@ -9,8 +9,8 @@ enum EntryDirection: String, Codable, CaseIterable, Identifiable, Sendable {
 
     var title: LocalizedStringKey {
         switch self {
-        case .credit: "Credit"
-        case .debit:  "Debit"
+        case .credit: "Money in"
+        case .debit:  "Money out"
         }
     }
 

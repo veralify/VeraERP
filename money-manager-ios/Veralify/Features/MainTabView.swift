@@ -3,6 +3,12 @@ import SwiftData
 
 /// Owns tab selection, the floating bar, the title and the add sheet, so all
 /// four destinations share one persistent chrome.
+///
+/// The four are places, not modes: where you stand today, where the plan goes,
+/// who owes what, and what is in your wallet. The ledger used to be the third
+/// of them — it is now the day's entries on Today, with the full history one
+/// push behind them, because a list of everything you ever typed is a reference,
+/// not a destination you visit daily.
 struct MainTabView: View {
     /// Every modal this screen can present.
     ///
@@ -11,43 +17,29 @@ struct MainTabView: View {
     /// `.sheet(item:)` driven by an enum is the supported way to offer a
     /// choice of destinations from the same view.
     private enum Destination: Identifiable {
-        case planEntry
-        case quickAdd(EntryDirection)
+        case quickAdd
         case alerts
         case account
-        case familyExpense
-        case familyMember
 
         var id: String {
             switch self {
-            case .planEntry:               "plan"
-            case .quickAdd(let direction): "quick-\(direction.rawValue)"
-            case .alerts:                  "alerts"
-            case .account:                 "account"
-            case .familyExpense:           "family-expense"
-            case .familyMember:            "family-member"
+            case .quickAdd: "quick-add"
+            case .alerts:   "alerts"
+            case .account:  "account"
             }
         }
     }
 
     @State private var selection = 0
     @State private var destination: Destination?
-    @State private var isChoosingDirection = false
     @State private var router = QuickAddRouter.shared
-    /// Needed here because the Add button owns the family sheets, and they need
-    /// to know who is in the household.
-    @Query(sort: \FamilyMember.createdAt) private var familyMembers: [FamilyMember]
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-    private var isLedger: Bool { selection == 2 }
-    private var isFamily: Bool { selection == 3 }
 
     private var title: LocalizedStringKey {
         switch selection {
-        case 1:  "Roadmap"
-        case 2:  "Entries"
-        case 3:  "Family"
-        default: "Dashboard"
+        case 1:  "Plan"
+        case 2:  "Split"
+        case 3:  "Wallet"
+        default: "Today"
         }
     }
 
@@ -58,42 +50,29 @@ struct MainTabView: View {
             Group {
                 switch selection {
                 case 1:  JourneyView()
-                case 2:  TransactionsView()
-                case 3:  FamilyView()
-                default: DashboardView(onOpenRoadmap: { selection = 1 }, onOpenFamily: { selection = 3 })
+                case 2:  FamilyView()
+                case 3:  IDVaultView()
+                default: DashboardView(onOpenPlan: { selection = 1 })
                 }
             }
             // Scoped to the destinations rather than the whole screen: a
             // currency change must not tear down the sheet it was made in.
             .redrawsOnCurrencyChange()
 
-            // Dim behind the fan-out so the two choices read as a modal step.
-            if isChoosingDirection {
-                Color.black.opacity(0.55)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
-                    .onTapGesture { isChoosingDirection = false }
-            }
-
-            VStack(spacing: 12) {
-                if isChoosingDirection {
-                    directionChoices
-                }
-
-                FloatingTabBar(selection: $selection, actionTitle: "Add", isActionActive: isChoosingDirection) {
-                    // On the ledger the action is a transaction, which has two
-                    // sides; on Family it is a shared cost — or the first person
-                    // to share it with; everywhere else it adds to the plan.
-                    if isLedger {
-                        withAnimation(reduceMotion ? .smooth(duration: 0.2) : .bouncy(duration: 0.34)) {
-                            isChoosingDirection.toggle()
-                        }
-                    } else if isFamily {
-                        destination = familyMembers.isEmpty ? .familyMember : .familyExpense
-                    } else {
-                        destination = .planEntry
-                    }
-                }
+            // One button, one meaning, on every tab: record money that moved.
+            //
+            // It used to branch three ways on the selected tab — the plan form,
+            // a credit/debit fan-out, or a family sheet that silently became
+            // "add a person" when the household was empty. A control that keeps
+            // its position, label and colour has to keep its meaning too, and
+            // everything it used to reach is now offered by the screen that owns
+            // it: the entry lists have their own +, Family has its own.
+            //
+            // The fan-out is gone with it. The sheet it opened already carries
+            // the same in/out switch in its header, so the extra step only asked
+            // a question its own destination asks better.
+            FloatingTabBar(selection: $selection, actionTitle: "Add", isActionActive: false) {
+                destination = .quickAdd
             }
             .padding(.bottom, 8)
         }
@@ -102,7 +81,7 @@ struct MainTabView: View {
             set: { router.pendingFlash = $0 }
         )) { direction in
             SuccessFlash(
-                title: direction == .credit ? "Credit added" : "Debit added",
+                title: direction == .credit ? "Money in recorded" : "Money out recorded",
                 accent: direction.accent
             )
             .task {
@@ -114,11 +93,7 @@ struct MainTabView: View {
             }
         }
         .sheet(item: $destination, content: sheet(for:))
-        .onChange(of: selection) { _, _ in
-            withAnimation(.smooth(duration: 0.2)) { isChoosingDirection = false }
-        }
         .sensoryFeedback(.selection, trigger: selection)
-        .sensoryFeedback(.impact(weight: .medium), trigger: isChoosingDirection) { _, open in open }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(title)
@@ -148,11 +123,8 @@ struct MainTabView: View {
     @ViewBuilder
     private func sheet(for destination: Destination) -> some View {
         switch destination {
-        case .planEntry:
-            EntryFormSheet(mode: .add(nil))
-                .presentationBackground(Theme.background)
-        case .quickAdd(let direction):
-            QuickAddSheet(scope: QuickAddRouter.shared.scope, initialDirection: direction)
+        case .quickAdd:
+            QuickAddSheet(scope: QuickAddRouter.shared.scope)
                 // Stops short of the top so the ledger stays visible behind it,
                 // which keeps the sheet feeling like a step rather than a
                 // different screen.
@@ -166,54 +138,9 @@ struct MainTabView: View {
         case .account:
             AccountView()
                 .presentationBackground(Theme.background)
-        case .familyExpense:
-            FamilyExpenseSheet(
-                members: familyMembers,
-                me: familyMembers.first(where: \.isMe) ?? familyMembers.first
-            )
-            .presentationBackground(Theme.background)
-        case .familyMember:
-            FamilyMemberSheet(
-                existingCount: familyMembers.count,
-                isFirst: familyMembers.isEmpty
-            )
-            .presentationBackground(Theme.background)
         }
     }
 
-    private var directionChoices: some View {
-        VStack(spacing: 10) {
-            ForEach(EntryDirection.allCases) { option in
-                Button {
-                    isChoosingDirection = false
-                    destination = .quickAdd(option)
-                } label: {
-                    HStack(spacing: 12) {
-                        Image(systemName: option.icon)
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundStyle(Theme.onAccent)
-                            .frame(width: 38, height: 38)
-                            .background(option.accent, in: .circle)
-                        Text(option.title)
-                            .font(.body.weight(.semibold))
-                            .foregroundStyle(Theme.textPrimary)
-                        Spacer(minLength: 0)
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 8)
-                    .frame(width: 210)
-                    .background(Theme.surface, in: .capsule)
-                    .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
-                }
-                .buttonStyle(.pressable)
-                .transition(
-                    .move(edge: .bottom)
-                        .combined(with: .opacity)
-                        .combined(with: .scale(scale: 0.86, anchor: .bottom))
-                )
-            }
-        }
-    }
 }
 
 /// Shared empty state, so every screen says the same thing the same way.
