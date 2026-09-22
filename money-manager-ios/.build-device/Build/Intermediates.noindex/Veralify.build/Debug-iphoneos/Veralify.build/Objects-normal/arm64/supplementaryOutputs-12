@@ -6,18 +6,18 @@
     "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/RootView.o",
     "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/RootView.swiftdeps"
   },
-  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/App/SampleData.swift" : {
-    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SampleData.swiftconstvalues",
-    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SampleData.d",
-    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SampleData.dia",
-    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SampleData.o",
-    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SampleData.swiftdeps"
+  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Reminders/ReminderTopUp.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ReminderTopUp.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ReminderTopUp.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ReminderTopUp.dia",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ReminderTopUp.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ReminderTopUp.swiftdeps"
   },
-  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Analytics/SankeyChart.swift" : {
-    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SankeyChart.swiftconstvalues",
-    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SankeyChart.d",
-    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SankeyChart.dia",
-    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SankeyChart.o",
-    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/SankeyChart.swiftdeps"
+  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Reminders/RemindersCard.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/RemindersCard.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/RemindersCard.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/RemindersCard.dia",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/RemindersCard.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/RemindersCard.swiftdeps"
   }
 }

@@ -98,6 +98,22 @@
 			<string>%lld mesi</string>
 		</dict>
 	</dict>
+	<key>%lld months left of your plan</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld mese rimasto del tuo piano</string>
+			<key>other</key>
+			<string>%lld mesi rimasti del tuo piano</string>
+		</dict>
+	</dict>
 	<key>%lld payments</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

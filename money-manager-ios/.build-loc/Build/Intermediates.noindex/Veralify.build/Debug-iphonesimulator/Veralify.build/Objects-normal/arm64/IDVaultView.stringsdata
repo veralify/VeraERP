@@ -1,0 +1,112 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Documents/IDVaultView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Scan failed",
+        "location": {
+          "startingColumn": 13,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reminders are off",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "Turn on notifications in Settings and Veralify can warn you before a document expires.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 199
+        }
+      },
+      {
+        "comment": "",
+        "key": "Couldn't read that document. You can enter it by hand.",
+        "location": {
+          "startingColumn": 51,
+          "startingLine": 75
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add by hand",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 96
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 119
+        }
+      },
+      {
+        "comment": "",
+        "key": "Everything stays on this device, behind your passcode. Photos are yours to add or leave out.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 169
+        }
+      },
+      {
+        "comment": "",
+        "key": "No documents yet",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 165
+        }
+      },
+      {
+        "comment": "",
+        "key": "Scan a passport or ID and Veralify keeps its details to hand — and reminds you before it expires.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 166
+        }
+      },
+      {
+        "comment": "",
+        "key": "Scanning needs a camera, so it only works on a device.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Scan a document",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 181
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add by hand",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 189
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,232 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/DashboardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Your payoff plan",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 548
+        }
+      },
+      {
+        "comment": "",
+        "key": "Income",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "Core expenses",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debts",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ due each month",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 140
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record a payment",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record a payment for %@",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "Due soon",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 310
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record a payment for %@",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 394
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days late",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 402
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 403
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tomorrow",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 404
+        }
+      },
+      {
+        "comment": "",
+        "key": "In %lld days",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 405
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pay",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 375
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 418
+        }
+      },
+      {
+        "comment": "",
+        "key": "All entries",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 421
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing logged yet today",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 437
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@%@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 483
+        }
+      },
+      {
+        "comment": "",
+        "key": "Entry",
+        "location": {
+          "startingColumn": 66,
+          "startingLine": 471
+        }
+      },
+      {
+        "comment": "",
+        "key": "Net available flow",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 522
+        }
+      },
+      {
+        "comment": "",
+        "key": "After expenses and payments",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 525
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your commitments exceed your income this month",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 526
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ paid off",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 538
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing paid off yet",
+        "location": {
+          "startingColumn": 79,
+          "startingLine": 537
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt-free",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 536
+        }
+      },
+      {
+        "comment": "",
+        "key": "Achievable",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 559
+        }
+      },
+      {
+        "comment": "",
+        "key": "Needs adjusting",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 560
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld months",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 563
+        }
+      }
+    ]
+  },
+  "version": 1
+}

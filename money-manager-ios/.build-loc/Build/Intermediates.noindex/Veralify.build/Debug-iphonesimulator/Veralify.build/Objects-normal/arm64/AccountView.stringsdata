@@ -1,0 +1,200 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Account/AccountView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Delete all data?",
+        "location": {
+          "startingColumn": 13,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reopen to finish",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Account",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 67
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete everything",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 77
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "Close and reopen Veralify to see it in %@.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "Amounts change straight away. A new language applies when you reopen the app.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "Display",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "Currency",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 96
+        }
+      },
+      {
+        "comment": "",
+        "key": "Currency",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@  %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "Language",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "Language",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 118
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your data",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 144
+        }
+      },
+      {
+        "comment": "",
+        "key": "Income sources",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expenses",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 148
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debts",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 150
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 157
+        }
+      },
+      {
+        "comment": "",
+        "key": "Version",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 159
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your data is stored on this device only and is never sent to a server.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 165
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete all data and start over",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 180
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,216 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Debts/DebtDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "This debt is gone",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "It was deleted. Go back to see the ones you still have.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 65
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt",
+        "location": {
+          "startingColumn": 70,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 77
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit %@",
+        "location": {
+          "startingColumn": 45,
+          "startingLine": 80
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@%% interest",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "No interest",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ of %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 119
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%% paid",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 128
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld payments",
+        "location": {
+          "startingColumn": 52,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remaining",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 150
+        }
+      },
+      {
+        "comment": "",
+        "key": "Monthly",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 151
+        }
+      },
+      {
+        "comment": "",
+        "key": "Left",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 153
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payments: %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 183
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 188
+        }
+      },
+      {
+        "comment": "",
+        "key": "No payments recorded yet. Add one and this debt starts showing its progress.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record a payment",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 202
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ off the balance, %@ interest.",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 275
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paid ahead of schedule, straight off the balance.",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 279
+        }
+      },
+      {
+        "comment": "",
+        "key": "A scheduled payment against this debt.",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 281
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paid",
+        "location": {
+          "startingColumn": 62,
+          "startingLine": 236
+        }
+      },
+      {
+        "comment": "",
+        "key": "Planned",
+        "location": {
+          "startingColumn": 90,
+          "startingLine": 236
+        }
+      },
+      {
+        "comment": "",
+        "key": "Early payoff",
+        "location": {
+          "startingColumn": 45,
+          "startingLine": 241
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payment",
+        "location": {
+          "startingColumn": 45,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mark paid",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 258
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 266
+        }
+      }
+    ]
+  },
+  "version": 1
+}

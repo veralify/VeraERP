@@ -6,12 +6,12 @@
     "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/Components.o",
     "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/Components.swiftdeps"
   },
-  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/CashFlowView.swift" : {
-    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/CashFlowView.swiftconstvalues",
-    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/CashFlowView.d",
-    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/CashFlowView.dia",
-    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/CashFlowView.o",
-    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/CashFlowView.swiftdeps"
+  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Design/DateField.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DateField.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DateField.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DateField.dia",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DateField.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DateField.swiftdeps"
   },
   "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/DashboardView.swift" : {
     "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DashboardView.swiftconstvalues",

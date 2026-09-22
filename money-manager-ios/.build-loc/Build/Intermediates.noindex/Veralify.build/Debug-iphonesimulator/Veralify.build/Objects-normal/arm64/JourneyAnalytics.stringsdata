@@ -1,0 +1,176 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/JourneyAnalytics.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "over %lld months",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%% of it",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total to pay",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 43
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "What you still owe",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Owed",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "In hand",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 67
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 111
+        }
+      },
+      {
+        "comment": "",
+        "key": "Owed",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 112
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 73
+        }
+      },
+      {
+        "comment": "",
+        "key": "Owed",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 86
+        }
+      },
+      {
+        "comment": "",
+        "key": "Owed",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 87
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "In hand",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Series",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "Where the money goes",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 152
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ interest",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "No interest",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "not cleared in this plan",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 208
+        }
+      },
+      {
+        "comment": "",
+        "key": "clear by %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 204
+        }
+      }
+    ]
+  },
+  "version": 1
+}

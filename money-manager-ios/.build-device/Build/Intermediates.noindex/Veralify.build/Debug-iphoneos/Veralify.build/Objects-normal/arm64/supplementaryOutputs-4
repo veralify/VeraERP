@@ -1,11 +1,4 @@
 {
-  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Debts/DebtPaymentSheet.swift" : {
-    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DebtPaymentSheet.swiftconstvalues",
-    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DebtPaymentSheet.d",
-    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DebtPaymentSheet.dia",
-    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DebtPaymentSheet.o",
-    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DebtPaymentSheet.swiftdeps"
-  },
   "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Debts/DebtProgress.swift" : {
     "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DebtProgress.swiftconstvalues",
     "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DebtProgress.d",
@@ -19,5 +12,12 @@
     "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DocumentScannerView.dia",
     "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DocumentScannerView.o",
     "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/DocumentScannerView.swiftdeps"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Entries/EntryFormSheet.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/EntryFormSheet.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/EntryFormSheet.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/EntryFormSheet.dia",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/EntryFormSheet.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/EntryFormSheet.swiftdeps"
   }
 }

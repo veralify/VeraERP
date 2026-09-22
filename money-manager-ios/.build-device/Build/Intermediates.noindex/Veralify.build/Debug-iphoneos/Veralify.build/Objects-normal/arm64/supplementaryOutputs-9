@@ -1,11 +1,4 @@
 {
-  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/PayoffStrategyMenu.swift" : {
-    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.swiftconstvalues",
-    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.d",
-    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.dia",
-    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.o",
-    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.swiftdeps"
-  },
   "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Onboarding/OnboardingSteps.swift" : {
     "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/OnboardingSteps.swiftconstvalues",
     "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/OnboardingSteps.d",
@@ -19,5 +12,12 @@
     "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/OnboardingView.dia",
     "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/OnboardingView.o",
     "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/OnboardingView.swiftdeps"
+  },
+  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Reminders/PaymentReminders.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PaymentReminders.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PaymentReminders.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PaymentReminders.dia",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PaymentReminders.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PaymentReminders.swiftdeps"
   }
 }

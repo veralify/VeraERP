@@ -1,0 +1,208 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/PayoffStrategyMenu.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Highest interest first",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 8
+        }
+      },
+      {
+        "comment": "",
+        "key": "Smallest balance first",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 9
+        }
+      },
+      {
+        "comment": "",
+        "key": "The order I choose",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 10
+        }
+      },
+      {
+        "comment": "",
+        "key": "Spare money goes to the dearest debt",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "Spare money goes to the smallest debt",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 19
+        }
+      },
+      {
+        "comment": "",
+        "key": "Spare money follows your own order",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "Compare",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 120
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payoff method",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payoff method",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 213
+        }
+      },
+      {
+        "comment": "",
+        "key": "Same debts, same target period. What changes is which debt the spare money goes to — and what that ends up costing.",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 244
+        }
+      },
+      {
+        "comment": "",
+        "key": "Every debt keeps getting its minimum payment whichever you choose. This only decides where the money left over goes.",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 253
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keep this method",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 263
+        }
+      },
+      {
+        "comment": "",
+        "key": "Use this method",
+        "location": {
+          "startingColumn": 67,
+          "startingLine": 263
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current method",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 294
+        }
+      },
+      {
+        "comment": "",
+        "key": "/month",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 321
+        }
+      },
+      {
+        "comment": "",
+        "key": "Over budget",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 366
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cheapest",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 368
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest over the plan",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 332
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt free by",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 337
+        }
+      },
+      {
+        "comment": "",
+        "key": "First one gone",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 342
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not within the target",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 339
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 415
+        }
+      },
+      {
+        "comment": "",
+        "key": "Move up",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 468
+        }
+      },
+      {
+        "comment": "",
+        "key": "Move down",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 468
+        }
+      }
+    ]
+  },
+  "version": 1
+}

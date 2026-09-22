@@ -1,0 +1,80 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Progress/QuestDetailSheet.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Quest",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "Mark as done",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done today",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 73
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not yet",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "+%lld XP",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 77
+        }
+      },
+      {
+        "comment": "",
+        "key": "What to do",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 93
+        }
+      },
+      {
+        "comment": "",
+        "key": "Veralify ticks this one for you, the moment it is true. There is nothing to confirm.",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 116
+        }
+      },
+      {
+        "comment": "",
+        "key": "Only you can say whether you have done this, so this one is yours to tick.",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 117
+        }
+      }
+    ]
+  },
+  "version": 1
+}

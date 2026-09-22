@@ -1,0 +1,168 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Onboarding/OnboardingSteps.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Name",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Monthly amount",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 68,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "Which debts are you paying off?",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "The balance left and the minimum payment. If you don't know the interest rate, leave it at zero.",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt name",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "e.g. Credit card",
+        "location": {
+          "startingColumn": 63,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remaining balance",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 71,
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "Due day (optional)",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 112
+        }
+      },
+      {
+        "comment": "",
+        "key": "1–31",
+        "location": {
+          "startingColumn": 72,
+          "startingLine": 112
+        }
+      },
+      {
+        "comment": "",
+        "key": "Annual interest %",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "0",
+        "location": {
+          "startingColumn": 75,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "Minimum",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 65,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add debt",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 115
+        }
+      },
+      {
+        "comment": "",
+        "key": "I have no debts",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 144
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue",
+        "location": {
+          "startingColumn": 70,
+          "startingLine": 144
+        }
+      }
+    ]
+  },
+  "version": 1
+}

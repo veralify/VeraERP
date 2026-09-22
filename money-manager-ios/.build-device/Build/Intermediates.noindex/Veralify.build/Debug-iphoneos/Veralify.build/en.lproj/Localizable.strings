@@ -196,6 +196,8 @@
 	<string>Expires in %lld days</string>
 	<key>First one gone</key>
 	<string>First one gone</string>
+	<key>Free each month</key>
+	<string>Free each month</string>
 	<key>General</key>
 	<string>General</string>
 	<key>Groceries</key>
@@ -214,6 +216,10 @@
 	<string>In from %@</string>
 	<key>In hand</key>
 	<string>In hand</string>
+	<key>In hand at the end</key>
+	<string>In hand at the end</string>
+	<key>In hand at the finish</key>
+	<string>In hand at the finish</string>
 	<key>Indian Rupee</key>
 	<string>Indian Rupee</string>
 	<key>Interest</key>
@@ -516,6 +522,8 @@
 	<string>The document's own check digits confirm these were read correctly. Worth a glance anyway.</string>
 	<key>The order I choose</key>
 	<string>The order I choose</string>
+	<key>Then it's yours</key>
+	<string>Then it's yours</string>
 	<key>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</key>
 	<string>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</string>
 	<key>This debt is gone</key>
@@ -592,8 +600,12 @@
 	<string>Your payoff plan</string>
 	<key>Zelle</key>
 	<string>Zelle</string>
+	<key>by %@</key>
+	<string>by %@</string>
 	<key>clear by %@</key>
 	<string>clear by %@</string>
+	<key>no payment leaving</key>
+	<string>no payment leaving</string>
 	<key>not cleared in this plan</key>
 	<string>not cleared in this plan</string>
 	<key>of %lld</key>

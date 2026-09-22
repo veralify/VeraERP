@@ -6,18 +6,18 @@
     "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PlanCache.o",
     "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PlanCache.swiftdeps"
   },
+  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/PayoffStrategyMenu.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.dia",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/PayoffStrategyMenu.swiftdeps"
+  },
   "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Progress/ProgressSection.swift" : {
     "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ProgressSection.swiftconstvalues",
     "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ProgressSection.d",
     "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ProgressSection.dia",
     "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ProgressSection.o",
     "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/ProgressSection.swiftdeps"
-  },
-  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Transactions/QuickAddSheet.swift" : {
-    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/QuickAddSheet.swiftconstvalues",
-    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/QuickAddSheet.d",
-    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/QuickAddSheet.dia",
-    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/QuickAddSheet.o",
-    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-device/Build/Intermediates.noindex/Veralify.build/Debug-iphoneos/Veralify.build/Objects-normal/arm64/QuickAddSheet.swiftdeps"
   }
 }

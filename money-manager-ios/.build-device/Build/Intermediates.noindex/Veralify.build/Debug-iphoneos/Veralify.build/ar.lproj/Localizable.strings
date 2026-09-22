@@ -336,6 +336,8 @@
 	<string>أول دين يُسدَّد</string>
 	<key>Fixed expenses</key>
 	<string>المصاريف الثابتة</string>
+	<key>Free each month</key>
+	<string>متاح كل شهر</string>
 	<key>General</key>
 	<string>عام</string>
 	<key>Get started</key>
@@ -364,6 +366,10 @@
 	<string>وارد من %@</string>
 	<key>In hand</key>
 	<string>الرصيد التراكمي</string>
+	<key>In hand at the end</key>
+	<string>الرصيد في النهاية</string>
+	<key>In hand at the finish</key>
+	<string>الرصيد عند خط النهاية</string>
 	<key>In how many months do you want to be debt free?</key>
 	<string>خلال كم شهر تريد إنهاء ديونك؟</string>
 	<key>Income</key>
@@ -776,6 +782,8 @@
 	<string>أرقام التحقّق في المستند نفسه تؤكّد صحّة القراءة. تستحق نظرة سريعة على أي حال.</string>
 	<key>The order I choose</key>
 	<string>بالترتيب الذي أختاره</string>
+	<key>Then it's yours</key>
+	<string>ثم يصبح لك</string>
 	<key>There isn't enough information to work out a new monthly payment — the debt needs an interest rate and a monthly payment that covers it.</key>
 	<string>لا توجد معلومات كافية لحساب قسط شهري جديد — يحتاج الدين إلى نسبة فائدة وقسط شهري يغطيها.</string>
 	<key>This cannot be undone.</key>
@@ -908,6 +916,8 @@
 	<string>خطة السداد</string>
 	<key>Zelle</key>
 	<string>Zelle</string>
+	<key>by %@</key>
+	<string>بحلول %@</string>
 	<key>clear by %@</key>
 	<string>يُسدَّد بحلول %@</string>
 	<key>day %lld</key>
@@ -920,6 +930,8 @@
 	<string>مثال: الراتب</string>
 	<key>months</key>
 	<string>شهرًا</string>
+	<key>no payment leaving</key>
+	<string>لا أقساط تخرج</string>
 	<key>not cleared in this plan</key>
 	<string>لا يُسدَّد ضمن هذه الخطة</string>
 	<key>of %lld</key>

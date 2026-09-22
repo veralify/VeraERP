@@ -1,0 +1,40 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Documents/DocumentCardFace.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "PHOTO",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 78
+        }
+      },
+      {
+        "comment": "",
+        "key": "VERALIFY",
+        "location": {
+          "startingColumn": 56,
+          "startingLine": 78
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expired",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expires in %lld days",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 90
+        }
+      }
+    ]
+  },
+  "version": 1
+}

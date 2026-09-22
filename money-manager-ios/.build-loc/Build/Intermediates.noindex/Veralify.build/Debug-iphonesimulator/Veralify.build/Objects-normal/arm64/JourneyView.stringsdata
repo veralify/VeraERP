@@ -1,0 +1,232 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/JourneyView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Route",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Analytics",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 35
+        }
+      },
+      {
+        "comment": "",
+        "key": "No route yet",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add a debt and a target period and your roadmap appears here.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "View",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "This route doesn't reach the end",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 371
+        }
+      },
+      {
+        "comment": "",
+        "key": "At %@ a month you'd still owe %@ after %lld months. Lengthen the target period or free up more each month.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 372
+        }
+      },
+      {
+        "comment": "",
+        "key": "Then it's yours",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld months left of your plan",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 188
+        }
+      },
+      {
+        "comment": "",
+        "key": "by %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 203
+        }
+      },
+      {
+        "comment": "",
+        "key": "no payment leaving",
+        "location": {
+          "startingColumn": 47,
+          "startingLine": 212
+        }
+      },
+      {
+        "comment": "",
+        "key": "Free each month",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 210
+        }
+      },
+      {
+        "comment": "",
+        "key": "In hand at the finish",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 215
+        }
+      },
+      {
+        "comment": "",
+        "key": "In hand at the end",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 220
+        }
+      },
+      {
+        "comment": "",
+        "key": "·",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 241
+        }
+      },
+      {
+        "comment": "",
+        "key": "Plan settings",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 270
+        }
+      },
+      {
+        "comment": "",
+        "key": "Target period",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 274
+        }
+      },
+      {
+        "comment": "",
+        "key": "—",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 294
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld months",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 289
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 315
+        }
+      },
+      {
+        "comment": "",
+        "key": "of %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 319
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld months",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 335
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 458
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ still owed",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 483
+        }
+      },
+      {
+        "comment": "",
+        "key": "·",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 484
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ in hand",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 488
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ paid off",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 501
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt free",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 515
+        }
+      }
+    ]
+  },
+  "version": 1
+}

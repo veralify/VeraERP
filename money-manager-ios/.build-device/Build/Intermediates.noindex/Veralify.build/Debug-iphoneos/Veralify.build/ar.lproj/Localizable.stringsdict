@@ -144,6 +144,30 @@
 			<string>لا أشهر</string>
 		</dict>
 	</dict>
+	<key>%lld months left of your plan</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>بقيت %lld أشهر من خطتك</string>
+			<key>many</key>
+			<string>بقي %lld شهرًا من خطتك</string>
+			<key>one</key>
+			<string>بقي شهر واحد من خطتك</string>
+			<key>other</key>
+			<string>بقي %lld شهر من خطتك</string>
+			<key>two</key>
+			<string>بقي شهران من خطتك</string>
+			<key>zero</key>
+			<string>لم يتبقَّ من خطتك شيء</string>
+		</dict>
+	</dict>
 	<key>%lld payments</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

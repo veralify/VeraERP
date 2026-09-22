@@ -1,0 +1,192 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Alerts/AlertsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Alerts, %lld needing attention",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 143
+        }
+      },
+      {
+        "comment": "",
+        "key": "Alerts",
+        "location": {
+          "startingColumn": 80,
+          "startingLine": 143
+        }
+      },
+      {
+        "comment": "",
+        "key": "Alerts",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 171
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 177
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing is due in the next 30 days.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 233
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld items have no due date, so they can't be flagged.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 259
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your commitments exceed your income",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 191
+        }
+      },
+      {
+        "comment": "",
+        "key": "You're %@ short each month. Review your expenses or payments.",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 192
+        }
+      },
+      {
+        "comment": "",
+        "key": "This plan isn't achievable",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 200
+        }
+      },
+      {
+        "comment": "",
+        "key": "You'd need %@ a month across %lld months, which is more than you have.",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 201
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing needs your attention",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 228
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing is due in the next 30 days.",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "Planned payments",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 208
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 209
+        }
+      },
+      {
+        "comment": "",
+        "key": "Opens the debt so you can mark it paid",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 344
+        }
+      },
+      {
+        "comment": "",
+        "key": "Upcoming payments",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 241
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 242
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today",
+        "location": {
+          "startingColumn": 45,
+          "startingLine": 290
+        }
+      },
+      {
+        "comment": "",
+        "key": "in %lld days",
+        "location": {
+          "startingColumn": 45,
+          "startingLine": 291
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payment",
+        "location": {
+          "startingColumn": 59,
+          "startingLine": 295
+        }
+      },
+      {
+        "comment": "",
+        "key": "Expense",
+        "location": {
+          "startingColumn": 90,
+          "startingLine": 295
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not paid yet",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 329
+        }
+      },
+      {
+        "comment": "",
+        "key": "Planned",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 331
+        }
+      }
+    ]
+  },
+  "version": 1
+}

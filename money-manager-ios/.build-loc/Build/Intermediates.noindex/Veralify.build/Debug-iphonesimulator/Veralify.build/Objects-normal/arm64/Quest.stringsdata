@@ -1,0 +1,104 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Progress/Quest.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Log today's money",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "Record at least one thing you spent or received.",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap Add — it is on every tab — type the amount, pick money in or money out, and swipe to confirm. One entry is enough to finish this.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 35
+        }
+      },
+      {
+        "comment": "",
+        "key": "Stay in surplus",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keep income ahead of expenses and payments.",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 43
+        }
+      },
+      {
+        "comment": "",
+        "key": "Your income has to cover your expenses and your debt payments with something left over. Tap the big figure on Today to see the three numbers that make it up, and which one is eating the difference.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing due in 3 days",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "No payment creeping up on you.",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing you owe falls due in the next three days. If something does, pay it — the bell in the corner lists what is coming — or correct its due date if it is wrong.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 53
+        }
+      },
+      {
+        "comment": "",
+        "key": "Review your payoff plan",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 60
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open the plan and check where you stand.",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open the Plan tab and look at where you are on the route: what this month costs, what is left after it, and when the next debt clears. Then mark this done.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 62
+        }
+      }
+    ]
+  },
+  "version": 1
+}

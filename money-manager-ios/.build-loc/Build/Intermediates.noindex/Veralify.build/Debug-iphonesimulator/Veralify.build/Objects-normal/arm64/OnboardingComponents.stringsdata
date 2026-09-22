@@ -1,0 +1,48 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Onboarding/OnboardingComponents.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 20
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 88
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delete %@",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step %lld of %lld",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 208
+        }
+      }
+    ]
+  },
+  "version": 1
+}

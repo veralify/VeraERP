@@ -1,0 +1,88 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Reminders/RemindersCard.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Reminders",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "Notifications are off",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 39
+        }
+      },
+      {
+        "comment": "",
+        "key": "Turn them on for Veralify in Settings and these reminders start arriving.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld scheduled",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 29
+        }
+      },
+      {
+        "comment": "",
+        "key": "Time of day",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Time of day",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "Daily nudge",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "One reminder a day to log what you spent",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 75
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reminders come from this phone's own clock. Nothing is sent to a server, so no amount or due date ever leaves the device.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 126
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld items have no due date, so nothing can be scheduled for them.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 131
+        }
+      }
+    ]
+  },
+  "version": 1
+}

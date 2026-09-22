@@ -1,0 +1,80 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Progress/ProgressSection.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "All done for today",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quests reset at midnight.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 86
+        }
+      },
+      {
+        "comment": "",
+        "key": "CURRENT STREAK",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today's quests",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 188
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quests reset at midnight",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 191
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld completed",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 199
+        }
+      },
+      {
+        "comment": "",
+        "key": "Shows what to do",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 290
+        }
+      },
+      {
+        "comment": "",
+        "key": "+%lld XP",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 297
+        }
+      }
+    ]
+  },
+  "version": 1
+}

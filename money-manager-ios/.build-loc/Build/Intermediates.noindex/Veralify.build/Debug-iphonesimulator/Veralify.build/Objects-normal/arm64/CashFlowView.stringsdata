@@ -1,0 +1,96 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/CashFlowView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Net available flow",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt payments count against what's left because they are due every month, the same as rent. Anything you pay above the minimum comes out of what's left over.",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 143
+        }
+      },
+      {
+        "comment": "",
+        "key": "This month",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "Income",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 53
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld sources",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Core expenses",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld recurring",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt payments",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 71
+        }
+      },
+      {
+        "comment": "",
+        "key": "minimums on %lld debts",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 72
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@%@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "What's left",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 123
+        }
+      }
+    ]
+  },
+  "version": 1
+}
