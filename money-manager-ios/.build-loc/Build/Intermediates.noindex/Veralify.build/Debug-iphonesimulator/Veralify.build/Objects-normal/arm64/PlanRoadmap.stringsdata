@@ -1,0 +1,128 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/PlanRoadmap.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No route yet",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add a debt and a target period and your roadmap appears here.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "This route doesn't reach the end",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 412
+        }
+      },
+      {
+        "comment": "",
+        "key": "At %@ a month you'd still owe %@ after %lld months. Lengthen the target period or free up more each month.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 413
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 221
+        }
+      },
+      {
+        "comment": "",
+        "key": "no payment leaving",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 287
+        }
+      },
+      {
+        "comment": "",
+        "key": "Free each month",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 285
+        }
+      },
+      {
+        "comment": "",
+        "key": "Then it's yours",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 257
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld months left of your plan",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 260
+        }
+      },
+      {
+        "comment": "",
+        "key": "by %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 275
+        }
+      },
+      {
+        "comment": "",
+        "key": "·",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 305
+        }
+      },
+      {
+        "comment": "",
+        "key": "Adjust plan",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 331
+        }
+      },
+      {
+        "comment": "",
+        "key": "Export",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 336
+        }
+      },
+      {
+        "comment": "",
+        "key": "Step %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 365
+        }
+      },
+      {
+        "comment": "",
+        "key": "of %lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 369
+        }
+      }
+    ]
+  },
+  "version": 1
+}

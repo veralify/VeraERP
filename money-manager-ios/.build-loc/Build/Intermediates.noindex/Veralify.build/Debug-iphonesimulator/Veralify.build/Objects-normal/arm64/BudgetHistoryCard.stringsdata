@@ -1,0 +1,80 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Budgets/BudgetHistoryCard.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Last %lld months",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "You stayed inside your budgets every month.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "You went over by %@ a month on average, in %lld of them.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "Month",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Spent",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Budget",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 73
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld more budgets are counted but not charted.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 132
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,80 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/PlanExportSheet.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Export plan",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Could not export",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "The file is made on this device and shared only where you send it. A spreadsheet always exports the same columns, whichever layout you pick.",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 234
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 71
+        }
+      },
+      {
+        "comment": "",
+        "key": "Layout",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 109
+        }
+      },
+      {
+        "comment": "",
+        "key": "Colour",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 170
+        }
+      },
+      {
+        "comment": "",
+        "key": "PDF",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 206
+        }
+      },
+      {
+        "comment": "",
+        "key": "Spreadsheet",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 211
+        }
+      }
+    ]
+  },
+  "version": 1
+}

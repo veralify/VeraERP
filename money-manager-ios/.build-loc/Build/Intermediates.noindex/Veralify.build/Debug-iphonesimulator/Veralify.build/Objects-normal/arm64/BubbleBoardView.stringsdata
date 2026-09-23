@@ -1,0 +1,56 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Board/BubbleBoardView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Nothing to show yet",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 214
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add what comes in and what you owe, and the month appears here as circles.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 215
+        }
+      },
+      {
+        "comment": "",
+        "key": "Drag the leftover circle onto a debt to pay more of it each month. Drag a debt back onto it to take the extra off again.",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 197
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing is left over this month, so there is nothing to move. Tap a circle to open it, or + to add one.",
+        "location": {
+          "startingColumn": 19,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "Left to pay",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "Whole plan",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 181
+        }
+      }
+    ]
+  },
+  "version": 1
+}

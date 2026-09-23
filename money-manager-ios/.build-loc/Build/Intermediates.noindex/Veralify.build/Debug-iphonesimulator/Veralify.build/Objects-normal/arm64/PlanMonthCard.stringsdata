@@ -1,0 +1,88 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/PlanMonthCard.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "paid",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 46
+        }
+      },
+      {
+        "comment": "",
+        "key": "Still owed",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cash flow",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 60
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paid off",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "In hand",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt free",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ paid off",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 71
+        }
+      },
+      {
+        "comment": "",
+        "key": "Income",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 155
+        }
+      },
+      {
+        "comment": "",
+        "key": "Core expenses",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 157
+        }
+      },
+      {
+        "comment": "",
+        "key": "the same every month",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 163
+        }
+      }
+    ]
+  },
+  "version": 1
+}

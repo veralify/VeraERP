@@ -7,7 +7,7 @@
         "key": "Entries",
         "location": {
           "startingColumn": 26,
-          "startingLine": 90
+          "startingLine": 81
         }
       },
       {
@@ -15,23 +15,23 @@
         "key": "Showing %lld entries",
         "location": {
           "startingColumn": 30,
-          "startingLine": 54
+          "startingLine": 57
         }
       },
       {
         "comment": "",
-        "key": "No entries yet",
+        "key": "Nothing this month",
         "location": {
           "startingColumn": 36,
-          "startingLine": 49
+          "startingLine": 52
         }
       },
       {
         "comment": "",
-        "key": "Add your first credit or debit to start the ledger.",
+        "key": "Pick another month, or tap Add to record something.",
         "location": {
           "startingColumn": 38,
-          "startingLine": 50
+          "startingLine": 53
         }
       },
       {
@@ -39,7 +39,7 @@
         "key": "NET BALANCE",
         "location": {
           "startingColumn": 26,
-          "startingLine": 121
+          "startingLine": 91
         }
       },
       {
@@ -47,7 +47,7 @@
         "key": "Money in",
         "location": {
           "startingColumn": 29,
-          "startingLine": 136
+          "startingLine": 106
         }
       },
       {
@@ -55,7 +55,23 @@
         "key": "Money out",
         "location": {
           "startingColumn": 29,
-          "startingLine": 137
+          "startingLine": 107
+        }
+      },
+      {
+        "comment": "",
+        "key": "+%@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 145
+        }
+      },
+      {
+        "comment": "",
+        "key": "−%@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 151
         }
       },
       {
@@ -63,7 +79,23 @@
         "key": "Delete",
         "location": {
           "startingColumn": 31,
-          "startingLine": 176
+          "startingLine": 170
+        }
+      },
+      {
+        "comment": "",
+        "key": "In from %@",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 234
+        }
+      },
+      {
+        "comment": "",
+        "key": "Out from %@",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 235
         }
       },
       {
@@ -71,23 +103,7 @@
         "key": "%@%@",
         "location": {
           "startingColumn": 22,
-          "startingLine": 222
-        }
-      },
-      {
-        "comment": "",
-        "key": "In from %@",
-        "location": {
-          "startingColumn": 28,
-          "startingLine": 213
-        }
-      },
-      {
-        "comment": "",
-        "key": "Out from %@",
-        "location": {
-          "startingColumn": 28,
-          "startingLine": 214
+          "startingLine": 212
         }
       }
     ]

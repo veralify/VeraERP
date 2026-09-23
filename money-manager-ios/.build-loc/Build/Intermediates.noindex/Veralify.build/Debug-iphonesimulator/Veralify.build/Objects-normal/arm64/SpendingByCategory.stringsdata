@@ -1,0 +1,128 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/SpendingByCategory.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Everything else",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Direction",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nothing in this period",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pick a longer time frame, or tap Add and record something.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "Amount",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "Spent",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Received",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld entries",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 145
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ over the %@ limit",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 173
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ left of %@",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 174
+        }
+      },
+      {
+        "comment": "",
+        "key": "Budgets",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 202
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set a limit on a category",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld over their limit",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 227
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ left this month",
+        "location": {
+          "startingColumn": 16,
+          "startingLine": 228
+        }
+      }
+    ]
+  },
+  "version": 1
+}

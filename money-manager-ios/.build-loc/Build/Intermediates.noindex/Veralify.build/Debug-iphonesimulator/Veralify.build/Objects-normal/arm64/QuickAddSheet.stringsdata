@@ -7,7 +7,7 @@
         "key": "Who's it for?",
         "location": {
           "startingColumn": 16,
-          "startingLine": 74
+          "startingLine": 72
         }
       },
       {
@@ -15,7 +15,7 @@
         "key": "Swipe to add entry",
         "location": {
           "startingColumn": 28,
-          "startingLine": 58
+          "startingLine": 56
         }
       },
       {
@@ -23,7 +23,7 @@
         "key": "Name",
         "location": {
           "startingColumn": 23,
-          "startingLine": 75
+          "startingLine": 73
         }
       },
       {
@@ -31,7 +31,7 @@
         "key": "Done",
         "location": {
           "startingColumn": 20,
-          "startingLine": 76
+          "startingLine": 74
         }
       },
       {
@@ -39,7 +39,7 @@
         "key": "Cancel",
         "location": {
           "startingColumn": 33,
-          "startingLine": 92
+          "startingLine": 90
         }
       },
       {
@@ -47,7 +47,7 @@
         "key": "€",
         "location": {
           "startingColumn": 22,
-          "startingLine": 130
+          "startingLine": 128
         }
       },
       {
@@ -55,7 +55,7 @@
         "key": "Date",
         "location": {
           "startingColumn": 34,
-          "startingLine": 156
+          "startingLine": 154
         }
       }
     ]

@@ -1,0 +1,96 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/TimeframePicker.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Day",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 7
+        }
+      },
+      {
+        "comment": "",
+        "key": "Week",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 8
+        }
+      },
+      {
+        "comment": "",
+        "key": "Month",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 9
+        }
+      },
+      {
+        "comment": "",
+        "key": "Year",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 10
+        }
+      },
+      {
+        "comment": "",
+        "key": "All",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 11
+        }
+      },
+      {
+        "comment": "",
+        "key": "Custom",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "Everything recorded",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Time frame",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "From",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "To",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 124
+        }
+      },
+      {
+        "comment": "",
+        "key": "Use this range",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 125
+        }
+      }
+    ]
+  },
+  "version": 1
+}

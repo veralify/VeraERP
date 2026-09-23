@@ -13,6 +13,13 @@
     "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/VeralifyApp.o",
     "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/VeralifyApp.swiftdeps"
   },
+  "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Transactions/TransactionEditSheet.swift" : {
+    "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/TransactionEditSheet.swiftconstvalues",
+    "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/TransactionEditSheet.d",
+    "diagnostics" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/TransactionEditSheet.dia",
+    "object" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/TransactionEditSheet.o",
+    "swift-dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/TransactionEditSheet.swiftdeps"
+  },
   "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Transactions/TransactionsView.swift" : {
     "const-values" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/TransactionsView.swiftconstvalues",
     "dependencies" : "/Users/abdelwahab/veralify/money-manager-ios/.build-loc/Build/Intermediates.noindex/Veralify.build/Debug-iphonesimulator/Veralify.build/Objects-normal/arm64/TransactionsView.d",

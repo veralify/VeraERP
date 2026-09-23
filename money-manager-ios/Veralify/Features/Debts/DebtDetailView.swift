@@ -148,7 +148,7 @@ struct DebtDetailView: View {
     private func statStrip(_ debt: DebtRecord) -> some View {
         HStack(spacing: 10) {
             statTile("Remaining", CurrencyFormat.string(debt.balance))
-            statTile("Monthly", CurrencyFormat.string(debt.minimumPayment))
+            statTile("Monthly", CurrencyFormat.string(debt.monthlyPayment))
             if let paymentsLeft {
                 statTile("Left", String(localized: "\(paymentsLeft) payments"))
             }

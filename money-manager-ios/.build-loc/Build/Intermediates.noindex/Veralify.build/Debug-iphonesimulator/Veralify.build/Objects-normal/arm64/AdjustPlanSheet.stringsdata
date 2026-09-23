@@ -1,0 +1,80 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/AdjustPlanSheet.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Adjust plan",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "Changing any of these redraws the route straight away. Nothing you have already recorded is affected.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payoff method",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "What the plan is built from",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "Target period",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear everything within",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 101
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld months",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 115
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld entries",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 134
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -7,7 +7,7 @@
         "key": "Delete all data?",
         "location": {
           "startingColumn": 13,
-          "startingLine": 72
+          "startingLine": 73
         }
       },
       {
@@ -15,7 +15,7 @@
         "key": "Reopen to finish",
         "location": {
           "startingColumn": 16,
-          "startingLine": 81
+          "startingLine": 82
         }
       },
       {
@@ -23,7 +23,7 @@
         "key": "Account",
         "location": {
           "startingColumn": 30,
-          "startingLine": 61
+          "startingLine": 62
         }
       },
       {
@@ -31,7 +31,7 @@
         "key": "Done",
         "location": {
           "startingColumn": 28,
-          "startingLine": 67
+          "startingLine": 68
         }
       },
       {
@@ -39,7 +39,7 @@
         "key": "Delete everything",
         "location": {
           "startingColumn": 20,
-          "startingLine": 76
+          "startingLine": 77
         }
       },
       {
@@ -47,7 +47,7 @@
         "key": "Cancel",
         "location": {
           "startingColumn": 20,
-          "startingLine": 77
+          "startingLine": 78
         }
       },
       {
@@ -55,7 +55,7 @@
         "key": "Your income, expenses, debts and recorded entries will be permanently deleted and setup will start again. This cannot be undone.",
         "location": {
           "startingColumn": 18,
-          "startingLine": 79
+          "startingLine": 80
         }
       },
       {
@@ -63,7 +63,7 @@
         "key": "OK",
         "location": {
           "startingColumn": 20,
-          "startingLine": 82
+          "startingLine": 83
         }
       },
       {
@@ -71,7 +71,7 @@
         "key": "Close and reopen Veralify to see it in %@.",
         "location": {
           "startingColumn": 18,
-          "startingLine": 84
+          "startingLine": 85
         }
       },
       {
@@ -79,7 +79,7 @@
         "key": "Amounts change straight away. A new language applies when you reopen the app.",
         "location": {
           "startingColumn": 18,
-          "startingLine": 133
+          "startingLine": 134
         }
       },
       {
@@ -87,7 +87,7 @@
         "key": "Display",
         "location": {
           "startingColumn": 34,
-          "startingLine": 92
+          "startingLine": 93
         }
       },
       {
@@ -95,7 +95,7 @@
         "key": "Currency",
         "location": {
           "startingColumn": 26,
-          "startingLine": 96
+          "startingLine": 97
         }
       },
       {
@@ -103,7 +103,7 @@
         "key": "Currency",
         "location": {
           "startingColumn": 28,
-          "startingLine": 100
+          "startingLine": 101
         }
       },
       {
@@ -111,7 +111,7 @@
         "key": "%@  %@",
         "location": {
           "startingColumn": 34,
-          "startingLine": 102
+          "startingLine": 103
         }
       },
       {
@@ -119,7 +119,7 @@
         "key": "Language",
         "location": {
           "startingColumn": 26,
-          "startingLine": 114
+          "startingLine": 115
         }
       },
       {
@@ -127,7 +127,7 @@
         "key": "Language",
         "location": {
           "startingColumn": 28,
-          "startingLine": 118
+          "startingLine": 119
         }
       },
       {
@@ -135,7 +135,7 @@
         "key": "Your data",
         "location": {
           "startingColumn": 34,
-          "startingLine": 144
+          "startingLine": 145
         }
       },
       {
@@ -143,7 +143,7 @@
         "key": "Income sources",
         "location": {
           "startingColumn": 25,
-          "startingLine": 146
+          "startingLine": 147
         }
       },
       {
@@ -151,7 +151,7 @@
         "key": "Expenses",
         "location": {
           "startingColumn": 25,
-          "startingLine": 148
+          "startingLine": 149
         }
       },
       {
@@ -159,7 +159,7 @@
         "key": "Debts",
         "location": {
           "startingColumn": 25,
-          "startingLine": 150
+          "startingLine": 151
         }
       },
       {
@@ -167,7 +167,7 @@
         "key": "About",
         "location": {
           "startingColumn": 34,
-          "startingLine": 157
+          "startingLine": 158
         }
       },
       {
@@ -175,7 +175,7 @@
         "key": "Version",
         "location": {
           "startingColumn": 25,
-          "startingLine": 159
+          "startingLine": 160
         }
       },
       {
@@ -183,7 +183,7 @@
         "key": "Your data is stored on this device only and is never sent to a server.",
         "location": {
           "startingColumn": 26,
-          "startingLine": 165
+          "startingLine": 166
         }
       },
       {
@@ -191,7 +191,7 @@
         "key": "Delete all data and start over",
         "location": {
           "startingColumn": 18,
-          "startingLine": 180
+          "startingLine": 181
         }
       }
     ]

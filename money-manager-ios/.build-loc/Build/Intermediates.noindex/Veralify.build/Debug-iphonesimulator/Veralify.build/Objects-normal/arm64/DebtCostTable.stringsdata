@@ -1,0 +1,64 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/DebtCostTable.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%@%%",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ left",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 84
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ interest",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "not cleared in this plan",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "gone by %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 98
+        }
+      },
+      {
+        "comment": "",
+        "key": "What you borrowed",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 118
+        }
+      },
+      {
+        "comment": "",
+        "key": "What it costs you",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 119
+        }
+      }
+    ]
+  },
+  "version": 1
+}

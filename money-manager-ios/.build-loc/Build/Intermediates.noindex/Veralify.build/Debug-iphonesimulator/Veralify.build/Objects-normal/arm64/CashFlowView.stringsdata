@@ -4,42 +4,106 @@
     "Localizable": [
       {
         "comment": "",
-        "key": "Net available flow",
+        "key": "Planned",
         "location": {
-          "startingColumn": 26,
-          "startingLine": 40
-        }
-      },
-      {
-        "comment": "",
-        "key": "Debt payments count against what's left because they are due every month, the same as rent. Anything you pay above the minimum comes out of what's left over.",
-        "location": {
-          "startingColumn": 14,
-          "startingLine": 143
-        }
-      },
-      {
-        "comment": "",
-        "key": "This month",
-        "location": {
-          "startingColumn": 34,
+          "startingColumn": 29,
           "startingLine": 48
         }
       },
       {
         "comment": "",
-        "key": "Income",
+        "key": "Spent",
         "location": {
-          "startingColumn": 28,
-          "startingLine": 53
+          "startingColumn": 29,
+          "startingLine": 49
         }
       },
       {
         "comment": "",
-        "key": "%lld sources",
+        "key": "Whole plan",
         "location": {
           "startingColumn": 29,
-          "startingLine": 54
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "Where it goes",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 67,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "Scope",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "No plan to analyse",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 193
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add a debt and Veralify works out what clearing it costs.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "left of the %@ that comes in",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "no income recorded yet",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "You are spending more than you earn",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ goes out against %@ coming in. Until that closes, the payoff plan cannot hold.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 177
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt payments count here because they are due every month, the same as rent. Anything you pay above the minimum comes out of what is left.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 182
         }
       },
       {
@@ -47,15 +111,7 @@
         "key": "Core expenses",
         "location": {
           "startingColumn": 28,
-          "startingLine": 62
-        }
-      },
-      {
-        "comment": "",
-        "key": "%lld recurring",
-        "location": {
-          "startingColumn": 29,
-          "startingLine": 63
+          "startingLine": 150
         }
       },
       {
@@ -63,31 +119,63 @@
         "key": "Debt payments",
         "location": {
           "startingColumn": 28,
-          "startingLine": 71
+          "startingLine": 158
         }
       },
       {
         "comment": "",
-        "key": "minimums on %lld debts",
+        "key": "Left over",
         "location": {
-          "startingColumn": 29,
-          "startingLine": 72
+          "startingColumn": 28,
+          "startingLine": 166
         }
       },
       {
         "comment": "",
-        "key": "%@%@",
+        "key": "Debt by debt",
         "location": {
-          "startingColumn": 22,
-          "startingLine": 106
+          "startingColumn": 38,
+          "startingLine": 216
         }
       },
       {
         "comment": "",
-        "key": "What's left",
+        "key": "Totals cover the months the plan actually runs for. A debt the plan does not reach is marked as such rather than counted.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 220
+        }
+      },
+      {
+        "comment": "",
+        "key": "Each month",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 233
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 238
+        }
+      },
+      {
+        "comment": "",
+        "key": "Yours at the end",
+        "location": {
+          "startingColumn": 17,
+          "startingLine": 243
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
         "location": {
           "startingColumn": 18,
-          "startingLine": 123
+          "startingLine": 316
         }
       }
     ]

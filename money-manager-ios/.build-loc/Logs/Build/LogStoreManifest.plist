@@ -6,7 +6,7 @@
 	<integer>13</integer>
 	<key>logs</key>
 	<dict>
-		<key>A3032810-9F35-4B78-88DC-086786B65BA8</key>
+		<key>576BCADC-1948-47E7-95A6-C28D62C635D1</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>A3032810-9F35-4B78-88DC-086786B65BA8.xcactivitylog</string>
+			<string>576BCADC-1948-47E7-95A6-C28D62C635D1.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -40,13 +40,13 @@
 			<key>signature</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>timeStartedRecording</key>
-			<real>811764589.38969004</real>
+			<real>811853438.89897394</real>
 			<key>timeStoppedRecording</key>
-			<real>811764602.84601903</real>
+			<real>811853453.19884205</real>
 			<key>title</key>
 			<string>Building project Veralify with scheme Veralify</string>
 			<key>uniqueIdentifier</key>
-			<string>A3032810-9F35-4B78-88DC-086786B65BA8</string>
+			<string>576BCADC-1948-47E7-95A6-C28D62C635D1</string>
 		</dict>
 	</dict>
 </dict>

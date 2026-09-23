@@ -102,7 +102,7 @@ struct AlertsSummary {
                   let days = BillSchedule.daysUntil(dueDay: day, from: now),
                   days <= Self.horizonDays
             else { continue }
-            bills.append(UpcomingBill(name: debt.name, amount: debt.minimumPayment, daysUntil: days, isDebt: true))
+            bills.append(UpcomingBill(name: debt.name, amount: debt.monthlyPayment, daysUntil: days, isDebt: true))
         }
         upcoming = bills.sorted { $0.daysUntil < $1.daysUntil }
 

@@ -6,7 +6,6 @@ struct QuickAddSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
-    let scope: EntryScope
     var initialDirection: EntryDirection = .debit
 
     @State private var direction: EntryDirection
@@ -18,8 +17,7 @@ struct QuickAddSheet: View {
     @State private var isNaming = false
     @State private var isCommitting = false
 
-    init(scope: EntryScope, initialDirection: EntryDirection = .debit) {
-        self.scope = scope
+    init(initialDirection: EntryDirection = .debit) {
         self.initialDirection = initialDirection
         _direction = State(initialValue: initialDirection)
     }
@@ -230,7 +228,6 @@ struct QuickAddSheet: View {
                 name: trimmed.isEmpty ? category : trimmed,
                 amount: amount,
                 direction: direction,
-                scope: scope,
                 category: category,
                 account: account
             )

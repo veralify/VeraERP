@@ -1,0 +1,16 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Transactions/MonthStrip.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "This month",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 63
+        }
+      }
+    ]
+  },
+  "version": 1
+}

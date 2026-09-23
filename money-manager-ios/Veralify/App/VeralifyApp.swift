@@ -12,7 +12,7 @@ struct VeralifyApp: App {
                 TransactionRecord.self, QuestCompletion.self,
                 DebtPayment.self, MonthlySnapshot.self,
                 FamilyMember.self, FamilyExpense.self, FamilySettlement.self,
-                StoredDocument.self
+                StoredDocument.self, CategoryBudget.self
             )
         } catch {
             // A store that cannot open is unrecoverable and silently showing an

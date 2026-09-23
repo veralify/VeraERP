@@ -14,14 +14,19 @@ struct TransactionsView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \TransactionRecord.occurredAt, order: .reverse) private var all: [TransactionRecord]
 
-    @State private var scope: EntryScope = .business
-    @State private var selectedDay: Date = Calendar.current.startOfDay(for: .now)
+    @State private var month: Date = Calendar.current.startOfMonth(for: .now)
     @State private var adding: EntryDirection?
     @State private var editing: TransactionRecord?
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// Every entry in the month, whatever scope it was recorded under.
+    ///
+    /// The Business/Personal bar is gone. It was an accounting dimension in a
+    /// household app, sitting permanently across the top of the ledger and
+    /// silently hiding half the entries from anyone who never noticed it. The
+    /// field stays on the model so nothing recorded under it is lost, and it
+    /// simply no longer decides what you can see.
     private var entries: [TransactionRecord] {
-        all.filter { $0.scope == scope }
+        all.filter { Calendar.current.isDate($0.occurredAt, equalTo: month, toGranularity: .month) }
     }
 
     /// Entries grouped by day, newest first — the shape the list renders.
@@ -36,18 +41,16 @@ struct TransactionsView: View {
     private var net: Decimal { credit - debit }
 
     var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
+        ScrollView {
                 VStack(spacing: 16) {
-                    scopeBar
-                    WeekStrip(selected: $selectedDay)
+                    MonthStrip(selected: $month)
                     balanceCard
 
                     if entries.isEmpty {
                         EmptyStateView(
                             icon: "list.bullet.rectangle",
-                            title: "No entries yet",
-                            message: "Add your first credit or debit to start the ledger."
+                            title: "Nothing this month",
+                            message: "Pick another month, or tap Add to record something."
                         )
                         .padding(.top, 20)
                     } else {
@@ -57,7 +60,6 @@ struct TransactionsView: View {
 
                         ForEach(days, id: \.day) { group in
                             daySection(group)
-                                .id(group.day)
                         }
                     }
                 }
@@ -68,19 +70,8 @@ struct TransactionsView: View {
                 .padding(.bottom, 28)
             }
             .scrollIndicators(.hidden)
-            .onChange(of: selectedDay) { _, day in
-                // Jump to the chosen day if it has entries; otherwise leave the
-                // list where it is rather than scrolling somewhere arbitrary.
-                guard days.contains(where: { $0.day == day }) else { return }
-                // A long scroll is exactly the kind of motion Reduce Motion is
-                // meant to suppress, so it jumps instead.
-                withAnimation(reduceMotion ? nil : .smooth(duration: 0.3)) {
-                    proxy.scrollTo(day, anchor: .top)
-                }
-            }
-        }
         .sheet(item: $adding) { direction in
-            QuickAddSheet(scope: scope, initialDirection: direction)
+            QuickAddSheet(initialDirection: direction)
                 .presentationBackground(Theme.background)
         }
         .sheet(item: $editing) { record in
@@ -91,27 +82,6 @@ struct TransactionsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Theme.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .onAppear { QuickAddRouter.shared.scope = scope }
-        .onChange(of: scope) { _, value in QuickAddRouter.shared.scope = value }
-    }
-
-    private var scopeBar: some View {
-        HStack(spacing: 4) {
-            ForEach(EntryScope.allCases) { option in
-                Button { scope = option } label: {
-                    Label(option.title, systemImage: "square.grid.2x2")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(scope == option ? Theme.textPrimary : Theme.textTertiary)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 9)
-                        .background(scope == option ? Theme.surfaceElevated : .clear, in: .capsule)
-                }
-                .buttonStyle(.pressableRow)
-            }
-            Spacer(minLength: 0)
-        }
-        .padding(4)
-        .background(Theme.surface, in: .capsule)
     }
 
     private var balanceCard: some View {
@@ -157,11 +127,35 @@ struct TransactionsView: View {
     }
 
     private func daySection(_ group: (day: Date, items: [TransactionRecord])) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(group.day.formatted(.dateTime.month(.wide).day().year()))
-                .font(.headline.weight(.semibold))
-                .foregroundStyle(Theme.textPrimary)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        let dayCredit = group.items.filter { $0.direction == .credit }.reduce(Decimal(0)) { $0 + $1.amount }
+        let dayDebit = group.items.filter { $0.direction == .debit }.reduce(Decimal(0)) { $0 + $1.amount }
+
+        return VStack(alignment: .leading, spacing: 10) {
+            // The day's own in and out beside its date: the question a ledger
+            // gets asked most is "what did that day cost me", and it was only
+            // answerable by adding the rows up by eye.
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(group.day.formatted(.dateTime.weekday(.abbreviated).day().month(.wide)))
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary)
+
+                Spacer(minLength: 8)
+
+                if dayCredit > 0 {
+                    Text("+\(CurrencyFormat.string(dayCredit))")
+                        .font(.caption.weight(.bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.green)
+                }
+                if dayDebit > 0 {
+                    Text("−\(CurrencyFormat.string(dayDebit))")
+                        .font(.caption.weight(.bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.red)
+                }
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
 
             ForEach(group.items) { item in
                 Button { editing = item } label: {
@@ -181,12 +175,10 @@ struct TransactionsView: View {
     }
 }
 
-/// Lets the floating dock open the quick-add sheet with the scope the user is
-/// currently looking at, without threading state through every screen.
+/// Carries the confirmation flash from the quick-add sheet up to the app level.
 @Observable
 final class QuickAddRouter {
     @MainActor static let shared = QuickAddRouter()
-    var scope: EntryScope = .business
     /// Set when an entry is committed; `MainTabView` shows the confirmation
     /// full-screen, which the sheet itself cannot do.
     var pendingFlash: EntryDirection?
@@ -196,51 +188,53 @@ struct TransactionRow: View {
     let record: TransactionRecord
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top, spacing: 12) {
-                Image(systemName: "hexagon")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Theme.textSecondary)
-                    .frame(width: 34, height: 34)
-                    .background(Theme.surfaceElevated, in: .circle)
+        HStack(spacing: 12) {
+            CategoryStyle.badge(record.category, size: 38)
 
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(record.name)
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(Theme.textPrimary)
-                        .lineLimit(1)
-                    Text(record.direction == .credit
-                         ? "In from \(record.account)"
-                         : "Out from \(record.account)")
-                        .font(.footnote)
-                        .foregroundStyle(Theme.textSecondary)
-                        .lineLimit(1)
-                }
+            VStack(alignment: .leading, spacing: 3) {
+                // The category leads and the note follows. A row titled with
+                // whatever got typed into "who's it for?" read as a list of
+                // strangers; the category is what the eye is scanning for.
+                Text(LocalizedStringKey(record.category))
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                    .lineLimit(1)
 
-                Spacer(minLength: 8)
+                Text(subtitle)
+                    .font(.footnote)
+                    .foregroundStyle(Theme.textTertiary)
+                    .lineLimit(1)
+            }
 
+            Spacer(minLength: 8)
+
+            VStack(alignment: .trailing, spacing: 2) {
                 Text("\(record.direction.sign)\(CurrencyFormat.string(record.amount))")
                     .font(.system(size: 16, weight: .bold))
                     .monospacedDigit()
                     .foregroundStyle(record.direction.accent)
-            }
-
-            HStack {
-                Text(record.category)
-                    .font(.caption.weight(.medium))
-                    .foregroundStyle(Theme.textSecondary)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
-                Spacer(minLength: 8)
                 Text(record.occurredAt.formatted(.dateTime.hour().minute()))
-                    .font(.caption)
+                    .font(.caption2)
+                    .monospacedDigit()
                     .foregroundStyle(Theme.textTertiary)
             }
         }
         .padding(14)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
         .accessibilityElement(children: .combine)
+    }
+
+    /// What was typed, or where the money moved when nothing was.
+    ///
+    /// An entry saved without a name gets the category as its name, so without
+    /// this the row printed "Bills" over "Bills".
+    private var subtitle: String {
+        guard !record.name.isEmpty, record.name != record.category else {
+            return record.direction == .credit
+                ? String(localized: "In from \(record.account)")
+                : String(localized: "Out from \(record.account)")
+        }
+        return record.name
     }
 }
 

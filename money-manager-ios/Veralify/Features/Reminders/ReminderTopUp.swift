@@ -21,7 +21,7 @@ struct ReminderTopUp: View {
     /// Everything a reminder's text or timing depends on. Anything else about a
     /// debt can change without the queue needing rebuilding.
     private var digest: String {
-        let debtParts = debts.map { "d\($0.remoteID):\($0.dueDay ?? -1):\($0.minimumPayment):\($0.name)" }
+        let debtParts = debts.map { "d\($0.remoteID):\($0.dueDay ?? -1):\($0.monthlyPayment):\($0.name)" }
         let expenseParts = expenses.filter(\.isActive).map { "e\($0.name):\($0.dueDay ?? -1):\($0.amount)" }
         let paymentParts = payments.filter { !$0.isPaid }.map { "p\($0.debtRemoteID):\($0.date.timeIntervalSince1970):\($0.amount)" }
         return (debtParts + expenseParts + paymentParts).joined(separator: "|")

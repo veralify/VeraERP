@@ -74,6 +74,54 @@
 			<string>متأخر</string>
 		</dict>
 	</dict>
+	<key>%lld days to go</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>بقيت %lld أيام</string>
+			<key>many</key>
+			<string>بقي %lld يومًا</string>
+			<key>one</key>
+			<string>بقي يوم واحد</string>
+			<key>other</key>
+			<string>بقي %lld يوم</string>
+			<key>two</key>
+			<string>بقي يومان</string>
+			<key>zero</key>
+			<string>انتهى الشهر</string>
+		</dict>
+	</dict>
+	<key>%lld entries</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld حركات</string>
+			<key>many</key>
+			<string>%lld حركةً</string>
+			<key>one</key>
+			<string>حركة واحدة</string>
+			<key>other</key>
+			<string>%lld حركة</string>
+			<key>two</key>
+			<string>حركتان</string>
+			<key>zero</key>
+			<string>لا حركات</string>
+		</dict>
+	</dict>
 	<key>%lld items have no due date, so nothing can be scheduled for them.</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -144,6 +192,78 @@
 			<string>لا أشهر</string>
 		</dict>
 	</dict>
+	<key>%lld months left of your plan</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>بقيت %lld أشهر من خطتك</string>
+			<key>many</key>
+			<string>بقي %lld شهرًا من خطتك</string>
+			<key>one</key>
+			<string>بقي شهر واحد من خطتك</string>
+			<key>other</key>
+			<string>بقي %lld شهر من خطتك</string>
+			<key>two</key>
+			<string>بقي شهران من خطتك</string>
+			<key>zero</key>
+			<string>لم يتبقَّ من خطتك شيء</string>
+		</dict>
+	</dict>
+	<key>%lld more budgets are counted but not charted.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld ميزانيات أخرى محتسبة لكنها غير مرسومة.</string>
+			<key>many</key>
+			<string>%lld ميزانيةً أخرى محتسبة لكنها غير مرسومة.</string>
+			<key>one</key>
+			<string>ميزانية واحدة أخرى محتسبة لكنها غير مرسومة.</string>
+			<key>other</key>
+			<string>%lld ميزانية أخرى محتسبة لكنها غير مرسومة.</string>
+			<key>two</key>
+			<string>ميزانيتان أخريان محتسبتان لكنهما غير مرسومتين.</string>
+			<key>zero</key>
+			<string>لا ميزانيات أخرى.</string>
+		</dict>
+	</dict>
+	<key>%lld over their limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>%lld تجاوزت سقفها</string>
+			<key>many</key>
+			<string>%lld تجاوزت سقفها</string>
+			<key>one</key>
+			<string>واحدة تجاوزت سقفها</string>
+			<key>other</key>
+			<string>%lld تجاوزت سقفها</string>
+			<key>two</key>
+			<string>اثنتان تجاوزتا سقفهما</string>
+			<key>zero</key>
+			<string>لا شيء تجاوز سقفه</string>
+		</dict>
+	</dict>
 	<key>%lld payments</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -166,30 +286,6 @@
 			<string>دفعتان</string>
 			<key>zero</key>
 			<string>لا دفعات</string>
-		</dict>
-	</dict>
-	<key>%lld recurring</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
-		<key>value</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>few</key>
-			<string>%lld بنود متكررة</string>
-			<key>many</key>
-			<string>%lld بندًا متكررًا</string>
-			<key>one</key>
-			<string>بند متكرر</string>
-			<key>other</key>
-			<string>%lld بند متكرر</string>
-			<key>two</key>
-			<string>بندان متكرران</string>
-			<key>zero</key>
-			<string>لا بنود متكررة</string>
 		</dict>
 	</dict>
 	<key>%lld scheduled</key>
@@ -216,7 +312,7 @@
 			<string>لا شيء مجدول</string>
 		</dict>
 	</dict>
-	<key>%lld sources</key>
+	<key>%lld-month repayment schedule%@</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
@@ -227,17 +323,17 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>few</key>
-			<string>%lld مصادر</string>
+			<string>جدول سداد على %lld أشهر%@</string>
 			<key>many</key>
-			<string>%lld مصدرًا</string>
+			<string>جدول سداد على %lld شهرًا%@</string>
 			<key>one</key>
-			<string>مصدر واحد</string>
+			<string>جدول سداد لشهر واحد%@</string>
 			<key>other</key>
-			<string>%lld مصدر</string>
+			<string>جدول سداد على %lld شهر%@</string>
 			<key>two</key>
-			<string>مصدران</string>
+			<string>جدول سداد لشهرين%@</string>
 			<key>zero</key>
-			<string>لا مصادر</string>
+			<string>جدول سداد%@</string>
 		</dict>
 	</dict>
 	<key>Alerts, %lld needing attention</key>
@@ -286,6 +382,30 @@
 			<string>خلال يومين</string>
 			<key>zero</key>
 			<string>اليوم</string>
+		</dict>
+	</dict>
+	<key>Last %lld months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>آخر %lld أشهر</string>
+			<key>many</key>
+			<string>آخر %lld شهرًا</string>
+			<key>one</key>
+			<string>آخر شهر</string>
+			<key>other</key>
+			<string>آخر %lld شهر</string>
+			<key>two</key>
+			<string>آخر شهرين</string>
+			<key>zero</key>
+			<string>لا أشهر</string>
 		</dict>
 	</dict>
 	<key>Showing %lld entries</key>
@@ -360,7 +480,7 @@
 			<string>اليوم</string>
 		</dict>
 	</dict>
-	<key>minimums on %lld debts</key>
+	<key>left across %lld budgets</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
@@ -371,17 +491,41 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>few</key>
-			<string>الحد الأدنى على %lld ديون</string>
+			<string>متبقٍ في %lld ميزانيات</string>
 			<key>many</key>
-			<string>الحد الأدنى على %lld دينًا</string>
+			<string>متبقٍ في %lld ميزانيةً</string>
 			<key>one</key>
-			<string>الحد الأدنى على دين واحد</string>
+			<string>متبقٍ في ميزانية واحدة</string>
 			<key>other</key>
-			<string>الحد الأدنى على %lld دين</string>
+			<string>متبقٍ في %lld ميزانية</string>
 			<key>two</key>
-			<string>الحد الأدنى على دينين</string>
+			<string>متبقٍ في ميزانيتين</string>
 			<key>zero</key>
-			<string>لا ديون</string>
+			<string>متبقٍ</string>
+		</dict>
+	</dict>
+	<key>to clear everything, over %lld months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>few</key>
+			<string>لسداد كل شيء خلال %lld أشهر</string>
+			<key>many</key>
+			<string>لسداد كل شيء خلال %lld شهرًا</string>
+			<key>one</key>
+			<string>لسداد كل شيء خلال شهر واحد</string>
+			<key>other</key>
+			<string>لسداد كل شيء خلال %lld شهر</string>
+			<key>two</key>
+			<string>لسداد كل شيء خلال شهرين</string>
+			<key>zero</key>
+			<string>لسداد كل شيء</string>
 		</dict>
 	</dict>
 </dict>

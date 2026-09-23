@@ -36,22 +36,38 @@ enum Theme {
     /// For text and glyphs sitting on top of a vivid accent fill.
     static let onAccent = Color(hex: 0x0C0C0F)
 
-    /// Distinct hues for flow destinations.
+    /// Distinct hues for categories, in fixed order.
     ///
-    /// The dashboard colours by meaning (lime surplus, red deficit). A Sankey
-    /// cannot: several debts would all be red and their ribbons would be
-    /// indistinguishable, so destinations are told apart by hue instead.
+    /// The dashboard colours by meaning (lime surplus, red deficit). A category
+    /// chart cannot: "Food" is not good or bad, it just needs telling apart from
+    /// "Transport". So these are chosen for separation, and the order is fixed —
+    /// a category keeps its colour however the ranking moves.
+    ///
+    /// Checked rather than eyeballed. The previous set failed on two counts: the
+    /// green and the yellow sat at ΔE 14 for normal vision and 6.9 for
+    /// protanopia, which is indistinguishable, and three of the six were so
+    /// desaturated they read as grey. This set holds ΔE 14.8 for deuteranopia
+    /// and 25.0 for normal vision at its worst adjacent pair, against the dark
+    /// surface. The red and the green are deliberately far apart in the order
+    /// and in lightness, which is what rescues the red-green case. The seventh
+    /// goes on the end rather than beside the green, where it would sit at
+    /// ΔE 2.5 for deuteranopia; on the end it holds 12.7.
     static let categorical: [Color] = [
-        Color(hex: 0x9FC5F0),
-        Color(hex: 0x7FD98C),
-        Color(hex: 0xF2D14E),
-        Color(hex: 0xF0A0A0),
-        Color(hex: 0xB9A6F5),
-        Color(hex: 0x6FD6C8)
+        Color(hex: 0x5AA9FB),  // blue
+        Color(hex: 0xFFCC33),  // amber
+        Color(hex: 0x22C9C0),  // teal
+        Color(hex: 0xB57BFF),  // violet
+        Color(hex: 0xE85D3C),  // coral
+        Color(hex: 0x7BEB8F),  // green
+        Color(hex: 0xFF7AB6)   // pink
     ]
 
+    /// Past the last colour, one grey. Never a generated hue — two generated
+    /// hues are a pair nobody can tell apart.
+    static let categoricalOther = Color(hex: 0x7A7A82)
+
     static func categorical(_ index: Int) -> Color {
-        categorical[index % categorical.count]
+        index < categorical.count ? categorical[index] : categoricalOther
     }
 
     enum Radius {

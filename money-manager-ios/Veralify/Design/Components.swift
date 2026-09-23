@@ -17,6 +17,14 @@ enum CurrencyFormat {
                 .precision(.fractionLength(2))
         )
     }
+
+    /// Just the symbol, for a row that puts it beside an editable number
+    /// rather than inside a formatted one.
+    static var symbol: String {
+        (Locale(identifier: "en_US") as NSLocale)
+            .displayName(forKey: .currencySymbol, value: AppSettings.currencyCode)
+            ?? AppSettings.currencyCode
+    }
 }
 
 extension Decimal {
@@ -259,11 +267,19 @@ struct FloatingTabBar: View {
     var isActionActive: Bool = false
     let onAction: () -> Void
 
-    private let tabs: [(icon: String, label: LocalizedStringKey)] = [
-        ("house.fill", "Today"),
-        ("map.fill", "Plan"),
-        ("person.2.fill", "Split"),
-        ("wallet.pass.fill", "Wallet")
+    /// A tab's mark. Most are SF Symbols; the board draws its own, because no
+    /// symbol is three circles of three different sizes and the equal-dot
+    /// clusters that come close read as a grid rather than as the board.
+    enum TabIcon {
+        case system(String)
+        case bubbles
+    }
+
+    private let tabs: [(icon: TabIcon, label: LocalizedStringKey)] = [
+        (.system("house.fill"), "Today"),
+        (.bubbles, "Board"),
+        (.system("person.2.fill"), "Split"),
+        (.system("wallet.pass.fill"), "Wallet")
     ]
     /// Destinations before the action; the rest sit after it. Two either side
     /// keeps the accent button centred.
@@ -305,16 +321,61 @@ struct FloatingTabBar: View {
     }
 
     private func tabButton(index: Int) -> some View {
-        Button {
+        let isSelected = selection == index
+
+        return Button {
             selection = index
         } label: {
-            Image(systemName: tabs[index].icon)
-                .font(.system(size: 17, weight: .medium))
-                .foregroundStyle(selection == index ? Theme.textPrimary : Theme.textTertiary)
-                .symbolEffect(.bounce, value: selection == index)
-                .frame(width: 46, height: 40)
+            Group {
+                switch tabs[index].icon {
+                case .system(let name):
+                    Image(systemName: name)
+                        .font(.system(size: 17, weight: .medium))
+                        .symbolEffect(.bounce, value: isSelected)
+                case .bubbles:
+                    BubblesMark()
+                        .frame(width: 20, height: 20)
+                        .scaleEffect(isSelected ? 1.12 : 1)
+                        .animation(.bouncy(duration: 0.4), value: isSelected)
+                }
+            }
+            .foregroundStyle(isSelected ? Theme.textPrimary : Theme.textTertiary)
+            .frame(width: 46, height: 40)
         }
         .buttonStyle(.pressable)
         .accessibilityLabel(tabs[index].label)
+    }
+}
+
+/// Three circles at three sizes, laid out the way the board lays out money:
+/// one large, one medium, one small, with air between them.
+///
+/// The gaps are the whole mark. Circles that touch merge into one silhouette
+/// at 20pt and the icon reads as a blob, so the radii are set to leave a clear
+/// margin between every pair rather than to fill the box.
+struct BubblesMark: View {
+    var body: some View {
+        Canvas { context, size in
+            let unit = min(size.width, size.height)
+            // Radii and centres as fractions of the box, so the mark scales
+            // with the type around it.
+            let circles: [(x: Double, y: Double, r: Double)] = [
+                (0.30, 0.37, 0.27),
+                (0.81, 0.21, 0.16),
+                (0.75, 0.77, 0.20)
+            ]
+
+            for circle in circles {
+                let radius = circle.r * unit
+                let rect = CGRect(
+                    x: circle.x * unit - radius,
+                    y: circle.y * unit - radius,
+                    width: radius * 2,
+                    height: radius * 2
+                )
+                context.fill(Path(ellipseIn: rect), with: .style(.foreground))
+            }
+        }
+        .accessibilityHidden(true)
     }
 }

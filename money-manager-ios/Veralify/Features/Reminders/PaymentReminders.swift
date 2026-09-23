@@ -162,9 +162,9 @@ enum PaymentReminders {
             for lead in leads {
                 candidates.append(
                     contentsOf: reminders(
-                        identifier: "debt.\(debt.remoteID).\(key("\(dueDay)", "\(debt.minimumPayment)", debt.name)).\(lead)",
+                        identifier: "debt.\(debt.remoteID).\(key("\(dueDay)", "\(debt.monthlyPayment)", debt.name)).\(lead)",
                         name: debt.name,
-                        amount: debt.minimumPayment,
+                        amount: debt.monthlyPayment,
                         dates: dates,
                         lead: lead,
                         hour: hour,

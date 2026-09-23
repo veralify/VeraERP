@@ -27,6 +27,15 @@ struct RootView: View {
                         .navigationDestination(for: CashFlowRoute.self) { _ in
                             CashFlowView()
                         }
+                        .navigationDestination(for: WholePlanRoute.self) { _ in
+                            CashFlowView(scope: .plan)
+                        }
+                        .navigationDestination(for: BudgetsRoute.self) { _ in
+                            BudgetsView()
+                        }
+                        .navigationDestination(for: CategoryRoute.self) { route in
+                            CategoryDetailView(route: route)
+                        }
                 }
             } else {
                 OnboardingView { hasCompletedOnboarding = true }

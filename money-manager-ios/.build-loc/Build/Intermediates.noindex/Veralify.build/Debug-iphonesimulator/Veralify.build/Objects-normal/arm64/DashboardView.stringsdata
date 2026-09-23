@@ -7,7 +7,7 @@
         "key": "Your payoff plan",
         "location": {
           "startingColumn": 29,
-          "startingLine": 548
+          "startingLine": 524
         }
       },
       {
@@ -140,26 +140,10 @@
       },
       {
         "comment": "",
-        "key": "%@%@",
-        "location": {
-          "startingColumn": 22,
-          "startingLine": 483
-        }
-      },
-      {
-        "comment": "",
-        "key": "Entry",
-        "location": {
-          "startingColumn": 66,
-          "startingLine": 471
-        }
-      },
-      {
-        "comment": "",
         "key": "Net available flow",
         "location": {
           "startingColumn": 22,
-          "startingLine": 522
+          "startingLine": 498
         }
       },
       {
@@ -167,7 +151,7 @@
         "key": "After expenses and payments",
         "location": {
           "startingColumn": 19,
-          "startingLine": 525
+          "startingLine": 501
         }
       },
       {
@@ -175,7 +159,7 @@
         "key": "Your commitments exceed your income this month",
         "location": {
           "startingColumn": 19,
-          "startingLine": 526
+          "startingLine": 502
         }
       },
       {
@@ -183,7 +167,7 @@
         "key": "%@ paid off",
         "location": {
           "startingColumn": 34,
-          "startingLine": 538
+          "startingLine": 514
         }
       },
       {
@@ -191,7 +175,7 @@
         "key": "Nothing paid off yet",
         "location": {
           "startingColumn": 79,
-          "startingLine": 537
+          "startingLine": 513
         }
       },
       {
@@ -199,7 +183,7 @@
         "key": "Debt-free",
         "location": {
           "startingColumn": 69,
-          "startingLine": 536
+          "startingLine": 512
         }
       },
       {
@@ -207,7 +191,7 @@
         "key": "Achievable",
         "location": {
           "startingColumn": 41,
-          "startingLine": 559
+          "startingLine": 535
         }
       },
       {
@@ -215,7 +199,7 @@
         "key": "Needs adjusting",
         "location": {
           "startingColumn": 41,
-          "startingLine": 560
+          "startingLine": 536
         }
       },
       {
@@ -223,7 +207,7 @@
         "key": "%lld months",
         "location": {
           "startingColumn": 42,
-          "startingLine": 563
+          "startingLine": 539
         }
       }
     ]

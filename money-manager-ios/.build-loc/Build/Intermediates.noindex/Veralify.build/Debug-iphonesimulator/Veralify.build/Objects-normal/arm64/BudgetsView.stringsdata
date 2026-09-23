@@ -1,0 +1,248 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Budgets/BudgetsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Budgets",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 75
+        }
+      },
+      {
+        "comment": "",
+        "key": "No budgets yet",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 52
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set a monthly limit on a category and this shows how the month is going against it.",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 53
+        }
+      },
+      {
+        "comment": "",
+        "key": "Set your first budget",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Budgets are measured against what you log, nothing else. They do not change your plan or what your debts cost.",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "New budget",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 82
+        }
+      },
+      {
+        "comment": "",
+        "key": "·",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 125
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld days to go",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 126
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld of %lld over the limit",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "left across %lld budgets",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 124
+        }
+      },
+      {
+        "comment": "",
+        "key": "Over",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 155
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ahead of pace",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 157
+        }
+      },
+      {
+        "comment": "",
+        "key": "over",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 169
+        }
+      },
+      {
+        "comment": "",
+        "key": "left",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 169
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ of %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 178
+        }
+      },
+      {
+        "comment": "",
+        "key": "·",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%% spent",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 181
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld entries",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 184
+        }
+      },
+      {
+        "comment": "",
+        "key": "New budget",
+        "location": {
+          "startingColumn": 48,
+          "startingLine": 280
+        }
+      },
+      {
+        "comment": "",
+        "key": "Edit budget",
+        "location": {
+          "startingColumn": 63,
+          "startingLine": 280
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remove this budget?",
+        "location": {
+          "startingColumn": 33,
+          "startingLine": 289
+        }
+      },
+      {
+        "comment": "",
+        "key": "Every category already has a budget. Edit one instead.",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 248
+        }
+      },
+      {
+        "comment": "",
+        "key": "Save budget",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 267
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remove this budget",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 270
+        }
+      },
+      {
+        "comment": "",
+        "key": "Monthly limit",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 258
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 259
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 286
+        }
+      },
+      {
+        "comment": "",
+        "key": "Remove",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 290
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 291
+        }
+      },
+      {
+        "comment": "",
+        "key": "The entries stay. Only the limit goes.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 293
+        }
+      }
+    ]
+  },
+  "version": 1
+}

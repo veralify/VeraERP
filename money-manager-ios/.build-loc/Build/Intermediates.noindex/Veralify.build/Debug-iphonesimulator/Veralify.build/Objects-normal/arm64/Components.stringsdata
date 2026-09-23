@@ -6,32 +6,32 @@
         "comment": "",
         "key": "Today",
         "location": {
-          "startingColumn": 24,
-          "startingLine": 263
+          "startingColumn": 33,
+          "startingLine": 279
         }
       },
       {
         "comment": "",
-        "key": "Plan",
+        "key": "Board",
         "location": {
-          "startingColumn": 22,
-          "startingLine": 264
+          "startingColumn": 20,
+          "startingLine": 280
         }
       },
       {
         "comment": "",
         "key": "Split",
         "location": {
-          "startingColumn": 27,
-          "startingLine": 265
+          "startingColumn": 36,
+          "startingLine": 281
         }
       },
       {
         "comment": "",
         "key": "Wallet",
         "location": {
-          "startingColumn": 30,
-          "startingLine": 266
+          "startingColumn": 39,
+          "startingLine": 282
         }
       },
       {
@@ -39,39 +39,39 @@
         "key": "Close",
         "location": {
           "startingColumn": 46,
-          "startingLine": 304
+          "startingLine": 320
         }
       },
       {
         "comment": "",
         "key": "Today",
         "location": {
-          "startingColumn": 24,
-          "startingLine": 263
+          "startingColumn": 33,
+          "startingLine": 279
         }
       },
       {
         "comment": "",
-        "key": "Plan",
+        "key": "Board",
         "location": {
-          "startingColumn": 22,
-          "startingLine": 264
+          "startingColumn": 20,
+          "startingLine": 280
         }
       },
       {
         "comment": "",
         "key": "Split",
         "location": {
-          "startingColumn": 27,
-          "startingLine": 265
+          "startingColumn": 36,
+          "startingLine": 281
         }
       },
       {
         "comment": "",
         "key": "Wallet",
         "location": {
-          "startingColumn": 30,
-          "startingLine": 266
+          "startingColumn": 39,
+          "startingLine": 282
         }
       }
     ]

@@ -1,0 +1,320 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Journey/PlanPDFLayouts.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "WHAT YOU STILL OWE",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "WHAT YOU KEEP",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 36
+        }
+      },
+      {
+        "comment": "",
+        "key": "MILESTONES",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt free",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "WHAT EACH DEBT COSTS",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clearing %@ takes %lld months at %@ a month, finishing in %@. The borrowing itself costs %@, which is %lld%% of everything handed over.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 81
+        }
+      },
+      {
+        "comment": "",
+        "key": "Principal",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total paid",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "Kept by the end",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 93
+        }
+      },
+      {
+        "comment": "",
+        "key": "WHAT EACH DEBT COSTS",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "Borrowed",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 110
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 111
+        }
+      },
+      {
+        "comment": "",
+        "key": "THE BALANCE, MONTH BY MONTH",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 124
+        }
+      },
+      {
+        "comment": "",
+        "key": "beyond this plan",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ paid · %@ left · %@ in hand",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 159
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt free",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 166
+        }
+      },
+      {
+        "comment": "",
+        "key": "WHAT YOU STILL OWE",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "WHAT YOU KEEP",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "WHAT EACH DEBT COSTS",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 202
+        }
+      },
+      {
+        "comment": "",
+        "key": "Borrowed",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 206
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 207
+        }
+      },
+      {
+        "comment": "",
+        "key": "Month",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 216
+        }
+      },
+      {
+        "comment": "",
+        "key": "Payment",
+        "location": {
+          "startingColumn": 66,
+          "startingLine": 216
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interest",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 217
+        }
+      },
+      {
+        "comment": "",
+        "key": "Principal",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 217
+        }
+      },
+      {
+        "comment": "",
+        "key": "Balance",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 218
+        }
+      },
+      {
+        "comment": "",
+        "key": "In hand",
+        "location": {
+          "startingColumn": 68,
+          "startingLine": 218
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cleared",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "Debt free",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 251
+        }
+      },
+      {
+        "comment": "",
+        "key": "paid",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 291
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ left",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 299
+        }
+      },
+      {
+        "comment": "",
+        "key": "Settled %@",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 332
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total paid",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 337
+        }
+      },
+      {
+        "comment": "",
+        "key": "Of which interest",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 338
+        }
+      },
+      {
+        "comment": "",
+        "key": "PERIOD",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 351
+        }
+      },
+      {
+        "comment": "",
+        "key": "PAID",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 353
+        }
+      },
+      {
+        "comment": "",
+        "key": "REMAINING",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 357
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not cleared in this plan",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 331
+        }
+      }
+    ]
+  },
+  "version": 1
+}

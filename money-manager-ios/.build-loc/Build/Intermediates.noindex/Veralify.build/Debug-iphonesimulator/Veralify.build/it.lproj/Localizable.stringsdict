@@ -50,6 +50,38 @@
 			<string>In ritardo di %lld giorni</string>
 		</dict>
 	</dict>
+	<key>%lld days to go</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>manca %lld giorno</string>
+			<key>other</key>
+			<string>mancano %lld giorni</string>
+		</dict>
+	</dict>
+	<key>%lld entries</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld voce</string>
+			<key>other</key>
+			<string>%lld voci</string>
+		</dict>
+	</dict>
 	<key>%lld items have no due date, so nothing can be scheduled for them.</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -98,6 +130,54 @@
 			<string>%lld mesi</string>
 		</dict>
 	</dict>
+	<key>%lld months left of your plan</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld mese rimasto del tuo piano</string>
+			<key>other</key>
+			<string>%lld mesi rimasti del tuo piano</string>
+		</dict>
+	</dict>
+	<key>%lld more budgets are counted but not charted.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld altro budget è conteggiato ma non nel grafico.</string>
+			<key>other</key>
+			<string>%lld altri budget sono conteggiati ma non nel grafico.</string>
+		</dict>
+	</dict>
+	<key>%lld over their limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld oltre il limite</string>
+			<key>other</key>
+			<string>%lld oltre il limite</string>
+		</dict>
+	</dict>
 	<key>%lld payments</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -112,22 +192,6 @@
 			<string>%lld rata</string>
 			<key>other</key>
 			<string>%lld rate</string>
-		</dict>
-	</dict>
-	<key>%lld recurring</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
-		<key>value</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%lld ricorrente</string>
-			<key>other</key>
-			<string>%lld ricorrenti</string>
 		</dict>
 	</dict>
 	<key>%lld scheduled</key>
@@ -146,7 +210,7 @@
 			<string>%lld programmati</string>
 		</dict>
 	</dict>
-	<key>%lld sources</key>
+	<key>%lld-month repayment schedule%@</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
@@ -157,9 +221,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>one</key>
-			<string>%lld fonte</string>
+			<string>Piano di rimborso in %lld mese%@</string>
 			<key>other</key>
-			<string>%lld fonti</string>
+			<string>Piano di rimborso in %lld mesi%@</string>
 		</dict>
 	</dict>
 	<key>Alerts, %lld needing attention</key>
@@ -192,6 +256,22 @@
 			<string>Fra %lld giorno</string>
 			<key>other</key>
 			<string>Fra %lld giorni</string>
+		</dict>
+	</dict>
+	<key>Last %lld months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>Ultimo %lld mese</string>
+			<key>other</key>
+			<string>Ultimi %lld mesi</string>
 		</dict>
 	</dict>
 	<key>Showing %lld entries</key>
@@ -242,7 +322,7 @@
 			<string>tra %lld giorni</string>
 		</dict>
 	</dict>
-	<key>minimums on %lld debts</key>
+	<key>left across %lld budgets</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
@@ -253,9 +333,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>one</key>
-			<string>minimo su %lld debito</string>
+			<string>rimasti in %lld budget</string>
 			<key>other</key>
-			<string>minimi su %lld debiti</string>
+			<string>rimasti su %lld budget</string>
+		</dict>
+	</dict>
+	<key>to clear everything, over %lld months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>per estinguere tutto, in %lld mese</string>
+			<key>other</key>
+			<string>per estinguere tutto, in %lld mesi</string>
 		</dict>
 	</dict>
 </dict>

@@ -50,6 +50,38 @@
 			<string>%lld days late</string>
 		</dict>
 	</dict>
+	<key>%lld days to go</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld day to go</string>
+			<key>other</key>
+			<string>%lld days to go</string>
+		</dict>
+	</dict>
+	<key>%lld entries</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld entry</string>
+			<key>other</key>
+			<string>%lld entries</string>
+		</dict>
+	</dict>
 	<key>%lld items have no due date, so nothing can be scheduled for them.</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -114,6 +146,38 @@
 			<string>%lld months left of your plan</string>
 		</dict>
 	</dict>
+	<key>%lld more budgets are counted but not charted.</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld more budget is counted but not charted.</string>
+			<key>other</key>
+			<string>%lld more budgets are counted but not charted.</string>
+		</dict>
+	</dict>
+	<key>%lld over their limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld over its limit</string>
+			<key>other</key>
+			<string>%lld over their limit</string>
+		</dict>
+	</dict>
 	<key>%lld payments</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -128,22 +192,6 @@
 			<string>%lld payment</string>
 			<key>other</key>
 			<string>%lld payments</string>
-		</dict>
-	</dict>
-	<key>%lld recurring</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@value@</string>
-		<key>value</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>lld</string>
-			<key>one</key>
-			<string>%lld recurring</string>
-			<key>other</key>
-			<string>%lld recurring</string>
 		</dict>
 	</dict>
 	<key>%lld scheduled</key>
@@ -162,7 +210,7 @@
 			<string>%lld scheduled</string>
 		</dict>
 	</dict>
-	<key>%lld sources</key>
+	<key>%lld-month repayment schedule%@</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
@@ -173,9 +221,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>one</key>
-			<string>%lld source</string>
+			<string>%lld-month repayment schedule%@</string>
 			<key>other</key>
-			<string>%lld sources</string>
+			<string>%lld-month repayment schedule%@</string>
 		</dict>
 	</dict>
 	<key>Alerts, %lld needing attention</key>
@@ -208,6 +256,22 @@
 			<string>In %lld day</string>
 			<key>other</key>
 			<string>In %lld days</string>
+		</dict>
+	</dict>
+	<key>Last %lld months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>Last %lld month</string>
+			<key>other</key>
+			<string>Last %lld months</string>
 		</dict>
 	</dict>
 	<key>Showing %lld entries</key>
@@ -258,7 +322,7 @@
 			<string>in %lld days</string>
 		</dict>
 	</dict>
-	<key>minimums on %lld debts</key>
+	<key>left across %lld budgets</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@value@</string>
@@ -269,9 +333,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>lld</string>
 			<key>one</key>
-			<string>minimum on %lld debt</string>
+			<string>left in %lld budget</string>
 			<key>other</key>
-			<string>minimums on %lld debts</string>
+			<string>left across %lld budgets</string>
+		</dict>
+	</dict>
+	<key>to clear everything, over %lld months</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>to clear everything, over %lld month</string>
+			<key>other</key>
+			<string>to clear everything, over %lld months</string>
 		</dict>
 	</dict>
 </dict>

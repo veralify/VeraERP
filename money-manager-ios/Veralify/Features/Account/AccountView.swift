@@ -22,6 +22,7 @@ struct AccountView: View {
     @Query private var familyExpenses: [FamilyExpense]
     @Query private var familySettlements: [FamilySettlement]
     @Query private var documents: [StoredDocument]
+    @Query private var budgets: [CategoryBudget]
 
     @State private var isConfirmingReset = false
     @State private var isShowingRestartNote = false
@@ -218,6 +219,7 @@ struct AccountView: View {
         for item in familyExpenses { context.delete(item) }
         for item in familySettlements { context.delete(item) }
         for item in documents { context.delete(item) }
+        for item in budgets { context.delete(item) }
         try? context.save()
         // Send the user back through setup so the app is never left in a state
         // with no income, no debts and no way to add the first one.

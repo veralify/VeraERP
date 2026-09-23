@@ -182,7 +182,7 @@ struct DashboardView: View {
                                 Text(LocalizedStringKey(debt.name))
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(Theme.textPrimary)
-                                Text(CurrencyFormat.string(debt.minimumPayment))
+                                Text(CurrencyFormat.string(debt.monthlyPayment))
                                     .font(.subheadline.weight(.bold))
                                     .monospacedDigit()
                                     .foregroundStyle(Theme.textSecondary)
@@ -272,7 +272,7 @@ struct DashboardView: View {
                 DueItem(
                     id: "debt-\(debt.remoteID)",
                     name: debt.name,
-                    amount: debt.minimumPayment,
+                    amount: debt.monthlyPayment,
                     date: date,
                     daysUntil: days,
                     debt: debt
@@ -458,35 +458,11 @@ struct DashboardView: View {
         }
     }
 
+    /// The ledger's own row, so the two screens cannot drift apart in what an
+    /// entry looks like.
     private func entryRow(_ record: TransactionRecord) -> some View {
         NavigationLink(value: LedgerRoute()) {
-            HStack(spacing: 12) {
-                Image(systemName: record.direction.icon)
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(record.direction.accent)
-                    .frame(width: 30, height: 30)
-                    .background(record.direction.accent.opacity(0.14), in: .rect(cornerRadius: 9))
-
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(record.name.isEmpty ? String(localized: "Entry") : record.name)
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Theme.textPrimary)
-                        .lineLimit(1)
-                    Text(record.category)
-                        .font(.caption)
-                        .foregroundStyle(Theme.textTertiary)
-                        .lineLimit(1)
-                }
-
-                Spacer(minLength: 8)
-
-                Text("\(record.direction.sign)\(CurrencyFormat.string(record.amount))")
-                    .font(.subheadline.weight(.bold))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textPrimary)
-            }
-            .padding(.vertical, 11)
-            .contentShape(.rect)
+            TransactionRow(record: record)
         }
         .buttonStyle(.pressableRow)
     }
@@ -591,7 +567,9 @@ struct DashboardSummary {
         totalIncome = income.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount }
         totalExpenses = expenses.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount }
         totalDebt = debts.reduce(Decimal(0)) { $0 + $1.balance }
-        totalDebtMinimums = debts.reduce(Decimal(0)) { $0 + $1.minimumPayment }
+        // What leaves each month, not what the lender's floor is: money the
+        // user has committed on top is gone from the leftover too.
+        totalDebtMinimums = debts.reduce(Decimal(0)) { $0 + $1.monthlyPayment }
         plan = PlanCache.plan(
             debts: debts.map(\.asDebt),
             monthlyIncome: totalIncome,

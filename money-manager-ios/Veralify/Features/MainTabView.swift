@@ -36,7 +36,7 @@ struct MainTabView: View {
 
     private var title: LocalizedStringKey {
         switch selection {
-        case 1:  "Plan"
+        case 1:  "Board"
         case 2:  "Split"
         case 3:  "Wallet"
         default: "Today"
@@ -49,7 +49,7 @@ struct MainTabView: View {
 
             Group {
                 switch selection {
-                case 1:  JourneyView()
+                case 1:  BubbleBoardView()
                 case 2:  FamilyView()
                 case 3:  IDVaultView()
                 default: DashboardView(onOpenPlan: { selection = 1 })
@@ -120,7 +120,7 @@ struct MainTabView: View {
     private func sheet(for destination: Destination) -> some View {
         switch destination {
         case .quickAdd:
-            QuickAddSheet(scope: QuickAddRouter.shared.scope)
+            QuickAddSheet()
                 // Stops short of the top so the ledger stays visible behind it,
                 // which keeps the sheet feeling like a step rather than a
                 // different screen.

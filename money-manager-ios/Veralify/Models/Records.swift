@@ -17,7 +17,17 @@ final class DebtRecord {
     var balance: Decimal
     /// Annual percentage rate as a percentage: 18.5 means 18.5%.
     var apr: Decimal
+    /// What the lender requires. A floor, not a plan — it only changes when
+    /// the lender changes it, so nothing in the app writes to it except the
+    /// user editing it directly.
     var minimumPayment: Decimal
+    /// What the user has chosen to pay on top of the minimum, each month.
+    ///
+    /// Separate from the minimum because the board lets you move money onto a
+    /// debt and take it back again. Folded into the minimum, a month of
+    /// overpaying would raise the floor permanently and there would be no way
+    /// left to tell what the lender actually asks for.
+    var extraPayment: Decimal = 0
     var dueDay: Int?
     var priority: Int
     var createdAt: Date
@@ -28,6 +38,7 @@ final class DebtRecord {
         balance: Decimal,
         apr: Decimal,
         minimumPayment: Decimal,
+        extraPayment: Decimal = 0,
         dueDay: Int? = nil,
         priority: Int = 1,
         createdAt: Date = .now
@@ -37,19 +48,27 @@ final class DebtRecord {
         self.balance = balance
         self.apr = apr
         self.minimumPayment = minimumPayment
+        self.extraPayment = extraPayment
         self.dueDay = dueDay
         self.priority = priority
         self.createdAt = createdAt
     }
 
+    /// What actually leaves the account for this debt each month.
+    var monthlyPayment: Decimal { minimumPayment + max(extraPayment, 0) }
+
     /// The value type the payoff engine consumes.
+    ///
+    /// The engine takes one figure per debt and treats it as the amount
+    /// committed before any surplus is steered, which is exactly what the
+    /// minimum plus the chosen extra is.
     var asDebt: Debt {
         Debt(
             id: remoteID,
             name: name,
             balance: balance,
             apr: apr,
-            minimumPayment: minimumPayment,
+            minimumPayment: monthlyPayment,
             dueDay: dueDay,
             priority: priority
         )

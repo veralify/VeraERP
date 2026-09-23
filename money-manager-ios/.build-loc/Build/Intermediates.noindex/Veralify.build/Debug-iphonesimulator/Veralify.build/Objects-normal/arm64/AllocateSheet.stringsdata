@@ -1,0 +1,88 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Board/AllocateSheet.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "There is nothing left over to move this month.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 129
+        }
+      },
+      {
+        "comment": "",
+        "key": "You are only paying the minimum on this one, so there is nothing extra to take back.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 130
+        }
+      },
+      {
+        "comment": "",
+        "key": "Swipe to apply",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 143
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pay more on %@",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "Pay less on %@",
+        "location": {
+          "startingColumn": 60,
+          "startingLine": 49
+        }
+      },
+      {
+        "comment": "",
+        "key": "Moved out of what is left over this month.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Given back to what is left over this month.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "Extra each month",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 121
+        }
+      },
+      {
+        "comment": "",
+        "key": "Total each month",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "Minimum payment",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 94
+        }
+      }
+    ]
+  },
+  "version": 1
+}

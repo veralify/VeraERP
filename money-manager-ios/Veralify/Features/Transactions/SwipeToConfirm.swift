@@ -30,19 +30,17 @@ struct SwipeToConfirm: View {
             ZStack(alignment: .leading) {
                 Capsule()
                     .fill(Theme.surfaceElevated)
-                    .overlay(Capsule().fill(accent.opacity(0.18)))
 
-                // Solid fill trailing the knob, so the track visibly commits as
-                // the drag progresses rather than only changing tint.
-                Capsule()
-                    .fill(
-                        LinearGradient(
-                            colors: [accent.opacity(0.95), accent.opacity(0.65)],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .frame(width: offset + knob + 5)
+                // The grid is the track. Cells behind the knob burn steadily;
+                // the rest only catch the light sweeping across, which gives
+                // the bar something to say before the finger arrives.
+                DotMatrixTrack(
+                    accent: accent,
+                    progress: progress,
+                    isAnimated: enabled && !reduceMotion && !isConfirming
+                )
+                .padding(.horizontal, 6)
+                .clipShape(.capsule)
 
                 Capsule()
                     .strokeBorder(accent.opacity(0.4 + 0.4 * progress), lineWidth: 1)
@@ -50,6 +48,10 @@ struct SwipeToConfirm: View {
                 Text(title)
                     .font(.body.weight(.semibold))
                     .foregroundStyle(Theme.textPrimary.opacity(enabled ? 1 - progress * 0.6 : 0.35))
+                    // The grid is busy and bright; a plain label sat on it
+                    // goes muddy, so it carries its own darkness with it.
+                    .shadow(color: .black.opacity(0.8), radius: 5)
+                    .shadow(color: .black.opacity(0.5), radius: 12)
                     .frame(maxWidth: .infinity)
 
                 Circle()

@@ -1,0 +1,32 @@
+{
+  "source": "/Users/abdelwahab/veralify/money-manager-ios/Veralify/Features/Dashboard/CategoryDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Nothing here",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "No entries in this category for the period you picked.",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 51
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld entries",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 80
+        }
+      }
+    ]
+  },
+  "version": 1
+}
