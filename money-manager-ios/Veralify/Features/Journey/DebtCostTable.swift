@@ -26,7 +26,10 @@ struct DebtCostTable: View {
                 row(total)
             }
 
-            legend
+            // A key to bars that are not there is a stray line of text.
+            if !perDebt.isEmpty {
+                legend
+            }
         }
     }
 
@@ -48,14 +51,21 @@ struct DebtCostTable: View {
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
                         .background(Theme.red.opacity(0.14), in: .capsule)
+                        // A rate wrapped onto two lines inside a capsule reads
+                        // as a broken pill; the name gives way instead.
+                        .fixedSize()
                 }
 
                 Spacer(minLength: 8)
 
+                // The column every row is compared on: always whole, always
+                // against the trailing edge.
                 Text(CurrencyFormat.string(total.paid))
                     .font(.subheadline.weight(.bold))
                     .monospacedDigit()
                     .foregroundStyle(Theme.textPrimary)
+                    .lineLimit(1)
+                    .layoutPriority(1)
             }
 
             GeometryReader { geometry in
@@ -79,29 +89,20 @@ struct DebtCostTable: View {
             }
             .frame(height: 7)
 
-            HStack(spacing: 8) {
-                if let balance = debt?.balance {
-                    Text("\(CurrencyFormat.string(balance)) left")
-                        .font(.caption2)
-                        .foregroundStyle(Theme.textTertiary)
+            // Three facts on one line when they fit. On a small phone, or in
+            // a longer language, they did not, and the date at the end was
+            // the one truncated — so it moves to a line of its own instead.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) {
+                    amounts(total, balance: debt?.balance)
+                    Spacer(minLength: 4)
+                    clearance(total)
                 }
-
-                if total.interest > 0 {
-                    Text("\(CurrencyFormat.string(total.interest)) interest")
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(Theme.red)
-                }
-
-                Spacer(minLength: 4)
-
-                if let cleared = total.clearedMonth {
-                    Text("gone by \(JourneyStep.title(for: cleared))")
-                        .font(.caption2)
-                        .foregroundStyle(Theme.textTertiary)
-                } else {
-                    Text("not cleared in this plan")
-                        .font(.caption2)
-                        .foregroundStyle(Theme.yellow)
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
+                        amounts(total, balance: debt?.balance)
+                    }
+                    clearance(total)
                 }
             }
             .lineLimit(1)
@@ -113,11 +114,40 @@ struct DebtCostTable: View {
         .accessibilityElement(children: .combine)
     }
 
+    @ViewBuilder
+    private func amounts(_ total: JourneyDebtTotal, balance: Decimal?) -> some View {
+        if let balance {
+            Text("\(CurrencyFormat.string(balance)) left")
+                .font(.caption2)
+                .foregroundStyle(Theme.textTertiary)
+        }
+
+        if total.interest > 0 {
+            Text("\(CurrencyFormat.string(total.interest)) interest")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Theme.red)
+        }
+    }
+
+    @ViewBuilder
+    private func clearance(_ total: JourneyDebtTotal) -> some View {
+        if let cleared = total.clearedMonth {
+            Text("gone by \(JourneyStep.title(for: cleared))")
+                .font(.caption2)
+                .foregroundStyle(Theme.textTertiary)
+        } else {
+            Text("not cleared in this plan")
+                .font(.caption2)
+                .foregroundStyle(Theme.yellow)
+        }
+    }
+
+    /// Wraps rather than squeezes: at larger text sizes the two keys do not
+    /// share one line on a phone.
     private var legend: some View {
-        HStack(spacing: 14) {
+        FlowRow(spacing: 14) {
             key("What you borrowed", Theme.lime)
             key("What it costs you", Theme.red)
-            Spacer(minLength: 0)
         }
         .padding(.horizontal, 4)
     }

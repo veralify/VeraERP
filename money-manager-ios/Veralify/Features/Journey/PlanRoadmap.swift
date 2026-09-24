@@ -92,23 +92,26 @@ struct PlanRoadmap<Middle: View>: View {
                 )
                 .padding(.horizontal, 8)
             } else {
+                // The actions hang off the hero at 14pt, as one group; every
+                // block after that is 18pt apart, the same rhythm as the screen
+                // hosting this section, so the seams between its blocks and the
+                // host's do not show.
                 VStack(spacing: 0) {
                     header(roadmap)
                         .padding(.bottom, 14)
 
                     planActions
-                        .padding(.bottom, 16)
+                        .padding(.bottom, 18)
 
                     if let after = roadmap.afterPayoff {
                         afterPayoffCard(after)
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 18)
                     }
 
                     middle
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 18)
 
                     routeContent(roadmap)
-                        .padding(.top, 4)
                 }
             }
         }
@@ -137,7 +140,7 @@ struct PlanRoadmap<Middle: View>: View {
             income: roadmap.dashboard.totalIncome,
             expenses: roadmap.dashboard.totalExpenses
         )
-        .padding(.bottom, 26)
+        .padding(.bottom, 14)
 
         // Spacing 0 and the gap carried by each card's own bottom padding, so
         // the rail beside it can run through that gap unbroken. A LazyVStack
@@ -166,7 +169,7 @@ struct PlanRoadmap<Middle: View>: View {
 
         if !roadmap.dashboard.plan.isFeasible {
             infeasibleNote(roadmap)
-                .padding(.top, 20)
+                .padding(.top, 18)
         }
     }
 
@@ -186,6 +189,14 @@ struct PlanRoadmap<Middle: View>: View {
         let isCurrent = position == currentIndex
 
         return VStack(spacing: 0) {
+            // The node sits level with the card's month title rather than with
+            // the card's top edge, so the stop reads as marking that month. The
+            // stub above it carries the incoming road down to it; on the first
+            // stop there is no road yet.
+            Rectangle()
+                .fill(position == 0 ? Color.clear : (position - 1 < currentIndex ? Theme.green : Theme.stroke))
+                .frame(width: 2, height: Self.nodeDrop)
+
             node(isDone: isDone, isCurrent: isCurrent, step: step, position: position)
 
             if !isLast {
@@ -198,6 +209,10 @@ struct PlanRoadmap<Middle: View>: View {
         .frame(width: 34)
         .accessibilityHidden(true)
     }
+
+    /// How far the node sits below the top of its card: the card's 16pt
+    /// padding plus half its title's ~22pt line, less half the 34pt node.
+    private static var nodeDrop: CGFloat { 10 }
 
     @ViewBuilder
     private func node(isDone: Bool, isCurrent: Bool, step: JourneyStep, position: Int) -> some View {
@@ -265,16 +280,17 @@ struct PlanRoadmap<Middle: View>: View {
                 Spacer(minLength: 0)
             }
 
-            HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Text(CurrencyFormat.string(after.accumulated))
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.lime)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
-                Text("by \(JourneyStep.title(for: after.endMonth))")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Theme.textTertiary)
+            // Side by side when both fit at full size; otherwise the date goes
+            // under the figure instead of wrapping beside it mid-phrase.
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    afterFigure(after)
+                    afterDate(after)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    afterFigure(after)
+                    afterDate(after)
+                }
             }
 
             // One row, not three. "In hand at the end" is the same euro figure
@@ -293,8 +309,23 @@ struct PlanRoadmap<Middle: View>: View {
         .accessibilityElement(children: .combine)
     }
 
+    private func afterFigure(_ after: JourneyAfterPayoff) -> some View {
+        Text(CurrencyFormat.string(after.accumulated))
+            .font(.system(size: 30, weight: .bold, design: .rounded))
+            .monospacedDigit()
+            .foregroundStyle(Theme.lime)
+            .lineLimit(1)
+            .minimumScaleFactor(0.6)
+    }
+
+    private func afterDate(_ after: JourneyAfterPayoff) -> some View {
+        Text("by \(JourneyStep.title(for: after.endMonth))")
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(Theme.textTertiary)
+    }
+
     private func afterRow(_ label: LocalizedStringKey, _ value: String, detail: String?) -> some View {
-        HStack(spacing: 8) {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
             Text(label)
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(Theme.textSecondary)
@@ -309,10 +340,13 @@ struct PlanRoadmap<Middle: View>: View {
                 .foregroundStyle(Theme.textTertiary)
             }
             Spacer(minLength: 8)
+            // The figure is the point of the row: the words give way first.
             Text(value)
                 .font(.caption.weight(.bold))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
+                .lineLimit(1)
+                .layoutPriority(1)
         }
     }
 
@@ -351,7 +385,11 @@ struct PlanRoadmap<Middle: View>: View {
                 .font(.subheadline.weight(.bold))
         }
         .foregroundStyle(isPrimary ? Theme.onAccent : Theme.textPrimary)
-        .frame(maxWidth: .infinity)
+        .lineLimit(1)
+        .minimumScaleFactor(0.8)
+        // 20 + 12 + 12 keeps the button at the 44pt touch minimum whatever
+        // the text size does.
+        .frame(maxWidth: .infinity, minHeight: 20)
         .padding(.vertical, 12)
         .background(isPrimary ? Theme.lime : Theme.surface, in: .capsule)
         .overlay(
@@ -362,13 +400,21 @@ struct PlanRoadmap<Middle: View>: View {
     private func header(_ roadmap: Roadmap) -> some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
+                // One line at every width: on a small phone "Step 13", "of 16"
+                // and a five-figure balance only just fit, and a wrapped step
+                // count breaks the baseline the row is built on.
                 Text("Step \(roadmap.currentIndex + 1)")
                     .font(.system(size: 34, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .foregroundStyle(Theme.onAccent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .layoutPriority(1)
                 Text("of \(roadmap.steps.count)")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.onAccent.opacity(0.8))
+                    .lineLimit(1)
+                    .fixedSize()
                 Spacer(minLength: 0)
                 Text(CurrencyFormat.string(roadmap.steps[roadmap.currentIndex].remainingDebt))
                     .font(.system(size: 17, weight: .bold))

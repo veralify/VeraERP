@@ -222,8 +222,12 @@ final class PlanPDF {
             y += 24
         }
 
-        if y + 110 > page.height - margin {
-            context.beginPage()
+        // Measured against the footer, not the bare margin: the panels are
+        // 104 tall below a 16 gap, and the old test let them run 14pt into the
+        // signature line. `startPage` rather than `beginPage`, so the overflow
+        // page is signed and numbered like every other.
+        if y + 16 + 104 > page.height - footerSpace {
+            startPage(context)
             y = margin
         }
         drawChecklists(at: y + 16)
@@ -303,7 +307,9 @@ final class PlanPDF {
         var row = left.minY + 28
         for debt in summary.perDebt.prefix(4) {
             checkbox(at: CGPoint(x: left.minX + 10, y: row))
-            text(debt.name, at: CGPoint(x: left.minX + 26, y: row + 1), font: .systemFont(ofSize: 8))
+            // Bounded so a long name stops short of the date beside it.
+            text(debt.name, in: CGRect(x: left.minX + 26, y: row + 1, width: left.width - 26 - 114, height: 12),
+                 font: .systemFont(ofSize: 8))
             let when = debt.clearedMonth.map { JourneyStep.title(for: $0) } ?? String(localized: "Not in this plan")
             text(when, in: CGRect(x: left.maxX - 110, y: row + 1, width: 100, height: 12),
                  font: .systemFont(ofSize: 8, weight: .semibold), alignment: .right)
@@ -371,7 +377,9 @@ final class PlanPDF {
 
             if !step.clearedDebts.isEmpty {
                 let note = step.clearedDebts.joined(separator: ", ") + " " + String(localized: "paid off")
-                text(note, in: CGRect(x: x + 6, y: y + 1, width: page.width - 16 - x - 6, height: 14),
+                // Ends at the margin, where the rules and the footer end, not
+                // 16pt from the paper's edge.
+                text(note, in: CGRect(x: x + 6, y: y + 1, width: page.width - margin - x - 6, height: 14),
                      font: .systemFont(ofSize: 8, weight: .semibold), colour: ink)
             }
 
@@ -521,20 +529,34 @@ final class PlanPDF {
         text(title, at: CGPoint(x: rect.minX, y: rect.minY),
              font: .systemFont(ofSize: 8.5, weight: .bold))
 
-        let rows = summary.perDebt
+        let height: CGFloat = 26
+        // A height of zero means "as many as there are"; otherwise only the
+        // rows that fit, so a dashboard short of room stops above the footer
+        // instead of drawing through it.
+        let fitting = rect.height > 0 ? max(0, Int((rect.height - 18) / height)) : summary.perDebt.count
+        let rows = Array(summary.perDebt.prefix(fitting))
         guard !rows.isEmpty, let widest = rows.map(\.paid).max(), widest > 0 else { return }
 
-        let height: CGFloat = 26
+        // The interest note is drawn after the end of each bar. At full width
+        // the longest bar left it no room and it ran off the page, so the bars
+        // are scaled to leave space for the widest note.
+        let noteFont = UIFont.systemFont(ofSize: 6.5)
+        let noteRoom = rows
+            .filter { $0.interest > 0 }
+            .map { interestNote($0.interest).size(withAttributes: [.font: noteFont]).width + 5 }
+            .max() ?? 0
+        let track = max(0, rect.width - noteRoom)
+
         for (index, debt) in rows.enumerated() {
             let y = rect.minY + 18 + CGFloat(index) * height
 
-            text(debt.name, at: CGPoint(x: rect.minX, y: y),
+            text(debt.name, in: CGRect(x: rect.minX, y: y, width: rect.width - 96, height: 10),
                  font: .systemFont(ofSize: 7.5, weight: .semibold))
             text(CurrencyFormat.string(debt.paid),
                  in: CGRect(x: rect.maxX - 90, y: y, width: 90, height: 10),
                  font: .monospacedDigitSystemFont(ofSize: 7.5, weight: .bold), alignment: .right)
 
-            let full = rect.width * (debt.paid / widest).chartValue
+            let full = track * (debt.paid / widest).chartValue
             let interest = debt.paid > 0 ? full * (debt.interest / debt.paid).chartValue : 0
             let bar = CGRect(x: rect.minX, y: y + 12, width: full, height: 6)
 
@@ -546,11 +568,15 @@ final class PlanPDF {
             UIGraphicsGetCurrentContext()?.resetClip()
 
             if debt.interest > 0 {
-                text("\(CurrencyFormat.string(debt.interest)) " + String(localized: "interest"),
+                text(interestNote(debt.interest),
                      at: CGPoint(x: rect.minX + full + 5, y: y + 11),
-                     font: .systemFont(ofSize: 6.5), colour: tertiaryInk)
+                     font: noteFont, colour: tertiaryInk)
             }
         }
+    }
+
+    private func interestNote(_ interest: Decimal) -> String {
+        "\(CurrencyFormat.string(interest)) " + String(localized: "interest")
     }
 
     /// Principal against interest, as one ring. A share is the one thing a ring
@@ -590,8 +616,12 @@ final class PlanPDF {
             let swatch = UIBezierPath(roundedRect: CGRect(x: x, y: point.y + 3, width: 10, height: 4), cornerRadius: 2)
             item.1.setFill()
             swatch.fill()
-            text(item.0, at: CGPoint(x: x + 14, y: point.y), font: .systemFont(ofSize: 6.5), colour: secondaryInk)
-            x += 14 + CGFloat(item.0.count) * 3.4 + 16
+            let font = UIFont.systemFont(ofSize: 6.5)
+            text(item.0, at: CGPoint(x: x + 14, y: point.y), font: font, colour: secondaryInk)
+            // Measured, not estimated from the character count: the estimate
+            // ran short for wider scripts and drew the next swatch over the
+            // end of the label.
+            x += 14 + (item.0 as NSString).size(withAttributes: [.font: font]).width + 16
         }
     }
 

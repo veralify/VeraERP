@@ -28,24 +28,32 @@ struct PlanMonthCard: View {
     var isBehind: Bool = false
     var isCurrent: Bool = false
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         let step = month.step
+        // At accessibility sizes two columns leave each figure half a narrow
+        // card and they shrink to unreadable; one column keeps them full size.
+        let facts = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 9))
+            : AnyLayout(HStackLayout(alignment: .top, spacing: 12))
 
         return VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text(JourneyStep.title(for: step.month))
-                    .font(.system(size: 17, weight: .bold))
-                    .foregroundStyle(Theme.textPrimary)
-
-                Spacer(minLength: 8)
-
-                Text(CurrencyFormat.string(step.payment))
-                    .font(.system(size: 17, weight: .bold))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textPrimary)
-                Text("paid")
-                    .font(.caption)
-                    .foregroundStyle(Theme.textTertiary)
+            // Month and payment on one line when they fit. A long month name
+            // beside a five-figure payment does not on a small phone, and
+            // shrinking both to fit made the card's two headline figures
+            // smaller than the facts beneath them, so the payment drops to its
+            // own line instead.
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    monthTitle(step)
+                    Spacer(minLength: 8)
+                    payment(step)
+                }
+                VStack(alignment: .leading, spacing: 4) {
+                    monthTitle(step)
+                    payment(step)
+                }
             }
             .lineLimit(1)
             .minimumScaleFactor(0.8)
@@ -54,7 +62,7 @@ struct PlanMonthCard: View {
 
             // Two columns of two: four figures is the most a card can carry
             // before it becomes the table this replaced.
-            HStack(alignment: .top, spacing: 12) {
+            facts {
                 VStack(alignment: .leading, spacing: 9) {
                     fact("Still owed", CurrencyFormat.string(step.isFinish ? 0 : step.remainingDebt))
                     fact("Cash flow", CurrencyFormat.string(month.cashFlow))
@@ -85,6 +93,24 @@ struct PlanMonthCard: View {
         )
         .opacity(isBehind ? 0.55 : 1)
         .accessibilityElement(children: .combine)
+    }
+
+    private func monthTitle(_ step: JourneyStep) -> some View {
+        Text(JourneyStep.title(for: step.month))
+            .font(.system(size: 17, weight: .bold))
+            .foregroundStyle(Theme.textPrimary)
+    }
+
+    private func payment(_ step: JourneyStep) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+            Text(CurrencyFormat.string(step.payment))
+                .font(.system(size: 17, weight: .bold))
+                .monospacedDigit()
+                .foregroundStyle(Theme.textPrimary)
+            Text("paid")
+                .font(.caption)
+                .foregroundStyle(Theme.textTertiary)
+        }
     }
 
     private var border: Color {
@@ -151,19 +177,22 @@ struct PlanConstants: View {
     let expenses: Decimal
 
     var body: some View {
-        HStack(spacing: 0) {
-            constant("Income", income, Theme.lime)
-            Rectangle().fill(Theme.stroke).frame(width: 1, height: 28)
-            constant("Core expenses", expenses, Theme.yellow)
-        }
-        .padding(.vertical, 14)
-        .frame(maxWidth: .infinity)
-        .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
-        .overlay(alignment: .bottom) {
+        // The caption is laid out under the card rather than hung off it with
+        // an offset. Offset text takes no room, so at larger text sizes it ran
+        // into the first month card below.
+        VStack(spacing: 4) {
+            HStack(spacing: 0) {
+                constant("Income", income, Theme.lime)
+                Rectangle().fill(Theme.stroke).frame(width: 1, height: 28)
+                constant("Core expenses", expenses, Theme.yellow)
+            }
+            .padding(.vertical, 14)
+            .frame(maxWidth: .infinity)
+            .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+
             Text("the same every month")
                 .font(.caption2)
                 .foregroundStyle(Theme.textTertiary)
-                .offset(y: 16)
         }
     }
 
@@ -172,6 +201,8 @@ struct PlanConstants: View {
             Text(label)
                 .font(.caption)
                 .foregroundStyle(Theme.textTertiary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
             Text(CurrencyFormat.string(amount))
                 .font(.subheadline.weight(.bold))
                 .monospacedDigit()
@@ -180,5 +211,6 @@ struct PlanConstants: View {
                 .minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity)
+        .padding(.horizontal, 8)
     }
 }

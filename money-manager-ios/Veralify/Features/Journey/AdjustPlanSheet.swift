@@ -72,7 +72,11 @@ struct AdjustPlanSheet: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 4)
                     }
-                    .padding(20)
+                    // The same gutters as the plan's other sheets, so moving
+                    // between them the content does not shift sideways.
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+                    .padding(.bottom, 28)
                 }
                 .scrollIndicators(.hidden)
             }
@@ -97,28 +101,52 @@ struct AdjustPlanSheet: View {
             SectionHeader(title: "Target period") { EmptyView() }
 
             GroupedCard {
-                HStack {
-                    Text("Clear everything within")
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.textSecondary)
-                    Spacer(minLength: 8)
-                    Stepper(
-                        value: Binding(
-                            get: { planSettings.targetMonths },
-                            set: { planSettings.targetMonths = $0; try? context.save() }
-                        ),
-                        in: 3...120
-                    ) {
-                        EmptyView()
+                // Label, stepper and "120 months" need about 340pt; a small
+                // phone's card has about 310. There the label takes the first
+                // line and the control keeps the trailing edge on the second.
+                ViewThatFits(in: .horizontal) {
+                    HStack {
+                        targetLabel
+                        Spacer(minLength: 8)
+                        targetControl(planSettings)
                     }
-                    .labelsHidden()
-                    Text("\(planSettings.targetMonths) months")
-                        .font(.subheadline.weight(.bold))
-                        .monospacedDigit()
-                        .foregroundStyle(Theme.textPrimary)
+                    VStack(alignment: .leading, spacing: 10) {
+                        targetLabel
+                        HStack {
+                            Spacer(minLength: 0)
+                            targetControl(planSettings)
+                        }
+                    }
                 }
                 .padding(.vertical, 12)
             }
+        }
+    }
+
+    private var targetLabel: some View {
+        Text("Clear everything within")
+            .font(.subheadline)
+            .foregroundStyle(Theme.textSecondary)
+    }
+
+    private func targetControl(_ planSettings: PlanSettings) -> some View {
+        HStack(spacing: 8) {
+            Stepper(
+                value: Binding(
+                    get: { planSettings.targetMonths },
+                    set: { planSettings.targetMonths = $0; try? context.save() }
+                ),
+                in: 3...120
+            ) {
+                EmptyView()
+            }
+            .labelsHidden()
+            Text("\(planSettings.targetMonths) months")
+                .font(.subheadline.weight(.bold))
+                .monospacedDigit()
+                .foregroundStyle(Theme.textPrimary)
+                .lineLimit(1)
+                .fixedSize()
         }
     }
 
@@ -142,6 +170,8 @@ struct AdjustPlanSheet: View {
                     .font(.subheadline.weight(.bold))
                     .monospacedDigit()
                     .foregroundStyle(Theme.textPrimary)
+                    .lineLimit(1)
+                    .layoutPriority(1)
 
                 Image(systemName: "chevron.right")
                     .font(.caption.weight(.bold))

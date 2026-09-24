@@ -49,7 +49,10 @@ extension PlanPDF {
                 : step.clearedDebts.joined(separator: ", ")
             text(JourneyStep.title(for: step.month), at: CGPoint(x: margin, y: y),
                  font: .systemFont(ofSize: 8, weight: .semibold))
-            text(name, at: CGPoint(x: margin + 110, y: y), font: .systemFont(ofSize: 8), colour: ink)
+            // Bounded so several debts cleared in one month stop short of the
+            // figure at the end of the line rather than printing over it.
+            text(name, in: CGRect(x: margin + 110, y: y, width: usable - 110 - 96, height: 12),
+                 font: .systemFont(ofSize: 8), colour: ink)
             text(CurrencyFormat.string(step.cumulativeBalance),
                  in: CGRect(x: page.width - margin - 90, y: y, width: 90, height: 12),
                  font: .monospacedDigitSystemFont(ofSize: 8, weight: .semibold), alignment: .right)
