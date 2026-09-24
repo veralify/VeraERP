@@ -30,13 +30,21 @@ enum CategoryStyle {
         }
     }
 
-    /// The circular badge the ledger and the category lists share.
-    static func badge(_ category: String, size: CGFloat = 38) -> some View {
+    /// The badge the ledger and the category lists share: the category's
+    /// glyph on a soft wash of its colour, in a rounded square.
+    ///
+    /// The glyph is the category colour pulled a third of the way toward the
+    /// primary text colour. The raw categorical hues are chosen for charts, and
+    /// the light yellow or pink alone would be too faint as a glyph on its own
+    /// wash; mixing toward the text colour darkens them on paper and lightens
+    /// them on ink, so the glyph clears 3:1 in both appearances.
+    static func badge(_ category: String, size: CGFloat = Theme.Icon.rowBadge) -> some View {
         let tint = colour(category)
         return Image(systemName: icon(category))
-            .font(.system(size: size * 0.42, weight: .semibold))
-            .foregroundStyle(tint)
+            .font(.system(size: size * 0.44, weight: Theme.Icon.badgeWeight))
+            .foregroundStyle(tint.mix(with: Theme.textPrimary, by: 0.35))
             .frame(width: size, height: size)
-            .background(tint.opacity(0.16), in: .circle)
+            .background(tint.opacity(0.16), in: .rect(cornerRadius: size * 0.3, style: .continuous))
+            .accessibilityHidden(true)
     }
 }

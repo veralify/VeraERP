@@ -42,8 +42,7 @@ struct RootView: View {
             }
         }
         .tint(Theme.lime)
-        // The design is dark-only: its accents are light, saturated tones that
-        // carry near-black text and have no light-mode counterpart yet.
-        .preferredColorScheme(.dark)
+        // No colour-scheme lock: every token is adaptive, so the app follows
+        // the system's light or dark appearance.
     }
 }
