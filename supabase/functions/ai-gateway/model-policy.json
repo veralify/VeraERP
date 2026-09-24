@@ -1,5 +1,5 @@
 {
-  "model_policy_version": "2026-08",
+  "model_policy_version": "2026-09",
   "benchmark_version": "veralify-bench-2026-08",
   "roles": {
     "elite_reasoning": {
@@ -199,6 +199,14 @@
     },
     "food_verification": {
       "role": "elite_reasoning_fallback"
+    },
+    "receipt_extraction": {
+      "role": "multimodal_primary",
+      "role_overrides": {
+        "max_tokens": 4096,
+        "timeout_ms": 45000,
+        "max_cost_per_run_usd": 0.15
+      }
     }
   },
   "reference_pricing": {

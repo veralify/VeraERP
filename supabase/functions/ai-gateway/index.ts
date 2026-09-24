@@ -15,6 +15,7 @@ import { runToolLoop } from './tool-loop.ts';
 import { getOrCreateConversation, getRecentAiMessages, persistFeedback, persistFoodEstimate, persistRecommendations, saveAiMessage, upsertDailyInsight } from './persistence.ts';
 import { normalizeAiRoute } from './routes.ts';
 import { generateRecommendationCandidates } from './recommendation-candidates.ts';
+import { handleReceiptsExtract, receiptsDepsFromEnv } from './receipts.ts';
 
 const corsHeaders = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
@@ -31,6 +32,10 @@ function asChatMessages(rows: unknown[]): AiMessage[] { return rows.map((r: any)
 async function run(req: Request) {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
   if (req.method !== 'POST') return json({ error: { code: 'BAD_REQUEST', message: 'Method not allowed.' } }, 405);
+  // Receipts authenticate differently (a user token, or the service role acting
+  // for `user_id` — see receipts.ts) and answer in the receipts contract's own
+  // error shape, so they branch off before the gateway's shared auth.
+  if (routeName(new URL(req.url)) === 'receipts-extract') return await handleReceiptsExtract(req, () => receiptsDepsFromEnv(createClient));
   const { supabase, user } = await auth(req); const policy = await loadModelPolicy(); await enforceRateLimit(user.id, policy); const route = routeName(new URL(req.url)); const payload = await req.json().catch(() => { throw new GatewayError('BAD_REQUEST', 'Invalid JSON body.', 400); }); const id = requestId(); const client = new OpenRouterClient();
 
   if (route === 'feedback') { const row = await persistFeedback(supabase, { userId: user.id, aiRequestId: String(payload.ai_request_id ?? ''), rating: typeof payload.rating === 'number' ? payload.rating : null, feedback: typeof payload.feedback === 'string' ? payload.feedback : null }); return json({ request_id: id, result: row }); }

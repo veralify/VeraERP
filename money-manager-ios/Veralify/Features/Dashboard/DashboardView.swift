@@ -83,6 +83,9 @@ struct DashboardView: View {
         ScrollView {
             VStack(spacing: 18) {
                 heroCard.staggeredAppearance(0)
+                // Near the top: photographing a receipt at the till is the
+                // one action here that cannot wait until later.
+                ScanReceiptEntry().staggeredAppearance(1)
                 planStrip.staggeredAppearance(1)
                 dueSoon.staggeredAppearance(2)
                 metricCards.staggeredAppearance(2)

@@ -1,6 +1,6 @@
 // @ts-nocheck
 export type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
-export type AiTaskType = 'food_image' | 'simple_chat' | 'advanced_chat' | 'weekly_analysis' | 'cheap_multimodal' | 'coding' | 'moderation' | 'insight' | 'recommendations' | 'food_verification';
+export type AiTaskType = 'food_image' | 'simple_chat' | 'advanced_chat' | 'weekly_analysis' | 'cheap_multimodal' | 'coding' | 'moderation' | 'insight' | 'recommendations' | 'food_verification' | 'receipt_extraction';
 export type AiMessage = { role: 'system' | 'user' | 'assistant' | 'tool'; content: string | Array<Record<string, unknown>>; tool_call_id?: string; name?: string };
 export type Usage = { inputTokens: number; outputTokens: number; reasoningTokens?: number | null };
 export type ModelRunMeta = { requestId: string; aiRequestId?: string | null; userId: string; task: AiTaskType; model: string; provider: string | null; modelPolicyVersion: string; promptVersion: string; toolSchemaVersion: string; safetyPolicyVersion: string; latencyMs: number; estimatedCostUsd: number; success: boolean; structuredOutputValid: boolean; usage: Usage };
