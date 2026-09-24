@@ -17,6 +17,11 @@ settings:
 packages:
   VeralifyCore:
     path: VeralifyCore
+  # Sign-in and sync (docs/RECEIPTS_CONTRACTS.md). Pinned to 2.x: the 3.0 line
+  # changes auth APIs the app uses.
+  Supabase:
+    url: https://github.com/supabase/supabase-swift
+    from: 2.55.0
 
 targets:
   Veralify:
@@ -27,12 +32,34 @@ targets:
     dependencies:
       - package: VeralifyCore
         product: VeralifyCore
+      - package: Supabase
+        product: Supabase
+    # SUPABASE_URL and SUPABASE_ANON_KEY come from here (and the untracked
+    # Backend.local.xcconfig it includes), never from source. See README.
+    configFiles:
+      Debug: Config/Backend.xcconfig
+      Release: Config/Backend.xcconfig
+    info:
+      path: Veralify/App/Info.plist
+      properties:
+        SupabaseURL: $(SUPABASE_URL)
+        SupabaseAnonKey: $(SUPABASE_ANON_KEY)
+        # Return address for accounting sign-in (veralify://integrations).
+        CFBundleURLTypes:
+          - CFBundleURLName: com.veralify.moneymanager
+            CFBundleURLSchemes:
+              - veralify
+    entitlements:
+      path: Veralify/App/Veralify.entitlements
+      properties:
+        com.apple.developer.applesignin:
+          - Default
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.veralify.moneymanager
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Veralify
-        INFOPLIST_KEY_NSCameraUsageDescription: "Veralify uses the camera to scan a receipt or an identity document and read the details off it. The image is processed on your device and never leaves it."
+        INFOPLIST_KEY_NSCameraUsageDescription: "Veralify uses the camera to scan receipts and identity documents. Receipt photos are uploaded to your account to be read; identity documents are read on this device and never leave it."
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"

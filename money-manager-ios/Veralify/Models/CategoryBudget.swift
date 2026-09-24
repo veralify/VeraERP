@@ -16,7 +16,20 @@ final class CategoryBudget {
     var limit: Decimal
     var createdAt: Date
 
-    init(category: String, limit: Decimal, createdAt: Date = .now) {
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
+    /// `category` holds a category key (contracts §3, e.g. `groceries`) — the
+    /// same value that syncs as `category_key`. Budgets written under the old
+    /// preset names are rewritten once by `SyncMigration`.
+    init(category: String, limit: Decimal, createdAt: Date = .now, id: UUID = UUID()) {
+        self.id = id
+        self.updatedAt = createdAt
         self.category = category
         self.limit = limit
         self.createdAt = createdAt

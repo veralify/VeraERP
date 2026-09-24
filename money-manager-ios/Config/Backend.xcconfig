@@ -1,0 +1,13 @@
+// Backend settings for the Veralify target (see README → "Backend configuration").
+//
+// Committed with empty values on purpose: the real ones live in
+// Backend.local.xcconfig, which git ignores. A build without it still compiles
+// and opens onto a screen naming the missing setting.
+//
+// Only the project URL and the public anon key belong here. The service-role
+// key must never be in an app build.
+
+SUPABASE_URL =
+SUPABASE_ANON_KEY =
+
+#include? "Backend.local.xcconfig"

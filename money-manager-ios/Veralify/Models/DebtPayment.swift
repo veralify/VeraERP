@@ -11,7 +11,8 @@ import SwiftData
 /// applying a payment reduces it, deleting one gives it back.
 @Model
 final class DebtPayment {
-    /// Matches `DebtRecord.remoteID`.
+    /// Matches `DebtRecord.remoteID`. Synced as the debt's UUID
+    /// (`money_debt_payments.debt_id`), resolved through that record.
     var debtRemoteID: Int
     /// The part that comes off the balance. On an early repayment this is the
     /// capital only — the lender's "capitale residuo rimborsato".
@@ -40,6 +41,14 @@ final class DebtPayment {
     var note: String
     var createdAt: Date
 
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
     /// What actually left the bank account.
     var totalCharged: Decimal { amount + interestPortion }
 
@@ -53,8 +62,11 @@ final class DebtPayment {
         previousMinimum: Decimal? = nil,
         newMinimum: Decimal? = nil,
         note: String = "",
-        createdAt: Date = .now
+        createdAt: Date = .now,
+        id: UUID = UUID()
     ) {
+        self.id = id
+        self.updatedAt = createdAt
         self.debtRemoteID = debtRemoteID
         self.amount = amount
         self.interestPortion = interestPortion
@@ -115,7 +127,7 @@ func purgeRecords(forDebt remoteID: Int, in context: ModelContext) {
             predicate: #Predicate { $0.debtRemoteID == remoteID }
         )
     )) ?? []
-    for payment in stale { context.delete(payment) }
+    for payment in stale { context.deleteSynced(payment) }
 
     // The board remembers where the user dragged each bubble.
     let key = "boardPositions"
