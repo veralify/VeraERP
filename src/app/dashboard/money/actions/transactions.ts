@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { currentUser, dateField, numberField, read, revalidateMoney } from './shared';
+import { assertSaved, currentUser, dateField, numberField, read, revalidateMoney } from './shared';
 
 export async function addTransactionAction(formData: FormData) {
   const { supabase, user } = await currentUser();
@@ -15,7 +15,7 @@ export async function addTransactionAction(formData: FormData) {
   if (!merchant || amount === null || !transactionDate)
     redirect('/dashboard/money/transactions?error=invalid');
 
-  await supabase.from('money_transactions').insert({
+  const { error } = await supabase.from('money_transactions').insert({
     user_id: user.id,
     merchant,
     amount,
@@ -25,6 +25,7 @@ export async function addTransactionAction(formData: FormData) {
     account,
     notes,
   });
+  assertSaved(error, 'transactions');
   revalidateMoney('transactions');
   redirect('/dashboard/money/transactions?saved=1');
 }
@@ -42,7 +43,7 @@ export async function updateTransactionAction(formData: FormData) {
   if (!id || !merchant || amount === null || !transactionDate)
     redirect('/dashboard/money/transactions?error=invalid');
 
-  await supabase
+  const { error } = await supabase
     .from('money_transactions')
     .update({
       merchant,
@@ -55,6 +56,7 @@ export async function updateTransactionAction(formData: FormData) {
     })
     .eq('id', id)
     .eq('user_id', user.id);
+  assertSaved(error, 'transactions');
   revalidateMoney('transactions');
   redirect('/dashboard/money/transactions?saved=1');
 }
@@ -62,7 +64,12 @@ export async function updateTransactionAction(formData: FormData) {
 export async function deleteTransactionAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
-  await supabase.from('money_transactions').delete().eq('id', id).eq('user_id', user.id);
+  const { error } = await supabase
+    .from('money_transactions')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', user.id);
+  assertSaved(error, 'transactions');
   revalidateMoney('transactions');
   redirect('/dashboard/money/transactions');
 }

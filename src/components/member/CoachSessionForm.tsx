@@ -1,3 +1,4 @@
+import { TimeZoneField } from '@components/generic/TimeZoneField';
 import { CalendarPlus } from 'lucide-react';
 import { createCoachSessionAction } from '../../app/dashboard/coach/actions';
 import { Field, inputClass, SubmitButton } from './DashboardPrimitives';
@@ -45,8 +46,9 @@ export function CoachSessionForm() {
           required
         />
       </Field>
+      <TimeZoneField />
       <div className="md:col-span-2">
-        <Field label="Scheduled at">
+        <Field label="Scheduled at (your local time)">
           <input className={inputClass} name="scheduledAt" type="datetime-local" required />
         </Field>
       </div>

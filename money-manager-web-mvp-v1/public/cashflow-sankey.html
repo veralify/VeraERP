@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cashflow Sankey Chart</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght,ROND@100..900,0..100&display=swap');
+
   /* Luminous / Miro Widget Design System Font Loading */
   @font-face {
     font-family: 'Google Sans';
     src: url('https://fonts.gstatic.com/s/googlesans/v58/4UaRrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iq2vgCI.woff2') format('woff2');
     font-weight: 400; font-style: normal; font-display: swap;
   }
-  @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght,ROND@100..900,0..100&display=swap');
 
   /* Design System Tokens */
   :root {
@@ -386,7 +387,7 @@
   </div>
 
   <div class="chart-section">
-    <svg id="sankeyChart" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg id="sankeyChart" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cash flow Sankey chart"></svg>
   </div>
 
   <div class="sliders-section">
@@ -682,21 +683,21 @@
     let maxID = 0;
     function findMax(node, d) {
       if (d > maxID) maxID = d;
-      node.children.forEach(c => findMax(c, d + 1));
+      node.children.forEach(c => { findMax(c, d + 1); });
     }
-    incomeRoots.forEach(r => findMax(r, 0));
+    incomeRoots.forEach(r => { findMax(r, 0); });
 
     function setIncStage(node, d) {
       node.stage = maxID - d;
-      node.children.forEach(c => setIncStage(c, d + 1));
+      node.children.forEach(c => { setIncStage(c, d + 1); });
     }
-    incomeRoots.forEach(r => setIncStage(r, 0));
+    incomeRoots.forEach(r => { setIncStage(r, 0); });
 
     function setExpStage(node, d) {
       node.stage = maxID + 1 + d;
-      node.children.forEach(c => setExpStage(c, d + 1));
+      node.children.forEach(c => { setExpStage(c, d + 1); });
     }
-    expenseRoots.forEach(r => setExpStage(r, 0));
+    expenseRoots.forEach(r => { setExpStage(r, 0); });
 
     if (balanceNode) {
       balanceNode.stage = (bal >= 0) ? maxID + 1 : 0;

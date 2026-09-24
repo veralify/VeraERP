@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { currentUser, dayField, numberField, read, revalidateMoney } from './shared';
+import { assertSaved, currentUser, dayField, numberField, read, revalidateMoney } from './shared';
 
 export async function addExpenseAction(formData: FormData) {
   const { supabase, user } = await currentUser();
@@ -11,9 +11,10 @@ export async function addExpenseAction(formData: FormData) {
   const dueDay = dayField(formData, 'due_day');
   if (!name || amount === null) redirect('/dashboard/money/expenses?error=invalid');
 
-  await supabase
+  const { error } = await supabase
     .from('money_expenses')
     .insert({ user_id: user.id, name, amount, category, due_day: dueDay });
+  assertSaved(error, 'expenses');
   revalidateMoney('expenses');
   redirect('/dashboard/money/expenses?saved=1');
 }
@@ -28,11 +29,12 @@ export async function updateExpenseAction(formData: FormData) {
   const active = read(formData, 'active') === 'true';
   if (!id || !name || amount === null) redirect('/dashboard/money/expenses?error=invalid');
 
-  await supabase
+  const { error } = await supabase
     .from('money_expenses')
     .update({ name, amount, category, due_day: dueDay, active })
     .eq('id', id)
     .eq('user_id', user.id);
+  assertSaved(error, 'expenses');
   revalidateMoney('expenses');
   redirect('/dashboard/money/expenses?saved=1');
 }
@@ -40,7 +42,12 @@ export async function updateExpenseAction(formData: FormData) {
 export async function deleteExpenseAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
-  await supabase.from('money_expenses').delete().eq('id', id).eq('user_id', user.id);
+  const { error } = await supabase
+    .from('money_expenses')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', user.id);
+  assertSaved(error, 'expenses');
   revalidateMoney('expenses');
   redirect('/dashboard/money/expenses');
 }

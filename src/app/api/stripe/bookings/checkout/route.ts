@@ -40,11 +40,15 @@ export async function POST(request: Request) {
 
   const { data: session } = await supabaseAdmin
     .from('coach_sessions')
-    .select('id, coach_id, duration_minutes, status')
+    .select('id, coach_id, duration_minutes, status, scheduled_at')
     .eq('id', sessionId)
     .maybeSingle();
 
-  if (!session || session.status !== 'available') {
+  if (
+    !session ||
+    session.status !== 'available' ||
+    new Date(session.scheduled_at).getTime() <= Date.now()
+  ) {
     log.warn('rejected: session not available', sessionId);
     log.done(409);
     return NextResponse.redirect(new URL('/coaches?error=session-unavailable', request.url), {

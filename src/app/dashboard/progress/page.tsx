@@ -43,12 +43,30 @@ function WeightTrendChart({ entries }: { entries: WeightEntry[] }) {
       </figcaption>
       <svg
         viewBox="0 0 100 100"
+        // Stretch to the card width; strokes use non-scaling-stroke so they stay crisp.
+        preserveAspectRatio="none"
         role="img"
         aria-label={`Weight trend chart with ${ordered.length} entries`}
         className="h-64 w-full overflow-visible rounded-vera-lg border border-vera-border bg-vera-bg-subtle p-2"
       >
-        <line x1="0" x2="100" y1="90" y2="90" stroke="var(--vera-color-border)" strokeWidth="0.5" />
-        <line x1="0" x2="100" y1="10" y2="10" stroke="var(--vera-color-border)" strokeWidth="0.5" />
+        <line
+          x1="0"
+          x2="100"
+          y1="90"
+          y2="90"
+          stroke="var(--vera-color-border)"
+          strokeWidth="1"
+          vectorEffect="non-scaling-stroke"
+        />
+        <line
+          x1="0"
+          x2="100"
+          y1="10"
+          y2="10"
+          stroke="var(--vera-color-border)"
+          strokeWidth="1"
+          vectorEffect="non-scaling-stroke"
+        />
         <polyline
           points={points}
           fill="none"
@@ -56,15 +74,28 @@ function WeightTrendChart({ entries }: { entries: WeightEntry[] }) {
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
+          vectorEffect="non-scaling-stroke"
         />
         {ordered.map((entry, index) => {
           const [x, y] = points.split(' ')[index]?.split(',').map(Number) ?? [0, 0];
           return (
-            <circle key={entry.id} cx={x} cy={y} r="2" fill="var(--vera-color-primary-strong)">
+            // A zero-length line with a round cap draws a true circle even when the
+            // viewBox is stretched (a <circle> would become an ellipse).
+            <line
+              key={entry.id}
+              x1={x}
+              y1={y}
+              x2={x}
+              y2={y}
+              stroke="var(--vera-color-primary-strong)"
+              strokeWidth="7"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            >
               <title>
                 {entry.weight_kg}kg on {entry.measured_at.slice(0, 10)}
               </title>
-            </circle>
+            </line>
           );
         })}
       </svg>

@@ -53,7 +53,15 @@ export default async function DocumentsPage({ searchParams }: { searchParams: Se
         title="Documents"
         body="Receipts and important documents — track what you have and what's about to expire."
       />
-      <ErrorMessage message={params.error ? 'Enter a title for the document.' : undefined} />
+      <ErrorMessage
+        message={
+          params.error === 'save'
+            ? 'We couldn’t save that change. Please try again.'
+            : params.error
+              ? 'Enter a title for the document.'
+              : undefined
+        }
+      />
 
       <div className="mt-4 grid gap-6 xl:grid-cols-[1fr_420px]">
         <Reveal variants={fadeUp}>

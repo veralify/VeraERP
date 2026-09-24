@@ -247,7 +247,7 @@ app.post("/api/transactions/import-file", express.raw({type:["text/csv","applica
     transactions.push(data);
   }
   const insert=db.prepare("INSERT INTO transactions(transaction_date,merchant,amount,direction,category,account,notes) VALUES (?,?,?,?,?,?,?)");
-  db.transaction(items=>items.forEach(item=>insert.run(...item)))(transactions);
+  db.transaction(items=>items.forEach(item=>{insert.run(...item);}))(transactions);
   res.status(201).json({ok:true,imported:transactions.length});
 });
 
@@ -287,7 +287,7 @@ app.get("/api/settings", (_,res)=>{
 });
 app.put("/api/settings",(req,res)=>{
   const stmt=db.prepare("INSERT INTO settings(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value");
-  const tx=db.transaction(obj=>Object.entries(obj).forEach(([k,v])=>stmt.run(k,String(v))));
+  const tx=db.transaction(obj=>Object.entries(obj).forEach(([k,v])=>{stmt.run(k,String(v));}));
   tx(req.body); res.json({ok:true});
 });
 

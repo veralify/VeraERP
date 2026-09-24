@@ -35,6 +35,17 @@ export function RowActions({
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
+  // Server actions redirect back to this same page, which is a soft navigation that
+  // keeps this component mounted, so the modal would otherwise stay open after saving.
+  // The redirect surfaces as a rejected promise; `finally` closes and rethrows it.
+  const submitUpdate = async (formData: FormData) => {
+    try {
+      await updateAction(formData);
+    } finally {
+      setEditOpen(false);
+    }
+  };
+
   return (
     <div className="flex items-center gap-1">
       <button
@@ -55,7 +66,7 @@ export function RowActions({
       </button>
 
       <Modal open={editOpen} onClose={() => setEditOpen(false)} title={editTitle}>
-        <form action={updateAction} className="grid gap-4">
+        <form action={submitUpdate} className="grid gap-4">
           <input type="hidden" name="id" value={id} />
           {children}
           <SubmitButton>Save changes</SubmitButton>

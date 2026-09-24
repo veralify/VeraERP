@@ -44,11 +44,11 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
 
   const sizing = variant === 'hero' ? 'h-[46px] px-6 text-[15px]' : 'h-9 px-4 text-[13px]';
 
-  const primaryBtn = `inline-flex items-center justify-center rounded-full font-medium tracking-tight transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97] ${sizing}`;
-  const ghostBtn = `inline-flex items-center justify-center rounded-full border font-medium tracking-tight transition-colors hover:bg-white/10 ${sizing}`;
+  const primaryBtn = `items-center justify-center rounded-full font-medium tracking-tight transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97] ${sizing}`;
+  const ghostBtn = `items-center justify-center rounded-full border font-medium tracking-tight transition-colors hover:bg-white/10 ${sizing}`;
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2 sm:gap-3">
       {user ? (
         <>
           <span
@@ -59,7 +59,7 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
           </span>
           <a
             href="/dashboard"
-            className={primaryBtn}
+            className={`${primaryBtn} inline-flex`}
             style={{
               backgroundColor: 'var(--brand-primary)',
               color: 'var(--vera-color-on-primary)',
@@ -70,7 +70,7 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
           <button
             type="button"
             onClick={() => void signOut()}
-            className={ghostBtn}
+            className={`${ghostBtn} inline-flex`}
             style={{
               borderColor: 'var(--surface-border)',
               backgroundColor: 'var(--surface)',
@@ -85,7 +85,7 @@ export function AuthWidget({ variant = 'navbar' }: AuthWidgetProps) {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className={ghostBtn}
+            className={`${ghostBtn} inline-flex`}
             style={{
               borderColor: 'var(--surface-border)',
               backgroundColor: 'var(--surface)',

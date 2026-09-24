@@ -1,3 +1,4 @@
+import { LocalDateTime } from '@components/generic/LocalDateTime';
 import { StaggerGroup, StaggerItem } from '@components/generic/Motion';
 import { EmptyState } from '@components/member/EmptyState';
 import { createSupabaseServerClient } from '@lib/supabase/server';
@@ -44,7 +45,7 @@ export async function SessionSlotsList({ coachId }: { coachId: string }) {
           <div>
             <p className="font-semibold">{session.title}</p>
             <p className="text-sm text-vera-fg-muted">
-              {new Date(session.scheduled_at).toLocaleString()} · {session.duration_minutes} min ·{' '}
+              <LocalDateTime iso={session.scheduled_at} /> · {session.duration_minutes} min ·{' '}
               {session.session_type}
             </p>
           </div>

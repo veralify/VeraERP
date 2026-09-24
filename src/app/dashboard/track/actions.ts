@@ -16,6 +16,15 @@ function positiveNumber(formData: FormData, key: string, fallback?: number) {
   return fallback;
 }
 
+const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack', 'other'] as const;
+type MealType = (typeof mealTypes)[number];
+
+/** The day being edited; falls back to today (UTC, matching the track page) when missing or malformed. */
+function dateParam(formData: FormData) {
+  const value = str(formData, 'date');
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : new Date().toISOString().slice(0, 10);
+}
+
 function dayBounds(date: string) {
   return { start: `${date}T00:00:00.000Z`, end: `${date}T23:59:59.999Z` };
 }
@@ -83,8 +92,11 @@ async function refreshDailySummary(userId: string, date: string) {
 export async function logFoodAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const foodId = str(formData, 'foodId');
-  const date = str(formData, 'date') || new Date().toISOString().slice(0, 10);
-  const mealType = str(formData, 'mealType') || 'breakfast';
+  const date = dateParam(formData);
+  const requestedMeal = str(formData, 'mealType');
+  const mealType: MealType = mealTypes.includes(requestedMeal as MealType)
+    ? (requestedMeal as MealType)
+    : 'breakfast';
   const quantity = positiveNumber(formData, 'quantity', 1) ?? 1;
   const servingGrams = positiveNumber(formData, 'servingGrams');
   if (!foodId || !servingGrams) redirect(`/dashboard/track?date=${date}&error=invalid-food`);
@@ -103,7 +115,7 @@ export async function logFoodAction(formData: FormData) {
     .from('meal_groups')
     .select('id')
     .eq('user_id', user.id)
-    .eq('meal_type', mealType as 'breakfast')
+    .eq('meal_type', mealType)
     .gte('logged_at', start)
     .lte('logged_at', end)
     .limit(1)
@@ -116,7 +128,7 @@ export async function logFoodAction(formData: FormData) {
       .insert({
         user_id: user.id,
         name: mealType[0]?.toUpperCase() + mealType.slice(1),
-        meal_type: mealType as 'breakfast',
+        meal_type: mealType,
         logged_at: `${date}T12:00:00.000Z`,
       })
       .select('id')
@@ -131,7 +143,12 @@ export async function logFoodAction(formData: FormData) {
       user_id: user.id,
       meal_group_id: mealGroupId,
       source: 'manual',
-      logged_at: new Date().toISOString(),
+      // The track page lists logs by `logged_at` within the selected day, so a log for
+      // another day must be stamped on that day, not "now".
+      logged_at:
+        date === new Date().toISOString().slice(0, 10)
+          ? new Date().toISOString()
+          : `${date}T12:00:00.000Z`,
       notes: null,
     })
     .select('id')
@@ -162,7 +179,7 @@ export async function logFoodAction(formData: FormData) {
 export async function updateFoodItemAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const itemId = str(formData, 'itemId');
-  const date = str(formData, 'date') || new Date().toISOString().slice(0, 10);
+  const date = dateParam(formData);
   const quantity = positiveNumber(formData, 'quantity');
   if (!itemId || !quantity) redirect(`/dashboard/track?date=${date}&error=invalid-edit`);
   const { data: item } = await supabase
@@ -199,7 +216,7 @@ export async function deleteFoodItemAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const itemId = str(formData, 'itemId');
   const logId = str(formData, 'logId');
-  const date = str(formData, 'date') || new Date().toISOString().slice(0, 10);
+  const date = dateParam(formData);
   if (!itemId) redirect(`/dashboard/track?date=${date}&error=invalid-delete`);
   await supabase.from('food_log_items').delete().eq('id', itemId);
   if (logId) {

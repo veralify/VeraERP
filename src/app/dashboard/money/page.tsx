@@ -49,10 +49,10 @@ export default async function MoneyOverviewPage() {
     netCashFlow,
   } = snapshot;
 
-  const monthStart = new Date();
-  monthStart.setDate(1);
-  monthStart.setHours(0, 0, 0, 0);
-  const monthStartStr = monthStart.toISOString().slice(0, 10);
+  // Built from local date parts: `toISOString()` on local midnight shifts to the previous
+  // day (and month) east of UTC.
+  const now = new Date();
+  const monthStartStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
 
   const [
     { data: subscriptionRows },
@@ -97,7 +97,7 @@ export default async function MoneyOverviewPage() {
   const upcoming = computeUpcomingEvents({
     expenses: activeExpenses,
     debts,
-    subscriptions,
+    subscriptions: activeSubscriptions,
     adminTasks,
     days: 7,
   });

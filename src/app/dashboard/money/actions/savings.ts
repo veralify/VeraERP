@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { currentUser, numberField, read, revalidateMoney } from './shared';
+import { assertSaved, currentUser, numberField, read, revalidateMoney } from './shared';
 
 export async function addSavingAction(formData: FormData) {
   const { supabase, user } = await currentUser();
@@ -12,7 +12,7 @@ export async function addSavingAction(formData: FormData) {
   const category = read(formData, 'category') || 'General';
   if (!name) redirect('/dashboard/money/savings?error=invalid');
 
-  await supabase.from('money_savings').insert({
+  const { error } = await supabase.from('money_savings').insert({
     user_id: user.id,
     name,
     amount,
@@ -20,6 +20,7 @@ export async function addSavingAction(formData: FormData) {
     monthly_contribution: monthlyContribution,
     category,
   });
+  assertSaved(error, 'savings');
   revalidateMoney('savings');
   redirect('/dashboard/money/savings?saved=1');
 }
@@ -35,7 +36,7 @@ export async function updateSavingAction(formData: FormData) {
   const active = read(formData, 'active') === 'true';
   if (!id || !name) redirect('/dashboard/money/savings?error=invalid');
 
-  await supabase
+  const { error } = await supabase
     .from('money_savings')
     .update({
       name,
@@ -47,6 +48,7 @@ export async function updateSavingAction(formData: FormData) {
     })
     .eq('id', id)
     .eq('user_id', user.id);
+  assertSaved(error, 'savings');
   revalidateMoney('savings');
   redirect('/dashboard/money/savings?saved=1');
 }
@@ -54,7 +56,12 @@ export async function updateSavingAction(formData: FormData) {
 export async function deleteSavingAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
-  await supabase.from('money_savings').delete().eq('id', id).eq('user_id', user.id);
+  const { error } = await supabase
+    .from('money_savings')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', user.id);
+  assertSaved(error, 'savings');
   revalidateMoney('savings');
   redirect('/dashboard/money/savings');
 }
