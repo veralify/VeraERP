@@ -82,8 +82,13 @@ struct FieldRow: View {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 16))
                             .foregroundStyle(Theme.textTertiary)
+                            // 44pt to tap, a 16pt glyph to see: the negative
+                            // padding keeps the field from growing taller.
+                            .frame(width: 44, height: 44)
+                            .contentShape(.rect)
                     }
                     .buttonStyle(.plain)
+                    .padding(-14)
                     .transition(.opacity)
                     .accessibilityLabel("Clear")
                 }
@@ -127,10 +132,12 @@ struct EntryChipRow: View {
                 Text(title)
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.textPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
                 Text(detail)
                     .font(.caption)
                     .monospacedDigit()
                     .foregroundStyle(Theme.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             Spacer(minLength: 8)
@@ -141,8 +148,13 @@ struct EntryChipRow: View {
                     .foregroundStyle(Theme.textSecondary)
                     .frame(width: 30, height: 30)
                     .background(Theme.surfaceElevated, in: .circle)
+                    // A 44pt hit area for the 30pt circle, taken back out of
+                    // layout so the row keeps its height and trailing edge.
+                    .frame(width: 44, height: 44)
+                    .contentShape(.rect)
             }
             .buttonStyle(.pressable)
+            .padding(-7)
             .accessibilityLabel(Text("Delete \(title)"))
         }
         .padding(.vertical, 10)
@@ -160,6 +172,9 @@ struct PrimaryButton: View {
             Text(title)
                 .font(.body.weight(.bold))
                 .foregroundStyle(enabled ? Theme.lime.readableForeground : Theme.textTertiary)
+                // A long translation wraps as a centred block rather than a
+                // ragged leading-aligned one.
+                .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 15)
                 // Fading the lime to 40% over black produces a murky olive that
@@ -181,6 +196,7 @@ struct SecondaryButton: View {
             Text(title)
                 .font(.body.weight(.semibold))
                 .foregroundStyle(Theme.textPrimary)
+                .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 15)
                 .background(Theme.surface, in: .capsule)
@@ -224,6 +240,7 @@ struct OnboardingScaffold<Content: View, Actions: View>: View {
                         Text(title)
                             .font(.system(size: 27, weight: .bold))
                             .foregroundStyle(Theme.textPrimary)
+                            .fixedSize(horizontal: false, vertical: true)
                         Text(subtitle)
                             .font(.subheadline)
                             .foregroundStyle(Theme.textSecondary)
@@ -231,6 +248,9 @@ struct OnboardingScaffold<Content: View, Actions: View>: View {
                     }
                     content
                 }
+                // Full width, leading: a short title and narrow content would
+                // otherwise shrink the stack and centre it in the scroll view.
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
                 .padding(.bottom, 24)

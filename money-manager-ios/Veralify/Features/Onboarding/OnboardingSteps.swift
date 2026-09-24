@@ -53,15 +53,17 @@ struct EntryStep: View {
                         }
                     }
 
-                    HStack {
+                    HStack(alignment: .firstTextBaseline) {
                         Text("Total")
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.textSecondary)
-                        Spacer()
+                        Spacer(minLength: 8)
                         Text(CurrencyFormat.string(entries.reduce(0) { $0 + $1.amount }))
                             .font(.subheadline.weight(.bold))
                             .monospacedDigit()
                             .foregroundStyle(Theme.textPrimary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
                     }
                     .padding(.horizontal, 4)
                 }
@@ -89,6 +91,13 @@ struct DebtStep: View {
     @State private var apr = ""
     @State private var minimum = ""
     @State private var dueDay = ""
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private var pairLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 12))
+            : AnyLayout(HStackLayout(alignment: .bottom, spacing: 12))
+    }
 
     private var canAdd: Bool {
         // Optional fields may stay empty, but a typed value that does not parse
@@ -113,7 +122,12 @@ struct DebtStep: View {
                 VStack(spacing: 12) {
                     FieldRow(label: "Debt name", placeholder: "e.g. Credit card", text: $name, submitLabel: .next)
                     FieldRow(label: "Remaining balance", placeholder: "0.00", text: $balance, keyboard: .decimalPad)
-                    HStack(spacing: 12) {
+                    // Side by side, bottom-aligned so the two inputs line up
+                    // even when one label wraps; stacked at accessibility text
+                    // sizes, where two columns leave each field too narrow to
+                    // show its figure. AnyLayout keeps the fields' identity, so
+                    // focus and text survive the switch.
+                    pairLayout {
                         FieldRow(label: "Annual interest %", placeholder: "0", text: $apr, keyboard: .decimalPad)
                         FieldRow(label: "Minimum", placeholder: "0.00", text: $minimum, keyboard: .decimalPad)
                     }
