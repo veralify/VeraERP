@@ -114,14 +114,24 @@ struct TransactionsView: View {
     }
 
     private func balanceLine(_ label: LocalizedStringKey, _ amount: Decimal, _ accent: Color) -> some View {
+        // The figure sits at the trailing edge rather than straight after its
+        // label: "Money in" and "Money out" differ in width, so figures that
+        // followed them started at different points and could not be compared
+        // down the column.
         HStack(spacing: 10) {
             Capsule().fill(accent).frame(width: 3, height: 16)
-            Text(label).font(.subheadline).foregroundStyle(Theme.textSecondary)
+            Text(label)
+                .font(.subheadline)
+                .foregroundStyle(Theme.textSecondary)
+                .lineLimit(1)
+            Spacer(minLength: 8)
             Text(CurrencyFormat.string(amount))
                 .font(.subheadline.weight(.semibold))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
-            Spacer(minLength: 0)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .layoutPriority(1)
         }
         .accessibilityElement(children: .combine)
     }
@@ -134,24 +144,19 @@ struct TransactionsView: View {
             // The day's own in and out beside its date: the question a ledger
             // gets asked most is "what did that day cost me", and it was only
             // answerable by adding the rows up by eye.
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text(group.day.formatted(.dateTime.weekday(.abbreviated).day().month(.wide)))
-                    .font(.headline.weight(.semibold))
-                    .foregroundStyle(Theme.textPrimary)
-
-                Spacer(minLength: 8)
-
-                if dayCredit > 0 {
-                    Text("+\(CurrencyFormat.string(dayCredit))")
-                        .font(.caption.weight(.bold))
-                        .monospacedDigit()
-                        .foregroundStyle(Theme.green)
+            //
+            // One line when it fits; otherwise the totals drop under the date.
+            // A long weekday and month (Arabic, or large type) beside two
+            // totals used to shrink all three, then truncate the date.
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    dayTitle(group.day)
+                    Spacer(minLength: 8)
+                    dayTotals(credit: dayCredit, debit: dayDebit)
                 }
-                if dayDebit > 0 {
-                    Text("−\(CurrencyFormat.string(dayDebit))")
-                        .font(.caption.weight(.bold))
-                        .monospacedDigit()
-                        .foregroundStyle(Theme.red)
+                VStack(alignment: .leading, spacing: 4) {
+                    dayTitle(group.day)
+                    dayTotals(credit: dayCredit, debit: dayDebit)
                 }
             }
             .lineLimit(1)
@@ -173,6 +178,29 @@ struct TransactionsView: View {
             }
         }
     }
+
+    private func dayTitle(_ day: Date) -> some View {
+        Text(day.formatted(.dateTime.weekday(.abbreviated).day().month(.wide)))
+            .font(.headline.weight(.semibold))
+            .foregroundStyle(Theme.textPrimary)
+    }
+
+    private func dayTotals(credit: Decimal, debit: Decimal) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+            if credit > 0 {
+                Text("+\(CurrencyFormat.string(credit))")
+                    .font(.caption.weight(.bold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.green)
+            }
+            if debit > 0 {
+                Text("−\(CurrencyFormat.string(debit))")
+                    .font(.caption.weight(.bold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.red)
+            }
+        }
+    }
 }
 
 /// Carries the confirmation flash from the quick-add sheet up to the app level.
@@ -187,41 +215,65 @@ final class QuickAddRouter {
 struct TransactionRow: View {
     let record: TransactionRecord
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         HStack(spacing: 12) {
             CategoryStyle.badge(record.category, size: 38)
 
-            VStack(alignment: .leading, spacing: 3) {
-                // The category leads and the note follows. A row titled with
-                // whatever got typed into "who's it for?" read as a list of
-                // strangers; the category is what the eye is scanning for.
-                Text(LocalizedStringKey(record.category))
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(Theme.textPrimary)
-                    .lineLimit(1)
-
-                Text(subtitle)
-                    .font(.footnote)
-                    .foregroundStyle(Theme.textTertiary)
-                    .lineLimit(1)
-            }
-
-            Spacer(minLength: 8)
-
-            VStack(alignment: .trailing, spacing: 2) {
-                Text("\(record.direction.sign)\(CurrencyFormat.string(record.amount))")
-                    .font(.system(size: 16, weight: .bold))
-                    .monospacedDigit()
-                    .foregroundStyle(record.direction.accent)
-                Text(record.occurredAt.formatted(.dateTime.hour().minute()))
-                    .font(.caption2)
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textTertiary)
+            // At accessibility sizes three columns leave the category a few
+            // letters wide, so the figures move under the labels instead.
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 6) {
+                    labels
+                    figures(alignment: .leading)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                labels
+                Spacer(minLength: 8)
+                figures(alignment: .trailing)
+                    // The amount is the one thing on the row that must never
+                    // be cut; the category and note truncate first.
+                    .layoutPriority(1)
             }
         }
         .padding(14)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
         .accessibilityElement(children: .combine)
+    }
+
+    private var labels: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            // The category leads and the note follows. A row titled with
+            // whatever got typed into "who's it for?" read as a list of
+            // strangers; the category is what the eye is scanning for.
+            Text(LocalizedStringKey(record.category))
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
+                .lineLimit(1)
+
+            Text(subtitle)
+                .font(.footnote)
+                .foregroundStyle(Theme.textTertiary)
+                .lineLimit(1)
+        }
+    }
+
+    private func figures(alignment: HorizontalAlignment) -> some View {
+        VStack(alignment: alignment, spacing: 2) {
+            Text("\(record.direction.sign)\(CurrencyFormat.string(record.amount))")
+                .font(.system(size: 16, weight: .bold))
+                .monospacedDigit()
+                .foregroundStyle(record.direction.accent)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+            Text(record.occurredAt.formatted(.dateTime.hour().minute()))
+                .font(.caption2)
+                .monospacedDigit()
+                .foregroundStyle(Theme.textTertiary)
+                .lineLimit(1)
+        }
     }
 
     /// What was typed, or where the money moved when nothing was.

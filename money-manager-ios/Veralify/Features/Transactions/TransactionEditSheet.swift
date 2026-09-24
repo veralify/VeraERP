@@ -17,6 +17,16 @@ struct TransactionEditSheet: View {
     @State private var date: Date
     @State private var isConfirmingDelete = false
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Bottom-aligned when side by side, so a label that wraps to two lines
+    /// does not knock its menu out of line with its neighbour.
+    private var pairLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 12))
+            : AnyLayout(HStackLayout(alignment: .bottom, spacing: 12))
+    }
+
     init(record: TransactionRecord) {
         self.record = record
         _name = State(initialValue: record.name)
@@ -52,7 +62,10 @@ struct TransactionEditSheet: View {
                             FieldRow(label: "Name", placeholder: "Name", text: $name)
                             FieldRow(label: "Amount", placeholder: "0.00", text: $amount, keyboard: .decimalPad)
 
-                            HStack(spacing: 12) {
+                            // Side by side normally; stacked at accessibility
+                            // sizes, where two menus in half the width each
+                            // cut their values to a letter or two.
+                            pairLayout {
                                 pickerRow("Category", $category, EntryPresets.categories)
                                 pickerRow("Account", $account, EntryPresets.accounts)
                             }
@@ -110,7 +123,9 @@ struct TransactionEditSheet: View {
                 }
             } label: {
                 HStack {
-                    Text(value.wrappedValue).foregroundStyle(Theme.textPrimary)
+                    Text(value.wrappedValue)
+                        .foregroundStyle(Theme.textPrimary)
+                        .lineLimit(1)
                     Spacer(minLength: 4)
                     Image(systemName: "chevron.up.chevron.down")
                         .font(.caption2)

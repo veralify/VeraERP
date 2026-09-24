@@ -87,15 +87,21 @@ struct EntryListView: View {
     }
 
     private var totalCard: some View {
-        HStack {
+        // On a shared baseline: centred, the smaller label floated above the
+        // figure's baseline and the pair read as two separate things.
+        HStack(alignment: .firstTextBaseline) {
             Text(kind == .debt ? "Total balance" : "Monthly total")
                 .font(.subheadline)
                 .foregroundStyle(Theme.textSecondary)
+                .lineLimit(1)
             Spacer(minLength: 8)
             Text(CurrencyFormat.string(total))
                 .font(.system(size: 20, weight: .bold))
                 .monospacedDigit()
                 .foregroundStyle(kind.accent)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .layoutPriority(1)
         }
         .padding(16)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
@@ -109,37 +115,65 @@ struct EntryListView: View {
     private func debtProgress(_ debt: DebtRecord) -> some View {
         let progress = DebtProgress(debt: debt, payments: payments)
 
-        return VStack(alignment: .leading, spacing: 10) {
+        // 4pt rather than 10: the Pay button's 44pt tap area adds 6pt above
+        // the capsules, so the visible gap under the bar is still 10.
+        return VStack(alignment: .leading, spacing: 4) {
             ProgressTrack(progress: progress.fraction, foreground: Theme.textTertiary, fill: Theme.lime)
 
-            HStack(spacing: 8) {
-                Pill(
-                    text: String(localized: "\(progress.percent)% paid"),
-                    style: .muted(dot: progress.hasProgress ? Theme.lime : Theme.textTertiary)
-                )
-                if debt.apr > 0 {
-                    Pill(text: String(localized: "\(debt.apr.percentText)%"), style: .accent(Theme.yellow))
+            // One row when the pills and the button fit; at large type or in
+            // a longer translation the button drops under the pills rather
+            // than squeezing them until the labels truncate.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) {
+                    debtPills(debt, progress: progress)
+                    Spacer(minLength: 8)
+                    payButton(debt)
                 }
-
-                Spacer(minLength: 8)
-
-                Button { payingDebt = debt } label: {
-                    Label("Pay", systemImage: "creditcard")
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(Theme.onAccent)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .background(Theme.lime, in: .capsule)
+                // Spacing chosen against the button's invisible 6pt margin:
+                // 10 under the bar, 8 between the pills and the capsule.
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 8) {
+                        debtPills(debt, progress: progress)
+                    }
+                    .padding(.top, 6)
+                    payButton(debt)
                 }
-                .buttonStyle(.pressable)
-                .accessibilityLabel("Record a payment for \(debt.name)")
             }
             // Nothing in this row may be squeezed: without it the pills and the
             // button compress until their labels break mid-word.
             .fixedSize(horizontal: false, vertical: true)
             .lineLimit(1)
         }
-        .padding(.bottom, 15)
+        // 15pt below the pills as before: the Pay button's tap area now
+        // reaches 6pt past its capsule, which makes up the difference.
+        .padding(.bottom, 9)
+    }
+
+    @ViewBuilder
+    private func debtPills(_ debt: DebtRecord, progress: DebtProgress) -> some View {
+        Pill(
+            text: String(localized: "\(progress.percent)% paid"),
+            style: .muted(dot: progress.hasProgress ? Theme.lime : Theme.textTertiary)
+        )
+        if debt.apr > 0 {
+            Pill(text: String(localized: "\(debt.apr.percentText)%"), style: .accent(Theme.yellow))
+        }
+    }
+
+    private func payButton(_ debt: DebtRecord) -> some View {
+        Button { payingDebt = debt } label: {
+            Label("Pay", systemImage: "creditcard")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(Theme.onAccent)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(Theme.lime, in: .capsule)
+                // The capsule is about 32pt tall; the tap area is 44.
+                .frame(minHeight: 44)
+                .contentShape(.rect)
+        }
+        .buttonStyle(.pressable)
+        .accessibilityLabel("Record a payment for \(debt.name)")
     }
 
     /// Wraps a row's content in whichever way of opening it the kind deserves.
@@ -174,20 +208,27 @@ struct EntryListView: View {
                         Text(title(for: target))
                             .font(.system(size: 17, weight: .semibold))
                             .foregroundStyle(Theme.textPrimary)
+                            .lineLimit(2)
                         if let detail = detail(for: target) {
                             Text(detail)
                                 .font(.footnote)
                                 .monospacedDigit()
                                 .foregroundStyle(Theme.textSecondary)
+                                .lineLimit(2)
                         }
                     }
 
                     Spacer(minLength: 8)
 
+                    // The amount keeps its width and one line; a long name
+                    // wraps instead of breaking the figure across two lines.
                     Text(CurrencyFormat.string(amount(for: target)))
                         .font(.system(size: 17, weight: .bold))
                         .monospacedDigit()
                         .foregroundStyle(Theme.textPrimary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                        .layoutPriority(1)
 
                     Image(systemName: "chevron.forward")
                         .font(.system(size: 13, weight: .semibold))

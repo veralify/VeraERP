@@ -52,6 +52,13 @@ struct SwipeToConfirm: View {
                     // goes muddy, so it carries its own darkness with it.
                     .shadow(color: .black.opacity(0.8), radius: 5)
                     .shadow(color: .black.opacity(0.5), radius: 12)
+                    // Kept clear of the resting knob, and inset the same on
+                    // the far side so it stays centred. A longer translation
+                    // or larger type shrinks it rather than running under
+                    // the knob or wrapping out of the 64pt track.
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .padding(.horizontal, knob + 8)
                     .frame(maxWidth: .infinity)
 
                 Circle()

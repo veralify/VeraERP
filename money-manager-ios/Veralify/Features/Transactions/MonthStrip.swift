@@ -38,12 +38,18 @@ struct MonthStrip: View {
                                     in: .capsule
                                 )
                                 .lineLimit(1)
+                                // The pill is under 44pt tall; the tap area
+                                // is stretched to 44 without growing the pill.
+                                .frame(minHeight: 44)
+                                .contentShape(.rect)
                         }
                         .buttonStyle(.pressable)
                         .id(month)
                     }
                 }
-                .padding(.horizontal, 2)
+                // No inset of its own: the first and last pills line up with
+                // the screen gutter and the cards below. Clipping is already
+                // off, so a pressed pill is not cut at the edge.
             }
             .scrollIndicators(.hidden)
             .scrollClipDisabled()
