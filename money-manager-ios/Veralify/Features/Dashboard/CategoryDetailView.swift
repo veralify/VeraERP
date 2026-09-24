@@ -56,7 +56,7 @@ struct CategoryDetailView: View {
                         // spacing for everything, the header read as the
                         // first entry.
                         VStack(spacing: 10) {
-                            ForEach(entries) { TransactionRow(record: $0) }
+                            ForEach(entries) { TransactionListRow(record: $0) }
                         }
                     }
                 }

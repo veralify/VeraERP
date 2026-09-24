@@ -620,7 +620,7 @@ struct DashboardView: View {
     /// entry looks like.
     private func entryRow(_ record: TransactionRecord) -> some View {
         NavigationLink(value: LedgerRoute()) {
-            TransactionRow(record: record)
+            TransactionListRow(record: record)
         }
         .buttonStyle(.pressableRow)
     }

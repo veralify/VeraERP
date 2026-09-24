@@ -131,7 +131,7 @@ struct ReceiptsView: View {
             ForEach(Array(receipts.enumerated()), id: \.element.id) { index, record in
                 if index > 0 { RowDivider().padding(.horizontal, 14) }
                 NavigationLink(value: record.id) {
-                    ReceiptRow(record: record, isOnline: queue.isOnline)
+                    ReceiptListRow(record: record, isOnline: queue.isOnline)
                 }
                 .buttonStyle(.pressableRow)
                 .contextMenu {
@@ -146,7 +146,7 @@ struct ReceiptsView: View {
 }
 
 /// One receipt in the list: its first page, what it says, and its state.
-struct ReceiptRow: View {
+struct ReceiptListRow: View {
     let record: ReceiptRecord
     let isOnline: Bool
 

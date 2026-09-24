@@ -165,7 +165,7 @@ struct TransactionsView: View {
 
             ForEach(group.items) { item in
                 Button { editing = item } label: {
-                    TransactionRow(record: item)
+                    TransactionListRow(record: item)
                 }
                 .buttonStyle(.pressableRow)
                 .contextMenu {
@@ -213,7 +213,7 @@ final class QuickAddRouter {
     var pendingFlash: EntryDirection?
 }
 
-struct TransactionRow: View {
+struct TransactionListRow: View {
     let record: TransactionRecord
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
