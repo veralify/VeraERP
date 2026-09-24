@@ -28,9 +28,21 @@ struct IDVaultView: View {
             Theme.background.ignoresSafeArea()
 
             if documents.isEmpty {
-                // Clear of the floating tab bar, which this screen now sits
-                // behind rather than being pushed above.
-                emptyState.padding(.bottom, 92)
+                // Centred in the space above the floating tab bar, like the
+                // other tabs' empty states, rather than dropped to the bottom
+                // by the ZStack's alignment. Scrollable, because at the largest
+                // text sizes the copy and both buttons outgrow a small screen.
+                GeometryReader { proxy in
+                    ScrollView {
+                        emptyState
+                            .frame(maxWidth: .infinity, minHeight: max(0, proxy.size.height - 92))
+                            // Clear of the floating tab bar, which this screen
+                            // sits behind rather than being pushed above.
+                            .padding(.bottom, 92)
+                    }
+                    .scrollIndicators(.hidden)
+                    .scrollBounceBehavior(.basedOnSize)
+                }
             } else {
                 ScrollView {
                     VStack(spacing: 18) {
@@ -39,7 +51,7 @@ struct IDVaultView: View {
                         scanButton
                     }
                     .padding(.horizontal, 16)
-                    .padding(.top, 10)
+                    .padding(.top, 8)
                     .padding(.bottom, 108)
                 }
                 .scrollIndicators(.hidden)
@@ -185,10 +197,18 @@ struct IDVaultView: View {
                 Text("Scanning needs a camera, so it only works on a device.")
                     .font(.caption)
                     .foregroundStyle(Theme.textTertiary)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            Button("Add by hand") { pendingScan = ScannedDocument() }
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Theme.lime)
+            Button { pendingScan = ScannedDocument() } label: {
+                Text("Add by hand")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.lime)
+                    // The bare text was a 20pt target; this keeps it looking
+                    // like a link while giving the thumb a full row.
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .contentShape(.rect)
+            }
         }
     }
 

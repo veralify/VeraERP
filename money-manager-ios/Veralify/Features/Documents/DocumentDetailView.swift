@@ -12,6 +12,7 @@ struct DocumentDetailView: View {
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @State private var isEditing = false
     @State private var photoItem: PhotosPickerItem?
@@ -87,7 +88,10 @@ struct DocumentDetailView: View {
     @ViewBuilder
     private var photoSection: some View {
         if let data = document.photoData, let image = UIImage(data: data) {
-            VStack(spacing: 10) {
+            // No spacing of its own: the action row below is 44pt tall for the
+            // sake of the finger, and its centred labels already sit clear of
+            // the photo.
+            VStack(spacing: 0) {
                 Button { isShowingPhoto = true } label: {
                     Image(uiImage: image)
                         .resizable()
@@ -107,6 +111,8 @@ struct DocumentDetailView: View {
                         Label("Replace", systemImage: "arrow.triangle.2.circlepath")
                             .font(.caption.weight(.bold))
                             .foregroundStyle(Theme.textSecondary)
+                            .frame(minHeight: 44)
+                            .contentShape(.rect)
                     }
                     Spacer(minLength: 0)
                     Button {
@@ -115,6 +121,8 @@ struct DocumentDetailView: View {
                         Label("Remove", systemImage: "trash")
                             .font(.caption.weight(.bold))
                             .foregroundStyle(Theme.red)
+                            .frame(minHeight: 44)
+                            .contentShape(.rect)
                     }
                     .buttonStyle(.pressable)
                 }
@@ -196,38 +204,76 @@ struct DocumentDetailView: View {
 
     // MARK: - Fields
 
-    private var fieldsSection: some View {
-        LazyVGrid(
-            columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)],
-            spacing: 10
-        ) {
-            TapToCopyChip(
+    /// One tap-to-copy field, so the grid can be laid out in rows.
+    private struct CopyField: Identifiable {
+        let id: String
+        let label: LocalizedStringKey
+        let value: String
+        var needsConfirming = false
+    }
+
+    private var copyFields: [CopyField] {
+        var fields = [
+            CopyField(
+                id: "number",
                 label: "Number",
                 value: document.documentNumber,
-                needsConfirming: !document.isVerified && !document.documentNumber.isEmpty,
-                onCopy: show
-            )
-            TapToCopyChip(label: "Name", value: document.holderName, onCopy: show)
+                needsConfirming: !document.isVerified && !document.documentNumber.isEmpty
+            ),
+            CopyField(id: "name", label: "Name", value: document.holderName)
+        ]
+        if let dob = document.dateOfBirth {
+            fields.append(CopyField(
+                id: "dob",
+                label: "Date of birth",
+                value: dob.formatted(.dateTime.day().month(.abbreviated).year())
+            ))
+        }
+        if let expiry = document.expirationDate {
+            fields.append(CopyField(
+                id: "expiry",
+                label: "Expires",
+                value: expiry.formatted(.dateTime.day().month(.abbreviated).year())
+            ))
+        }
+        if !document.nationality.isEmpty {
+            fields.append(CopyField(id: "nationality", label: "Nationality", value: document.nationality))
+        }
+        if !document.issuingCountry.isEmpty {
+            fields.append(CopyField(id: "issuer", label: "Issued by", value: document.issuingCountry))
+        }
+        return fields
+    }
 
-            if let dob = document.dateOfBirth {
-                TapToCopyChip(
-                    label: "Date of birth",
-                    value: dob.formatted(.dateTime.day().month(.abbreviated).year()),
-                    onCopy: show
-                )
-            }
-            if let expiry = document.expirationDate {
-                TapToCopyChip(
-                    label: "Expires",
-                    value: expiry.formatted(.dateTime.day().month(.abbreviated).year()),
-                    onCopy: show
-                )
-            }
-            if !document.nationality.isEmpty {
-                TapToCopyChip(label: "Nationality", value: document.nationality, onCopy: show)
-            }
-            if !document.issuingCountry.isEmpty {
-                TapToCopyChip(label: "Issued by", value: document.issuingCountry, onCopy: show)
+    /// A `Grid` rather than a `LazyVGrid`: a lazy grid sizes each cell on its
+    /// own, so a name that wrapped to two lines sat beside a number one line
+    /// tall. A grid row gives both the same height. At accessibility sizes the
+    /// fields go one to a row — half the width left a passport number a few
+    /// characters per line.
+    private var fieldsSection: some View {
+        let perRow = dynamicTypeSize.isAccessibilitySize ? 1 : 2
+        let fields = copyFields
+        let rows = stride(from: 0, to: fields.count, by: perRow).map {
+            Array(fields[$0..<min($0 + perRow, fields.count)])
+        }
+
+        return Grid(horizontalSpacing: 10, verticalSpacing: 10) {
+            ForEach(rows.indices, id: \.self) { index in
+                GridRow {
+                    ForEach(rows[index]) { field in
+                        TapToCopyChip(
+                            label: field.label,
+                            value: field.value,
+                            needsConfirming: field.needsConfirming,
+                            onCopy: show
+                        )
+                    }
+                    // Holds the second column open, so a lone last field
+                    // stays half width like the ones above it.
+                    if rows[index].count < perRow {
+                        Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
+                    }
+                }
             }
         }
     }
@@ -235,7 +281,9 @@ struct DocumentDetailView: View {
     @ViewBuilder
     private var remindersSummary: some View {
         if document.expirationDate != nil, !document.reminderDays.isEmpty {
-            HStack(spacing: 8) {
+            // Baseline-aligned so the bell stays on the first line when the
+            // list of reminders wraps, instead of floating to the middle.
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
                 Image(systemName: "bell.fill")
                     .font(.caption.weight(.bold))
                     .foregroundStyle(Theme.lime)
@@ -300,8 +348,12 @@ private struct PhotoViewer: View {
                     .foregroundStyle(.white)
                     .frame(width: 36, height: 36)
                     .background(.black.opacity(0.55), in: .circle)
+                    // A 44pt target around the 36pt disc; the padding below
+                    // gives back the 4pt so the disc stays where it was.
+                    .frame(width: 44, height: 44)
+                    .contentShape(.circle)
             }
-            .padding(20)
+            .padding(16)
             .accessibilityLabel("Close")
         }
     }

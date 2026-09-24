@@ -193,9 +193,15 @@ struct DocumentForm: View {
                         remindersCard
                         PrimaryButton(title: saveTitle, enabled: canSave, action: onSave)
                         if onDelete != nil {
-                            Button("Delete document", role: .destructive) { isConfirmingDelete = true }
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(Theme.red)
+                            Button(role: .destructive) { isConfirmingDelete = true } label: {
+                                Text("Delete document")
+                                    .font(.subheadline.weight(.semibold))
+                                    .foregroundStyle(Theme.red)
+                                    // A full-width 44pt target: the bare text
+                                    // was a sliver under the save button.
+                                    .frame(maxWidth: .infinity, minHeight: 44)
+                                    .contentShape(.rect)
+                            }
                         }
                     }
                     .padding(20)
@@ -251,6 +257,10 @@ struct DocumentForm: View {
                             .padding(.horizontal, 12)
                             .padding(.vertical, 9)
                             .background(documentType == option ? Theme.lime : Theme.surfaceElevated, in: .capsule)
+                            // The capsule stays 34pt; the tappable area around
+                            // it reaches 44.
+                            .frame(minHeight: 44)
+                            .contentShape(.rect)
                     }
                     .buttonStyle(.pressable)
                 }
@@ -267,24 +277,30 @@ struct DocumentForm: View {
             FieldRow(label: "Name", placeholder: "As printed", text: $holderName)
             FieldRow(label: "Nationality", placeholder: "ITA", text: $nationality)
 
-            Toggle(isOn: $hasDateOfBirth) {
-                Text("Date of birth")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Theme.textPrimary)
-            }
-            .tint(Theme.lime)
-            if hasDateOfBirth {
-                DateField(label: "Born", date: $dateOfBirth)
+            // Each date sits tighter to the toggle that reveals it than to the
+            // next field, so the pair reads as one control.
+            VStack(spacing: 10) {
+                Toggle(isOn: $hasDateOfBirth) {
+                    Text("Date of birth")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                }
+                .tint(Theme.lime)
+                if hasDateOfBirth {
+                    DateField(label: "Born", date: $dateOfBirth)
+                }
             }
 
-            Toggle(isOn: $hasExpiry) {
-                Text("Has an expiry date")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Theme.textPrimary)
-            }
-            .tint(Theme.lime)
-            if hasExpiry {
-                DateField(label: "Expires", date: $expirationDate)
+            VStack(spacing: 10) {
+                Toggle(isOn: $hasExpiry) {
+                    Text("Has an expiry date")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                }
+                .tint(Theme.lime)
+                if hasExpiry {
+                    DateField(label: "Expires", date: $expirationDate)
+                }
             }
         }
         .padding(16)
@@ -299,25 +315,31 @@ struct DocumentForm: View {
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Theme.textSecondary)
 
-                ForEach(NotificationManager.offeredDays, id: \.self) { days in
-                    Button {
-                        if reminderDays.contains(days) { reminderDays.remove(days) }
-                        else { reminderDays.insert(days) }
-                        Task { await requestPermissionIfNeeded() }
-                    } label: {
-                        HStack(spacing: 10) {
-                            Image(systemName: reminderDays.contains(days) ? "checkmark.circle.fill" : "circle")
-                                .font(.system(size: 18))
-                                .foregroundStyle(reminderDays.contains(days) ? Theme.lime : Theme.textTertiary)
-                            Text(NotificationManager.label(forDays: days))
-                                .font(.subheadline)
-                                .foregroundStyle(Theme.textPrimary)
-                            Spacer(minLength: 0)
+                // Rows butt together at 44pt each rather than being spaced
+                // apart, so the target is full height without the list
+                // spreading out.
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(NotificationManager.offeredDays, id: \.self) { days in
+                        Button {
+                            if reminderDays.contains(days) { reminderDays.remove(days) }
+                            else { reminderDays.insert(days) }
+                            Task { await requestPermissionIfNeeded() }
+                        } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: reminderDays.contains(days) ? "checkmark.circle.fill" : "circle")
+                                    .font(.system(size: 18))
+                                    .foregroundStyle(reminderDays.contains(days) ? Theme.lime : Theme.textTertiary)
+                                Text(NotificationManager.label(forDays: days))
+                                    .font(.subheadline)
+                                    .foregroundStyle(Theme.textPrimary)
+                                Spacer(minLength: 0)
+                            }
+                            .padding(.vertical, 7)
+                            .frame(minHeight: 44)
+                            .contentShape(.rect)
                         }
-                        .padding(.vertical, 7)
-                        .contentShape(.rect)
+                        .buttonStyle(.pressable)
                     }
-                    .buttonStyle(.pressable)
                 }
 
                 if notifications.permission == .denied {

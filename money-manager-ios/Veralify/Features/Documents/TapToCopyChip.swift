@@ -31,7 +31,7 @@ struct TapToCopyChip: View {
             }
         } label: {
             VStack(alignment: .leading, spacing: 5) {
-                HStack(spacing: 5) {
+                HStack(alignment: .firstTextBaseline, spacing: 5) {
                     Text(label)
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(Theme.textSecondary)
@@ -54,7 +54,9 @@ struct TapToCopyChip: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(14)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            // Fills the height it is offered, so two chips side by side in a
+            // grid row match when only one value wraps to a second line.
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .background(
                 isFlashing ? Theme.lime.opacity(0.22) : Theme.surface,
                 in: .rect(cornerRadius: Theme.Radius.card)
@@ -97,6 +99,9 @@ struct CopyToast: View {
         .padding(.vertical, 11)
         .background(Theme.lime, in: .capsule)
         .shadow(color: .black.opacity(0.4), radius: 12, y: 4)
+        // Keeps the screen gutter when a long value fills the capsule, rather
+        // than letting it run edge to edge before truncating.
+        .padding(.horizontal, 16)
         .accessibilityHidden(true)
     }
 }
