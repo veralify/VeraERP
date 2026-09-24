@@ -121,17 +121,25 @@ struct BudgetsView: View {
             // Two phrases rather than one sentence with two counts in it: a
             // single string needing plural agreement on both numbers is a
             // translator's trap, and Arabic has six plural forms to get wrong.
-            HStack(spacing: 6) {
-                Text(report.overCount > 0
-                     ? "\(report.overCount) of \(report.lines.count) over the limit"
-                     : "left across \(report.lines.count) budgets")
-                Text("·")
-                Text("\(days) days to go")
+            // On one line when they fit; stacked when they don't, rather than
+            // shrinking or truncating the second phrase on a narrow phone or at
+            // a large text size.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 6) {
+                    summaryStatus(report)
+                    Text("·")
+                    Text("\(days) days to go")
+                }
+                .lineLimit(1)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    summaryStatus(report)
+                    Text("\(days) days to go")
+                }
+                .fixedSize(horizontal: false, vertical: true)
             }
             .font(.subheadline.weight(.semibold))
             .foregroundStyle(report.totalRemaining >= 0 ? Theme.onAccent.opacity(0.8) : Theme.textSecondary)
-            .lineLimit(1)
-            .minimumScaleFactor(0.8)
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -139,6 +147,12 @@ struct BudgetsView: View {
             report.totalRemaining >= 0 ? Theme.lime : Theme.redSurface,
             in: .rect(cornerRadius: Theme.Radius.card)
         )
+    }
+
+    private func summaryStatus(_ report: BudgetReport) -> Text {
+        Text(report.overCount > 0
+             ? "\(report.overCount) of \(report.lines.count) over the limit"
+             : "left across \(report.lines.count) budgets")
     }
 
     // MARK: - One budget
@@ -154,10 +168,14 @@ struct BudgetsView: View {
                     .foregroundStyle(Theme.textPrimary)
                     .lineLimit(1)
 
+                // Kept whole: squeezed, the capsule wrapped its label onto two
+                // lines. When space runs short the name truncates instead.
                 if line.isOver {
                     Pill(text: String(localized: "Over"), style: .muted(dot: Theme.red))
+                        .fixedSize()
                 } else if ahead {
                     Pill(text: String(localized: "Ahead of pace"), style: .muted(dot: Theme.yellow))
+                        .fixedSize()
                 }
 
                 Spacer(minLength: 8)
@@ -173,18 +191,26 @@ struct BudgetsView: View {
                         .font(.caption2)
                         .foregroundStyle(Theme.textTertiary)
                 }
+                // The figure is the point of the card; the name gives way first.
+                .layoutPriority(1)
             }
 
             ProgressTrack(progress: line.fraction, foreground: accent, fill: accent)
 
-            HStack(spacing: 8) {
-                Text("\(CurrencyFormat.string(line.spent)) of \(CurrencyFormat.string(line.limit))")
-                    .monospacedDigit()
-                Text("·")
-                Text("\(Int((line.fraction * 100).rounded()))% spent")
-                    .monospacedDigit()
-                Spacer(minLength: 8)
-                Text("\(line.count) entries")
+            // One line when it fits. Two large amounts plus the entry count
+            // overran a small phone even at the 0.85 scale floor, so the count
+            // drops to its own line rather than the amounts being truncated.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) {
+                    spentLine(line)
+                    Spacer(minLength: 8)
+                    Text("\(line.count) entries")
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    spentLine(line)
+                    Text("\(line.count) entries")
+                }
             }
             .font(.caption)
             .foregroundStyle(Theme.textTertiary)
@@ -195,6 +221,16 @@ struct BudgetsView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
         .accessibilityElement(children: .combine)
+    }
+
+    private func spentLine(_ line: BudgetLine) -> some View {
+        HStack(spacing: 8) {
+            Text("\(CurrencyFormat.string(line.spent)) of \(CurrencyFormat.string(line.limit))")
+                .monospacedDigit()
+            Text("·")
+            Text("\(Int((line.fraction * 100).rounded()))% spent")
+                .monospacedDigit()
+        }
     }
 
     private var footnote: some View {
@@ -270,9 +306,15 @@ struct BudgetSheet: View {
                         PrimaryButton(title: "Save budget", enabled: canSave, action: save)
 
                         if existing != nil {
-                            Button("Remove this budget", role: .destructive) { isConfirmingDelete = true }
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(Theme.red)
+                            Button(role: .destructive) { isConfirmingDelete = true } label: {
+                                Text("Remove this budget")
+                                    .font(.subheadline.weight(.semibold))
+                                    .foregroundStyle(Theme.red)
+                                    // A bare line of text was a ~20pt target
+                                    // right under the primary button.
+                                    .frame(maxWidth: .infinity, minHeight: 44)
+                                    .contentShape(.rect)
+                            }
                         }
                     }
                     .padding(20)
@@ -309,6 +351,9 @@ struct BudgetSheet: View {
                             .padding(.horizontal, 13)
                             .padding(.vertical, 9)
                             .background(category == option ? Theme.lime : Theme.surfaceElevated, in: .capsule)
+                            // The capsule is ~33pt tall; the tap area is not.
+                            .frame(minHeight: 44)
+                            .contentShape(.rect)
                     }
                     .buttonStyle(.pressable)
                 }

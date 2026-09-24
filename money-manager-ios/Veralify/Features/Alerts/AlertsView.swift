@@ -264,7 +264,7 @@ struct AlertsView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.top, 8)
+            .padding(.top, 12)
             .padding(.bottom, 32)
         }
         .scrollIndicators(.hidden)
@@ -282,6 +282,9 @@ struct AlertsView: View {
                     .font(.system(size: 17, weight: .bold))
                     .monospacedDigit()
                     .foregroundStyle(Theme.textPrimary)
+                    // A long name wraps; the amount never splits across lines.
+                    .lineLimit(1)
+                    .layoutPriority(1)
             }
 
             HStack(spacing: 10) {
@@ -318,6 +321,8 @@ struct AlertsView: View {
                         .font(.system(size: 17, weight: .bold))
                         .monospacedDigit()
                         .foregroundStyle(Theme.textPrimary)
+                        .lineLimit(1)
+                        .layoutPriority(1)
                 }
 
                 HStack(spacing: 10) {
@@ -353,7 +358,9 @@ struct AlertBanner: View {
     let accent: Color
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        // On the title's baseline rather than the top edge, so the glyph sits
+        // level with the first line of text instead of riding above it.
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
             Image(systemName: icon)
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(accent)

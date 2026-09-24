@@ -64,6 +64,7 @@ struct RemindersCard: View {
                     .tint(Theme.textPrimary)
                 }
                 .padding(.vertical, 6)
+                .frame(minHeight: 44)
 
                 RowDivider()
 
@@ -115,6 +116,9 @@ struct RemindersCard: View {
                 Spacer(minLength: 0)
             }
             .padding(.vertical, 9)
+            // Matches the time and nudge rows, and keeps the tap target at
+            // 44pt however small the label renders.
+            .frame(minHeight: 44)
             .contentShape(.rect)
         }
         .buttonStyle(.pressableRow)

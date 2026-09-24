@@ -67,7 +67,10 @@ struct QuestDetailSheet: View {
                         .foregroundStyle(Theme.textPrimary)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    HStack(spacing: 7) {
+                    // Wraps rather than squeezing: beside the 54pt icon, two
+                    // capsules at a large text size overran the line and
+                    // broke their labels onto two lines each.
+                    FlowRow(spacing: 7) {
                         Pill(
                             text: isComplete
                                 ? String(localized: "Done today")

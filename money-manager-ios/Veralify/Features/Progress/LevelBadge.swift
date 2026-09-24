@@ -75,7 +75,7 @@ struct LevelPanel: View {
             SectionHeader(title: "Your level") { EmptyView() }
 
             VStack(alignment: .leading, spacing: 14) {
-                HStack {
+                HStack(alignment: .firstTextBaseline) {
                     Label("Level \(level.level)", systemImage: "crown.fill")
                         .font(.title3.weight(.bold))
                         .foregroundStyle(Theme.textPrimary)

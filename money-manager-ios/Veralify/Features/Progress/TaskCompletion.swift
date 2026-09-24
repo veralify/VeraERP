@@ -88,7 +88,9 @@ struct CompletionButton: View {
         }
         // Always mounted; invisible until its trigger changes.
         .overlay { ParticleBurst(trigger: celebrationID, tint: accent) }
-        .frame(width: 34, height: 34)
+        // The minimum touch target. The circle stays 26pt; this is only the
+        // area around it that takes the tap.
+        .frame(width: 44, height: 44)
         .contentShape(.rect)
     }
 }
@@ -137,7 +139,7 @@ struct FloatingReward: View {
                     LinearKeyframe(1, duration: 0.54)
                 }
             }
-            // The label is shown in an overlay on a 34pt button, which would
+            // The label is shown in an overlay on a 44pt button, which would
             // otherwise squeeze it to that width and truncate it to an ellipsis.
             .fixedSize()
             .allowsHitTesting(false)
