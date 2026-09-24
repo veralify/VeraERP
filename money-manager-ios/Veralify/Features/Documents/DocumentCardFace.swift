@@ -39,7 +39,10 @@ struct DocumentCardFace: View {
     static let collapsedHeight: CGFloat = 86
 
     private var header: some View {
-        HStack(alignment: .top, spacing: 10) {
+        // On the title's baseline rather than the top edge: the glyph is a
+        // point larger than the title, so top-aligning left it sitting visibly
+        // higher than the word it stands beside.
+        HStack(alignment: .firstTextBaseline, spacing: 10) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(type.title.uppercased())
                     .font(.system(size: 14, weight: .bold))
@@ -53,6 +56,10 @@ struct DocumentCardFace: View {
                         .font(.system(size: 13, weight: .medium))
                         .foregroundStyle(type.cardInk.opacity(0.75))
                         .lineLimit(1)
+                        // A long compound name shrinks a little before it
+                        // truncates; the strip it sits in has no room for a
+                        // second line when the card is stacked.
+                        .minimumScaleFactor(0.85)
                 }
             }
 
@@ -65,8 +72,14 @@ struct DocumentCardFace: View {
     }
 
     private var footer: some View {
-        HStack(alignment: .bottom) {
+        // Baseline, not bottom: the badge's text sits inside its capsule
+        // padding, so bottom-aligning dropped the 9pt wordmark below the line
+        // the badge actually reads on.
+        HStack(alignment: .firstTextBaseline) {
             expiryBadge
+                // The badge is the one piece of the footer that says something;
+                // the wordmark gives way first on a narrow card.
+                .layoutPriority(1)
             Spacer(minLength: 8)
 
             if document.photoData != nil {
@@ -98,6 +111,8 @@ struct DocumentCardFace: View {
             Text(label)
                 .font(.system(size: 11, weight: .bold))
                 .foregroundStyle(ink)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .background(tint, in: .capsule)
