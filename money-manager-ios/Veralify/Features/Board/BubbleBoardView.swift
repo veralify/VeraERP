@@ -368,7 +368,7 @@ struct BubbleBoardView: View {
 
     private func anchors() -> [Int: (x: Double, y: Double)] {
         var result = customPositions.reduce(into: [Int: (x: Double, y: Double)]()) {
-            $0[$1.key] = (x: $1.value.x, y: $1.value.y)
+            $0[$1.key] = (x: Double($1.value.x), y: Double($1.value.y))
         }
         if result[Bubble.addID] == nil {
             result[Bubble.addID] = (x: 0.84, y: 0.86)
