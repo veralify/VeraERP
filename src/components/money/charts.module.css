@@ -1,0 +1,70 @@
+/*
+ * Chart colour roles for the money dashboard. Series colours are the
+ * validated categorical slots 1 (blue) and 2 (orange), stepped per theme and
+ * checked against the Veralify surfaces (#101720 dark, #FFFFFF light):
+ * lightness band, chroma, CVD separation (ΔE 26.8 dark / 24.7 light) and
+ * 3:1 contrast all pass. Ink and hairlines reuse the design tokens so charts
+ * sit on the card surface like any other content.
+ *
+ * The app always stamps <html data-theme>, dark by default (tokens.css), so
+ * the light values hang off that attribute rather than a media query.
+ */
+.root {
+  --chart-series-1: #3987e5;
+  --chart-series-2: #d95926;
+  --chart-surface: var(--vera-color-surface);
+  --chart-grid: var(--vera-color-border);
+  --chart-axis: var(--vera-color-border-strong);
+  --chart-ink: var(--vera-color-fg);
+  --chart-ink-muted: var(--vera-color-fg-subtle);
+}
+
+[data-theme='light'] .root {
+  --chart-series-1: #2a78d6;
+  --chart-series-2: #eb6834;
+}
+
+.series1 {
+  background-color: var(--chart-series-1);
+}
+
+.series2 {
+  background-color: var(--chart-series-2);
+}
+
+/* Bars: 4px rounded data-end, square at the baseline. */
+.bar {
+  border-radius: 0 4px 4px 0;
+  background-color: var(--chart-series-1);
+  transition: filter 0.15s ease;
+}
+
+.barRow:hover .bar {
+  filter: brightness(1.15);
+}
+
+.lineKey {
+  display: inline-block;
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  vertical-align: middle;
+}
+
+.rectKey {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.svg text {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (forced-colors: active) {
+  .bar {
+    background-color: CanvasText;
+  }
+}

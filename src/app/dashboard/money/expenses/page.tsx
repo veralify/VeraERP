@@ -33,6 +33,7 @@ export default async function ExpensesPage({ searchParams }: { searchParams: Sea
     .from('money_expenses')
     .select('id, name, amount, category, due_day, active')
     .eq('user_id', user.id)
+    .is('deleted_at', null)
     .order('created_at', { ascending: false });
   const expenses = rows ?? [];
 

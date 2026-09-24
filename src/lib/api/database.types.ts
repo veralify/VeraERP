@@ -93,9 +93,11 @@ export type Database = {
           active: boolean
           amount: number
           created_at: string
+          deleted_at: string | null
           id: string
           name: string
           payday: number | null
+          sync_seq: number
           type: string
           updated_at: string
           user_id: string
@@ -104,9 +106,11 @@ export type Database = {
           active?: boolean
           amount: number
           created_at?: string
+          deleted_at?: string | null
           id?: string
           name: string
           payday?: number | null
+          sync_seq?: number
           type?: string
           updated_at?: string
           user_id: string
@@ -115,9 +119,11 @@ export type Database = {
           active?: boolean
           amount?: number
           created_at?: string
+          deleted_at?: string | null
           id?: string
           name?: string
           payday?: number | null
+          sync_seq?: number
           type?: string
           updated_at?: string
           user_id?: string
@@ -138,9 +144,11 @@ export type Database = {
           amount: number
           category: string
           created_at: string
+          deleted_at: string | null
           due_day: number | null
           id: string
           name: string
+          sync_seq: number
           updated_at: string
           user_id: string
         }
@@ -149,9 +157,11 @@ export type Database = {
           amount: number
           category?: string
           created_at?: string
+          deleted_at?: string | null
           due_day?: number | null
           id?: string
           name: string
+          sync_seq?: number
           updated_at?: string
           user_id: string
         }
@@ -160,9 +170,11 @@ export type Database = {
           amount?: number
           category?: string
           created_at?: string
+          deleted_at?: string | null
           due_day?: number | null
           id?: string
           name?: string
+          sync_seq?: number
           updated_at?: string
           user_id?: string
         }
@@ -181,11 +193,15 @@ export type Database = {
           apr: number
           balance: number
           created_at: string
+          deleted_at: string | null
           due_day: number | null
+          extra_payment: number
           id: string
+          local_id: number | null
           minimum_payment: number
           name: string
           priority: number
+          sync_seq: number
           updated_at: string
           user_id: string
         }
@@ -193,11 +209,15 @@ export type Database = {
           apr?: number
           balance: number
           created_at?: string
+          deleted_at?: string | null
           due_day?: number | null
+          extra_payment?: number
           id?: string
+          local_id?: number | null
           minimum_payment?: number
           name: string
           priority?: number
+          sync_seq?: number
           updated_at?: string
           user_id: string
         }
@@ -205,11 +225,15 @@ export type Database = {
           apr?: number
           balance?: number
           created_at?: string
+          deleted_at?: string | null
           due_day?: number | null
+          extra_payment?: number
           id?: string
+          local_id?: number | null
           minimum_payment?: number
           name?: string
           priority?: number
+          sync_seq?: number
           updated_at?: string
           user_id?: string
         }
@@ -272,19 +296,25 @@ export type Database = {
       }
       money_settings: {
         Row: {
+          deleted_at: string | null
           key: string
+          sync_seq: number
           updated_at: string
           user_id: string
           value: string
         }
         Insert: {
+          deleted_at?: string | null
           key: string
+          sync_seq?: number
           updated_at?: string
           user_id: string
           value: string
         }
         Update: {
+          deleted_at?: string | null
           key?: string
+          sync_seq?: number
           updated_at?: string
           user_id?: string
           value?: string
@@ -305,10 +335,19 @@ export type Database = {
           amount: number
           category: string
           created_at: string
+          currency: string
+          deleted_at: string | null
           direction: Database["public"]["Enums"]["money_transaction_direction"]
+          home_amount: number | null
           id: string
           merchant: string
           notes: string
+          occurred_at: string | null
+          receipt_id: string | null
+          scope: Database["public"]["Enums"]["money_scope"]
+          source: Database["public"]["Enums"]["money_transaction_source"]
+          sync_seq: number
+          tax_amount: number | null
           transaction_date: string
           updated_at: string
           user_id: string
@@ -318,10 +357,19 @@ export type Database = {
           amount: number
           category?: string
           created_at?: string
+          currency?: string
+          deleted_at?: string | null
           direction: Database["public"]["Enums"]["money_transaction_direction"]
+          home_amount?: number | null
           id?: string
           merchant: string
           notes?: string
+          occurred_at?: string | null
+          receipt_id?: string | null
+          scope?: Database["public"]["Enums"]["money_scope"]
+          source?: Database["public"]["Enums"]["money_transaction_source"]
+          sync_seq?: number
+          tax_amount?: number | null
           transaction_date: string
           updated_at?: string
           user_id: string
@@ -331,15 +379,31 @@ export type Database = {
           amount?: number
           category?: string
           created_at?: string
+          currency?: string
+          deleted_at?: string | null
           direction?: Database["public"]["Enums"]["money_transaction_direction"]
+          home_amount?: number | null
           id?: string
           merchant?: string
           notes?: string
+          occurred_at?: string | null
+          receipt_id?: string | null
+          scope?: Database["public"]["Enums"]["money_scope"]
+          source?: Database["public"]["Enums"]["money_transaction_source"]
+          sync_seq?: number
+          tax_amount?: number | null
           transaction_date?: string
           updated_at?: string
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "money_transactions_receipt_fk"
+            columns: ["receipt_id"]
+            isOneToOne: false
+            referencedRelation: "money_receipts"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "money_transactions_user_id_fkey"
             columns: ["user_id"]
@@ -477,6 +541,874 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "money_documents_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_income_actuals: {
+        Row: {
+          amount: number
+          created_at: string
+          deleted_at: string | null
+          id: string
+          income_id: string
+          month: string
+          sync_seq: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          income_id: string
+          month: string
+          sync_seq?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          income_id?: string
+          month?: string
+          sync_seq?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_income_actuals_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "money_income_actuals_income_id_fkey"
+            columns: ["income_id"]
+            isOneToOne: false
+            referencedRelation: "money_income"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_losses: {
+        Row: {
+          amount: number
+          created_at: string
+          deleted_at: string | null
+          id: string
+          note: string
+          occurred_on: string
+          reason: string
+          sync_seq: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          note?: string
+          occurred_on: string
+          reason?: string
+          sync_seq?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          note?: string
+          occurred_on?: string
+          reason?: string
+          sync_seq?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_losses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_debt_payments: {
+        Row: {
+          amount: number
+          applied_amount: number | null
+          created_at: string
+          debt_id: string
+          deleted_at: string | null
+          id: string
+          interest_portion: number
+          is_early_payoff: boolean
+          is_paid: boolean
+          new_minimum: number | null
+          note: string
+          paid_on: string
+          previous_minimum: number | null
+          sync_seq: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          applied_amount?: number | null
+          created_at?: string
+          debt_id: string
+          deleted_at?: string | null
+          id?: string
+          interest_portion?: number
+          is_early_payoff?: boolean
+          is_paid?: boolean
+          new_minimum?: number | null
+          note?: string
+          paid_on: string
+          previous_minimum?: number | null
+          sync_seq?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          applied_amount?: number | null
+          created_at?: string
+          debt_id?: string
+          deleted_at?: string | null
+          id?: string
+          interest_portion?: number
+          is_early_payoff?: boolean
+          is_paid?: boolean
+          new_minimum?: number | null
+          note?: string
+          paid_on?: string
+          previous_minimum?: number | null
+          sync_seq?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_debt_payments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "money_debt_payments_debt_id_fkey"
+            columns: ["debt_id"]
+            isOneToOne: false
+            referencedRelation: "money_debts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_monthly_snapshots: {
+        Row: {
+          created_at: string
+          debt_balance: number
+          debt_minimums: number
+          deleted_at: string | null
+          expenses: number
+          id: string
+          income: number
+          month: string
+          sync_seq: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          debt_balance: number
+          debt_minimums: number
+          deleted_at?: string | null
+          expenses: number
+          id?: string
+          income: number
+          month: string
+          sync_seq?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          debt_balance?: number
+          debt_minimums?: number
+          deleted_at?: string | null
+          expenses?: number
+          id?: string
+          income?: number
+          month?: string
+          sync_seq?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_monthly_snapshots_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_categories: {
+        Row: {
+          archived: boolean
+          color: string | null
+          created_at: string
+          deleted_at: string | null
+          icon: string | null
+          id: string
+          key: string
+          kind: string
+          name: string
+          sort_order: number
+          sync_seq: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          archived?: boolean
+          color?: string | null
+          created_at?: string
+          deleted_at?: string | null
+          icon?: string | null
+          id?: string
+          key: string
+          kind?: string
+          name: string
+          sort_order?: number
+          sync_seq?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          archived?: boolean
+          color?: string | null
+          created_at?: string
+          deleted_at?: string | null
+          icon?: string | null
+          id?: string
+          key?: string
+          kind?: string
+          name?: string
+          sort_order?: number
+          sync_seq?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_categories_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_budgets: {
+        Row: {
+          category_key: string
+          created_at: string
+          currency: string
+          deleted_at: string | null
+          id: string
+          monthly_limit: number
+          sync_seq: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category_key: string
+          created_at?: string
+          currency?: string
+          deleted_at?: string | null
+          id?: string
+          monthly_limit: number
+          sync_seq?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category_key?: string
+          created_at?: string
+          currency?: string
+          deleted_at?: string | null
+          id?: string
+          monthly_limit?: number
+          sync_seq?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_budgets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_merchant_rules: {
+        Row: {
+          category_key: string
+          created_at: string
+          deleted_at: string | null
+          hits: number
+          id: string
+          merchant_key: string
+          scope: Database["public"]["Enums"]["money_scope"] | null
+          sync_seq: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category_key: string
+          created_at?: string
+          deleted_at?: string | null
+          hits?: number
+          id?: string
+          merchant_key: string
+          scope?: Database["public"]["Enums"]["money_scope"] | null
+          sync_seq?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category_key?: string
+          created_at?: string
+          deleted_at?: string | null
+          hits?: number
+          id?: string
+          merchant_key?: string
+          scope?: Database["public"]["Enums"]["money_scope"] | null
+          sync_seq?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_merchant_rules_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_receipts: {
+        Row: {
+          created_at: string
+          currency: string | null
+          deleted_at: string | null
+          error_code: string | null
+          error_message: string | null
+          extraction: Json | null
+          id: string
+          image_paths: string[]
+          merchant_key: string | null
+          model: string | null
+          model_version: string | null
+          prompt_version: string | null
+          receipt_date: string | null
+          source: Database["public"]["Enums"]["money_receipt_source"]
+          status: Database["public"]["Enums"]["money_receipt_status"]
+          sync_seq: number
+          total: number | null
+          transaction_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string | null
+          deleted_at?: string | null
+          error_code?: string | null
+          error_message?: string | null
+          extraction?: Json | null
+          id?: string
+          image_paths?: string[]
+          merchant_key?: string | null
+          model?: string | null
+          model_version?: string | null
+          prompt_version?: string | null
+          receipt_date?: string | null
+          source?: Database["public"]["Enums"]["money_receipt_source"]
+          status?: Database["public"]["Enums"]["money_receipt_status"]
+          sync_seq?: number
+          total?: number | null
+          transaction_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string | null
+          deleted_at?: string | null
+          error_code?: string | null
+          error_message?: string | null
+          extraction?: Json | null
+          id?: string
+          image_paths?: string[]
+          merchant_key?: string | null
+          model?: string | null
+          model_version?: string | null
+          prompt_version?: string | null
+          receipt_date?: string | null
+          source?: Database["public"]["Enums"]["money_receipt_source"]
+          status?: Database["public"]["Enums"]["money_receipt_status"]
+          sync_seq?: number
+          total?: number | null
+          transaction_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_receipts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "money_receipts_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "money_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_receipt_usage: {
+        Row: {
+          cost_usd: number
+          month: string
+          scans: number
+          user_id: string
+        }
+        Insert: {
+          cost_usd?: number
+          month: string
+          scans?: number
+          user_id: string
+        }
+        Update: {
+          cost_usd?: number
+          month?: string
+          scans?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_receipt_usage_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      money_mileage_trips: {
+        Row: {
+          created_at: string
+          currency: string
+          deleted_at: string | null
+          destination: string
+          distance: number
+          id: string
+          origin: string
+          purpose: string
+          rate_per_unit: number
+          scope: Database["public"]["Enums"]["money_scope"]
+          sync_seq: number
+          transaction_id: string | null
+          trip_date: string
+          unit: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string
+          deleted_at?: string | null
+          destination?: string
+          distance: number
+          id?: string
+          origin?: string
+          purpose?: string
+          rate_per_unit: number
+          scope?: Database["public"]["Enums"]["money_scope"]
+          sync_seq?: number
+          transaction_id?: string | null
+          trip_date: string
+          unit?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string
+          deleted_at?: string | null
+          destination?: string
+          distance?: number
+          id?: string
+          origin?: string
+          purpose?: string
+          rate_per_unit?: number
+          scope?: Database["public"]["Enums"]["money_scope"]
+          sync_seq?: number
+          transaction_id?: string | null
+          trip_date?: string
+          unit?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_mileage_trips_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "money_mileage_trips_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "money_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fx_rates: {
+        Row: {
+          base: string
+          quote: string
+          rate: number
+          rate_date: string
+          source: string
+        }
+        Insert: {
+          base: string
+          quote: string
+          rate: number
+          rate_date: string
+          source?: string
+        }
+        Update: {
+          base?: string
+          quote?: string
+          rate?: number
+          rate_date?: string
+          source?: string
+        }
+        Relationships: []
+      }
+      money_inbound_addresses: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          token?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          token?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "money_inbound_addresses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_connections: {
+        Row: {
+          auto_sync: boolean
+          company_name: string
+          country: string | null
+          created_at: string
+          external_company_id: string
+          home_currency: string | null
+          id: string
+          last_error: string | null
+          last_synced_at: string | null
+          provider: Database["public"]["Enums"]["accounting_provider"]
+          status: Database["public"]["Enums"]["accounting_connection_status"]
+          sync_scope: Database["public"]["Enums"]["money_scope"]
+          token_expires_at: string | null
+          token_secret_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          auto_sync?: boolean
+          company_name?: string
+          country?: string | null
+          created_at?: string
+          external_company_id: string
+          home_currency?: string | null
+          id?: string
+          last_error?: string | null
+          last_synced_at?: string | null
+          provider: Database["public"]["Enums"]["accounting_provider"]
+          status?: Database["public"]["Enums"]["accounting_connection_status"]
+          sync_scope?: Database["public"]["Enums"]["money_scope"]
+          token_expires_at?: string | null
+          token_secret_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          auto_sync?: boolean
+          company_name?: string
+          country?: string | null
+          created_at?: string
+          external_company_id?: string
+          home_currency?: string | null
+          id?: string
+          last_error?: string | null
+          last_synced_at?: string | null
+          provider?: Database["public"]["Enums"]["accounting_provider"]
+          status?: Database["public"]["Enums"]["accounting_connection_status"]
+          sync_scope?: Database["public"]["Enums"]["money_scope"]
+          token_expires_at?: string | null
+          token_secret_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_connections_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_mappings: {
+        Row: {
+          connection_id: string
+          created_at: string
+          external_id: string
+          external_name: string
+          id: string
+          kind: Database["public"]["Enums"]["accounting_mapping_kind"]
+          local_key: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          connection_id: string
+          created_at?: string
+          external_id: string
+          external_name?: string
+          id?: string
+          kind: Database["public"]["Enums"]["accounting_mapping_kind"]
+          local_key: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          connection_id?: string
+          created_at?: string
+          external_id?: string
+          external_name?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["accounting_mapping_kind"]
+          local_key?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_mappings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_mappings_connection_id_fkey"
+            columns: ["connection_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_connections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_links: {
+        Row: {
+          attachment_external_id: string | null
+          connection_id: string
+          external_id: string
+          external_type: string
+          synced_at: string
+          transaction_id: string
+          user_id: string
+        }
+        Insert: {
+          attachment_external_id?: string | null
+          connection_id: string
+          external_id: string
+          external_type: string
+          synced_at?: string
+          transaction_id: string
+          user_id: string
+        }
+        Update: {
+          attachment_external_id?: string | null
+          connection_id?: string
+          external_id?: string
+          external_type?: string
+          synced_at?: string
+          transaction_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_links_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_links_connection_id_fkey"
+            columns: ["connection_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_connections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_links_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "money_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_sync_jobs: {
+        Row: {
+          action: Database["public"]["Enums"]["accounting_job_action"]
+          attempts: number
+          connection_id: string
+          created_at: string
+          id: string
+          last_error: string | null
+          locked_at: string | null
+          next_attempt_at: string
+          status: Database["public"]["Enums"]["accounting_job_status"]
+          transaction_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          action: Database["public"]["Enums"]["accounting_job_action"]
+          attempts?: number
+          connection_id: string
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          locked_at?: string | null
+          next_attempt_at?: string
+          status?: Database["public"]["Enums"]["accounting_job_status"]
+          transaction_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          action?: Database["public"]["Enums"]["accounting_job_action"]
+          attempts?: number
+          connection_id?: string
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          locked_at?: string | null
+          next_attempt_at?: string
+          status?: Database["public"]["Enums"]["accounting_job_status"]
+          transaction_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_sync_jobs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accounting_sync_jobs_connection_id_fkey"
+            columns: ["connection_id"]
+            isOneToOne: false
+            referencedRelation: "accounting_connections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accounting_oauth_states: {
+        Row: {
+          code_verifier: string | null
+          expires_at: string
+          provider: Database["public"]["Enums"]["accounting_provider"]
+          return_to: string
+          state: string
+          user_id: string
+        }
+        Insert: {
+          code_verifier?: string | null
+          expires_at?: string
+          provider: Database["public"]["Enums"]["accounting_provider"]
+          return_to?: string
+          state: string
+          user_id: string
+        }
+        Update: {
+          code_verifier?: string | null
+          expires_at?: string
+          provider?: Database["public"]["Enums"]["accounting_provider"]
+          return_to?: string
+          state?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounting_oauth_states_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
@@ -5781,6 +6713,42 @@ export type Database = {
       money_cadence: "monthly" | "yearly"
       money_task_status: "open" | "done"
       money_transaction_direction: "income" | "expense"
+      money_scope: "personal" | "business"
+      money_transaction_source:
+        | "manual"
+        | "receipt"
+        | "email"
+        | "import"
+        | "mileage"
+      money_receipt_status:
+        | "uploaded"
+        | "processing"
+        | "extracted"
+        | "confirmed"
+        | "failed"
+      money_receipt_source: "camera" | "photo_library" | "email" | "web_upload"
+      accounting_provider:
+        | "quickbooks"
+        | "xero"
+        | "freeagent"
+        | "fatture_in_cloud"
+      accounting_connection_status:
+        | "active"
+        | "needs_reauth"
+        | "revoked"
+        | "error"
+      accounting_mapping_kind:
+        | "category"
+        | "tax_rate"
+        | "payment_account"
+        | "currency"
+      accounting_job_action: "create" | "update" | "delete"
+      accounting_job_status:
+        | "pending"
+        | "running"
+        | "succeeded"
+        | "failed"
+        | "dead"
       coach_client_status:
         | "pending"
         | "active"
@@ -6078,6 +7046,18 @@ export const Constants = {
         "cancelled",
       ],
       coach_session_type: ["video", "audio", "in_person"],
+      money_cadence: ["monthly", "yearly"],
+      money_task_status: ["open", "done"],
+      money_transaction_direction: ["income", "expense"],
+      money_scope: ["personal", "business"],
+      money_transaction_source: ["manual", "receipt", "email", "import", "mileage"],
+      money_receipt_status: ["uploaded", "processing", "extracted", "confirmed", "failed"],
+      money_receipt_source: ["camera", "photo_library", "email", "web_upload"],
+      accounting_provider: ["quickbooks", "xero", "freeagent", "fatture_in_cloud"],
+      accounting_connection_status: ["active", "needs_reauth", "revoked", "error"],
+      accounting_mapping_kind: ["category", "tax_rate", "payment_account", "currency"],
+      accounting_job_action: ["create", "update", "delete"],
+      accounting_job_status: ["pending", "running", "succeeded", "failed", "dead"],
       coach_transaction_type: [
         "charge",
         "refund",

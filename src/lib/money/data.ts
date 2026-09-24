@@ -9,6 +9,8 @@ type SupabaseClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
  * those queries so the two pages can't drift on column lists or aggregation.
  */
 export async function getMoneySnapshot(supabase: SupabaseClient, userId: string) {
+  // Synced tables are soft-deleted (a phone delete must reach the web and vice
+  // versa), so every read skips tombstones. money_savings has no sync columns.
   const [
     { data: incomeRows },
     { data: expenseRows },
@@ -20,23 +22,30 @@ export async function getMoneySnapshot(supabase: SupabaseClient, userId: string)
       .from('money_income')
       .select('id, name, amount, type, payday, active')
       .eq('user_id', userId)
+      .is('deleted_at', null)
       .order('created_at', { ascending: false }),
     supabase
       .from('money_expenses')
       .select('id, name, amount, category, due_day, active')
       .eq('user_id', userId)
+      .is('deleted_at', null)
       .order('created_at', { ascending: false }),
     supabase
       .from('money_debts')
       .select('id, name, balance, apr, minimum_payment, due_day, priority')
       .eq('user_id', userId)
+      .is('deleted_at', null)
       .order('priority', { ascending: true }),
     supabase
       .from('money_savings')
       .select('id, name, amount, target_amount, monthly_contribution, category, active')
       .eq('user_id', userId)
       .order('created_at', { ascending: false }),
-    supabase.from('money_settings').select('key, value').eq('user_id', userId),
+    supabase
+      .from('money_settings')
+      .select('key, value')
+      .eq('user_id', userId)
+      .is('deleted_at', null),
   ]);
 
   const income = incomeRows ?? [];
