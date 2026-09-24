@@ -45,7 +45,10 @@ struct DebtPaymentSheet: View {
 
     init(debt: DebtRecord) {
         self.debt = debt
-        _amount = State(initialValue: debt.minimumPayment.editableText)
+        // What actually leaves the account, which is what the chip, the
+        // due-soon card and the alert all showed on the way in. Prefilling the
+        // floor instead under-records the payment by the extra, every month.
+        _amount = State(initialValue: debt.monthlyPayment.editableText)
         // Default to this month's due day when there is one, so the common case
         // is one tap.
         let suggested = debt.dueDay.flatMap {
@@ -225,7 +228,7 @@ struct DebtPaymentSheet: View {
             // Each mode wants a different starting amount: an instalment for a
             // scheduled payment, nothing prefilled for a lump sum the user is
             // copying off a letter.
-            amount = newValue == .payment ? debt.minimumPayment.editableText : ""
+            amount = newValue == .payment ? debt.monthlyPayment.editableText : ""
             interest = ""
             hasEditedNewMinimum = false
             newMinimum = ""

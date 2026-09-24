@@ -46,6 +46,7 @@ public enum BubblePacking {
         size: (width: Double, height: Double),
         fill: Double = 0.42,
         spacing: Double = 10,
+        minRadius: Double = 0,
         anchored: [Int: (x: Double, y: Double)] = [:]
     ) -> [Placement] {
         let usable = items.filter { $0.weight > 0 }
@@ -64,7 +65,8 @@ public enum BubblePacking {
         for _ in 0..<12 {
             if let placed = attemptLayout(
                 usable, weights: weights, total: total,
-                size: size, fill: attempt, spacing: spacing, anchored: anchored
+                size: size, fill: attempt, spacing: spacing,
+                minRadius: minRadius, anchored: anchored
             ) {
                 return placed
             }
@@ -77,7 +79,7 @@ public enum BubblePacking {
         return attemptLayout(
             usable, weights: weights, total: total,
             size: size, fill: attempt, spacing: spacing,
-            anchored: anchored, allowOverlap: true
+            minRadius: minRadius, anchored: anchored, allowOverlap: true
         ) ?? []
     }
 
@@ -90,6 +92,7 @@ public enum BubblePacking {
         size: (width: Double, height: Double),
         fill: Double,
         spacing: Double,
+        minRadius: Double = 0,
         anchored: [Int: (x: Double, y: Double)] = [:],
         allowOverlap: Bool = false
     ) -> [Placement]? {
@@ -103,23 +106,41 @@ public enum BubblePacking {
         // A single bubble cannot be wider than the canvas, however much of the
         // total it is owed.
         let ceiling = min(size.width, size.height) / 2 - spacing
-        let capped = sized.map { (item: $0.item, radius: min($0.radius, ceiling)) }
+        let floor = min(minRadius, ceiling)
+        let capped = sized.map {
+            (item: $0.item, radius: min(max($0.radius, floor), ceiling))
+        }
 
         let centre = (x: size.width / 2, y: size.height / 2)
         var placed: [Placement] = []
 
-        // Anchored circles claim their spot before anything is packed, pulled
-        // far enough in from the edge to sit whole on the canvas.
-        for entry in capped where anchored[entry.item.id] != nil {
+        // Anchored circles prefer their spot but yield to each other: an
+        // anchor is where the user wants a bubble, not a hard coordinate two
+        // of them can share. Placing them exactly let a dragged bubble and the
+        // add button land on the same corner, and when the rest could not pack
+        // around the overlap the whole board collapsed to the centre.
+        //
+        // Higher priority first (the add button is given the lowest), so user
+        // intent keeps its spot and the furniture moves aside.
+        let anchoredEntries = capped
+            .filter { anchored[$0.item.id] != nil }
+            .sorted { anchorPriority($0.item.id) > anchorPriority($1.item.id) }
+
+        for entry in anchoredEntries {
             guard let anchor = anchored[entry.item.id] else { continue }
-            placed.append(
-                Placement(
-                    id: entry.item.id,
-                    x: min(max(anchor.x * size.width, entry.radius), size.width - entry.radius),
-                    y: min(max(anchor.y * size.height, entry.radius), size.height - entry.radius),
-                    radius: entry.radius
-                )
+            let preferred = (
+                x: min(max(anchor.x * size.width, entry.radius), size.width - entry.radius),
+                y: min(max(anchor.y * size.height, entry.radius), size.height - entry.radius)
             )
+            let clear = placed.allSatisfy { other in
+                hypot(other.x - preferred.x, other.y - preferred.y) >= other.radius + entry.radius + spacing
+            }
+            // Its own spot if free, otherwise the nearest free spot to it.
+            let spot = clear
+                ? preferred
+                : freeSpot(radius: entry.radius, around: preferred, within: size, avoiding: placed, spacing: spacing)
+                    ?? preferred
+            placed.append(Placement(id: entry.item.id, x: spot.x, y: spot.y, radius: entry.radius))
         }
 
         for entry in capped where anchored[entry.item.id] == nil {
@@ -146,6 +167,11 @@ public enum BubblePacking {
 
         return placed
     }
+
+    /// Anchors are honoured highest-first. The add button uses the sentinel
+    /// -3 and is pinned lowest, so a bubble dragged next to it wins the spot
+    /// and the button steps aside.
+    private static func anchorPriority(_ id: Int) -> Int { id == -3 ? -1 : 0 }
 
     /// Walks a spiral out from the middle and returns the first point where the
     /// circle touches nothing.

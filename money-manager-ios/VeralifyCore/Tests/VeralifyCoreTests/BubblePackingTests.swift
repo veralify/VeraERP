@@ -165,6 +165,30 @@ struct BubblePackingTests {
         }
     }
 
+    /// A tiny weight must still be big enough to hold its label.
+    @Test("No bubble shrinks below the minimum")
+    func honoursMinimumRadius() {
+        let placed = BubblePacking.layout(
+            items: [1000, 30, 20].enumerated().map { .init(id: $0.offset, weight: $0.element) },
+            size: canvas,
+            minRadius: 44
+        )
+        #expect(placed.count == 3)
+        #expect(placed.allSatisfy { $0.radius >= 44 - 0.001 })
+    }
+
+    /// The floor never makes a bubble wider than the canvas allows.
+    @Test("The minimum yields to the canvas ceiling")
+    func minimumRespectsCeiling() {
+        let small = (width: 120.0, height: 120.0)
+        let placed = BubblePacking.layout(
+            items: [(1, 100.0)].map { .init(id: $0.0, weight: Decimal($0.1)) },
+            size: small,
+            minRadius: 999
+        )
+        #expect(placed.first!.radius <= min(small.width, small.height) / 2)
+    }
+
     /// Same input, same picture — so the eye can learn where its debts live.
     @Test("The layout is stable across runs")
     func isDeterministic() {

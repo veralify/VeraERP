@@ -259,7 +259,9 @@ struct EntryListView: View {
         switch target {
         case .income(let item):  context.delete(item)
         case .expense(let item): context.delete(item)
-        case .debt(let item):    context.delete(item)
+        case .debt(let item):
+            purgeRecords(forDebt: item.remoteID, in: context)
+            context.delete(item)
         }
         try? context.save()
     }

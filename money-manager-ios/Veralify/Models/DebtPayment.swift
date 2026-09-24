@@ -91,3 +91,32 @@ extension DebtRecord {
         minimumPayment = restored
     }
 }
+
+/// Everything keyed to a debt by its `remoteID`, removed along with it.
+///
+/// `DebtPayment` and the board's saved bubble positions both reference a debt
+/// by a plain `Int`, not by a SwiftData relationship, so nothing cascades. That
+/// would be a mere leak if ids were unique forever — but a new debt takes
+/// `max(remoteID) + 1`, so deleting the highest-numbered debt hands its id, and
+/// with it its entire payment history, to the next debt created. A brand-new
+/// card would open already "68% paid", list payments nobody made, and fire
+/// reminders under its own name.
+func purgeRecords(forDebt remoteID: Int, in context: ModelContext) {
+    let stale = (try? context.fetch(
+        FetchDescriptor<DebtPayment>(
+            predicate: #Predicate { $0.debtRemoteID == remoteID }
+        )
+    )) ?? []
+    for payment in stale { context.delete(payment) }
+
+    // The board remembers where the user dragged each bubble.
+    let key = "boardPositions"
+    if let text = UserDefaults.standard.string(forKey: key),
+       let data = text.data(using: .utf8),
+       var saved = try? JSONDecoder().decode([String: [Double]].self, from: data),
+       saved.removeValue(forKey: "\(remoteID)") != nil,
+       let encoded = try? JSONEncoder().encode(saved),
+       let updated = String(data: encoded, encoding: .utf8) {
+        UserDefaults.standard.set(updated, forKey: key)
+    }
+}

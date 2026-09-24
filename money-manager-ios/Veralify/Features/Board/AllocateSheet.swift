@@ -14,6 +14,9 @@ struct AllocateSheet: View {
     let toward: Bool
     /// The most that can move: the leftover, or the room above interest.
     let ceiling: Decimal
+    /// When set, the money is moving from this other debt's extra rather than
+    /// from the leftover pool — a debt was dragged onto a debt.
+    var counterpart: DebtRecord? = nil
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
@@ -43,19 +46,24 @@ struct AllocateSheet: View {
 
     private var newPayment: Decimal { editedMinimum + newExtra }
 
+    private var subtitle: LocalizedStringKey {
+        if let counterpart {
+            return "Moved from what you overpay on \(counterpart.name)."
+        }
+        return toward
+            ? "Moved out of what is left over this month."
+            : "Given back to what is left over this month."
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(toward ? "Pay more on \(debt.name)" : "Pay less on \(debt.name)")
                     .font(.title3.weight(.bold))
                     .foregroundStyle(Theme.textPrimary)
-                Text(
-                    toward
-                        ? "Moved out of what is left over this month."
-                        : "Given back to what is left over this month."
-                )
-                .font(.footnote)
-                .foregroundStyle(Theme.textTertiary)
+                Text(subtitle)
+                    .font(.footnote)
+                    .foregroundStyle(Theme.textTertiary)
             }
 
             VStack(spacing: 10) {
@@ -146,6 +154,11 @@ struct AllocateSheet: View {
             ) {
                 debt.minimumPayment = max(editedMinimum, 0)
                 debt.extraPayment = newExtra
+                // Debt-to-debt: the money it gains is money the other debt
+                // gives up, so the leftover total does not move.
+                if let counterpart {
+                    counterpart.extraPayment = max(counterpart.extraPayment - moved, 0)
+                }
                 try? context.save()
                 dismiss()
             }
