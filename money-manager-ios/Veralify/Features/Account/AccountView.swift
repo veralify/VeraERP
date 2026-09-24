@@ -33,6 +33,16 @@ struct AccountView: View {
     /// Mirrors `Language.current`, but as state so the picker updates the row
     /// straight away rather than only after a relaunch.
     @State private var language = Language.current
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Label and menu side by side; stacked at accessibility text sizes, where
+    /// a currency name such as "€  Euro" beside its label was squeezed into a
+    /// truncated sliver.
+    private var pickerRowLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout())
+    }
 
     private var appVersion: String {
         let bundle = Bundle.main.infoDictionary
@@ -94,11 +104,11 @@ struct AccountView: View {
             SectionHeader(title: "Display") { EmptyView() }
 
             GroupedCard {
-                HStack {
+                pickerRowLayout {
                     Text("Currency")
                         .font(.subheadline)
                         .foregroundStyle(Theme.textSecondary)
-                    Spacer(minLength: 8)
+                    if !dynamicTypeSize.isAccessibilitySize { Spacer(minLength: 8) }
                     Picker("Currency", selection: $currencyCode) {
                         ForEach(SupportedCurrency.all) { currency in
                             Text("\(currency.symbol)  \(String(localized: currency.name))")
@@ -112,11 +122,11 @@ struct AccountView: View {
 
                 RowDivider()
 
-                HStack {
+                pickerRowLayout {
                     Text("Language")
                         .font(.subheadline)
                         .foregroundStyle(Theme.textSecondary)
-                    Spacer(minLength: 8)
+                    if !dynamicTypeSize.isAccessibilitySize { Spacer(minLength: 8) }
                     Picker("Language", selection: $language) {
                         ForEach(Language.allCases) { option in
                             Text(option.title).tag(option)
@@ -160,7 +170,9 @@ struct AccountView: View {
             GroupedCard {
                 infoRow("Version", appVersion)
                 RowDivider()
-                HStack(alignment: .top, spacing: 10) {
+                // Baseline-aligned: `.top` set the 14pt glyph visibly higher
+                // than the first line of the footnote beside it.
+                HStack(alignment: .firstTextBaseline, spacing: 10) {
                     Image(systemName: "lock.shield")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(Theme.lime)
@@ -187,10 +199,13 @@ struct AccountView: View {
                 .background(Theme.red.opacity(0.13), in: .capsule)
         }
         .buttonStyle(.pressable)
+        // Extra air above the one destructive control, so it reads as its own
+        // area rather than as another row of About.
+        .padding(.top, 8)
     }
 
     private func infoRow(_ label: LocalizedStringKey, _ value: String) -> some View {
-        HStack {
+        HStack(alignment: .firstTextBaseline) {
             Text(label)
                 .font(.subheadline)
                 .foregroundStyle(Theme.textSecondary)
@@ -199,6 +214,8 @@ struct AccountView: View {
                 .font(.subheadline.weight(.bold))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
+                .lineLimit(1)
+                .layoutPriority(1)
         }
         .padding(.vertical, 14)
         .accessibilityElement(children: .combine)

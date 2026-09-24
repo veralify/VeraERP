@@ -51,12 +51,16 @@ struct SetupSuccessView: View {
                     .foregroundStyle(Theme.textSecondary)
             }
             .multilineTextAlignment(.center)
+            // Same gutter as the button, so a long translation wraps inside it
+            // instead of running to the screen edge.
+            .padding(.horizontal, 20)
             .padding(.bottom, 28)
 
             Button(action: onContinue) {
                 Text("Get started")
                     .font(.body.weight(.bold))
                     .foregroundStyle(.black)
+                    .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 17)
                     .background(.white, in: .capsule)
@@ -160,9 +164,13 @@ struct SetupSuccessView: View {
 
             HStack {
                 Spacer(minLength: 0)
+                // The tile is a fixed size, so a large amount shrinks to fit
+                // rather than wrapping out of its pill.
                 Text(card.amount)
                     .font(.caption.weight(.bold))
                     .monospacedDigit()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                     .foregroundStyle(ink)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)

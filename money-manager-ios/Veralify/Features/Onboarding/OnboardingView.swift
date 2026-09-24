@@ -49,15 +49,23 @@ struct OnboardingView: View {
                             .foregroundStyle(Theme.textPrimary)
                             .frame(width: 36, height: 36)
                             .background(Theme.surface, in: .circle)
+                            // A 44pt hit area around the 36pt circle; the
+                            // negative padding below takes the extra back out
+                            // of layout so the circle stays on the gutter.
+                            .frame(width: 44, height: 44)
+                            .contentShape(.rect)
                     }
                     .buttonStyle(.pressable)
+                    .padding(-4)
                     .accessibilityLabel("Back")
 
-                    Spacer()
+                    Spacer(minLength: 8)
 
                     Text("Step \(index + 1) of \(OnboardingStep.progressSteps.count)")
                         .font(.footnote.weight(.semibold))
                         .foregroundStyle(Theme.textSecondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                 }
                 StepProgress(current: index, total: OnboardingStep.progressSteps.count)
             }
@@ -84,43 +92,58 @@ struct OnboardingView: View {
 
     private var welcomeStep: some View {
         VStack(spacing: 0) {
-            Spacer()
-
-            VStack(alignment: .leading, spacing: 16) {
-                Text("€")
-                    .font(.system(size: 30, weight: .bold))
-                    .foregroundStyle(Theme.lime.readableForeground)
-                    .frame(width: 62, height: 62)
-                    .background(Theme.lime, in: .rect(cornerRadius: 18))
-
-                Text("Your money, with a clear plan")
-                    .font(.system(size: 34, weight: .bold))
-                    .foregroundStyle(Theme.textPrimary)
-
-                Text("Record your income, expenses and debts, then get a monthly payoff plan that tells you exactly when you'll be done.")
-                    .font(.body)
-                    .foregroundStyle(Theme.textSecondary)
-                    .fixedSize(horizontal: false, vertical: true)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    highlight(icon: "chart.line.downtrend.xyaxis", text: "A payoff plan that clears the priciest debt first")
-                    highlight(icon: "bell.badge", text: "See what's due before it lands")
-                    highlight(icon: "lock.shield", text: "Your data stays on your device")
+            // Centred when it fits; scrolls when it does not. On an iPhone SE, or
+            // at a large text size, the intro and the two buttons overflowed the
+            // screen and the buttons were pushed off the bottom.
+            GeometryReader { proxy in
+                ScrollView {
+                    welcomeIntro
+                        .padding(.vertical, 24)
+                        .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .leading)
                 }
-                .padding(.top, 6)
+                .scrollIndicators(.hidden)
+                .scrollBounceBehavior(.basedOnSize)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 24)
-
-            Spacer()
 
             VStack(spacing: 10) {
                 PrimaryButton(title: "Let's set up") { step = .income }
                 SecondaryButton(title: "Try it with sample data") { finishWithSampleData() }
             }
             .padding(.horizontal, 20)
+            .padding(.top, 12)
             .padding(.bottom, 8)
         }
+    }
+
+    private var welcomeIntro: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("€")
+                .font(.system(size: 30, weight: .bold))
+                .foregroundStyle(Theme.lime.readableForeground)
+                .frame(width: 62, height: 62)
+                .background(Theme.lime, in: .rect(cornerRadius: 18))
+
+            Text("Your money, with a clear plan")
+                .font(.system(size: 34, weight: .bold))
+                .foregroundStyle(Theme.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Text("Record your income, expenses and debts, then get a monthly payoff plan that tells you exactly when you'll be done.")
+                .font(.body)
+                .foregroundStyle(Theme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            VStack(alignment: .leading, spacing: 12) {
+                highlight(icon: "chart.line.downtrend.xyaxis", text: "A payoff plan that clears the priciest debt first")
+                highlight(icon: "bell.badge", text: "See what's due before it lands")
+                highlight(icon: "lock.shield", text: "Your data stays on your device")
+            }
+            .padding(.top, 6)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        // The same 20pt gutter as the buttons beneath and every later step, so
+        // the intro's leading edge lines up with them.
+        .padding(.horizontal, 20)
     }
 
     private func highlight(icon: String, text: LocalizedStringKey) -> some View {
@@ -133,6 +156,7 @@ struct OnboardingView: View {
             Text(text)
                 .font(.subheadline)
                 .foregroundStyle(Theme.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 0)
         }
     }
@@ -174,19 +198,23 @@ struct OnboardingView: View {
             subtitle: "We'll work out the monthly payment needed, and tell you honestly if the period isn't realistic on your income."
         ) {
             VStack(spacing: 18) {
-                Text("\(targetMonths)")
-                    .font(.system(size: 60, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.lime.readableForeground)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 22)
-                    .background(Theme.lime, in: .rect(cornerRadius: Theme.Radius.card))
-                    .overlay(alignment: .bottom) {
-                        Text("months")
-                            .font(.footnote.weight(.bold))
-                            .foregroundStyle(Theme.lime.readableForeground.opacity(0.7))
-                            .padding(.bottom, 12)
-                    }
+                // Stacked rather than overlaid: as an overlay, "months" sat
+                // inside the number's own line box and collided with it once
+                // the text size grew.
+                VStack(spacing: 0) {
+                    Text("\(targetMonths)")
+                        .font(.system(size: 60, weight: .bold, design: .rounded))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.lime.readableForeground)
+                    Text("months")
+                        .font(.footnote.weight(.bold))
+                        .foregroundStyle(Theme.lime.readableForeground.opacity(0.7))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 18)
+                .padding(.bottom, 14)
+                .background(Theme.lime, in: .rect(cornerRadius: Theme.Radius.card))
+                .accessibilityElement(children: .combine)
 
                 Stepper(value: $targetMonths, in: 3...120, step: 1) {
                     Text("Target period")
@@ -212,6 +240,10 @@ struct OnboardingView: View {
                                     targetMonths == months ? Theme.lime : Theme.surfaceElevated,
                                     in: .capsule
                                 )
+                                // The capsule is ~42pt tall; the hit area gets
+                                // the full 44 without changing what is drawn.
+                                .frame(minHeight: 44)
+                                .contentShape(.rect)
                         }
                         .buttonStyle(.pressable)
                     }
@@ -253,7 +285,9 @@ struct OnboardingView: View {
                 if !debts.isEmpty && !plan.isFeasible {
                     // Say this before setup finishes, not after — it is the most
                     // useful thing the app can tell someone in this position.
-                    HStack(alignment: .top, spacing: 10) {
+                    // Baseline-aligned so the icon sits on the first line of
+                    // the warning rather than floating above it.
+                    HStack(alignment: .firstTextBaseline, spacing: 10) {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundStyle(Theme.red)
                         Text("On your current income this period isn't realistic. Try a longer one, or review your expenses.")
@@ -358,11 +392,17 @@ struct OnboardingView: View {
             Text(label)
                 .font(.subheadline)
                 .foregroundStyle(Theme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 8)
+            // The figure wins the width: a long label wraps, the amount stays
+            // on one line and shrinks slightly rather than truncating.
             Text(CurrencyFormat.string(amount))
                 .font(.subheadline.weight(.bold))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .layoutPriority(1)
         }
         .padding(.vertical, 14)
         .accessibilityElement(children: .combine)
