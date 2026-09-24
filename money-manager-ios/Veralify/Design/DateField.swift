@@ -47,6 +47,7 @@ struct DateField: View {
                         Text(valueText)
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.textPrimary)
+                            .lineLimit(1)
                         Image(systemName: "calendar")
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(Theme.lime)
@@ -55,13 +56,16 @@ struct DateField: View {
                     .padding(.vertical, 8)
                     .background(Theme.surfaceElevated, in: .capsule)
                     .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
+                    // The date is the value; when the row runs short the
+                    // label beside it wraps instead.
+                    .layoutPriority(1)
                 }
                 .contentShape(.rect)
 
             case .chip:
                 HStack(spacing: 7) {
                     Image(systemName: "calendar").font(.system(size: 13, weight: .medium))
-                    Text(chipText).font(.subheadline.weight(.medium))
+                    Text(chipText).font(.subheadline.weight(.medium)).lineLimit(1)
                 }
                 .foregroundStyle(Theme.textPrimary)
                 .padding(.horizontal, 15)
