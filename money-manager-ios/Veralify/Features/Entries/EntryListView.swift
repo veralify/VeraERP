@@ -273,8 +273,8 @@ extension ModelContext {
     /// its id, and the old debt's payments (planned ones included) attached
     /// themselves to the new one: in its history, its due list and its reminders.
     func deleteDebt(_ debt: DebtRecord) {
-        let id = debt.remoteID
-        try? delete(model: DebtPayment.self, where: #Predicate { $0.debtRemoteID == id })
+        // Payments and the board's saved bubble position are keyed by id.
+        purgeRecords(forDebt: debt.remoteID, in: self)
         delete(debt)
     }
 }
