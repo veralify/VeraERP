@@ -136,7 +136,7 @@ struct OnboardingView: View {
             VStack(alignment: .leading, spacing: 12) {
                 highlight(icon: "chart.line.downtrend.xyaxis", text: "A payoff plan that clears the priciest debt first")
                 highlight(icon: "bell.badge", text: "See what's due before it lands")
-                highlight(icon: "lock.shield", text: "Your data stays on your device")
+                highlight(icon: "lock.shield", text: "Private to your account, synced securely")
             }
             .padding(.top, 6)
         }

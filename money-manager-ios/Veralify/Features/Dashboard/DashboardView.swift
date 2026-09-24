@@ -106,6 +106,8 @@ struct DashboardView: View {
             .padding(.bottom, 108)
         }
         .scrollIndicators(.hidden)
+        // Pull down to sync with the account.
+        .syncOnRefresh()
         .task { captureBaselineIfNeeded() }
         .sheet(item: $payingDebt) { DebtPaymentSheet(debt: $0) }
         .sheet(isPresented: $isLoggingLoss) {

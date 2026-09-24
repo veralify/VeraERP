@@ -72,6 +72,7 @@ struct AccountView: View {
                         accountCard
                         LevelPanel()
                         RemindersCard()
+                        businessCard
                         displayCard
                         dataCard
                         aboutCard
@@ -319,6 +320,48 @@ struct AccountView: View {
                 infoRow("Debts", "\(debts.count)")
             }
         }
+    }
+
+    /// Tools for business expenses: sending them to accounting software and
+    /// logging trips. Pushed within this sheet's stack; both set their own title.
+    private var businessCard: some View {
+        VStack(spacing: 12) {
+            SectionHeader(title: "Business") { EmptyView() }
+            GroupedCard {
+                NavigationLink {
+                    IntegrationsView()
+                } label: {
+                    linkRow("Accounting software", icon: "arrow.triangle.2.circlepath")
+                }
+                .buttonStyle(.pressableRow)
+                RowDivider()
+                NavigationLink {
+                    MileageView()
+                } label: {
+                    linkRow("Mileage", icon: "car.fill")
+                }
+                .buttonStyle(.pressableRow)
+            }
+        }
+    }
+
+    private func linkRow(_ label: LocalizedStringKey, icon: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(Theme.lime)
+                .frame(width: 22)
+            Text(label)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.textPrimary)
+            Spacer(minLength: 8)
+            Image(systemName: "chevron.forward")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(Theme.textTertiary)
+        }
+        .padding(.vertical, 14)
+        .frame(minHeight: 44)
+        .contentShape(.rect)
     }
 
     private var aboutCard: some View {

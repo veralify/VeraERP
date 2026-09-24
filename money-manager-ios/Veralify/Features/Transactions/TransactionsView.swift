@@ -70,6 +70,7 @@ struct TransactionsView: View {
                 .padding(.bottom, 28)
             }
             .scrollIndicators(.hidden)
+            .syncOnRefresh()
         .sheet(item: $adding) { direction in
             QuickAddSheet(initialDirection: direction)
                 .presentationBackground(Theme.background)
@@ -248,7 +249,7 @@ struct TransactionRow: View {
             // The category leads and the note follows. A row titled with
             // whatever got typed into "who's it for?" read as a list of
             // strangers; the category is what the eye is scanning for.
-            Text(LocalizedStringKey(record.category))
+            Text(EntryPresets.title(for: record.category))
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(Theme.textPrimary)
                 .lineLimit(1)

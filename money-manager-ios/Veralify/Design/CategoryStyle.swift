@@ -19,15 +19,10 @@ enum CategoryStyle {
     }
 
     static func icon(_ category: String) -> String {
-        switch category {
-        case "Tools":     "wrench.and.screwdriver.fill"
-        case "Food":      "fork.knife"
-        case "Transport": "car.fill"
-        case "Bills":     "doc.text.fill"
-        case "Shopping":  "bag.fill"
-        case "Health":    "cross.case.fill"
-        default:          "square.grid.2x2.fill"
-        }
+        // Categories are stored as keys ("groceries") since sync; entries made
+        // before it may still hold a preset name ("Food"). The shared lookup
+        // accepts both.
+        EntryPresets.icon(for: category)
     }
 
     /// The circular badge the ledger and the category lists share.

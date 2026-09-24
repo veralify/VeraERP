@@ -377,6 +377,22 @@
         }
       }
     },
+    "%@ miles of this trip are past 10,000 this tax year, at the lower rate.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ميل من هذه الرحلة تتجاوز 10,000 في هذه السنة الضريبية، بالسعر الأقل."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ miglia di questo viaggio superano le 10.000 di quest'anno fiscale, alla tariffa ridotta."
+          }
+        }
+      }
+    },
     "%@ of %@": {
       "localizations": {
         "ar": {
@@ -395,6 +411,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ di %@"
+          }
+        }
+      }
+    },
+    "%@ of 10,000 business miles this tax year": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ من 10,000 ميل عمل في هذه السنة الضريبية"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ su 10.000 miglia di lavoro in quest'anno fiscale"
           }
         }
       }
@@ -708,6 +740,252 @@
     },
     "%lld": {
       "shouldTranslate": false
+    },
+    "%lld being read": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld being read"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld being read"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld in lettura"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld in lettura"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا شيء قيد القراءة"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد قيد القراءة"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصالان قيد القراءة"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالات قيد القراءة"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالاً قيد القراءة"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصال قيد القراءة"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld changes haven't reached your account yet and will be lost. Connect to the internet first to keep them.": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld change hasn't reached your account yet and will be lost. Connect to the internet first to keep it."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld changes haven't reached your account yet and will be lost. Connect to the internet first to keep them."
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modifica non ha ancora raggiunto il tuo account e andrà persa. Connettiti a internet per conservarla."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modifiche non hanno ancora raggiunto il tuo account e andranno perse. Connettiti a internet per conservarle."
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا توجد تغييرات غير متزامنة."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "هناك تغيير واحد لم يصل إلى حسابك بعد وسيُفقد. اتصل بالإنترنت أولاً للاحتفاظ به."
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "هناك تغييران لم يصلا إلى حسابك بعد وسيُفقدان. اتصل بالإنترنت أولاً للاحتفاظ بهما."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "هناك %lld تغييرات لم تصل إلى حسابك بعد وستُفقد. اتصل بالإنترنت أولاً للاحتفاظ بها."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "هناك %lld تغييراً لم يصل إلى حسابك بعد وسيُفقد. اتصل بالإنترنت أولاً للاحتفاظ بها."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "هناك %lld تغيير لم يصل إلى حسابك بعد وسيُفقد. اتصل بالإنترنت أولاً للاحتفاظ بها."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld couldn't be read": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld couldn't be read"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld couldn't be read"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld non letto"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld non letti"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا شيء تعذّرت قراءته"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "تعذّرت قراءة إيصال واحد"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "تعذّرت قراءة إيصالين"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "تعذّرت قراءة %lld إيصالات"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "تعذّرت قراءة %lld إيصالاً"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "تعذّرت قراءة %lld إيصال"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "%lld days": {
       "localizations": {
@@ -1753,6 +2031,88 @@
         }
       }
     },
+    "%lld ready to check": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ready to check"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ready to check"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld da controllare"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld da controllare"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا شيء للمراجعة"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد جاهز للمراجعة"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصالان جاهزان للمراجعة"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالات جاهزة للمراجعة"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالاً جاهزاً للمراجعة"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصال جاهز للمراجعة"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld scheduled": {
       "localizations": {
         "ar": {
@@ -1828,6 +2188,252 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld programmati"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld separate receipts": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld separate receipt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld separate receipts"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld scontrino separato"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld scontrini separati"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا إيصالات"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال منفصل واحد"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصالان منفصلان"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالات منفصلة"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالاً منفصلاً"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصال منفصل"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld trips": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld trip"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld trips"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld viaggio"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld viaggi"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا رحلات"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "رحلة واحدة"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "رحلتان"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld رحلات"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld رحلة"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld رحلة"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld waiting for a connection": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld waiting for a connection"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld waiting for a connection"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld in attesa di connessione"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld in attesa di connessione"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "لا شيء بانتظار الاتصال"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد بانتظار الاتصال"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصالان بانتظار الاتصال"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالات بانتظار الاتصال"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصالاً بانتظار الاتصال"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld إيصال بانتظار الاتصال"
                 }
               }
             }
@@ -2215,6 +2821,22 @@
         }
       }
     },
+    "A long receipt photographed in parts is one receipt.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإيصال الطويل المصوَّر على أجزاء هو إيصال واحد."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uno scontrino lungo fotografato a pezzi è un solo scontrino."
+          }
+        }
+      }
+    },
     "A payoff plan that clears the priciest debt first": {
       "localizations": {
         "ar": {
@@ -2249,6 +2871,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un pagamento programmato su questo debito."
+          }
+        }
+      }
+    },
+    "A transaction from the same shop, on the same day and for the same amount is already saved.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هناك معاملة محفوظة مسبقاً من المتجر نفسه وفي اليوم نفسه وبالمبلغ نفسه."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "È già salvato un movimento dello stesso negozio, nello stesso giorno e con lo stesso importo."
           }
         }
       }
@@ -2329,6 +2967,22 @@
         }
       }
     },
+    "Account mapping, pausing and disconnecting are on the web, under Money → Integrations.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مطابقة الحسابات والإيقاف المؤقت وقطع الربط متاحة على الويب، ضمن المال ← التكاملات."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbinamento dei conti, pausa e scollegamento sono sul web, in Denaro → Integrazioni."
+          }
+        }
+      }
+    },
     "Account, level %lld": {
       "localizations": {
         "ar": {
@@ -2347,6 +3001,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account, livello %lld"
+          }
+        }
+      }
+    },
+    "Accounting software": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برنامج المحاسبة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Software di contabilità"
           }
         }
       }
@@ -2528,6 +3198,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi spesa"
+          }
+        }
+      }
+    },
+    "Add receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إضافة إيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi scontrino"
           }
         }
       }
@@ -3097,6 +3783,22 @@
         }
       }
     },
+    "Any rate per km or per mile, in any currency.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أي سعر لكل كم أو لكل ميل، بأي عملة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualsiasi tariffa al km o al miglio, in qualsiasi valuta."
+          }
+        }
+      }
+    },
     "Anything else": {
       "localizations": {
         "ar": {
@@ -3115,6 +3817,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qualcos'altro"
+          }
+        }
+      }
+    },
+    "Apple ID": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple ID"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ID Apple"
           }
         }
       }
@@ -3501,6 +4219,22 @@
         }
       }
     },
+    "Business trip": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رحلة عمل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viaggio di lavoro"
+          }
+        }
+      }
+    },
     "CURRENT STREAK": {
       "localizations": {
         "ar": {
@@ -3593,6 +4327,38 @@
         }
       }
     },
+    "Card": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بطاقة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carta"
+          }
+        }
+      }
+    },
+    "Card ending %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بطاقة تنتهي بـ %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carta che termina con %@"
+          }
+        }
+      }
+    },
     "Cards": {
       "localizations": {
         "ar": {
@@ -3611,6 +4377,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Schede"
+          }
+        }
+      }
+    },
+    "Cash": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نقداً"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contanti"
           }
         }
       }
@@ -3697,6 +4479,22 @@
         }
       }
     },
+    "Category, %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفئة، %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria, %@"
+          }
+        }
+      }
+    },
     "Change it if they paid back only part of it.": {
       "localizations": {
         "ar": {
@@ -3715,6 +4513,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modificalo se hanno restituito solo una parte."
+          }
+        }
+      }
+    },
+    "Changes are saved on this phone and sync when you're back online.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُحفظ التغييرات على هذا الهاتف وتتم مزامنتها عند عودة الاتصال."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le modifiche sono salvate su questo telefono e si sincronizzano quando torni online."
           }
         }
       }
@@ -3779,6 +4593,38 @@
         }
       }
     },
+    "Check": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "راجع"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controlla"
+          }
+        }
+      }
+    },
+    "Check receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "راجع الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controlla scontrino"
+          }
+        }
+      }
+    },
     "Check the details": {
       "localizations": {
         "ar": {
@@ -3813,6 +4659,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Controlla i numeri prima di iniziare. Tutto è modificabile in seguito."
+          }
+        }
+      }
+    },
+    "Checking your account for a plan you've already made.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نتحقق من حسابك بحثاً عن خطة أعددتها مسبقاً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stiamo controllando il tuo account per un piano già creato."
+          }
+        }
+      }
+    },
+    "Choose from Photos": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختر من الصور"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli da Foto"
+          }
+        }
+      }
+    },
+    "Claimed this year": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المطالَب به هذا العام"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimborsato quest'anno"
           }
         }
       }
@@ -3899,6 +4793,38 @@
         }
       }
     },
+    "Client meeting": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اجتماع مع عميل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incontro con cliente"
+          }
+        }
+      }
+    },
+    "Client site": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موقع العميل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sede del cliente"
+          }
+        }
+      }
+    },
     "Close": {
       "localizations": {
         "ar": {
@@ -3933,6 +4859,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chiudi e riapri Veralify per vederlo in %@."
+          }
+        }
+      }
+    },
+    "Code": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرمز"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codice"
+          }
+        }
+      }
+    },
+    "Collapsed": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مطوي"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compresso"
           }
         }
       }
@@ -3993,6 +4951,134 @@
           "stringUnit": {
             "state": "translated",
             "value": "Completata"
+          }
+        }
+      }
+    },
+    "Connect": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ربط"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collega"
+          }
+        }
+      }
+    },
+    "Connect QuickBooks, Xero, FreeAgent or Fatture in Cloud and your business expenses are sent there with their receipts.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اربط QuickBooks أو Xero أو FreeAgent أو Fatture in Cloud لتُرسل مصاريف عملك إليها مع إيصالاتها."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collega QuickBooks, Xero, FreeAgent o Fatture in Cloud e le spese di lavoro vengono inviate lì con i loro scontrini."
+          }
+        }
+      }
+    },
+    "Connect accounting software": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اربط برنامج المحاسبة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collega il software di contabilità"
+          }
+        }
+      }
+    },
+    "Connected": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متصل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collegato"
+          }
+        }
+      }
+    },
+    "Connected to %@. Map your accounts on the web to start syncing.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم الربط بـ %@. طابِق حساباتك على الويب لبدء المزامنة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collegato a %@. Abbina i tuoi conti sul web per iniziare a sincronizzare."
+          }
+        }
+      }
+    },
+    "Connecting…": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ الربط…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collegamento…"
+          }
+        }
+      }
+    },
+    "Connection cancelled. Nothing was changed.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أُلغي الربط. لم يتغير شيء."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collegamento annullato. Non è cambiato nulla."
+          }
+        }
+      }
+    },
+    "Connections": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاتصالات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connessioni"
           }
         }
       }
@@ -4095,6 +5181,70 @@
         }
       }
     },
+    "Couldn't connect to %@. Please try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر الربط بـ %@. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile collegarsi a %@. Riprova."
+          }
+        }
+      }
+    },
+    "Couldn't load your integrations.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تحميل التكاملات."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile caricare le integrazioni."
+          }
+        }
+      }
+    },
+    "Couldn't reach your account": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر الوصول إلى حسابك"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile raggiungere il tuo account"
+          }
+        }
+      }
+    },
+    "Couldn't read it yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّرت قراءته حتى الآن"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non ancora letto"
+          }
+        }
+      }
+    },
     "Couldn't read that document. You can enter it by hand.": {
       "localizations": {
         "ar": {
@@ -4135,6 +5285,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non sono riuscito a leggerlo. Scrivi il totale a mano."
+          }
+        }
+      }
+    },
+    "Couldn't read this receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّرت قراءة هذا الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere questo scontrino"
+          }
+        }
+      }
+    },
+    "Couldn't save the receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر حفظ الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile salvare lo scontrino"
+          }
+        }
+      }
+    },
+    "Couldn't start the connection. Please try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر بدء الربط. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile avviare il collegamento. Riprova."
           }
         }
       }
@@ -4547,6 +5745,22 @@
         }
       }
     },
+    "Delete account": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف الحساب"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina account"
+          }
+        }
+      }
+    },
     "Delete all data and start over": {
       "localizations": {
         "ar": {
@@ -4617,6 +5831,22 @@
         }
       }
     },
+    "Delete receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina scontrino"
+          }
+        }
+      }
+    },
     "Delete this document?": {
       "localizations": {
         "ar": {
@@ -4671,6 +5901,70 @@
         }
       }
     },
+    "Delete this receipt?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف هذا الإيصال؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare questo scontrino?"
+          }
+        }
+      }
+    },
+    "Delete this trip?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف هذه الرحلة؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare questo viaggio?"
+          }
+        }
+      }
+    },
+    "Delete trip": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف الرحلة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina viaggio"
+          }
+        }
+      }
+    },
+    "Delete your account?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف حسابك؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare il tuo account?"
+          }
+        }
+      }
+    },
     "Dense and small. Built for filing.": {
       "localizations": {
         "ar": {
@@ -4691,6 +5985,38 @@
       "extractionState": "manual",
       "shouldTranslate": false
     },
+    "Disconnected": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غير متصل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scollegato"
+          }
+        }
+      }
+    },
+    "Discount": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخصم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sconto"
+          }
+        }
+      }
+    },
     "Display": {
       "localizations": {
         "ar": {
@@ -4709,6 +6035,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Visualizzazione"
+          }
+        }
+      }
+    },
+    "Distance": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المسافة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Distanza"
           }
         }
       }
@@ -5172,6 +6514,22 @@
         }
       }
     },
+    "Education": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التعليم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Istruzione"
+          }
+        }
+      }
+    },
     "Egyptian Pound": {
       "localizations": {
         "ar": {
@@ -5190,6 +6548,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sterlina egiziana"
+          }
+        }
+      }
+    },
+    "Email": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "البريد الإلكتروني"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
+          }
+        }
+      }
+    },
+    "Email me a sign-in code": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أرسل لي رمز تسجيل الدخول"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inviami un codice di accesso"
           }
         }
       }
@@ -5216,6 +6606,38 @@
         }
       }
     },
+    "Enter the rate per km for your vehicle from the ACI tables. It depends on make, model and fuel.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أدخل السعر لكل كم لمركبتك من جداول ACI. يعتمد على الطراز والموديل والوقود."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inserisci la tariffa al km del tuo veicolo dalle tabelle ACI. Dipende da marca, modello e alimentazione."
+          }
+        }
+      }
+    },
+    "Entertainment": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الترفيه"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Svago"
+          }
+        }
+      }
+    },
     "Entries": {
       "localizations": {
         "ar": {
@@ -5228,6 +6650,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Voci"
+          }
+        }
+      }
+    },
+    "Error": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خطأ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Errore"
           }
         }
       }
@@ -5398,6 +6836,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tutto resta su questo dispositivo, dietro il tuo codice. Le foto le aggiungi tu, se vuoi."
+          }
+        }
+      }
+    },
+    "Expanded": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موسّع"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espanso"
           }
         }
       }
@@ -5642,6 +7096,54 @@
         }
       }
     },
+    "Failed": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فشل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non riuscito"
+          }
+        }
+      }
+    },
+    "Fees and charges": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرسوم والعمولات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commissioni e spese"
+          }
+        }
+      }
+    },
+    "Fields marked Check were hard to read. Tap a page above to compare.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الحقول المعلَّمة بـ «راجع» كانت صعبة القراءة. اضغط على صفحة في الأعلى للمقارنة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I campi segnati con Controlla erano difficili da leggere. Tocca una pagina sopra per confrontare."
+          }
+        }
+      }
+    },
     "Fine": {
       "localizations": {
         "ar": {
@@ -5794,6 +7296,22 @@
         }
       }
     },
+    "Fuel": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الوقود"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carburante"
+          }
+        }
+      }
+    },
     "General": {
       "localizations": {
         "ar": {
@@ -5854,6 +7372,38 @@
         }
       }
     },
+    "Getting your data": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ جلب بياناتك"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recupero dei tuoi dati"
+          }
+        }
+      }
+    },
+    "Gifts and donations": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الهدايا والتبرعات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regali e donazioni"
+          }
+        }
+      }
+    },
     "Given back to what is left over this month.": {
       "localizations": {
         "ar": {
@@ -5888,6 +7438,70 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spesa"
+          }
+        }
+      }
+    },
+    "HMRC: 20p a mile.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HMRC: ‏20 بنساً لكل ميل."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HMRC: 20p a miglio."
+          }
+        }
+      }
+    },
+    "HMRC: 24p a mile.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HMRC: ‏24 بنساً لكل ميل."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HMRC: 24p a miglio."
+          }
+        }
+      }
+    },
+    "HMRC: 45p a mile for the first 10,000 business miles this tax year, then 25p.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HMRC: ‏45 بنساً لكل ميل لأول 10,000 ميل عمل في هذه السنة الضريبية، ثم 25 بنساً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HMRC: 45p a miglio per le prime 10.000 miglia di lavoro di quest'anno fiscale, poi 25p."
+          }
+        }
+      }
+    },
+    "Hard to read on the receipt. Check it.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صعب القراءة على الإيصال. راجعه."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Difficile da leggere sullo scontrino. Controllalo."
           }
         }
       }
@@ -5980,6 +7594,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Interesse più alto per primo"
+          }
+        }
+      }
+    },
+    "Housing": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السكن"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Casa"
+          }
+        }
+      }
+    },
+    "How should these photos be saved?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كيف تريد حفظ هذه الصور؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come vuoi salvare queste foto?"
           }
         }
       }
@@ -6150,6 +7796,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "ITA"
+          }
+        }
+      }
+    },
+    "If you've used Veralify before, try again once you're online so your data comes back. If you're new, you can set up now.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إذا استخدمت Veralify من قبل، فحاول مجدداً عند الاتصال لاستعادة بياناتك. وإذا كنت جديداً، يمكنك الإعداد الآن."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se hai già usato Veralify, riprova quando sei online per recuperare i tuoi dati. Se sei nuovo, puoi configurare ora."
           }
         }
       }
@@ -6427,6 +8089,22 @@
         }
       }
     },
+    "Integrations": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التكاملات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Integrazioni"
+          }
+        }
+      }
+    },
     "Interest": {
       "localizations": {
         "ar": {
@@ -6549,6 +8227,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "È stato eliminato. Torna indietro per vedere quelli rimasti."
+          }
+        }
+      }
+    },
+    "Italy (ACI)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيطاليا (ACI)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Italia (ACI)"
+          }
+        }
+      }
+    },
+    "Items": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "البنود"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Articoli"
+          }
+        }
+      }
+    },
+    "Items add up to": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مجموع البنود"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli articoli sommano a"
           }
         }
       }
@@ -6887,6 +8613,38 @@
         }
       }
     },
+    "Last sync %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آخر مزامنة %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ultima sincronizzazione %@"
+          }
+        }
+      }
+    },
+    "Last synced %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آخر مزامنة %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ultima sincronizzazione %@"
+          }
+        }
+      }
+    },
     "Layout": {
       "localizations": {
         "ar": {
@@ -7039,6 +8797,38 @@
         }
       }
     },
+    "Log a business journey and it is added to your expenses at the rate you choose.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل رحلة عمل وستُضاف إلى مصاريفك بالسعر الذي تختاره."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra un viaggio di lavoro e verrà aggiunto alle spese alla tariffa che scegli."
+          }
+        }
+      }
+    },
+    "Log a trip": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل رحلة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra un viaggio"
+          }
+        }
+      }
+    },
     "Log money lost": {
       "localizations": {
         "ar": {
@@ -7087,6 +8877,22 @@
         }
       }
     },
+    "Log trip": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل رحلة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra viaggio"
+          }
+        }
+      }
+    },
     "Log what %@ paid this month": {
       "localizations": {
         "ar": {
@@ -7121,6 +8927,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra cosa hai speso o incassato per non perdere la serie."
+          }
+        }
+      }
+    },
+    "Log your first trip": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل أول رحلة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra il primo viaggio"
           }
         }
       }
@@ -7317,6 +9139,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Segna pagata"
+          }
+        }
+      }
+    },
+    "Merchant": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التاجر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esercente"
+          }
+        }
+      }
+    },
+    "Mileage": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المسافات المقطوعة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chilometraggio"
+          }
+        }
+      }
+    },
+    "Mileage needs a connection and a signed-in account. Pull down to try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحتاج المسافات إلى اتصال وحساب مسجّل. اسحب للأسفل لإعادة المحاولة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il chilometraggio richiede una connessione e un account. Trascina verso il basso per riprovare."
           }
         }
       }
@@ -7688,6 +9558,22 @@
         }
       }
     },
+    "More details": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تفاصيل إضافية"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altri dettagli"
+          }
+        }
+      }
+    },
     "Moroccan Dirham": {
       "localizations": {
         "ar": {
@@ -7836,6 +9722,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Da rivedere"
+          }
+        }
+      }
+    },
+    "Net": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصافي"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imponibile"
           }
         }
       }
@@ -8032,6 +9934,22 @@
         }
       }
     },
+    "No integrations yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد تكاملات بعد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna integrazione"
+          }
+        }
+      }
+    },
     "No interest": {
       "localizations": {
         "ar": {
@@ -8131,6 +10049,38 @@
         }
       }
     },
+    "No receipt could be found in the photo. Try again with the whole receipt flat and in focus.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم يُعثر على إيصال في الصورة. حاول مجدداً والإيصال كاملاً ومسطحاً وواضحاً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuno scontrino trovato nella foto. Riprova con lo scontrino intero, disteso e a fuoco."
+          }
+        }
+      }
+    },
+    "No receipts yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد إيصالات بعد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuno scontrino"
+          }
+        }
+      }
+    },
     "No route yet": {
       "localizations": {
         "ar": {
@@ -8193,6 +10143,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna riga del totale trovata, quindi questo è l'importo più alto dello scontrino. Meglio controllare."
+          }
+        }
+      }
+    },
+    "No trips yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد رحلات بعد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun viaggio"
           }
         }
       }
@@ -8297,6 +10263,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non ancora pagata"
+          }
+        }
+      }
+    },
+    "Not shown": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غير ظاهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non indicato"
+          }
+        }
+      }
+    },
+    "Not synced": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غير متزامن"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non sincronizzato"
+          }
+        }
+      }
+    },
+    "Not synced yet": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم تتم المزامنة بعد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non ancora sincronizzato"
           }
         }
       }
@@ -8748,6 +10762,54 @@
         }
       }
     },
+    "Office": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المكتب"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ufficio"
+          }
+        }
+      }
+    },
+    "Office supplies": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مستلزمات المكتب"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forniture per ufficio"
+          }
+        }
+      }
+    },
+    "Offline": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غير متصل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline"
+          }
+        }
+      }
+    },
     "On the day": {
       "localizations": {
         "ar": {
@@ -8826,6 +10888,88 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un campo non torna"
+          }
+        }
+      }
+    },
+    "One receipt with %lld pages": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "One receipt with %lld page"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "One receipt with %lld pages"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Uno scontrino di %lld pagina"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Uno scontrino di %lld pagine"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد بلا صفحات"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد من صفحة واحدة"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد من صفحتين"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد من %lld صفحات"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد من %lld صفحة"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "إيصال واحد من %lld صفحة"
+                }
+              }
+            }
           }
         }
       }
@@ -9274,6 +11418,88 @@
         }
       }
     },
+    "Page %lld, open full screen": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Page %lld, open full screen"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Page %lld, open full screen"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pagina %lld, apri a schermo intero"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pagina %lld, apri a schermo intero"
+                }
+              }
+            }
+          }
+        },
+        "ar": {
+          "variations": {
+            "plural": {
+              "zero": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الصفحة %lld، افتح بملء الشاشة"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الصفحة %lld، افتح بملء الشاشة"
+                }
+              },
+              "two": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الصفحة %lld، افتح بملء الشاشة"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الصفحة %lld، افتح بملء الشاشة"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الصفحة %lld، افتح بملء الشاشة"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "الصفحة %lld، افتح بملء الشاشة"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Paid": {
       "localizations": {
         "ar": {
@@ -9318,6 +11544,22 @@
         }
       }
     },
+    "Paid from": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مدفوع من"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagato da"
+          }
+        }
+      }
+    },
     "Paid off": {
       "localizations": {
         "ar": {
@@ -9358,6 +11600,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Passaporto"
+          }
+        }
+      }
+    },
+    "Paused": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متوقف مؤقتاً"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In pausa"
           }
         }
       }
@@ -9662,6 +11920,22 @@
         }
       }
     },
+    "Photos": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصور"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foto"
+          }
+        }
+      }
+    },
     "Pick a longer time frame, or tap Add and record something.": {
       "localizations": {
         "ar": {
@@ -9871,6 +12145,38 @@
         }
       }
     },
+    "Private to your account, synced securely": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خاصة بحسابك، ومتزامنة بأمان"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privati nel tuo account, sincronizzati in sicurezza"
+          }
+        }
+      }
+    },
+    "Professional services": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخدمات المهنية"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Servizi professionali"
+          }
+        }
+      }
+    },
     "Progress": {
       "localizations": {
         "ar": {
@@ -9889,6 +12195,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avanzamento"
+          }
+        }
+      }
+    },
+    "Purpose": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الغرض"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Motivo"
           }
         }
       }
@@ -9991,6 +12313,70 @@
         }
       }
     },
+    "Rate": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النسبة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aliquota"
+          }
+        }
+      }
+    },
+    "Rate per mile after 10,000": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السعر لكل ميل بعد 10,000"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tariffa per miglio oltre 10.000"
+          }
+        }
+      }
+    },
+    "Rate per mile, first 10,000": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السعر لكل ميل، أول 10,000"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tariffa per miglio, prime 10.000"
+          }
+        }
+      }
+    },
+    "Rate per unit": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السعر لكل وحدة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tariffa per unità"
+          }
+        }
+      }
+    },
     "Reached level %lld": {
       "localizations": {
         "ar": {
@@ -10051,6 +12437,86 @@
         }
       }
     },
+    "Read by AI, filed for you to check": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يقرؤه الذكاء الاصطناعي ويُحفظ لتراجعه"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Letto dall'IA, archiviato perché tu lo controlli"
+          }
+        }
+      }
+    },
+    "Reading": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ القراءة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lettura"
+          }
+        }
+      }
+    },
+    "Reading is busy right now. It will try again by itself shortly.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القراءة مشغولة الآن. ستُعاد المحاولة تلقائياً قريباً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La lettura è occupata. Riproverà da sola a breve."
+          }
+        }
+      }
+    },
+    "Reading is busy right now. Try again in a moment.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القراءة مشغولة الآن. حاول بعد لحظات."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La lettura è occupata. Riprova tra un momento."
+          }
+        }
+      }
+    },
+    "Reading the receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ قراءة الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lettura dello scontrino"
+          }
+        }
+      }
+    },
     "Reads the total off the receipt. Everything stays on your phone.": {
       "localizations": {
         "ar": {
@@ -10089,6 +12555,86 @@
         }
       }
     },
+    "Receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scontrino"
+          }
+        }
+      }
+    },
+    "Receipt deleted": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم حذف الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scontrino eliminato"
+          }
+        }
+      }
+    },
+    "Receipt number": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رقم الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Numero scontrino"
+          }
+        }
+      }
+    },
+    "Receipt photo": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صورة الإيصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foto dello scontrino"
+          }
+        }
+      }
+    },
+    "Receipts": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإيصالات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scontrini"
+          }
+        }
+      }
+    },
     "Received": {
       "localizations": {
         "ar": {
@@ -10107,6 +12653,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Incassato"
+          }
+        }
+      }
+    },
+    "Reconnect needed": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يلزم إعادة الربط"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serve ricollegare"
           }
         }
       }
@@ -10675,6 +13237,22 @@
         }
       }
     },
+    "Retrying": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة المحاولة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuovo tentativo"
+          }
+        }
+      }
+    },
     "Review your payoff plan": {
       "localizations": {
         "ar": {
@@ -10773,6 +13351,22 @@
         }
       }
     },
+    "Save anyway": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "احفظ على أي حال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva comunque"
+          }
+        }
+      }
+    },
     "Save budget": {
       "localizations": {
         "ar": {
@@ -10839,6 +13433,70 @@
         }
       }
     },
+    "Save it anyway?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظه على أي حال؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvare comunque?"
+          }
+        }
+      }
+    },
+    "Save transaction": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ المعاملة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva movimento"
+          }
+        }
+      }
+    },
+    "Saved": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "محفوظ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvato"
+          }
+        }
+      }
+    },
+    "Saved as a transaction. Edit it from your entries.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حُفظ كمعاملة. عدّله من قيودك."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvato come movimento. Modificalo dai tuoi movimenti."
+          }
+        }
+      }
+    },
     "Saved on this device and only ever sent when you share a split.": {
       "localizations": {
         "ar": {
@@ -10857,6 +13515,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Salvati su questo dispositivo e inviati solo quando condividi una divisione."
+          }
+        }
+      }
+    },
+    "Saved receipt": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيصال محفوظ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scontrino salvato"
           }
         }
       }
@@ -10901,6 +13575,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scansiona un passaporto o un documento e Veralify ne tiene i dati a portata di mano, avvisandoti prima della scadenza."
+          }
+        }
+      }
+    },
+    "Scan a receipt and it is read for you. Offline, it waits on your phone and uploads when you are back online.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "امسح إيصالاً وسيُقرأ لك. عند عدم الاتصال، ينتظر على هاتفك ويُرفع عند عودة الاتصال."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scansiona uno scontrino e viene letto per te. Offline, resta sul telefono e viene caricato quando torni online."
           }
         }
       }
@@ -10971,6 +13661,22 @@
         }
       }
     },
+    "Scanning needs a camera, so it only works on a device. Photos works everywhere.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يتطلب المسح كاميرا، لذا يعمل على الجهاز فقط. الصور تعمل في كل مكان."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La scansione richiede una fotocamera, quindi funziona solo su un dispositivo. Foto funziona ovunque."
+          }
+        }
+      }
+    },
     "Scope": {
       "localizations": {
         "ar": {
@@ -10999,6 +13705,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vedi le scadenze prima che arrivino"
+          }
+        }
+      }
+    },
+    "Send a new code": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أرسل رمزاً جديداً"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invia un nuovo codice"
+          }
+        }
+      }
+    },
+    "Sending the photo securely. You can close this — it carries on.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ إرسال الصورة بأمان. يمكنك إغلاق هذه الشاشة — سيستمر الإرسال."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invio sicuro della foto. Puoi chiudere: prosegue da solo."
           }
         }
       }
@@ -11047,6 +13785,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Imposta un limite mensile su una categoria e qui vedrai come sta andando il mese."
+          }
+        }
+      }
+    },
+    "Set up as new": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعداد كمستخدم جديد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configura da zero"
           }
         }
       }
@@ -11215,6 +13969,22 @@
         }
       }
     },
+    "Shopping": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التسوق"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acquisti"
+          }
+        }
+      }
+    },
     "Showing %lld entries": {
       "localizations": {
         "ar": {
@@ -11319,6 +14089,150 @@
         }
       }
     },
+    "Shows your scanned receipts": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض إيصالاتك الممسوحة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra gli scontrini scansionati"
+          }
+        }
+      }
+    },
+    "Sign in": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الدخول"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi"
+          }
+        }
+      }
+    },
+    "Sign in again to sync.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل الدخول مجدداً للمزامنة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi di nuovo per sincronizzare."
+          }
+        }
+      }
+    },
+    "Sign in to Veralify": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل الدخول إلى Veralify"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi a Veralify"
+          }
+        }
+      }
+    },
+    "Sign in with Apple didn't finish. Try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم يكتمل تسجيل الدخول باستخدام Apple. حاول مرة أخرى."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'accesso con Apple non è stato completato. Riprova."
+          }
+        }
+      }
+    },
+    "Sign out": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الخروج"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esci"
+          }
+        }
+      }
+    },
+    "Sign out?": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الخروج؟"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uscire?"
+          }
+        }
+      }
+    },
+    "Signed in as": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسجّل الدخول باسم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accesso effettuato come"
+          }
+        }
+      }
+    },
+    "Signing in": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ تسجيل الدخول"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accesso in corso"
+          }
+        }
+      }
+    },
     "Skip": {
       "localizations": {
         "ar": {
@@ -11357,6 +14271,38 @@
         }
       }
     },
+    "Software": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "البرمجيات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Software"
+          }
+        }
+      }
+    },
+    "Some changes could not be synced. They will be retried.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّرت مزامنة بعض التغييرات. ستتم إعادة المحاولة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alcune modifiche non sono state sincronizzate. Verranno ritentate."
+          }
+        }
+      }
+    },
     "Someone": {
       "localizations": {
         "ar": {
@@ -11375,6 +14321,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qualcuno"
+          }
+        }
+      }
+    },
+    "Something went wrong sending it. It will try again by itself shortly.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حدث خطأ أثناء الإرسال. ستُعاد المحاولة تلقائياً قريباً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualcosa è andato storto nell'invio. Riproverà da solo a breve."
+          }
+        }
+      }
+    },
+    "Something went wrong sending it. Try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حدث خطأ أثناء الإرسال. حاول مرة أخرى."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualcosa è andato storto nell'invio. Riprova."
+          }
+        }
+      }
+    },
+    "Something went wrong signing in. Try again in a moment.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حدث خطأ أثناء تسجيل الدخول. حاول بعد قليل."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualcosa è andato storto durante l'accesso. Riprova tra poco."
           }
         }
       }
@@ -11801,6 +14795,38 @@
         }
       }
     },
+    "Subscriptions": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاشتراكات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbonamenti"
+          }
+        }
+      }
+    },
+    "Subtotal": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المجموع الفرعي"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subtotale"
+          }
+        }
+      }
+    },
     "Swedish Krona": {
       "localizations": {
         "ar": {
@@ -11889,6 +14915,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Franco svizzero"
+          }
+        }
+      }
+    },
+    "Sync failed. It will be retried.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فشلت المزامنة. ستتم إعادة المحاولة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizzazione non riuscita. Verrà ritentata."
+          }
+        }
+      }
+    },
+    "Sync now": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مزامنة الآن"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizza ora"
+          }
+        }
+      }
+    },
+    "Syncing…": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ المزامنة…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizzazione…"
           }
         }
       }
@@ -11991,6 +15065,70 @@
         }
       }
     },
+    "Tax": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الضريبة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposta"
+          }
+        }
+      }
+    },
+    "Tax (VAT / IVA)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الضريبة (VAT / IVA)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposte (IVA / VAT)"
+          }
+        }
+      }
+    },
+    "That code is wrong or has expired. Check it, or send a new one.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرمز غير صحيح أو انتهت صلاحيته. تحقق منه أو أرسل رمزاً جديداً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il codice è errato o scaduto. Controllalo o inviane uno nuovo."
+          }
+        }
+      }
+    },
+    "That didn't work": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم ينجح ذلك"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non ha funzionato"
+          }
+        }
+      }
+    },
     "That's %@ each — %lld of us round up to %@ so it comes out exact.": {
       "localizations": {
         "ar": {
@@ -12035,6 +15173,38 @@
         }
       }
     },
+    "The AI is reading the merchant, date, total and tax. This usually takes a few seconds.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يقرأ الذكاء الاصطناعي التاجر والتاريخ والإجمالي والضريبة. يستغرق ذلك عادة بضع ثوانٍ."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'IA sta leggendo esercente, data, totale e imposte. Di solito servono pochi secondi."
+          }
+        }
+      }
+    },
+    "The app is missing its server settings.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنقص التطبيق إعدادات الخادم."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All'app mancano le impostazioni del server."
+          }
+        }
+      }
+    },
     "The balance left and the minimum payment. If you don't know the interest rate, leave it at zero.": {
       "localizations": {
         "ar": {
@@ -12047,6 +15217,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il saldo residuo e la rata minima. Se non conosci il tasso, lascialo a zero."
+          }
+        }
+      }
+    },
+    "The data on this phone could not be removed, so you're still signed in. Try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّرت إزالة البيانات من هذا الهاتف، لذا ما زلت مسجّلاً الدخول. حاول مرة أخرى."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non è stato possibile rimuovere i dati da questo telefono, quindi sei ancora connesso. Riprova."
           }
         }
       }
@@ -12161,6 +15347,22 @@
         }
       }
     },
+    "The items don't add up to the total. Check the total against the photo.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مجموع البنود لا يساوي الإجمالي. قارن الإجمالي بالصورة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli articoli non sommano al totale. Confronta il totale con la foto."
+          }
+        }
+      }
+    },
     "The order I choose": {
       "localizations": {
         "ar": {
@@ -12179,6 +15381,70 @@
           "stringUnit": {
             "state": "translated",
             "value": "L'ordine che scelgo io"
+          }
+        }
+      }
+    },
+    "The photo is no longer on this phone. Delete this receipt and scan it again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم تعد الصورة على هذا الهاتف. احذف هذا الإيصال وامسحه مجدداً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La foto non è più su questo telefono. Elimina lo scontrino e scansionalo di nuovo."
+          }
+        }
+      }
+    },
+    "The photo is removed. A transaction already saved from it stays.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُحذف الصورة. تبقى المعاملة المحفوظة منها."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La foto viene rimossa. Il movimento già salvato da essa resta."
+          }
+        }
+      }
+    },
+    "The photo isn't available on this phone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصورة غير متاحة على هذا الهاتف."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La foto non è disponibile su questo telefono."
+          }
+        }
+      }
+    },
+    "The receipt is saved on your phone and uploads as soon as you're back online.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإيصال محفوظ على هاتفك ويُرفع فور عودة الاتصال."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo scontrino è salvato sul telefono e viene caricato appena torni online."
           }
         }
       }
@@ -12211,6 +15477,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arriva la stessa cifra ogni mese."
+          }
+        }
+      }
+    },
+    "The trip and the expense it created are both removed.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ستُحذف الرحلة والمصروف الذي أنشأته معاً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vengono rimossi sia il viaggio sia la spesa che ha creato."
+          }
+        }
+      }
+    },
+    "The trip could not be saved. Check your connection and try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر حفظ الرحلة. تحقق من اتصالك وحاول مرة أخرى."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile salvare il viaggio. Controlla la connessione e riprova."
           }
         }
       }
@@ -12291,6 +15589,38 @@
         }
       }
     },
+    "There isn't enough space on this phone to keep the photo.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد مساحة كافية على هذا الهاتف لحفظ الصورة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non c'è abbastanza spazio su questo telefono per salvare la foto."
+          }
+        }
+      }
+    },
+    "This build can't connect": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يمكن لهذا الإصدار الاتصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questa versione non può connettersi"
+          }
+        }
+      }
+    },
     "This cannot be undone.": {
       "localizations": {
         "ar": {
@@ -12367,6 +15697,22 @@
         }
       }
     },
+    "This looks like a receipt you've already saved — same shop, day and total.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يبدو هذا إيصالاً حفظته مسبقاً — المتجر واليوم والإجمالي نفسها."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sembra uno scontrino già salvato: stesso negozio, giorno e totale."
+          }
+        }
+      }
+    },
     "This month": {
       "localizations": {
         "ar": {
@@ -12406,6 +15752,22 @@
         }
       }
     },
+    "This permanently deletes your Veralify account and everything in it — income, expenses, debts, entries and receipt photos — on every device and on the web. This cannot be undone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سيؤدي هذا إلى حذف حسابك في Veralify وكل ما فيه نهائياً — الدخل والمصاريف والديون والقيود وصور الإيصالات — على كل الأجهزة وعلى الويب. لا يمكن التراجع عن ذلك."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina definitivamente il tuo account Veralify e tutto ciò che contiene — entrate, spese, debiti, movimenti e foto degli scontrini — su ogni dispositivo e sul web. L'operazione non si può annullare."
+          }
+        }
+      }
+    },
     "This plan isn't achievable": {
       "localizations": {
         "ar": {
@@ -12418,6 +15780,70 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il piano non è realizzabile"
+          }
+        }
+      }
+    },
+    "This receipt is no longer on this phone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم يعد هذا الإيصال على هذا الهاتف."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo scontrino non è più su questo telefono."
+          }
+        }
+      }
+    },
+    "This receipt needs an update": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يحتاج هذا الإيصال إلى تحديث"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo scontrino richiede un aggiornamento"
+          }
+        }
+      }
+    },
+    "This receipt shows more than one currency. Make sure the total is the one you paid.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يُظهر هذا الإيصال أكثر من عملة. تأكد أن الإجمالي هو ما دفعته."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo scontrino mostra più di una valuta. Verifica che il totale sia quello pagato."
+          }
+        }
+      }
+    },
+    "This receipt was read in a newer format. Update the app to review it.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قُرئ هذا الإيصال بصيغة أحدث. حدّث التطبيق لمراجعته."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo scontrino è stato letto in un formato più recente. Aggiorna l'app per controllarlo."
           }
         }
       }
@@ -12440,6 +15866,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Questo percorso non arriva in fondo"
+          }
+        }
+      }
+    },
+    "Those photos couldn't be opened.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر فتح تلك الصور."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile aprire quelle foto."
           }
         }
       }
@@ -12830,6 +16272,22 @@
         }
       }
     },
+    "Transport": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المواصلات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trasporti"
+          }
+        }
+      }
+    },
     "Travel": {
       "localizations": {
         "ar": {
@@ -12848,6 +16306,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Viaggi"
+          }
+        }
+      }
+    },
+    "Trip": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رحلة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viaggio"
+          }
+        }
+      }
+    },
+    "Trips could not be loaded": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر تحميل الرحلات"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile caricare i viaggi"
+          }
+        }
+      }
+    },
+    "Try again": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حاول مرة أخرى"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riprova"
           }
         }
       }
@@ -13026,6 +16532,54 @@
         }
       }
     },
+    "UK bicycle": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دراجة هوائية (المملكة المتحدة)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bicicletta (Regno Unito)"
+          }
+        }
+      }
+    },
+    "UK car or van": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سيارة أو شاحنة (المملكة المتحدة)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auto o furgone (Regno Unito)"
+          }
+        }
+      }
+    },
+    "UK motorcycle": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دراجة نارية (المملكة المتحدة)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moto (Regno Unito)"
+          }
+        }
+      }
+    },
     "US Dollar": {
       "localizations": {
         "ar": {
@@ -13064,6 +16618,22 @@
         }
       }
     },
+    "Unit": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الوحدة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unità"
+          }
+        }
+      }
+    },
     "Up %@ this month": {
       "localizations": {
         "ar": {
@@ -13082,6 +16652,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "In aumento di %@ questo mese"
+          }
+        }
+      }
+    },
+    "Up to date": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "محدّث"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiornato"
           }
         }
       }
@@ -13114,6 +16700,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiorna"
+          }
+        }
+      }
+    },
+    "Uploading": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ الرفع"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caricamento"
+          }
+        }
+      }
+    },
+    "Use a different email": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخدم بريداً آخر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa un'altra email"
           }
         }
       }
@@ -13158,6 +16776,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usa questo intervallo"
+          }
+        }
+      }
+    },
+    "Utilities": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المرافق"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utenze"
+          }
+        }
+      }
+    },
+    "VAT number (P.IVA)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرقم الضريبي (P.IVA)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partita IVA"
           }
         }
       }
@@ -13334,6 +16984,38 @@
         }
       }
     },
+    "Waiting": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بانتظار"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In attesa"
+          }
+        }
+      }
+    },
+    "Waiting for a connection": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بانتظار الاتصال"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In attesa di connessione"
+          }
+        }
+      }
+    },
     "Wallet": {
       "localizations": {
         "ar": {
@@ -13352,6 +17034,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Portafoglio"
+          }
+        }
+      }
+    },
+    "We sent a code to %@. It expires in an hour.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أرسلنا رمزاً إلى %@. تنتهي صلاحيته خلال ساعة."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbiamo inviato un codice a %@. Scade tra un'ora."
           }
         }
       }
@@ -13912,6 +17610,22 @@
         }
       }
     },
+    "You can claim": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يمكنك المطالبة بـ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puoi richiedere"
+          }
+        }
+      }
+    },
     "You pay": {
       "localizations": {
         "ar": {
@@ -14000,6 +17714,22 @@
         }
       }
     },
+    "You'll sign in with the provider and choose what Veralify may access.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ستسجّل الدخول لدى المزوّد وتختار ما يمكن لـ Veralify الوصول إليه."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accederai con il fornitore e sceglierai a cosa può accedere Veralify."
+          }
+        }
+      }
+    },
     "You're %@ short each month. Review your expenses or payments.": {
       "localizations": {
         "ar": {
@@ -14012,6 +17742,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ti mancano %@ al mese. Rivedi le spese o le rate."
+          }
+        }
+      }
+    },
+    "You're offline. Connect to the internet and try again.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنت غير متصل. اتصل بالإنترنت وحاول مرة أخرى."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sei offline. Connettiti a internet e riprova."
+          }
+        }
+      }
+    },
+    "You're offline. New receipts wait here and upload when you're back online.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنت غير متصل. تنتظر الإيصالات الجديدة هنا وتُرفع عند عودة الاتصال."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sei offline. I nuovi scontrini aspettano qui e vengono caricati quando torni online."
+          }
+        }
+      }
+    },
+    "You've used this month's receipt scans. They reset on the 1st.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخدمت عمليات مسح الإيصالات لهذا الشهر. تتجدد في اليوم الأول من الشهر."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hai usato le scansioni di scontrini di questo mese. Si azzerano il giorno 1."
           }
         }
       }
@@ -14128,6 +17906,22 @@
         }
       }
     },
+    "Your account could not be deleted. Try again later.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر حذف حسابك. حاول لاحقاً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non è stato possibile eliminare il tuo account. Riprova più tardi."
+          }
+        }
+      }
+    },
     "Your commitments exceed your income": {
       "localizations": {
         "ar": {
@@ -14208,6 +18002,22 @@
         }
       }
     },
+    "Your data syncs over an encrypted connection and only you can see it. Scanned ID documents stay on this phone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتم مزامنة بياناتك عبر اتصال مشفّر ولا يراها أحد غيرك. تبقى وثائق الهوية الممسوحة على هذا الهاتف."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I tuoi dati si sincronizzano su una connessione cifrata e solo tu puoi vederli. I documenti d'identità scansionati restano su questo telefono."
+          }
+        }
+      }
+    },
     "Your income has to cover your expenses and your debt payments with something left over. Tap the big figure on Today to see the three numbers that make it up, and which one is eating the difference.": {
       "localizations": {
         "ar": {
@@ -14246,6 +18056,22 @@
         }
       }
     },
+    "Your income, expenses, debts and recorded entries will be permanently deleted from this phone and your account, and setup will start again. This cannot be undone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سيتم حذف دخلك ومصاريفك وديونك وقيودك نهائياً من هذا الهاتف ومن حسابك، وسيبدأ الإعداد من جديد. لا يمكن التراجع عن ذلك."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrate, spese, debiti e movimenti registrati verranno eliminati definitivamente da questo telefono e dal tuo account, e la configurazione ripartirà. L'operazione non si può annullare."
+          }
+        }
+      }
+    },
     "Your level": {
       "localizations": {
         "ar": {
@@ -14264,6 +18090,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il tuo livello"
+          }
+        }
+      }
+    },
+    "Your money data is kept in your Veralify account and synced over an encrypted connection. Scanned ID documents never leave this phone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُحفظ بياناتك المالية في حسابك في Veralify وتتم مزامنتها عبر اتصال مشفّر. لا تغادر وثائق الهوية الممسوحة هذا الهاتف أبداً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I tuoi dati finanziari sono conservati nel tuo account Veralify e sincronizzati su una connessione cifrata. I documenti d'identità scansionati non lasciano mai questo telefono."
+          }
+        }
+      }
+    },
+    "Your money data stays in your account and is removed from this phone. ID documents and family splits stay on this phone.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبقى بياناتك المالية في حسابك وتُزال من هذا الهاتف. تبقى وثائق الهوية وتقسيمات العائلة على هذا الهاتف."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I tuoi dati finanziari restano nel tuo account e vengono rimossi da questo telefono. Documenti d'identità e divisioni familiari restano su questo telefono."
           }
         }
       }
@@ -14302,6 +18160,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il tuo piano di rimborso"
+          }
+        }
+      }
+    },
+    "Your plan, entries and receipts are kept in your account, so they're safe if you change phone and you can see them on the web too.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تُحفظ خطتك وقيودك وإيصالاتك في حسابك، فتبقى آمنة إذا غيّرت هاتفك ويمكنك رؤيتها على الويب أيضاً."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo piano, i movimenti e gli scontrini sono conservati nel tuo account: restano al sicuro se cambi telefono e li vedi anche sul web."
+          }
+        }
+      }
+    },
+    "Your usual for this shop": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختيارك المعتاد لهذا المتجر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua scelta abituale per questo negozio"
           }
         }
       }
@@ -14566,6 +18456,22 @@
         }
       }
     },
+    "km": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "km"
+          }
+        }
+      }
+    },
     "left": {
       "localizations": {
         "ar": {
@@ -14692,6 +18598,22 @@
         }
       }
     },
+    "mi": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ميل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mi"
+          }
+        }
+      }
+    },
     "months": {
       "localizations": {
         "ar": {
@@ -14792,6 +18714,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "di %lld"
+          }
+        }
+      }
+    },
+    "or": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أو"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "oppure"
           }
         }
       }

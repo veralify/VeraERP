@@ -66,7 +66,9 @@ struct TransactionEditSheet: View {
                             // sizes, where two menus in half the width each
                             // cut their values to a letter or two.
                             pairLayout {
-                                pickerRow("Category", $category, EntryPresets.categories)
+                                // Every category, plus whatever this entry already has, so a receipt filed
+                                // under "software" can be re-picked, and each shown by its display name.
+                                pickerRow("Category", $category, ReceiptCategories.options(including: category), title: EntryPresets.title(for:))
                                 pickerRow("Account", $account, EntryPresets.accounts)
                             }
 
@@ -114,16 +116,21 @@ struct TransactionEditSheet: View {
         }
     }
 
-    private func pickerRow(_ label: LocalizedStringKey, _ value: Binding<String>, _ options: [String]) -> some View {
+    private func pickerRow(
+        _ label: LocalizedStringKey,
+        _ value: Binding<String>,
+        _ options: [String],
+        title: @escaping (String) -> String = { $0 }
+    ) -> some View {
         VStack(alignment: .leading, spacing: 7) {
             Text(label).font(.footnote.weight(.semibold)).foregroundStyle(Theme.textSecondary)
             Menu {
                 ForEach(options, id: \.self) { option in
-                    Button(option) { value.wrappedValue = option }
+                    Button(title(option)) { value.wrappedValue = option }
                 }
             } label: {
                 HStack {
-                    Text(value.wrappedValue)
+                    Text(title(value.wrappedValue))
                         .foregroundStyle(Theme.textPrimary)
                         .lineLimit(1)
                     Spacer(minLength: 4)

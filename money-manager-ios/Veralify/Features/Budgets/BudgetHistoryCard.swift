@@ -125,7 +125,7 @@ struct BudgetHistoryCard: View {
                         Circle()
                             .fill(Theme.categorical(index))
                             .frame(width: 7, height: 7)
-                        Text(LocalizedStringKey(category))
+                        Text(EntryPresets.title(for: category))
                             .font(.caption2)
                             .foregroundStyle(Theme.textTertiary)
                     }

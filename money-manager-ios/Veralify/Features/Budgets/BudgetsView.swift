@@ -163,7 +163,7 @@ struct BudgetsView: View {
 
         return VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text(LocalizedStringKey(line.category))
+                Text(EntryPresets.title(for: line.category))
                     .font(.subheadline.weight(.bold))
                     .foregroundStyle(Theme.textPrimary)
                     .lineLimit(1)
@@ -345,7 +345,7 @@ struct BudgetSheet: View {
             HStack(spacing: 8) {
                 ForEach(available, id: \.self) { option in
                     Button { category = option } label: {
-                        Text(LocalizedStringKey(option))
+                        Text(EntryPresets.title(for: option))
                             .font(.caption.weight(.bold))
                             .foregroundStyle(category == option ? Theme.onAccent : Theme.textSecondary)
                             .padding(.horizontal, 13)

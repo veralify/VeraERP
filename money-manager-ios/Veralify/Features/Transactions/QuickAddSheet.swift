@@ -175,10 +175,10 @@ struct QuickAddSheet: View {
 
                 Menu {
                     ForEach(EntryPresets.categories, id: \.self) { option in
-                        Button(option) { category = option }
+                        Button(EntryPresets.title(for: option)) { category = option }
                     }
                 } label: {
-                    ChipLabel(icon: "tag", text: category)
+                    ChipLabel(icon: "tag", text: EntryPresets.title(for: category))
                 }
 
                 Menu {

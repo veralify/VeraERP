@@ -66,7 +66,7 @@ struct CategoryDetailView: View {
             }
             .scrollIndicators(.hidden)
         }
-        .navigationTitle(LocalizedStringKey(route.category))
+        .navigationTitle(EntryPresets.title(for: route.category))
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Theme.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)

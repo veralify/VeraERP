@@ -128,7 +128,7 @@ struct SpendingByCategory: View {
             }
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(LocalizedStringKey(share.name))
+                Text(EntryPresets.title(for: share.name))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.textPrimary)
                     .lineLimit(1)

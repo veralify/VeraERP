@@ -157,6 +157,8 @@ Secrets (Supabase function secrets):
 | `FREEAGENT_CLIENT_ID`, `FREEAGENT_CLIENT_SECRET`, `FREEAGENT_ENVIRONMENT` | accounting |
 | `FIC_CLIENT_ID`, `FIC_CLIENT_SECRET` | accounting (Fatture in Cloud) |
 | `ACCOUNTING_OAUTH_REDIRECT_BASE` | accounting callback URL base |
+| `ACCOUNTING_WEB_RETURN_URL` | where the callback sends the browser after connecting on the web, e.g. `https://<site>/dashboard/money/integrations` (required) |
+| `ACCOUNTING_APP_RETURN_URL` | where it sends the app (optional, default `veralify://integrations`) |
 | `INBOUND_EMAIL_DOMAIN`, `INBOUND_WEBHOOK_SECRET` | inbound-receipts |
 
 ## 7. Verification tools in this environment

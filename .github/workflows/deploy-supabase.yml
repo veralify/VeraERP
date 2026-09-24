@@ -37,8 +37,17 @@ jobs:
 
       - name: Deploy Edge Functions
         run: |
+          # Called by third parties that cannot send a Supabase JWT; each checks
+          # its own proof instead (OAuth state for the accounting callback, an
+          # HMAC signature for inbound e-mail).
+          no_jwt=" accounting-callback inbound-receipts "
           for dir in supabase/functions/*; do
             if [ -f "$dir/index.ts" ]; then
-              supabase functions deploy "$(basename "$dir")"
+              name="$(basename "$dir")"
+              if [[ "$no_jwt" == *" $name "* ]]; then
+                supabase functions deploy "$name" --no-verify-jwt
+              else
+                supabase functions deploy "$name"
+              fi
             fi
           done
