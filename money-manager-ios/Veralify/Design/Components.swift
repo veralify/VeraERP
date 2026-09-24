@@ -63,6 +63,11 @@ struct Pill: View {
             Text(text)
                 .font(.footnote.weight(.semibold))
                 .monospacedDigit()
+                // A capsule cannot hold two lines: squeezed in a row on a small
+                // phone, the text wrapped and the pill turned into a lozenge.
+                // Shrink a touch first, then truncate, and stay one line.
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 7)
@@ -123,10 +128,15 @@ struct AccentCard: View {
                 Text(caption)
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(foreground.opacity(0.85))
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer(minLength: 8)
+                // The figure keeps its full width; the caption beside it is
+                // the one that wraps when the row runs short.
                 Text(progressLabel)
                     .font(.footnote.weight(.bold))
                     .monospacedDigit()
+                    .lineLimit(1)
+                    .fixedSize()
                     .foregroundStyle(Theme.onAccent)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
@@ -186,7 +196,9 @@ struct SectionHeader<Trailing: View>: View {
     @ViewBuilder var trailing: Trailing
 
     var body: some View {
-        HStack {
+        // Baseline rather than centre: the trailing slot is usually smaller
+        // text (a count, "All entries"), which centred sat visibly low.
+        HStack(alignment: .firstTextBaseline) {
             Text(title)
                 .font(.headline.weight(.semibold))
                 .foregroundStyle(Theme.textPrimary)
@@ -292,10 +304,16 @@ struct FloatingTabBar: View {
             ForEach(actionIndex..<tabs.count, id: \.self) { tabButton(index: $0) }
         }
         .padding(.horizontal, 8)
-        .padding(.vertical, 8)
+        // 6 rather than 8: the buttons inside are now 44pt tall to meet the
+        // minimum touch target, so the capsule keeps its 56pt height.
+        .padding(.vertical, 6)
         .background(Theme.surface, in: .capsule)
         .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
         .shadow(color: .black.opacity(0.5), radius: 18, y: 8)
+        // Only the action's label scales with text size — the tab glyphs are
+        // fixed. Unbounded, it pushed the capsule wider than a small phone at
+        // accessibility sizes; the system tab bar stops growing too.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
     private var actionButton: some View {
@@ -307,12 +325,17 @@ struct FloatingTabBar: View {
                 } else {
                     Label(actionTitle, systemImage: "plus")
                         .font(.subheadline.weight(.bold))
+                        .lineLimit(1)
                 }
             }
             .foregroundStyle(isActionActive ? Theme.textPrimary : Theme.onAccent)
             .frame(height: 40)
             .padding(.horizontal, isActionActive ? 14 : 16)
             .background(isActionActive ? Theme.surfaceElevated : Theme.lime, in: .capsule)
+            // The capsule stays 40pt; the clear band around it brings the
+            // target to 44.
+            .padding(.vertical, 2)
+            .contentShape(.capsule)
         }
         .buttonStyle(.pressable)
         .padding(.horizontal, 2)
@@ -340,7 +363,10 @@ struct FloatingTabBar: View {
                 }
             }
             .foregroundStyle(isSelected ? Theme.textPrimary : Theme.textTertiary)
-            .frame(width: 46, height: 40)
+            .frame(width: 46, height: 44)
+            // Without this only the glyph itself took the tap, and the clear
+            // space around it — most of the button — fell through.
+            .contentShape(.rect)
         }
         .buttonStyle(.pressable)
         .accessibilityLabel(tabs[index].label)

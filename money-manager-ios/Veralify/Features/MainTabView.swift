@@ -74,6 +74,9 @@ struct MainTabView: View {
             FloatingTabBar(selection: $selection, actionTitle: "Add", isActionActive: false) {
                 destination = .quickAdd
             }
+            // Keeps the screen gutter should the bar ever grow to the width
+            // of a small phone.
+            .padding(.horizontal, 16)
             .padding(.bottom, 8)
         }
         .fullScreenCover(item: Binding(
@@ -155,6 +158,8 @@ struct EmptyStateView: View {
             Text(title)
                 .font(.headline)
                 .foregroundStyle(Theme.textPrimary)
+                // A title that wraps must centre like the message beneath it.
+                .multilineTextAlignment(.center)
             Text(message)
                 .font(.subheadline)
                 .foregroundStyle(Theme.textSecondary)
