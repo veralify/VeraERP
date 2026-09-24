@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The app's one date control: a tappable value that opens the themed calendar.
+/// The app's one date control: a tappable value that opens a dark calendar.
 ///
 /// Screens used to roll their own. Most used a compact `DatePicker`, whose
 /// popover arrives in the system's own colours and ignores the palette
@@ -18,7 +18,7 @@ struct DateField: View {
     enum Style {
         /// A labelled row, for a form.
         case row
-        /// A compact chip, for a row of chips.
+        /// A capsule, for a row of chips.
         case chip
     }
 
@@ -38,46 +38,36 @@ struct DateField: View {
         Button { isPicking = true } label: {
             switch style {
             case .row:
-                HStack(spacing: Theme.Spacing.sm) {
+                HStack {
                     Text(label)
-                        .font(Theme.Typography.subheadline)
+                        .font(.subheadline)
                         .foregroundStyle(Theme.textSecondary)
-                    Spacer(minLength: Theme.Spacing.sm)
-                    HStack(spacing: 6) {
+                    Spacer(minLength: 8)
+                    HStack(spacing: 7) {
                         Text(valueText)
-                            .font(Theme.Typography.subheadlineStrong)
-                            .monospacedDigit()
+                            .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.textPrimary)
                         Image(systemName: "calendar")
-                            .font(Theme.Typography.captionStrong)
-                            .foregroundStyle(Theme.accent)
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(Theme.lime)
                     }
-                    .padding(.horizontal, Theme.Spacing.md)
-                    .frame(minHeight: 36)
-                    .background(Theme.surfaceMuted, in: .rect(cornerRadius: Theme.Radius.inner, style: .continuous))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Theme.surfaceElevated, in: .capsule)
+                    .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
                 }
-                .frame(minHeight: Theme.Icon.minTapTarget)
                 .contentShape(.rect)
 
             case .chip:
-                HStack(spacing: 6) {
-                    Image(systemName: "calendar")
-                        .imageScale(.small)
-                        .foregroundStyle(Theme.accent)
-                    Text(chipText)
-                        .font(Theme.Typography.subheadlineStrong)
-                        .monospacedDigit()
+                HStack(spacing: 7) {
+                    Image(systemName: "calendar").font(.system(size: 13, weight: .medium))
+                    Text(chipText).font(.subheadline.weight(.medium))
                 }
                 .foregroundStyle(Theme.textPrimary)
-                .padding(.horizontal, 14)
-                .frame(minHeight: 36)
-                .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.control, style: .continuous))
-                .overlay {
-                    RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous)
-                        .strokeBorder(Theme.stroke, lineWidth: Theme.Border.hairline)
-                }
-                .padding(.vertical, 4)
-                .contentShape(.rect)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 10)
+                .background(Theme.surface, in: .capsule)
+                .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
             }
         }
         .buttonStyle(.pressable)
@@ -99,7 +89,7 @@ private struct CalendarSheet: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Theme.canvas.ignoresSafeArea()
+                Theme.background.ignoresSafeArea()
 
                 Group {
                     if let range {
@@ -110,25 +100,25 @@ private struct CalendarSheet: View {
                 }
                 .datePickerStyle(.graphical)
                 // Set here rather than inherited: a sheet is its own
-                // presentation, and the accent is what makes the selected day
-                // and the month arrows read as ours.
-                .tint(Theme.accent)
-                .padding(.horizontal, Theme.Spacing.md)
+                // presentation, and the lime is what makes the selected day and
+                // the month arrows read as ours.
+                .tint(Theme.lime)
+                .padding(.horizontal, 12)
                 .frame(maxHeight: .infinity, alignment: .top)
             }
             .navigationTitle("Date")
             .navigationBarTitleDisplayMode(.inline)
-            .themedNavigationBar()
+            .toolbarBackground(Theme.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
-                        .font(Theme.Typography.bodyStrong)
-                        .foregroundStyle(Theme.accent)
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(Theme.lime)
                 }
             }
         }
         .presentationDetents([.medium])
-        .presentationBackground(Theme.canvas)
-        .presentationCornerRadius(Theme.Radius.sheet)
+        .presentationBackground(Theme.background)
     }
 }
