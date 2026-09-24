@@ -27,8 +27,16 @@ targets:
   Veralify:
     type: application
     platform: iOS
+    # A synced folder: Xcode compiles whatever is in Veralify/, so a new file
+    # can never be left out of the build (and the project file stops listing
+    # every file, so it no longer conflicts on each pull). Info.plist and the
+    # entitlements are build settings, not resources.
     sources:
       - path: Veralify
+        type: syncedFolder
+        excludes:
+          - App/Info.plist
+          - App/Veralify.entitlements
     dependencies:
       - package: VeralifyCore
         product: VeralifyCore
