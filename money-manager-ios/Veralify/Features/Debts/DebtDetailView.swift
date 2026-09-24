@@ -19,6 +19,7 @@ struct DebtDetailView: View {
     let remoteID: Int
 
     @Environment(\.modelContext) private var context
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query(sort: \DebtPayment.date, order: .reverse) private var allPayments: [DebtPayment]
 
@@ -128,10 +129,13 @@ struct DebtDetailView: View {
 
                 Spacer(minLength: 8)
 
+                // The badge keeps its full width; on a narrow phone it is the
+                // "of" figure that shrinks, not the percentage that truncates.
                 Text("\(progress.percent)% paid")
                     .font(.footnote.weight(.bold))
                     .monospacedDigit()
                     .foregroundStyle(Theme.onAccent)
+                    .fixedSize()
                     .padding(.horizontal, 14)
                     .padding(.vertical, 7)
                     .background(.white, in: .capsule)
@@ -149,7 +153,13 @@ struct DebtDetailView: View {
     // MARK: - Figures
 
     private func statStrip(_ debt: DebtRecord) -> some View {
-        HStack(spacing: 10) {
+        // Three tiles share a third of a small phone each; at accessibility
+        // sizes that leaves room for neither label nor figure, so they stack.
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 10))
+            : AnyLayout(HStackLayout(spacing: 10))
+
+        return layout {
             statTile("Remaining", CurrencyFormat.string(debt.balance))
             statTile("Monthly", CurrencyFormat.string(debt.monthlyPayment))
             if let paymentsLeft {
@@ -173,7 +183,9 @@ struct DebtDetailView: View {
                 .minimumScaleFactor(0.6)
         }
         .padding(14)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        // Full height as well as width, so the tiles stay one even row even
+        // when a figure scales down in one and not the others.
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
         .accessibilityElement(children: .combine)
     }
@@ -182,15 +194,14 @@ struct DebtDetailView: View {
 
     private func paymentsSection(_ debt: DebtRecord) -> some View {
         VStack(spacing: 12) {
-            HStack {
-                Text("Payments: \(payments.count)")
-                    .font(.headline.weight(.semibold))
-                    .foregroundStyle(Theme.textPrimary)
-                Spacer(minLength: 8)
+            SectionHeader(title: "Payments: \(payments.count)") {
                 Button { isPaying = true } label: {
                     Label("Add", systemImage: "plus")
                         .font(.subheadline.weight(.bold))
                         .foregroundStyle(Theme.lime)
+                        // A 44pt touch target without making the header any
+                        // taller than its title.
+                        .contentShape(Rectangle().inset(by: -12))
                 }
                 .buttonStyle(.pressable)
             }
@@ -217,16 +228,39 @@ struct DebtDetailView: View {
     }
 
     private func paymentCard(_ payment: DebtPayment, debt: DebtRecord) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(CurrencyFormat.string(payment.totalCharged))
-                    .font(.system(size: 21, weight: .bold))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textPrimary)
-                Spacer(minLength: 8)
-                Text(payment.date.formatted(.dateTime.day().month(.abbreviated).year()))
-                    .font(.footnote)
-                    .foregroundStyle(Theme.textSecondary)
+        let amount = Text(CurrencyFormat.string(payment.totalCharged))
+            .font(.system(size: 21, weight: .bold))
+            .monospacedDigit()
+            .foregroundStyle(Theme.textPrimary)
+        let date = Text(payment.date.formatted(.dateTime.day().month(.abbreviated).year()))
+            .font(.footnote)
+            .foregroundStyle(Theme.textSecondary)
+        let status = Pill(
+            text: payment.isPaid ? String(localized: "Paid") : String(localized: "Planned"),
+            style: .muted(dot: payment.isPaid ? Theme.green : Theme.blue)
+        )
+        let kind = Pill(
+            text: payment.isEarlyPayoff
+                ? String(localized: "Early payoff")
+                : String(localized: "Payment"),
+            style: .accent(payment.isEarlyPayoff ? Theme.yellow : Theme.green)
+        )
+
+        return VStack(alignment: .leading, spacing: 10) {
+            // Side by side while both fit; a large amount or large type puts
+            // the date under the figure rather than squeezing either one.
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline) {
+                    amount.lineLimit(1)
+                    Spacer(minLength: 8)
+                    date.lineLimit(1)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    amount
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                    date
+                }
             }
 
             Text(description(for: payment))
@@ -234,23 +268,24 @@ struct DebtDetailView: View {
                 .foregroundStyle(Theme.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
 
-            HStack(spacing: 8) {
-                Pill(
-                    text: payment.isPaid ? String(localized: "Paid") : String(localized: "Planned"),
-                    style: .muted(dot: payment.isPaid ? Theme.green : Theme.blue)
-                )
-                Pill(
-                    text: payment.isEarlyPayoff
-                        ? String(localized: "Early payoff")
-                        : String(localized: "Payment"),
-                    style: .accent(payment.isEarlyPayoff ? Theme.yellow : Theme.green)
-                )
-                Spacer(minLength: 0)
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) {
+                    status.fixedSize()
+                    kind.fixedSize()
+                    Spacer(minLength: 0)
+                }
+                VStack(alignment: .leading, spacing: 8) {
+                    status
+                    kind
+                }
             }
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+        // The long-press lift follows the card's rounded corners instead of
+        // cutting a square out of the background.
+        .contentShape(.contextMenuPreview, .rect(cornerRadius: Theme.Radius.card))
         .contextMenu {
             if !payment.isPaid {
                 Button {

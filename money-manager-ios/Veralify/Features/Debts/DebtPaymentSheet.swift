@@ -179,6 +179,9 @@ struct DebtPaymentSheet: View {
                         .font(.system(size: 20, weight: .bold))
                         .monospacedDigit()
                         .lineLimit(1)
+                        // Two large figures share one line; on a narrow phone
+                        // both give a little rather than the second truncating.
+                        .minimumScaleFactor(0.6)
                         .contentTransition(.numericText())
                 }
             }
@@ -197,6 +200,10 @@ struct DebtPaymentSheet: View {
                     Text("Monthly \(CurrencyFormat.string(debt.minimumPayment)) → \(CurrencyFormat.string(instalment))")
                         .font(.footnote.weight(.bold))
                         .monospacedDigit()
+                        // A capsule wrapping onto a second line reads as two
+                        // badges; shrink instead.
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                 }
                 .foregroundStyle(Theme.onAccent)
                 .padding(.horizontal, 10)
@@ -268,9 +275,18 @@ struct DebtPaymentSheet: View {
                             Text(option.label)
                                 .font(.caption.weight(.bold))
                                 .foregroundStyle(Theme.textPrimary)
+                                // A third of the row each; a large amount
+                                // shrinks to fit its capsule instead of wrapping.
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.7)
+                                .padding(.horizontal, 8)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 9)
                                 .background(Theme.surfaceElevated, in: .capsule)
+                                // 44pt to the finger, same capsule to the eye.
+                                .padding(.vertical, 5)
+                                .contentShape(.rect)
+                                .padding(.vertical, -5)
                         }
                         .buttonStyle(.pressable)
                     }
@@ -294,6 +310,7 @@ struct DebtPaymentSheet: View {
                          : "Planned — the balance changes when you mark it paid.")
                         .font(.caption)
                         .foregroundStyle(Theme.textTertiary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .tint(Theme.lime)
@@ -405,6 +422,8 @@ struct DebtPaymentSheet: View {
                     .font(.subheadline.weight(.bold))
                     .monospacedDigit()
                     .foregroundStyle(Theme.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                 Text(payment.date.formatted(.dateTime.day().month(.abbreviated).year()))
                     .font(.caption)
                     .foregroundStyle(Theme.textSecondary)
@@ -419,8 +438,11 @@ struct DebtPaymentSheet: View {
 
             Spacer(minLength: 8)
 
+            // The status and the menu keep their size; the figures beside them
+            // are what gives way on a narrow row.
             if payment.isPaid {
                 Pill(text: String(localized: "Paid"), style: .muted(dot: Theme.green))
+                    .fixedSize()
             } else {
                 Button {
                     markPaid(payment)
@@ -428,9 +450,14 @@ struct DebtPaymentSheet: View {
                     Text("Mark paid")
                         .font(.caption.weight(.bold))
                         .foregroundStyle(Theme.onAccent)
+                        .fixedSize()
                         .padding(.horizontal, 12)
                         .padding(.vertical, 7)
                         .background(Theme.lime, in: .capsule)
+                        // 44pt to the finger, same capsule to the eye.
+                        .padding(.vertical, 7)
+                        .contentShape(.rect)
+                        .padding(.vertical, -7)
                 }
                 .buttonStyle(.pressable)
             }
@@ -444,7 +471,7 @@ struct DebtPaymentSheet: View {
                 Image(systemName: "ellipsis")
                     .font(.footnote.weight(.bold))
                     .foregroundStyle(Theme.textTertiary)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 44, height: 44)
                     .contentShape(.rect)
             }
             .accessibilityLabel("More")
