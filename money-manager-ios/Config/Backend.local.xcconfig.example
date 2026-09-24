@@ -1,0 +1,8 @@
+// Copy to Backend.local.xcconfig (git ignores it) and fill in from
+// Supabase dashboard → Project Settings → API.
+//
+// "//" starts a comment in an xcconfig, so the URL's slashes are split with
+// an empty $() — Xcode joins them back into https://<project>.supabase.co.
+
+SUPABASE_URL = https:/$()/your-project-ref.supabase.co
+SUPABASE_ANON_KEY = your-anon-public-key

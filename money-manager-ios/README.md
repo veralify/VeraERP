@@ -4,15 +4,19 @@ Native SwiftUI app for Veralify, the Arabic-first (RTL) personal finance
 and debt-payoff product. Ported from `../money-manager-web-mvp-v1`.
 
 - **iOS 18+**, Swift 6, strict concurrency
-- **Local-first SwiftData** — no server required, works offline
+- **Local-first SwiftData, synced to a Veralify account** — works offline, and
+  syncs with Supabase when there is a connection
 - The `.xcodeproj` is **generated**; edit `project.yml` and re-run `xcodegen`
 
 ## Layout
 
 | Path | What it is |
 |---|---|
-| `VeralifyCore/` | Swift package: domain types + the payoff engine. No UI, no persistence. |
+| `VeralifyCore/` | Swift package: domain types, the payoff engine, and the pure half of sync (row encoding, wire formats, the sync ledger). No UI, no persistence. |
 | `Veralify/` | The app: SwiftData records, design tokens, screens. |
+| `Veralify/Auth/` | Sign-in (Apple, email code), the Supabase session, account deletion. |
+| `Veralify/Sync/` | The sync engine and the model ↔ row mapping. |
+| `Config/` | Build settings for the backend (see below). |
 | `VeralifyTests/` | App-level tests. |
 | `Tools/generate-parity-fixtures.mjs` | Regenerates payoff fixtures from the web engine. |
 
@@ -24,13 +28,74 @@ concerns leaking into it.
 
 ```sh
 brew install xcodegen          # once
+cp Config/Backend.local.xcconfig.example Config/Backend.local.xcconfig   # then fill it in
 xcodegen generate
 open Veralify.xcodeproj
 ```
 
+## Backend configuration
+
+The app needs the Supabase project URL and its public **anon** key. They are
+build settings, not source: `Config/Backend.xcconfig` (committed, empty)
+includes `Config/Backend.local.xcconfig` (git-ignored), and `project.yml`
+writes both into Info.plist as `SupabaseURL` and `SupabaseAnonKey`, where the
+app reads them at launch.
+
+```
+// Config/Backend.local.xcconfig
+SUPABASE_URL = https:/$()/your-project-ref.supabase.co
+SUPABASE_ANON_KEY = your-anon-public-key
+```
+
+`//` starts a comment in an xcconfig, hence the `$()` between the slashes.
+For CI, set the same two build settings on the command line instead:
+`xcodebuild … SUPABASE_URL='https://…' SUPABASE_ANON_KEY='…'`.
+
+A build without them does not crash: it opens onto a screen naming the missing
+setting. Never put the service-role key in an app build.
+
+### What the Supabase project needs
+
+- **Sign in with Apple:** Authentication → Providers → Apple, enabled, with the
+  app's bundle id (`com.veralify.moneymanager`) under *Client IDs*. The app
+  signs in with the native ID token, so no Services ID or secret key is needed
+  for iOS. The App ID needs the Sign in with Apple capability (the target's
+  entitlements file already requests it).
+- **Email codes:** Authentication → Email Templates → *Magic Link* must include
+  the code, `{{ .Token }}`. The default template sends only a link, and the app
+  asks for the code.
+- **Account deletion:** deploy `supabase/functions/account-delete`
+  (`supabase functions deploy account-delete`). It uses the built-in
+  `SUPABASE_URL`, `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`.
+- **Migrations:** `supabase db push`, which includes the default categories
+  every account is seeded with.
+
+## Accounts and sync
+
+An account is required. The sign-in screen comes before setup; on a phone that
+has not been set up, the first sync looks for a plan the account already has
+and skips setup if it finds one.
+
+Every money record syncs with its `money_*` table (the mapping is in
+`docs/RECEIPTS_CONTRACTS.md` §2). A sync pushes local changes and then pulls
+everything past a per-table cursor. It runs when the app comes to the
+foreground, a couple of seconds after any save, from pull-to-refresh
+(`.syncOnRefresh()` on a scroll view) and from *Sync now* in Account.
+
+Screens do not have to flag their edits or deletes: the sync ledger remembers
+each row as the server last saw it, so an edited row reads as changed and a
+row that is gone reads as deleted, and is soft-deleted on the server
+(`deleted_at`). `context.deleteSynced(_:)` says the same thing explicitly in
+new code.
+
+Signing out removes the synced data from the phone (the account keeps it);
+the document vault, family splits and quest history never leave the phone and
+stay. Deleting the account removes everything, on the server and here.
+
 ## Tests
 
-The engine's tests are the fast ones and cover the highest-risk code:
+The engine's tests are the fast ones and cover the highest-risk code, sync's
+wire formats and ledger included:
 
 ```sh
 cd VeralifyCore && swift test

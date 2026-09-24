@@ -23,14 +23,25 @@ final class MonthlySnapshot {
     var debtBalance: Decimal
     var recordedAt: Date
 
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
     init(
         month: Date,
         income: Decimal,
         expenses: Decimal,
         debtMinimums: Decimal,
         debtBalance: Decimal,
-        recordedAt: Date = .now
+        recordedAt: Date = .now,
+        id: UUID = UUID()
     ) {
+        self.id = id
+        self.updatedAt = recordedAt
         self.month = month
         self.income = income
         self.expenses = expenses

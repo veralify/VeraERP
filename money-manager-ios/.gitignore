@@ -6,3 +6,6 @@ DerivedData/
 *.xcuserstate
 xcuserdata/
 .DS_Store
+
+# Backend URL and anon key for local builds (see README).
+Config/Backend.local.xcconfig

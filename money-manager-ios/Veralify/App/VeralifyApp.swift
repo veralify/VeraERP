@@ -1,11 +1,15 @@
 import SwiftUI
 import SwiftData
+import VeralifyCore
 
 @main
 struct VeralifyApp: App {
     private let container: ModelContainer
+    @State private var auth: AuthModel
+    @State private var sync: SyncEngine
 
     init() {
+        let container: ModelContainer
         do {
             container = try ModelContainer(
                 for: DebtRecord.self, IncomeSource.self, ExpenseItem.self, PlanSettings.self,
@@ -13,7 +17,11 @@ struct VeralifyApp: App {
                 DebtPayment.self, MonthlySnapshot.self,
                 FamilyMember.self, FamilyExpense.self, FamilySettlement.self,
                 StoredDocument.self, CategoryBudget.self,
-                IncomeActual.self, MoneyLoss.self
+                IncomeActual.self, MoneyLoss.self,
+                // Sync: categories and merchant rules pulled from the account,
+                // the sync ledger, and receipts (defined by receipt capture).
+                MoneyCategory.self, MerchantRule.self, SyncStateRecord.self,
+                ReceiptRecord.self
             )
         } catch {
             // A store that cannot open is unrecoverable and silently showing an
@@ -21,7 +29,31 @@ struct VeralifyApp: App {
             fatalError("Could not open the Veralify store: \(error)")
         }
 
+        self.container = container
         Self.protectStore(container)
+
+        // Before any screen reads the store: rows written before sync existed
+        // need unique ids (see `SyncMigration`).
+        SyncMigration.runIfNeeded(in: container.mainContext)
+
+        // The backend comes from build settings, never from source. A build
+        // without them opens onto a screen that says what is missing rather
+        // than crashing, so the rest of the app can still be worked on.
+        let backend: SupabaseBackend?
+        let problem: String?
+        do {
+            backend = SupabaseBackend(configuration: try SupabaseBackend.bundleConfiguration())
+            problem = nil
+        } catch {
+            backend = nil
+            problem = String(describing: error)
+        }
+        Backend.session = backend
+
+        let engine = SyncEngine(container: container)
+        engine.observeLocalSaves()
+        _auth = State(initialValue: AuthModel(backend: backend, configurationProblem: problem))
+        _sync = State(initialValue: engine)
     }
 
     /// Makes the store unreadable while the phone is locked.
@@ -69,6 +101,8 @@ struct VeralifyApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environment(auth)
+                .environment(sync)
         }
         .modelContainer(container)
     }

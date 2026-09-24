@@ -10,8 +10,11 @@ import VeralifyCore
 
 @Model
 final class DebtRecord {
-    /// Mirrors the web row id. Used for the engine's ordering rules, which are
-    /// id-sensitive, so it is assigned explicitly rather than left to SwiftData.
+    /// The payoff engine's debt number, synced as `money_debts.local_id`. Used
+    /// for the engine's ordering rules, which are id-sensitive, so it is
+    /// assigned explicitly rather than left to SwiftData. Not the sync identity:
+    /// that is `id`, and this number can change if two phones pick the same one
+    /// offline (see `DebtNumbering`).
     var remoteID: Int
     var name: String
     var balance: Decimal
@@ -32,6 +35,14 @@ final class DebtRecord {
     var priority: Int
     var createdAt: Date
 
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
     init(
         remoteID: Int,
         name: String,
@@ -41,8 +52,11 @@ final class DebtRecord {
         extraPayment: Decimal = 0,
         dueDay: Int? = nil,
         priority: Int = 1,
-        createdAt: Date = .now
+        createdAt: Date = .now,
+        id: UUID = UUID()
     ) {
+        self.id = id
+        self.updatedAt = createdAt
         self.remoteID = remoteID
         self.name = name
         self.balance = balance
@@ -100,14 +114,25 @@ final class IncomeSource {
     @Relationship(deleteRule: .cascade, inverse: \IncomeActual.source)
     var actuals: [IncomeActual] = []
 
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
     init(
         name: String,
         amount: Decimal,
         kind: String = "fixed",
         payday: Int? = nil,
         isActive: Bool = true,
-        createdAt: Date = .now
+        createdAt: Date = .now,
+        id: UUID = UUID()
     ) {
+        self.id = id
+        self.updatedAt = createdAt
         self.name = name
         self.amount = amount
         self.kind = kind
@@ -157,7 +182,17 @@ final class IncomeActual {
     var source: IncomeSource?
     var createdAt: Date
 
-    init(month: Date, amount: Decimal, source: IncomeSource? = nil, createdAt: Date = .now) {
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
+    init(month: Date, amount: Decimal, source: IncomeSource? = nil, createdAt: Date = .now, id: UUID = UUID()) {
+        self.id = id
+        self.updatedAt = createdAt
         self.month = month
         self.amount = amount
         self.source = source
@@ -184,7 +219,24 @@ final class MoneyLoss {
     var note: String
     var createdAt: Date
 
-    init(date: Date = .now, amount: Decimal, reason: LossReason = .other, note: String = "", createdAt: Date = .now) {
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
+    init(
+        date: Date = .now,
+        amount: Decimal,
+        reason: LossReason = .other,
+        note: String = "",
+        createdAt: Date = .now,
+        id: UUID = UUID()
+    ) {
+        self.id = id
+        self.updatedAt = createdAt
         self.date = date
         self.amount = amount
         self.reasonRaw = reason.rawValue
@@ -207,14 +259,25 @@ final class ExpenseItem {
     var isActive: Bool
     var createdAt: Date
 
+    /// Sync bookkeeping (contracts §2). Declared with defaults so a store
+    /// written before sync existed opens without a mapping model — see
+    /// `SyncedModel` for what each one means.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
     init(
         name: String,
         amount: Decimal,
         category: String = "Fixed",
         dueDay: Int? = nil,
         isActive: Bool = true,
-        createdAt: Date = .now
+        createdAt: Date = .now,
+        id: UUID = UUID()
     ) {
+        self.id = id
+        self.updatedAt = createdAt
         self.name = name
         self.amount = amount
         self.category = category
@@ -234,11 +297,22 @@ final class PlanSettings {
     /// plan made before this existed was an avalanche.
     var payoffStrategyRaw: String = PayoffStrategy.highestInterest.rawValue
 
+    /// Sync bookkeeping, as on every synced model. The server keeps settings
+    /// as key/value rows in `money_settings`, so `id` never leaves the phone;
+    /// it is here so the settings row is handled like every other.
+    var id: UUID = UUID()
+    var updatedAt: Date = Date.distantPast
+    var deletedAt: Date?
+    var needsPush: Bool = true
+
     init(
         targetMonths: Int = 16,
         startDate: Date = .now,
-        payoffStrategy: PayoffStrategy = .highestInterest
+        payoffStrategy: PayoffStrategy = .highestInterest,
+        id: UUID = UUID()
     ) {
+        self.id = id
+        self.updatedAt = .now
         self.targetMonths = targetMonths
         self.startDate = startDate
         self.payoffStrategyRaw = payoffStrategy.rawValue
