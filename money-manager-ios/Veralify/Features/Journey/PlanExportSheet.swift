@@ -112,10 +112,13 @@ struct PlanExportSheet: View {
                     .textCase(.uppercase)
                     .foregroundStyle(Theme.textTertiary)
                 Spacer(minLength: 8)
+                // Two lines before it shrinks: the longer descriptions did
+                // not fit one line on a small phone and were cut off.
                 Text(style.detail)
                     .font(.caption)
                     .foregroundStyle(Theme.textSecondary)
-                    .lineLimit(1)
+                    .multilineTextAlignment(.trailing)
+                    .lineLimit(2)
                     .minimumScaleFactor(0.8)
             }
 
@@ -156,10 +159,14 @@ struct PlanExportSheet: View {
                     .strokeBorder(isSelected ? Theme.lime : Theme.stroke, lineWidth: isSelected ? 2 : 1)
             )
 
+            // Held to the page's width, so a long name cannot push the
+            // thumbnails in the strip apart unevenly.
             Text(option.title)
                 .font(.caption2.weight(.bold))
                 .foregroundStyle(isSelected ? Theme.lime : Theme.textTertiary)
                 .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .frame(width: 66)
         }
     }
 
@@ -173,7 +180,11 @@ struct PlanExportSheet: View {
                 .textCase(.uppercase)
                 .foregroundStyle(Theme.textTertiary)
 
-            HStack(spacing: 10) {
+            // Each 34pt swatch sits in a 44pt target with no gap between
+            // them, which puts the circles exactly as far apart as they were.
+            // The negative padding lets the targets overhang so the circles
+            // still line up with the label above.
+            HStack(spacing: 0) {
                 ForEach(PlanPDFAccent.allCases) { option in
                     Button { accentRaw = option.rawValue } label: {
                         Circle()
@@ -191,12 +202,15 @@ struct PlanExportSheet: View {
                                     lineWidth: accent == option ? 2 : 1
                                 )
                             )
+                            .frame(width: 44, height: 44)
+                            .contentShape(.rect)
                     }
                     .buttonStyle(.pressable)
                     .accessibilityLabel(String(describing: option))
                 }
                 Spacer(minLength: 0)
             }
+            .padding(-5)
         }
     }
 

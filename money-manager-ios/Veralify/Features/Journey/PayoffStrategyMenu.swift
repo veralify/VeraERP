@@ -117,12 +117,17 @@ struct PayoffStrategyRow: View {
 
                     Spacer(minLength: 8)
 
-                    Text("Compare")
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(Theme.lime)
-                    Image(systemName: "chevron.right")
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(Theme.textTertiary)
+                    // One affordance, so held together rather than spaced like
+                    // the icon and the title.
+                    HStack(spacing: 6) {
+                        Text("Compare")
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(Theme.lime)
+                        Image(systemName: "chevron.right")
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(Theme.textTertiary)
+                    }
+                    .fixedSize()
                 }
                 .padding(14)
                 .frame(maxWidth: .infinity)
@@ -204,11 +209,16 @@ struct PayoffComparisonSheet: View {
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
-                    .padding(.bottom, 116)
+                    .padding(.bottom, 16)
                 }
                 .scrollIndicators(.hidden)
-
-                confirmBar
+                // An inset rather than a bar laid over the scroll view with a
+                // guessed bottom padding: the list now always scrolls clear of
+                // the button, however tall larger text makes it, and still
+                // passes beneath its fade.
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    confirmBar
+                }
             }
             .navigationTitle("Payoff method")
             .navigationBarTitleDisplayMode(.inline)
@@ -321,8 +331,12 @@ struct PayoffComparisonSheet: View {
                     Text("/month")
                         .font(.subheadline)
                         .foregroundStyle(Theme.textTertiary)
+                        .lineLimit(1)
+                        .fixedSize()
                     Spacer(minLength: 8)
+                    // The pill keeps its shape; the figure scales down first.
                     badge(extra: extra, isFeasible: quote.isFeasible)
+                        .fixedSize()
                 }
 
                 RowDivider()
@@ -380,7 +394,9 @@ struct PayoffComparisonSheet: View {
         _ value: String,
         tint: Color = Theme.textPrimary
     ) -> some View {
-        HStack(spacing: 8) {
+        // Baseline-aligned so a label that wraps keeps its figure on its
+        // first line, not floating between the two.
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
             Text(label)
                 .font(.caption)
                 .foregroundStyle(Theme.textTertiary)
@@ -430,11 +446,18 @@ struct PayoffOrderList: View {
                         .font(.caption)
                         .monospacedDigit()
                         .foregroundStyle(Theme.textTertiary)
+                        .lineLimit(1)
+                        .layoutPriority(1)
 
-                    move(ranked, from: position, by: -1, icon: "chevron.up")
-                    move(ranked, from: position, by: 1, icon: "chevron.down")
+                    // No gap between the two: each already carries its own
+                    // margin inside its 44pt target.
+                    HStack(spacing: 0) {
+                        move(ranked, from: position, by: -1, icon: "chevron.up")
+                        move(ranked, from: position, by: 1, icon: "chevron.down")
+                    }
                 }
-                .padding(.vertical, 9)
+                // 2 + 44 + 2 keeps the row the height it was at 9 + 30 + 9.
+                .padding(.vertical, 2)
             }
         }
     }
@@ -462,6 +485,9 @@ struct PayoffOrderList: View {
                 .foregroundStyle(enabled ? Theme.textSecondary : Theme.textTertiary.opacity(0.4))
                 .frame(width: 30, height: 30)
                 .background(Theme.surfaceElevated, in: .circle)
+                // The circle stays 30pt; the finger gets the 44pt minimum.
+                .frame(width: 44, height: 44)
+                .contentShape(.rect)
         }
         .buttonStyle(.pressable)
         .disabled(!enabled)
