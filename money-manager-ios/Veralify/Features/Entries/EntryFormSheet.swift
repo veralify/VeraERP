@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import VeralifyCore
 
 /// One form for both adding and editing, so the two paths cannot drift apart in
 /// validation or appearance.
@@ -24,6 +25,7 @@ struct EntryFormSheet: View {
     @State private var apr: String
     @State private var minimum: String
     @State private var dueDay: String
+    @State private var incomeKind: IncomeKind = .fixed
     @State private var isConfirmingDelete = false
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -57,6 +59,7 @@ struct EntryFormSheet: View {
             case .income(let item):
                 _name = State(initialValue: item.name)
                 _amount = State(initialValue: item.amount.editableText)
+                _incomeKind = State(initialValue: item.incomeKind)
                 _apr = State(initialValue: "")
                 _minimum = State(initialValue: "")
                 _dueDay = State(initialValue: "")
@@ -120,8 +123,11 @@ struct EntryFormSheet: View {
 
                         VStack(spacing: 12) {
                             FieldRow(label: "Name", placeholder: "Name", text: $name)
+                            if kind == .income {
+                                incomeKindPicker
+                            }
                             FieldRow(
-                                label: kind.amountLabel,
+                                label: amountLabel,
                                 placeholder: "0.00",
                                 text: $amount,
                                 keyboard: .decimalPad
@@ -185,6 +191,28 @@ struct EntryFormSheet: View {
         }
     }
 
+    /// Variable pay is typed as a typical month; the real figure is logged
+    /// each month from the income list.
+    private var amountLabel: LocalizedStringKey {
+        kind == .income && incomeKind == .variable ? "Typical month" : kind.amountLabel
+    }
+
+    private var incomeKindPicker: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Picker("Income type", selection: $incomeKind) {
+                Text("Fixed").tag(IncomeKind.fixed)
+                Text("Variable").tag(IncomeKind.variable)
+            }
+            .pickerStyle(.segmented)
+            Text(incomeKind == .fixed
+                 ? "The same amount arrives every month."
+                 : "It changes month to month. Log what came in each month; the plan uses your recent average.")
+                .font(.footnote)
+                .foregroundStyle(Theme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
     // MARK: - Actions
 
     private func save() {
@@ -196,7 +224,7 @@ struct EntryFormSheet: View {
         case .add:
             switch kind {
             case .income:
-                context.insert(IncomeSource(name: trimmed, amount: value))
+                context.insert(IncomeSource(name: trimmed, amount: value, kind: incomeKind.rawValue))
             case .expense:
                 context.insert(ExpenseItem(name: trimmed, amount: value, dueDay: day))
             case .debt:
@@ -221,6 +249,7 @@ struct EntryFormSheet: View {
             case .income(let item):
                 item.name = trimmed
                 item.amount = value
+                item.incomeKind = incomeKind
             case .expense(let item):
                 item.name = trimmed
                 item.amount = value
@@ -261,5 +290,226 @@ extension Decimal {
         formatter.usesGroupingSeparator = false
         formatter.maximumFractionDigits = 2
         return formatter.string(from: number) ?? "\(number)"
+    }
+}
+
+// MARK: - Variable income: what actually came in
+
+/// Logs what a variable income actually paid in one month.
+///
+/// One figure per month: saving replaces whatever that month already had, so
+/// correcting a typo cannot double-count the month.
+struct IncomeActualSheet: View {
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+
+    let source: IncomeSource
+
+    @State private var month: Date
+    @State private var amount: String
+
+    /// This month and the five before it — enough to catch up after a busy
+    /// stretch without offering months nobody remembers.
+    private let months: [Date]
+
+    init(source: IncomeSource) {
+        self.source = source
+        let calendar = Calendar.current
+        let current = MonthlySnapshot.monthStart(for: .now, calendar: calendar)
+        let months = (0..<6).compactMap { calendar.date(byAdding: .month, value: -$0, to: current) }
+        self.months = months
+        _month = State(initialValue: current)
+        _amount = State(initialValue: source.logged(inMonthOf: current)?.editableText ?? "")
+    }
+
+    private var parsed: Decimal? { AmountParser.parse(amount) }
+    private var isLogged: Bool { source.logged(inMonthOf: month) != nil }
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                Theme.background.ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 16) {
+                        VStack(alignment: .leading, spacing: 12) {
+                            Picker("Month", selection: $month) {
+                                ForEach(months, id: \.self) { month in
+                                    Text(month.formatted(.dateTime.month(.wide).year())).tag(month)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .tint(Theme.lime)
+
+                            FieldRow(
+                                label: "Amount received",
+                                placeholder: "0.00",
+                                text: $amount,
+                                keyboard: .decimalPad
+                            )
+
+                            Text("Typical month: \(CurrencyFormat.string(source.amount))")
+                                .font(.footnote)
+                                .foregroundStyle(Theme.textSecondary)
+                        }
+                        .padding(16)
+                        .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+
+                        PrimaryButton(title: "Save", enabled: parsed != nil, action: save)
+
+                        if isLogged {
+                            Button(role: .destructive, action: remove) {
+                                Text("Remove this month")
+                                    .font(.subheadline.weight(.bold))
+                                    .foregroundStyle(Theme.red)
+                                    .frame(maxWidth: .infinity, minHeight: 44)
+                                    .contentShape(.rect)
+                            }
+                            .buttonStyle(.pressable)
+                        }
+                    }
+                    .padding(20)
+                }
+                .scrollIndicators(.hidden)
+                .dismissibleKeyboard()
+            }
+            .navigationTitle(Text(verbatim: source.name))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+            .toolbarBackground(Theme.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .onChange(of: month) { _, newMonth in
+                amount = source.logged(inMonthOf: newMonth)?.editableText ?? ""
+            }
+        }
+    }
+
+    private func entries(in month: Date) -> [IncomeActual] {
+        source.actuals.filter { MonthlySnapshot.monthStart(for: $0.month) == month }
+    }
+
+    private func save() {
+        guard let value = parsed else { return }
+        for entry in entries(in: month) { context.delete(entry) }
+        context.insert(IncomeActual(month: month, amount: value, source: source))
+        try? context.save()
+        dismiss()
+    }
+
+    private func remove() {
+        for entry in entries(in: month) { context.delete(entry) }
+        try? context.save()
+        dismiss()
+    }
+}
+
+// MARK: - Money lost
+
+extension LossReason {
+    var title: LocalizedStringKey {
+        switch self {
+        case .lost:       "Lost"
+        case .stolen:     "Stolen"
+        case .fine:       "Fine"
+        case .unexpected: "Unexpected cost"
+        case .other:      "Other"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .lost:       "questionmark.circle"
+        case .stolen:     "exclamationmark.shield"
+        case .fine:       "doc.text"
+        case .unexpected: "bolt"
+        case .other:      "ellipsis.circle"
+        }
+    }
+}
+
+/// Records money that left without being planned.
+///
+/// It comes off what is left for the month it happened in — the Today figure,
+/// cash flow and the board all drop by it — and leaves the payoff plan alone.
+struct LossSheet: View {
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var amount = ""
+    @State private var reason: LossReason = .lost
+    @State private var date = Date()
+    @State private var note = ""
+
+    private var parsed: Decimal? { AmountParser.parse(amount) }
+    private var canSave: Bool { (parsed ?? 0) > 0 }
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                Theme.background.ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 16) {
+                        VStack(alignment: .leading, spacing: 12) {
+                            FieldRow(label: "Amount lost", placeholder: "0.00", text: $amount, keyboard: .decimalPad)
+
+                            Picker("Reason", selection: $reason) {
+                                ForEach(LossReason.allCases) { option in
+                                    Label(option.title, systemImage: option.icon).tag(option)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .tint(Theme.lime)
+
+                            DateField(label: "When", date: $date, range: Date.distantPast...Date.now)
+
+                            FieldRow(label: "Note (optional)", placeholder: "What happened", text: $note)
+                        }
+                        .padding(16)
+                        .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+
+                        Text("This comes off what's left for that month. Your payoff plan stays the same.")
+                            .font(.footnote)
+                            .foregroundStyle(Theme.textSecondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+
+                        PrimaryButton(title: "Save", enabled: canSave, action: save)
+                    }
+                    .padding(20)
+                }
+                .scrollIndicators(.hidden)
+                .dismissibleKeyboard()
+            }
+            .navigationTitle("Log money lost")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+            .toolbarBackground(Theme.background, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+        }
+    }
+
+    private func save() {
+        guard let value = parsed, value > 0 else { return }
+        context.insert(
+            MoneyLoss(
+                date: date,
+                amount: value,
+                reason: reason,
+                note: note.trimmingCharacters(in: .whitespaces)
+            )
+        )
+        try? context.save()
+        dismiss()
     }
 }

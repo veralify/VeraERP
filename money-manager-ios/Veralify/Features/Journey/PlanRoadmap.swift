@@ -31,6 +31,7 @@ struct PlanRoadmap<Middle: View>: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var losses: [MoneyLoss]
 
     @Environment(\.modelContext) private var context
     @State private var isAdjusting = false
@@ -65,7 +66,7 @@ struct PlanRoadmap<Middle: View>: View {
     @MainActor
     private func makeRoadmap() -> Roadmap {
         let dashboard = DashboardSummary(
-            income: income, expenses: expenses, debts: debts, settings: settings.first
+            income: income, expenses: expenses, debts: debts, settings: settings.first, losses: losses
         )
         let values = debts.map(\.asDebt)
         let steps = JourneyBuilder.steps(plan: dashboard.plan, debts: values)
@@ -133,11 +134,13 @@ struct PlanRoadmap<Middle: View>: View {
         let months = PlanMonthCard.months(
             steps: roadmap.steps,
             totalDebt: roadmap.dashboard.plan.totalDebt,
-            spare: roadmap.dashboard.totalIncome - roadmap.dashboard.totalExpenses
+            // The plan's own income figure: for variable pay that is the recent
+            // average, not whatever this month happened to bring in.
+            spare: roadmap.dashboard.planIncome - roadmap.dashboard.totalExpenses
         )
 
         PlanConstants(
-            income: roadmap.dashboard.totalIncome,
+            income: roadmap.dashboard.planIncome,
             expenses: roadmap.dashboard.totalExpenses
         )
         .padding(.bottom, 14)

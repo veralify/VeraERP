@@ -86,11 +86,19 @@ final class DebtRecord {
 @Model
 final class IncomeSource {
     var name: String
+    /// For fixed income, what arrives each month. For variable income, a
+    /// typical month — the plan's fallback until real months are logged.
     var amount: Decimal
+    /// `IncomeKind` raw value. Stored as text so rows written before the kind
+    /// was offered (all "fixed") read back unchanged.
     var kind: String
     var payday: Int?
     var isActive: Bool
     var createdAt: Date
+    /// What actually came in, month by month. Only variable income is logged.
+    /// Cascades, so deleting the income takes its history with it.
+    @Relationship(deleteRule: .cascade, inverse: \IncomeActual.source)
+    var actuals: [IncomeActual] = []
 
     init(
         name: String,
@@ -106,6 +114,87 @@ final class IncomeSource {
         self.payday = payday
         self.isActive = isActive
         self.createdAt = createdAt
+    }
+
+    var incomeKind: IncomeKind {
+        get { IncomeKind(rawValue: kind) ?? .fixed }
+        set { kind = newValue.rawValue }
+    }
+
+    private var monthlyActuals: [MonthlyAmount] {
+        actuals.map { MonthlyAmount(month: $0.month, amount: $0.amount) }
+    }
+
+    /// The figure the payoff plan budgets with: the typed amount for fixed
+    /// income, the recent average for variable income once months are logged.
+    func planAmount(asOf date: Date = .now, calendar: Calendar = .current) -> Decimal {
+        IncomeForecast.planAmount(
+            kind: incomeKind, typical: amount, actuals: monthlyActuals, asOf: date, calendar: calendar
+        )
+    }
+
+    /// This month's figure, and whether it is still an estimate.
+    func thisMonth(asOf date: Date = .now, calendar: Calendar = .current) -> (amount: Decimal, isEstimate: Bool) {
+        IncomeForecast.thisMonth(
+            kind: incomeKind, typical: amount, actuals: monthlyActuals, asOf: date, calendar: calendar
+        )
+    }
+
+    /// What was logged for the month containing `date`, if anything.
+    func logged(inMonthOf date: Date, calendar: Calendar = .current) -> Decimal? {
+        let month = MonthlySnapshot.monthStart(for: date, calendar: calendar)
+        let entries = actuals.filter { MonthlySnapshot.monthStart(for: $0.month, calendar: calendar) == month }
+        return entries.isEmpty ? nil : entries.reduce(Decimal(0)) { $0 + $1.amount }
+    }
+}
+
+/// What one variable income actually paid in one month.
+@Model
+final class IncomeActual {
+    /// First instant of the month, in the user's calendar.
+    var month: Date
+    var amount: Decimal
+    var source: IncomeSource?
+    var createdAt: Date
+
+    init(month: Date, amount: Decimal, source: IncomeSource? = nil, createdAt: Date = .now) {
+        self.month = month
+        self.amount = amount
+        self.source = source
+        self.createdAt = createdAt
+    }
+}
+
+/// Why money was lost. Only shapes the label and icon; every reason comes off
+/// the month the same way.
+enum LossReason: String, CaseIterable, Identifiable, Sendable {
+    case lost, stolen, fine, unexpected, other
+    var id: String { rawValue }
+}
+
+/// Money that left without being planned. It lowers what is left this month
+/// and nothing else — the payoff plan is built on months that recur, and a
+/// one-off does not.
+@Model
+final class MoneyLoss {
+    var date: Date
+    var amount: Decimal
+    /// `LossReason` raw value.
+    var reasonRaw: String
+    var note: String
+    var createdAt: Date
+
+    init(date: Date = .now, amount: Decimal, reason: LossReason = .other, note: String = "", createdAt: Date = .now) {
+        self.date = date
+        self.amount = amount
+        self.reasonRaw = reason.rawValue
+        self.note = note
+        self.createdAt = createdAt
+    }
+
+    var reason: LossReason {
+        get { LossReason(rawValue: reasonRaw) ?? .other }
+        set { reasonRaw = newValue.rawValue }
     }
 }
 

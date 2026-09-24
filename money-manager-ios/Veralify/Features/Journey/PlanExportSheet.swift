@@ -16,6 +16,7 @@ struct PlanExportSheet: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var losses: [MoneyLoss]
 
     @Environment(\.dismiss) private var dismiss
 
@@ -260,7 +261,7 @@ struct PlanExportSheet: View {
     @MainActor
     private func parts() -> (plan: PayoffPlan, steps: [JourneyStep], summary: JourneySummary) {
         let dashboard = DashboardSummary(
-            income: income, expenses: expenses, debts: debts, settings: settings.first
+            income: income, expenses: expenses, debts: debts, settings: settings.first, losses: losses
         )
         let values = debts.map(\.asDebt)
         return (

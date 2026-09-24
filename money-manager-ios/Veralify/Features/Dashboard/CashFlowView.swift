@@ -20,6 +20,7 @@ struct CashFlowView: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var losses: [MoneyLoss]
 
     @Query(sort: \TransactionRecord.occurredAt, order: .reverse) private var transactions: [TransactionRecord]
 
@@ -69,7 +70,7 @@ struct CashFlowView: View {
     @MainActor
     private func analysis() -> Analysis {
         let dashboard = DashboardSummary(
-            income: income, expenses: expenses, debts: debts, settings: settings.first
+            income: income, expenses: expenses, debts: debts, settings: settings.first, losses: losses
         )
         let values = debts.map(\.asDebt)
         let steps = JourneyBuilder.steps(plan: dashboard.plan, debts: values)
@@ -122,9 +123,28 @@ struct CashFlowView: View {
 
     // MARK: - This month
 
+    private static let lossColour = Theme.red.opacity(0.5)
+
+    /// The loss segment only when there is one: an empty segment still costs a
+    /// gap, which would leave a notch in the bar.
+    private func barSegments(_ summary: DashboardSummary) -> [SplitBar.Segment] {
+        var segments = [
+            SplitBar.Segment(value: summary.totalExpenses, colour: Theme.yellow),
+            SplitBar.Segment(value: summary.totalDebtMinimums, colour: Theme.red)
+        ]
+        if summary.totalLosses > 0 {
+            segments.append(SplitBar.Segment(value: summary.totalLosses, colour: Self.lossColour))
+        }
+        segments.append(SplitBar.Segment(value: max(summary.netCashFlow, 0), colour: Theme.lime))
+        return segments
+    }
+
     @ViewBuilder
     private func monthReport(_ summary: DashboardSummary) -> some View {
-        let outgoing = summary.totalExpenses + summary.totalDebtMinimums
+        let outgoing = summary.totalExpenses + summary.totalDebtMinimums + summary.totalLosses
+        // Losses are drawn in a paler red than debt payments: both are money
+        // out, but only one of them recurs.
+        let lossColour = Self.lossColour
 
         VStack(spacing: 18) {
             headline(
@@ -142,11 +162,7 @@ struct CashFlowView: View {
             // beneath it. A ring also wraps, which would put the lime segment
             // against the yellow one — a pair nobody can tell apart, colour
             // vision or not.
-            SplitBar(segments: [
-                .init(value: summary.totalExpenses, colour: Theme.yellow),
-                .init(value: summary.totalDebtMinimums, colour: Theme.red),
-                .init(value: max(summary.netCashFlow, 0), colour: Theme.lime)
-            ])
+            SplitBar(segments: barSegments(summary))
 
             GroupedCard {
                 shareRow(
@@ -164,6 +180,16 @@ struct CashFlowView: View {
                     share: share(summary.totalDebtMinimums, of: summary.totalIncome),
                     colour: Theme.red
                 )
+                if summary.totalLosses > 0 {
+                    RowDivider()
+                    shareRow(
+                        kind: nil,
+                        title: "Money lost",
+                        amount: summary.totalLosses,
+                        share: share(summary.totalLosses, of: summary.totalIncome),
+                        colour: lossColour
+                    )
+                }
                 RowDivider()
                 shareRow(
                     kind: nil,

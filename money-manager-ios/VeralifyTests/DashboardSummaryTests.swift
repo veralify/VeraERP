@@ -1,5 +1,7 @@
 import Foundation
+import SwiftData
 import Testing
+import VeralifyCore
 @testable import Veralify
 
 /// Main-actor because `DashboardSummary` caches its plan, and the cache is.
@@ -71,4 +73,67 @@ struct DashboardSummaryTests {
         #expect(stuck.progressFraction >= 0)
         #expect(stuck.progressFraction <= 1)
     }
+
+    // MARK: - Variable income and losses
+
+    /// Relationships need a real (in-memory) store to link up.
+    private func makeContext() throws -> ModelContext {
+        let container = try ModelContainer(
+            for: IncomeSource.self, IncomeActual.self, MoneyLoss.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        return ModelContext(container)
+    }
+
+    @Test("Money lost this month comes off this month, and leaves the plan alone")
+    func lossesReduceThisMonthOnly() {
+        let income = [IncomeSource(name: "Salary", amount: 2000)]
+        let expenses = [ExpenseItem(name: "Rent", amount: 800)]
+        let debts = [DebtRecord(remoteID: 1, name: "Card", balance: 3000, apr: 18, minimumPayment: 100)]
+
+        let without = DashboardSummary(income: income, expenses: expenses, debts: debts, settings: nil)
+        let with = DashboardSummary(
+            income: income, expenses: expenses, debts: debts, settings: nil,
+            losses: [
+                MoneyLoss(date: .now, amount: 150, reason: .stolen),
+                // Last year's loss is history, not this month's problem.
+                MoneyLoss(date: .now.addingTimeInterval(-400 * 86_400), amount: 999)
+            ]
+        )
+
+        #expect(with.totalLosses == 150)
+        #expect(with.netCashFlow == without.netCashFlow - 150)
+        #expect(with.plan.requiredMonthly == without.plan.requiredMonthly)
+    }
+
+    @Test("Variable income: this month uses what was logged, the plan the average")
+    func variableIncomeSplitsThisMonthFromPlan() throws {
+        let context = try makeContext()
+        let calendar = Calendar.current
+        let thisMonth = MonthlySnapshot.monthStart(for: .now)
+        let lastMonth = try #require(calendar.date(byAdding: .month, value: -1, to: thisMonth))
+
+        let freelance = IncomeSource(name: "Freelance", amount: 1000, kind: IncomeKind.variable.rawValue)
+        context.insert(freelance)
+        context.insert(IncomeActual(month: lastMonth, amount: 2000, source: freelance))
+        context.insert(IncomeActual(month: thisMonth, amount: 600, source: freelance))
+        try context.save()
+
+        let summary = DashboardSummary(income: [freelance], expenses: [], debts: [], settings: nil)
+
+        #expect(summary.totalIncome == 600)
+        #expect(summary.planIncome == 1300)
+        #expect(!summary.incomeIsEstimated)
+    }
+
+    @Test("Variable income not yet logged this month is flagged as an estimate")
+    func unloggedVariableIncomeIsEstimated() {
+        let freelance = IncomeSource(name: "Freelance", amount: 1000, kind: IncomeKind.variable.rawValue)
+
+        let summary = DashboardSummary(income: [freelance], expenses: [], debts: [], settings: nil)
+
+        #expect(summary.totalIncome == 1000)
+        #expect(summary.incomeIsEstimated)
+    }
+
 }

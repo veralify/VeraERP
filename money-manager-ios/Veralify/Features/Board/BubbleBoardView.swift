@@ -21,6 +21,7 @@ struct BubbleBoardView: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var losses: [MoneyLoss]
     @Query private var payments: [DebtPayment]
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -133,7 +134,7 @@ struct BubbleBoardView: View {
     @MainActor
     private func bubbles() -> (list: [Bubble], summary: DashboardSummary) {
         let summary = DashboardSummary(
-            income: income, expenses: expenses, debts: debts, settings: settings.first
+            income: income, expenses: expenses, debts: debts, settings: settings.first, losses: losses
         )
 
         // A cleared debt has nothing left to move money onto.
@@ -544,7 +545,7 @@ struct BubbleBoardView: View {
 
     private func propose(from bubble: Bubble, to landed: Bubble.ID, list: [Bubble]) {
         let summary = DashboardSummary(
-            income: income, expenses: expenses, debts: debts, settings: settings.first
+            income: income, expenses: expenses, debts: debts, settings: settings.first, losses: losses
         )
         let source = debts.first { $0.remoteID == bubble.id }
         let destination = debts.first { $0.remoteID == landed }

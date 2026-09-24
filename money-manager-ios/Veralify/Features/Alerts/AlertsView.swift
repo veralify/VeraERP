@@ -54,9 +54,13 @@ struct AlertsSummary {
         debts: [DebtRecord],
         settings: PlanSettings?,
         payments: [DebtPayment] = [],
+        losses: [MoneyLoss] = [],
         now: Date = .now
     ) {
-        dashboard = DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings)
+        dashboard = DashboardSummary(
+            income: income, expenses: expenses, debts: debts, settings: settings,
+            losses: losses, now: now
+        )
         hasDebts = !debts.isEmpty
 
         let calendar = Calendar.current
@@ -117,6 +121,7 @@ struct AlertsToolbarButton: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var losses: [MoneyLoss]
     @Query private var payments: [DebtPayment]
 
     let onTap: () -> Void
@@ -124,7 +129,7 @@ struct AlertsToolbarButton: View {
     private var summary: AlertsSummary {
         AlertsSummary(
             income: income, expenses: expenses, debts: debts,
-            settings: settings.first, payments: payments
+            settings: settings.first, payments: payments, losses: losses
         )
     }
 
@@ -150,6 +155,7 @@ struct AlertsView: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var losses: [MoneyLoss]
     @Query private var payments: [DebtPayment]
 
     @Environment(\.dismiss) private var dismiss
@@ -158,7 +164,7 @@ struct AlertsView: View {
     private var summary: AlertsSummary {
         AlertsSummary(
             income: income, expenses: expenses, debts: debts,
-            settings: settings.first, payments: payments
+            settings: settings.first, payments: payments, losses: losses
         )
     }
 

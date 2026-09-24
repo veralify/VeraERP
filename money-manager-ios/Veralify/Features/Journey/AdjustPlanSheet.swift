@@ -32,7 +32,7 @@ struct AdjustPlanSheet: View {
                                 PayoffStrategyRow(
                                     settings: planSettings,
                                     debts: debts,
-                                    income: income.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount },
+                                    income: income.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.planAmount() },
                                     expenses: expenses.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount }
                                 )
                             }
@@ -45,7 +45,7 @@ struct AdjustPlanSheet: View {
                                 sourceRow(
                                     kind: .income,
                                     count: income.filter(\.isActive).count,
-                                    total: income.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount },
+                                    total: income.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.planAmount() },
                                     accent: Theme.lime
                                 )
                                 RowDivider()

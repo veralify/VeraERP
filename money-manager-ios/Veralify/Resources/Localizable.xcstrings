@@ -3027,6 +3027,38 @@
         }
       }
     },
+    "Amount lost": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المبلغ المفقود"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importo perso"
+          }
+        }
+      }
+    },
+    "Amount received": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المبلغ المستلم"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importo ricevuto"
+          }
+        }
+      }
+    },
     "Amounts change straight away. A new language applies when you reopen the app.": {
       "localizations": {
         "ar": {
@@ -5200,6 +5232,22 @@
         }
       }
     },
+    "Estimate": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تقدير"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stima"
+          }
+        }
+      }
+    },
     "Euro": {
       "localizations": {
         "ar": {
@@ -5594,6 +5642,22 @@
         }
       }
     },
+    "Fine": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غرامة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Multa"
+          }
+        }
+      }
+    },
     "Finish setup": {
       "localizations": {
         "ar": {
@@ -5628,6 +5692,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il primo che sparisce"
+          }
+        }
+      }
+    },
+    "Fixed": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ثابت"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fisso"
           }
         }
       }
@@ -6261,6 +6341,22 @@
         }
       }
     },
+    "Includes an estimate": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يتضمن تقديراً"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Include una stima"
+          }
+        }
+      }
+    },
     "Income": {
       "localizations": {
         "ar": {
@@ -6289,6 +6385,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fonti di reddito"
+          }
+        }
+      }
+    },
+    "Income type": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نوع الدخل"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo di entrata"
           }
         }
       }
@@ -6399,6 +6511,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rilasciato da"
+          }
+        }
+      }
+    },
+    "It changes month to month. Log what came in each month; the plan uses your recent average.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يتغير من شهر لآخر. سجّل ما وصلك كل شهر، وتعتمد الخطة على متوسطك الأخير."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambia di mese in mese. Registra quanto è entrato ogni mese; il piano usa la tua media recente."
           }
         }
       }
@@ -6911,6 +7039,38 @@
         }
       }
     },
+    "Log money lost": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل مالاً مفقوداً"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra denaro perso"
+          }
+        }
+      }
+    },
+    "Log this month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra questo mese"
+          }
+        }
+      }
+    },
     "Log today's money": {
       "localizations": {
         "ar": {
@@ -6923,6 +7083,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra i movimenti di oggi"
+          }
+        }
+      }
+    },
+    "Log what %@ paid this month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل ما دفعه %@ هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra quanto ha reso %@ questo mese"
           }
         }
       }
@@ -6945,6 +7121,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra cosa hai speso o incassato per non perdere la serie."
+          }
+        }
+      }
+    },
+    "Logged this month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم التسجيل هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrato questo mese"
+          }
+        }
+      }
+    },
+    "Lost": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ضائع"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perso"
           }
         }
       }
@@ -7205,6 +7413,22 @@
         }
       }
     },
+    "Money lost": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مال مفقود"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denaro perso"
+          }
+        }
+      }
+    },
     "Money out": {
       "localizations": {
         "ar": {
@@ -7251,7 +7475,21 @@
     },
     "Month": {
       "extractionState": "manual",
-      "shouldTranslate": false
+      "shouldTranslate": false,
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mese"
+          }
+        }
+      }
     },
     "Month by month": {
       "extractionState": "stale",
@@ -8103,6 +8341,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non ancora"
+          }
+        }
+      }
+    },
+    "Note (optional)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ملاحظة (اختياري)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota (facoltativa)"
           }
         }
       }
@@ -9819,6 +10073,22 @@
         }
       }
     },
+    "Reason": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السبب"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Motivo"
+          }
+        }
+      }
+    },
     "Received": {
       "localizations": {
         "ar": {
@@ -10243,6 +10513,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovere questo budget?"
+          }
+        }
+      }
+    },
+    "Remove this month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إزالة هذا الشهر"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimuovi questo mese"
           }
         }
       }
@@ -11499,6 +11785,22 @@
         }
       }
     },
+    "Stolen": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسروق"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rubato"
+          }
+        }
+      }
+    },
     "Swedish Krona": {
       "localizations": {
         "ar": {
@@ -11897,6 +12199,22 @@
         }
       }
     },
+    "The same amount arrives every month.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يصل المبلغ نفسه كل شهر."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arriva la stessa cifra ogni mese."
+          }
+        }
+      }
+    },
     "The year at a glance, month by month.": {
       "localizations": {
         "ar": {
@@ -11985,6 +12303,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "L'operazione è irreversibile."
+          }
+        }
+      }
+    },
+    "This comes off what's left for that month. Your payoff plan stays the same.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يُخصم هذا مما تبقى لذلك الشهر. تبقى خطة السداد كما هي."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viene tolto da ciò che resta per quel mese. Il tuo piano di rimborso resta invariato."
           }
         }
       }
@@ -12436,6 +12770,22 @@
         }
       }
     },
+    "Touch and hold to delete": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المس مطولاً للحذف"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tieni premuto per eliminare"
+          }
+        }
+      }
+    },
     "Tracker": {
       "localizations": {
         "ar": {
@@ -12622,6 +12972,38 @@
         }
       }
     },
+    "Typical month": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شهر معتاد"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mese tipico"
+          }
+        }
+      }
+    },
+    "Typical month: %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الشهر المعتاد: %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mese tipico: %@"
+          }
+        }
+      }
+    },
     "UAE Dirham": {
       "localizations": {
         "ar": {
@@ -12666,6 +13048,22 @@
         }
       }
     },
+    "Unexpected cost": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تكلفة غير متوقعة"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spesa imprevista"
+          }
+        }
+      }
+    },
     "Up %@ this month": {
       "localizations": {
         "ar": {
@@ -12700,6 +13098,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scadenze imminenti"
+          }
+        }
+      }
+    },
+    "Update": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحديث"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna"
           }
         }
       }
@@ -12751,6 +13165,38 @@
     "VERALIFY": {
       "extractionState": "manual",
       "shouldTranslate": false
+    },
+    "Variable": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متغير"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Variabile"
+          }
+        }
+      }
+    },
+    "Variable · plan uses %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متغير · تعتمد الخطة %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Variabile · il piano usa %@"
+          }
+        }
+      }
     },
     "Venmo": {
       "localizations": {
@@ -12980,6 +13426,22 @@
         }
       }
     },
+    "What happened": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ماذا حدث"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa è successo"
+          }
+        }
+      }
+    },
     "What it costs you": {
       "localizations": {
         "ar": {
@@ -13130,6 +13592,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quanto devi ancora"
+          }
+        }
+      }
+    },
+    "When": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متى"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando"
           }
         }
       }

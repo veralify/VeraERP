@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import VeralifyCore
 
 /// All records of one kind: tap to edit, swipe to delete, plus to add.
 struct EntryListView: View {
@@ -14,6 +15,7 @@ struct EntryListView: View {
     @State private var editing: EditTarget?
     @State private var isAdding = false
     @State private var payingDebt: DebtRecord?
+    @State private var loggingIncome: IncomeSource?
 
     private var targets: [EditTarget] {
         switch kind {
@@ -25,7 +27,8 @@ struct EntryListView: View {
 
     private var total: Decimal {
         switch kind {
-        case .income:  income.filter(\.isActive).reduce(0) { $0 + $1.amount }
+        // This month's figure, so the total matches the Income card it opened from.
+        case .income:  income.filter(\.isActive).reduce(0) { $0 + $1.thisMonth().amount }
         case .expense: expenses.filter(\.isActive).reduce(0) { $0 + $1.amount }
         case .debt:    debts.reduce(0) { $0 + $1.balance }
         }
@@ -82,6 +85,10 @@ struct EntryListView: View {
         }
         .sheet(item: $payingDebt) { debt in
             DebtPaymentSheet(debt: debt)
+                .presentationBackground(Theme.background)
+        }
+        .sheet(item: $loggingIncome) { source in
+            IncomeActualSheet(source: source)
                 .presentationBackground(Theme.background)
         }
     }
@@ -235,12 +242,15 @@ struct EntryListView: View {
                         .foregroundStyle(Theme.textTertiary)
                 }
                 .padding(.top, 15)
-                .padding(.bottom, isDebt(target) ? 10 : 15)
+                .padding(.bottom, hasFooter(target) ? 10 : 15)
                 .contentShape(.rect)
             }
 
             if case .debt(let item) = target {
                 debtProgress(item)
+            }
+            if case .income(let item) = target, item.incomeKind == .variable {
+                incomeLogRow(item)
             }
         }
         .contextMenu {
@@ -257,9 +267,43 @@ struct EntryListView: View {
         }
     }
 
-    private func isDebt(_ target: EditTarget) -> Bool {
-        if case .debt = target { return true }
-        return false
+    /// Rows that carry a second line of controls under the name and amount.
+    private func hasFooter(_ target: EditTarget) -> Bool {
+        switch target {
+        case .debt: true
+        case .income(let item): item.incomeKind == .variable
+        case .expense: false
+        }
+    }
+
+    /// Variable pay is only known once it has arrived, so its row says whether
+    /// this month is logged and offers to log it — the figure beside the name
+    /// is an estimate until then.
+    private func incomeLogRow(_ source: IncomeSource) -> some View {
+        let isLogged = source.logged(inMonthOf: .now) != nil
+        return HStack(spacing: 8) {
+            Pill(
+                text: isLogged
+                    ? String(localized: "Logged this month")
+                    : String(localized: "Estimate"),
+                style: .muted(dot: isLogged ? Theme.lime : Theme.yellow)
+            )
+            Spacer(minLength: 8)
+            Button { loggingIncome = source } label: {
+                Label(isLogged ? "Update" : "Log this month", systemImage: "square.and.pencil")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.onAccent)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(Theme.lime, in: .capsule)
+                    .frame(minHeight: 44)
+                    .contentShape(.rect)
+            }
+            .buttonStyle(.pressable)
+            .accessibilityLabel("Log what \(source.name) paid this month")
+        }
+        .lineLimit(1)
+        .padding(.bottom, 9)
     }
 
     // MARK: - Row content
@@ -274,7 +318,8 @@ struct EntryListView: View {
 
     private func amount(for target: EditTarget) -> Decimal {
         switch target {
-        case .income(let item):  item.amount
+        // This month's figure: what variable pay actually brought in once logged.
+        case .income(let item):  item.thisMonth().amount
         case .expense(let item): item.amount
         case .debt(let item):    item.balance
         }
@@ -282,8 +327,9 @@ struct EntryListView: View {
 
     private func detail(for target: EditTarget) -> String? {
         switch target {
-        case .income:
-            return nil
+        case .income(let item):
+            guard item.incomeKind == .variable else { return String(localized: "Fixed") }
+            return String(localized: "Variable · plan uses \(CurrencyFormat.string(item.planAmount()))")
         case .expense(let item):
             return item.dueDay.map { String(localized: "Due on day \($0)") }
         case .debt(let item):

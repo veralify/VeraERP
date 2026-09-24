@@ -18,6 +18,7 @@ struct DashboardView: View {
     @Query(sort: \ExpenseItem.createdAt) private var expenses: [ExpenseItem]
     @Query(sort: \DebtRecord.remoteID) private var debts: [DebtRecord]
     @Query private var settings: [PlanSettings]
+    @Query private var losses: [MoneyLoss]
     @Query private var snapshots: [MonthlySnapshot]
     @Query(sort: \TransactionRecord.occurredAt, order: .reverse) private var transactions: [TransactionRecord]
     @Query private var payments: [DebtPayment]
@@ -27,6 +28,7 @@ struct DashboardView: View {
     /// Set by the quick-pay chips, which open the payment sheet straight from
     /// the dashboard rather than by way of the debts list.
     @State private var payingDebt: DebtRecord?
+    @State private var isLoggingLoss = false
 
     /// Two metric cards side by side leave each about 150pt; at accessibility
     /// text sizes that is too narrow for a title and a figure, so they stack.
@@ -46,7 +48,9 @@ struct DashboardView: View {
     }
 
     private var summary: DashboardSummary {
-        DashboardSummary(income: income, expenses: expenses, debts: debts, settings: settings.first)
+        DashboardSummary(
+            income: income, expenses: expenses, debts: debts, settings: settings.first, losses: losses
+        )
     }
 
     /// What the plan looked like when this month began, if the app was open to
@@ -82,6 +86,7 @@ struct DashboardView: View {
                 planStrip.staggeredAppearance(1)
                 dueSoon.staggeredAppearance(2)
                 metricCards.staggeredAppearance(2)
+                lossesSection.staggeredAppearance(3)
                 todaySection.staggeredAppearance(3)
                 // Last, under its own heading: the streak and the daily quests
                 // are encouragement, and encouragement does not belong between
@@ -100,6 +105,10 @@ struct DashboardView: View {
         .scrollIndicators(.hidden)
         .task { captureBaselineIfNeeded() }
         .sheet(item: $payingDebt) { DebtPaymentSheet(debt: $0) }
+        .sheet(isPresented: $isLoggingLoss) {
+            LossSheet()
+                .presentationBackground(Theme.background)
+        }
     }
 
     /// Income, core expenses and debts as their own cards, each carrying what it
@@ -120,6 +129,10 @@ struct DashboardView: View {
                         delta: MonthlyDelta.since(
                             baseline?.income, now: summary.totalIncome, risingIsGood: true
                         ),
+                        // Variable pay not yet logged this month is counted at
+                        // its expected figure; say so rather than pass it off
+                        // as what arrived.
+                        footnote: summary.incomeIsEstimated ? "Includes an estimate" : nil,
                         isCompact: true
                     )
                 }
@@ -225,6 +238,108 @@ struct DashboardView: View {
                 .scrollClipDisabled()
             }
         }
+    }
+
+    // MARK: - Money lost
+
+    /// This month's losses, newest first.
+    private var lossesThisMonth: [MoneyLoss] {
+        let calendar = Calendar.current
+        return losses
+            .filter { calendar.isDate($0.date, equalTo: .now, toGranularity: .month) }
+            .sorted { $0.date > $1.date }
+    }
+
+    /// Money that went missing this month, and the way to record more.
+    ///
+    /// Beside the figures it lowers: a loss comes straight off the net flow in
+    /// the hero card, so the place to log one is on the same screen, not behind
+    /// the Add button (which records money moving, not money gone).
+    private var lossesSection: some View {
+        let items = lossesThisMonth
+
+        return VStack(spacing: 12) {
+            SectionHeader(title: "Money lost") {
+                if !items.isEmpty {
+                    Text(CurrencyFormat.string(summary.totalLosses))
+                        .font(.subheadline.weight(.bold))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.red)
+                }
+            }
+
+            if !items.isEmpty {
+                GroupedCard {
+                    ForEach(Array(items.enumerated()), id: \.element.persistentModelID) { index, loss in
+                        if index > 0 { RowDivider() }
+                        lossRow(loss)
+                    }
+                }
+            }
+
+            Button { isLoggingLoss = true } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: "minus.circle")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(Theme.red)
+                    Text("Log money lost")
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.textSecondary)
+                    Spacer(minLength: 0)
+                    Image(systemName: "plus")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(Theme.textTertiary)
+                }
+                .padding(14)
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+                .contentShape(.rect)
+            }
+            .buttonStyle(.pressable)
+        }
+    }
+
+    private func lossRow(_ loss: MoneyLoss) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: loss.reason.icon)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(Theme.red)
+                .frame(width: 30, height: 30)
+                .background(Theme.red.opacity(0.13), in: .circle)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(loss.reason.title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                Text(loss.note.isEmpty
+                     ? loss.date.formatted(.dateTime.day().month(.abbreviated))
+                     : "\(loss.date.formatted(.dateTime.day().month(.abbreviated))) · \(loss.note)")
+                    .font(.caption)
+                    .foregroundStyle(Theme.textSecondary)
+                    .lineLimit(1)
+            }
+
+            Spacer(minLength: 8)
+
+            Text(verbatim: "−" + CurrencyFormat.string(loss.amount))
+                .font(.subheadline.weight(.bold))
+                .monospacedDigit()
+                .foregroundStyle(Theme.red)
+                .lineLimit(1)
+                .layoutPriority(1)
+        }
+        .padding(.vertical, 12)
+        .contentShape(.rect)
+        .contextMenu {
+            Button(role: .destructive) {
+                context.delete(loss)
+                try? context.save()
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityHint("Touch and hold to delete")
     }
 
     // MARK: - Due soon
@@ -619,7 +734,18 @@ struct DashboardView: View {
 /// observable object: the payoff plan is a pure function of the data, so there
 /// is no separate state to keep in sync.
 struct DashboardSummary {
+    /// Income for this month: what variable income actually paid once it is
+    /// logged, an estimate until then, and fixed income as typed.
     let totalIncome: Decimal
+    /// Income the payoff plan budgets with. Differs from `totalIncome` only for
+    /// variable income, where the plan uses the recent average so that one
+    /// unusual month does not rewrite the schedule.
+    let planIncome: Decimal
+    /// True while some variable income has nothing logged for this month, so
+    /// `totalIncome` is partly an estimate.
+    let incomeIsEstimated: Bool
+    /// Money lost this month. Comes off this month's leftover only.
+    let totalLosses: Decimal
     let totalExpenses: Decimal
     let totalDebt: Decimal
     /// Sum of every debt's minimum payment — a monthly obligation, so it has to
@@ -629,8 +755,22 @@ struct DashboardSummary {
 
     /// Main-actor because the plan is cached, and every caller is a view.
     @MainActor
-    init(income: [IncomeSource], expenses: [ExpenseItem], debts: [DebtRecord], settings: PlanSettings?) {
-        totalIncome = income.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount }
+    init(
+        income: [IncomeSource],
+        expenses: [ExpenseItem],
+        debts: [DebtRecord],
+        settings: PlanSettings?,
+        losses: [MoneyLoss] = [],
+        now: Date = .now
+    ) {
+        let activeIncome = income.filter(\.isActive)
+        let thisMonth = activeIncome.map { $0.thisMonth(asOf: now) }
+        totalIncome = thisMonth.reduce(Decimal(0)) { $0 + $1.amount }
+        incomeIsEstimated = thisMonth.contains { $0.isEstimate }
+        planIncome = activeIncome.reduce(Decimal(0)) { $0 + $1.planAmount(asOf: now) }
+        totalLosses = LossLedger.total(
+            losses.map { (date: $0.date, amount: $0.amount) }, inMonthOf: now, calendar: .current
+        )
         totalExpenses = expenses.filter(\.isActive).reduce(Decimal(0)) { $0 + $1.amount }
         totalDebt = debts.reduce(Decimal(0)) { $0 + $1.balance }
         // What leaves each month, not what the lender's floor is: money the
@@ -638,7 +778,7 @@ struct DashboardSummary {
         totalDebtMinimums = debts.reduce(Decimal(0)) { $0 + $1.monthlyPayment }
         plan = PlanCache.plan(
             debts: debts.map(\.asDebt),
-            monthlyIncome: totalIncome,
+            monthlyIncome: planIncome,
             monthlyExpenses: totalExpenses,
             targetMonths: settings?.targetMonths ?? 16,
             startDate: settings?.startDate ?? PlanCache.sessionStart,
@@ -655,9 +795,12 @@ struct DashboardSummary {
     /// headline. A finance app must not hide a shortfall, so this returns the
     /// real figure and lets the UI switch to its warning state.
     ///
+    /// Money lost this month comes off here too: it is gone from what is left,
+    /// even though it does not recur and so never touches the payoff plan.
+    ///
     /// Savings contributions are not subtracted yet because savings goals are
     /// not modelled on iOS; add them here when they land.
-    var netCashFlow: Decimal { totalIncome - totalExpenses - totalDebtMinimums }
+    var netCashFlow: Decimal { totalIncome - totalExpenses - totalDebtMinimums - totalLosses }
 
     var progressFraction: Double {
         guard plan.totalDebt > 0 else { return 0 }

@@ -24,6 +24,8 @@ struct AccountView: View {
     @Query private var familySettlements: [FamilySettlement]
     @Query private var documents: [StoredDocument]
     @Query private var budgets: [CategoryBudget]
+    @Query private var losses: [MoneyLoss]
+    @Query private var incomeActuals: [IncomeActual]
 
     @State private var isConfirmingReset = false
     @State private var isShowingRestartNote = false
@@ -238,6 +240,8 @@ struct AccountView: View {
         for item in familySettlements { context.delete(item) }
         for item in documents { context.delete(item) }
         for item in budgets { context.delete(item) }
+        for item in losses { context.delete(item) }
+        for item in incomeActuals { context.delete(item) }
         try? context.save()
         // Scheduled reminders outlive the rows they describe. Left queued, a
         // wiped vault still announced "your passport (number) expires" weeks
