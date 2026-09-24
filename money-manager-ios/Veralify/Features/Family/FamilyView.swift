@@ -98,7 +98,20 @@ struct FamilyView: View {
 
     // MARK: - Empty state
 
+    /// Centred when it fits, scrolling when it does not: at the largest text
+    /// sizes on a small phone the message, button and link run past the screen,
+    /// and a non-scrolling stack would push the link out of reach.
     private var setupPrompt: some View {
+        ViewThatFits(in: .vertical) {
+            setupPromptContent
+            ScrollView {
+                setupPromptContent
+            }
+            .scrollIndicators(.hidden)
+        }
+    }
+
+    private var setupPromptContent: some View {
         VStack(spacing: 18) {
             EmptyStateView(
                 icon: "person.2.fill",
@@ -111,6 +124,9 @@ struct FamilyView: View {
             quickSplitLink
         }
         .padding(.horizontal, 24)
+        // The floating bar covers the bottom of the screen, so the prompt is
+        // centred in what is left above it rather than behind it.
+        .padding(.bottom, 108)
     }
 
     /// A one-off bill split, for a table of people who are not household
@@ -128,11 +144,14 @@ struct FamilyView: View {
                     Text("Split a bill")
                         .font(.subheadline.weight(.bold))
                         .foregroundStyle(Theme.textPrimary)
+                    // Two lines rather than one shrunk line: the Arabic and
+                    // larger text sizes cut it off mid-sentence.
                     Text("Work out the tip and who owes what, then send it")
                         .font(.caption)
                         .foregroundStyle(Theme.textTertiary)
-                        .lineLimit(1)
+                        .lineLimit(2)
                         .minimumScaleFactor(0.85)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Spacer(minLength: 8)
@@ -140,6 +159,7 @@ struct FamilyView: View {
                 Image(systemName: "chevron.right")
                     .font(.caption.weight(.bold))
                     .foregroundStyle(Theme.textTertiary)
+                    .flipsForRightToLeftLayoutDirection(true)
             }
             .padding(14)
             .frame(maxWidth: .infinity)
@@ -153,17 +173,21 @@ struct FamilyView: View {
     private var summaryCard: some View {
         let month = thisMonth
         return VStack(alignment: .leading, spacing: 10) {
-            Text("This month")
-                .font(.caption.weight(.bold))
-                .kerning(0.5)
-                .foregroundStyle(Theme.onAccent.opacity(0.7))
+            // The eyebrow belongs to the figure, as on `AccentCard`; the gap
+            // then separates the figure from its caption.
+            VStack(alignment: .leading, spacing: 2) {
+                Text("This month")
+                    .font(.caption.weight(.bold))
+                    .kerning(0.5)
+                    .foregroundStyle(Theme.onAccent.opacity(0.7))
 
-            Text(CurrencyFormat.string(month.total))
-                .font(.system(size: 32, weight: .bold, design: .rounded))
-                .monospacedDigit()
-                .minimumScaleFactor(0.6)
-                .lineLimit(1)
-                .foregroundStyle(Theme.onAccent)
+                Text(CurrencyFormat.string(month.total))
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
+                    .foregroundStyle(Theme.onAccent)
+            }
 
             Text("\(CurrencyFormat.string(month.mine)) of it is your share")
                 .font(.footnote.weight(.semibold))
@@ -178,7 +202,10 @@ struct FamilyView: View {
     private var memberStrip: some View {
         let net = balances
         return ScrollView(.horizontal) {
-            HStack(spacing: 10) {
+            // Top-aligned: the Add tile has one line of text under its circle
+            // where a member has two, and centring it dropped its circle below
+            // the row of avatars.
+            HStack(alignment: .top, spacing: 10) {
                 ForEach(members) { member in
                     let owed = net[member.id] ?? 0
                     VStack(spacing: 6) {
@@ -192,10 +219,15 @@ struct FamilyView: View {
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(Theme.textPrimary)
                             .lineLimit(1)
+                            .minimumScaleFactor(0.85)
 
+                        // The tile is a fixed 80pt; a four-figure balance
+                        // shrinks to fit rather than losing its last digits.
                         Text(balanceLabel(owed))
                             .font(.caption2.weight(.bold))
                             .monospacedDigit()
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
                             .foregroundStyle(
                                 owed == 0 ? Theme.textTertiary : (owed > 0 ? Theme.green : Theme.red)
                             )
@@ -256,22 +288,35 @@ struct FamilyView: View {
                             Text(name(of: transfer.from))
                                 .font(.subheadline.weight(.bold))
                                 .foregroundStyle(Theme.textPrimary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                            // Mirrored under right-to-left, where the payer
+                            // sits on the right: unflipped, the arrow pointed
+                            // back at them.
                             Image(systemName: "arrow.right")
                                 .font(.caption2.weight(.bold))
                                 .foregroundStyle(Theme.textTertiary)
+                                .flipsForRightToLeftLayoutDirection(true)
                             Text(name(of: transfer.to))
                                 .font(.subheadline.weight(.bold))
                                 .foregroundStyle(Theme.textPrimary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
 
                             Spacer(minLength: 8)
 
+                            // The amount is the point of the row, so long
+                            // names give way before it does.
                             Text(CurrencyFormat.string(transfer.amount))
                                 .font(.subheadline.weight(.bold))
                                 .monospacedDigit()
                                 .foregroundStyle(Theme.textPrimary)
+                                .lineLimit(1)
+                                .layoutPriority(1)
                             Image(systemName: "chevron.right")
                                 .font(.caption.weight(.bold))
                                 .foregroundStyle(Theme.textTertiary)
+                                .flipsForRightToLeftLayoutDirection(true)
                         }
                         .padding(.vertical, 14)
                         .contentShape(.rect)
@@ -300,6 +345,9 @@ struct FamilyView: View {
                         .padding(.horizontal, 11)
                         .padding(.vertical, 6)
                         .background(Theme.surfaceElevated, in: .capsule)
+                        // The capsule is ~28pt tall. The hit area grows to
+                        // 44pt without the header row growing with it.
+                        .contentShape(Rectangle().inset(by: -8))
                 }
                 .buttonStyle(.pressable)
             }
@@ -346,18 +394,22 @@ struct FamilyView: View {
 
             Spacer(minLength: 8)
 
+            // A long title truncates; the amounts never do.
             VStack(alignment: .trailing, spacing: 3) {
                 Text(CurrencyFormat.string(expense.amount))
                     .font(.subheadline.weight(.bold))
                     .monospacedDigit()
                     .foregroundStyle(Theme.textPrimary)
+                    .lineLimit(1)
                 if let myShare, myShare > 0 {
                     Text("you \(CurrencyFormat.string(myShare))")
                         .font(.caption2)
                         .monospacedDigit()
                         .foregroundStyle(Theme.textTertiary)
+                        .lineLimit(1)
                 }
             }
+            .layoutPriority(1)
         }
         .padding(.vertical, 12)
         .contextMenu {

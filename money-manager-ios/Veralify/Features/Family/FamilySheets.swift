@@ -66,6 +66,7 @@ struct FamilyMemberSheet: View {
                             Text("This first person is you. Add the others afterwards.")
                                 .font(.caption)
                                 .foregroundStyle(Theme.textTertiary)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.horizontal, 4)
                         }
@@ -228,6 +229,7 @@ struct FamilyExpenseSheet: View {
                                 Text(member.emoji).font(.caption)
                                 Text(member.name)
                                     .font(.caption.weight(.bold))
+                                    .lineLimit(1)
                             }
                             .foregroundStyle(paidByID == member.id ? Theme.onAccent : Theme.textPrimary)
                             .padding(.horizontal, 12)
@@ -252,7 +254,9 @@ struct FamilyExpenseSheet: View {
 
     private var splitCard: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
+            // Baseline-aligned: the label and the toggle are different sizes,
+            // and centring them left the smaller one sitting visibly high.
+            HStack(alignment: .firstTextBaseline) {
                 Text("Split between")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Theme.textSecondary)
@@ -262,6 +266,9 @@ struct FamilyExpenseSheet: View {
                 }
                 .font(.caption.weight(.bold))
                 .foregroundStyle(Theme.lime)
+                // A one-word text button; the hit area reaches 44pt without
+                // pushing the rows below it down.
+                .contentShape(Rectangle().inset(by: -14))
             }
 
             ForEach(members) { member in
@@ -281,17 +288,25 @@ struct FamilyExpenseSheet: View {
                         Text(member.name)
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.textPrimary)
+                            .lineLimit(1)
 
                         Spacer(minLength: 8)
 
+                        // The share column stays whole and trailing-aligned;
+                        // a long name truncates instead.
                         if let share = shares[member.id] {
                             Text(CurrencyFormat.string(share))
                                 .font(.subheadline.weight(.bold))
                                 .monospacedDigit()
                                 .foregroundStyle(Theme.textSecondary)
+                                .lineLimit(1)
+                                .layoutPriority(1)
                         }
                     }
                     .padding(.vertical, 9)
+                    // Each row is a checkbox; 9pt of padding alone left it
+                    // under the 44pt touch target.
+                    .frame(minHeight: 44)
                     .contentShape(.rect)
                 }
                 .buttonStyle(.pressable)
@@ -353,15 +368,19 @@ struct SettleUpSheet: View {
                             Text("\(name(of: transfer.from)) pays \(name(of: transfer.to))")
                                 .font(.system(size: 22, weight: .bold))
                                 .foregroundStyle(Theme.onAccent)
+                                .fixedSize(horizontal: false, vertical: true)
                             Text("Recording this clears what they owe.")
                                 .font(.footnote.weight(.semibold))
                                 .foregroundStyle(Theme.onAccent.opacity(0.75))
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                         .padding(18)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Theme.green, in: .rect(cornerRadius: Theme.Radius.card))
 
-                        VStack(spacing: 14) {
+                        // Tighter than the 14pt between fields: the hint
+                        // explains this field, so it sits with it.
+                        VStack(spacing: 8) {
                             FieldRow(
                                 label: "Amount",
                                 placeholder: "0.00",
@@ -371,6 +390,7 @@ struct SettleUpSheet: View {
                             Text("Change it if they paid back only part of it.")
                                 .font(.caption)
                                 .foregroundStyle(Theme.textTertiary)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding(16)

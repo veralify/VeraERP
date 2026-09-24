@@ -214,19 +214,23 @@ struct QuickSplitView: View {
     // MARK: Result
 
     private var resultCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(people == 1 ? "You pay" : "Each person pays")
-                .font(.caption.weight(.bold))
-                .kerning(0.5)
-                .foregroundStyle(Theme.onAccent.opacity(0.7))
+        VStack(alignment: .leading, spacing: 10) {
+            // Eyebrow held tight to the figure, as on `AccentCard` and the
+            // family summary, so the three hero cards share one rhythm.
+            VStack(alignment: .leading, spacing: 2) {
+                Text(people == 1 ? "You pay" : "Each person pays")
+                    .font(.caption.weight(.bold))
+                    .kerning(0.5)
+                    .foregroundStyle(Theme.onAccent.opacity(0.7))
 
-            Text(CurrencyFormat.string(split.isValid ? split.largestShare : 0))
-                .font(.system(size: 42, weight: .bold, design: .rounded))
-                .monospacedDigit()
-                .minimumScaleFactor(0.5)
-                .lineLimit(1)
-                .foregroundStyle(Theme.onAccent)
-                .contentTransition(.numericText())
+                Text(CurrencyFormat.string(split.isValid ? split.largestShare : 0))
+                    .font(.system(size: 42, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .foregroundStyle(Theme.onAccent)
+                    .contentTransition(.numericText())
+            }
 
             if split.isValid {
                 Text(split.tipPercent > 0
@@ -234,10 +238,12 @@ struct QuickSplitView: View {
                      : "\(CurrencyFormat.string(split.total)) total")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Theme.onAccent.opacity(0.78))
+                    .fixedSize(horizontal: false, vertical: true)
             } else {
                 Text("Enter the bill to see the split.")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Theme.onAccent.opacity(0.7))
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(18)
@@ -268,9 +274,14 @@ struct QuickSplitView: View {
             if !ReceiptScanner.isSupported {
                 // True on every simulator, which is where this will first be
                 // tried. Saying so beats a button that does nothing.
+                // Centred like the hint it replaces, so the caption under the
+                // button does not jump sides between the two states.
                 Text("Scanning needs a camera, so it only works on a device.")
                     .font(.caption)
                     .foregroundStyle(Theme.textTertiary)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 4)
             } else if let note = scanNote {
                 scanNoteRow(note)
             } else {
@@ -278,6 +289,8 @@ struct QuickSplitView: View {
                     .font(.caption)
                     .foregroundStyle(Theme.textTertiary)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 4)
             }
         }
     }
@@ -289,7 +302,10 @@ struct QuickSplitView: View {
         case .failed:    Theme.red
         }
 
-        return HStack(spacing: 8) {
+        // Baseline-aligned: the note can run to two or three lines, and a
+        // centred icon then floated beside the middle of the paragraph
+        // instead of marking its first line.
+        return HStack(alignment: .firstTextBaseline, spacing: 8) {
             Image(systemName: note.kind == .confident ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
                 .font(.caption.weight(.bold))
                 .foregroundStyle(tint)
@@ -407,7 +423,7 @@ struct QuickSplitView: View {
     }
 
     private var peopleSection: some View {
-        HStack {
+        HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Splitting between")
                     .font(.subheadline.weight(.semibold))
@@ -420,9 +436,12 @@ struct QuickSplitView: View {
 
             Spacer(minLength: 8)
 
+            // The stepper keeps its full width; the label wraps beside it
+            // at large text sizes instead of squeezing the − and + buttons.
             Stepper(value: $people, in: 1...50) { EmptyView() }
                 .labelsHidden()
                 .tint(Theme.lime)
+                .fixedSize()
         }
         .padding(16)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
@@ -462,7 +481,7 @@ struct QuickSplitView: View {
     }
 
     private func breakdownRow(_ label: LocalizedStringKey, _ value: String, emphasised: Bool = false) -> some View {
-        HStack {
+        HStack(alignment: .firstTextBaseline) {
             Text(label)
                 .font(emphasised ? .subheadline.weight(.bold) : .subheadline)
                 .foregroundStyle(emphasised ? Theme.textPrimary : Theme.textSecondary)
@@ -471,6 +490,8 @@ struct QuickSplitView: View {
                 .font(emphasised ? .subheadline.weight(.bold) : .subheadline.weight(.semibold))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
+                .lineLimit(1)
+                .layoutPriority(1)
         }
         .padding(.vertical, 13)
     }
@@ -483,6 +504,9 @@ struct QuickSplitView: View {
                 Button("Edit") { isEditingHandles = true }
                     .font(.subheadline.weight(.bold))
                     .foregroundStyle(Theme.lime)
+                    // A one-word button; the hit area reaches 44pt without
+                    // the header growing to match.
+                    .contentShape(Rectangle().inset(by: -12))
             }
 
             if profile.isEmpty {
@@ -500,10 +524,13 @@ struct QuickSplitView: View {
                 GroupedCard {
                     ForEach(Array(profile.filled.enumerated()), id: \.element.id) { index, handle in
                         if index > 0 { RowDivider() }
-                        HStack {
+                        HStack(alignment: .firstTextBaseline) {
+                            // The service name stays whole; a long handle
+                            // truncates in its middle instead.
                             Text(handle.label)
                                 .font(.subheadline)
                                 .foregroundStyle(Theme.textSecondary)
+                                .layoutPriority(1)
                             Spacer(minLength: 8)
                             Text(handle.display)
                                 .font(.subheadline.weight(.semibold))
