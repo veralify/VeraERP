@@ -53,7 +53,11 @@ struct QuickAddSheet: View {
                 amountBlock
                 Spacer(minLength: 0)
                 chips
+                // The keypad claims its full height first and the spacers
+                // share what is left; on an SE-size screen the keys shorten
+                // instead of pushing the swipe control off the bottom.
                 keypad
+                    .layoutPriority(1)
                 SwipeToConfirm(
                     title: "Swipe to add entry",
                     accent: direction.accent,
@@ -87,6 +91,9 @@ struct QuickAddSheet: View {
                     .foregroundStyle(Theme.textSecondary)
                     .frame(width: 38, height: 38)
                     .background(Theme.surface, in: .circle)
+                    // A 44pt tap area around the 38pt circle.
+                    .frame(width: 44, height: 44)
+                    .contentShape(.rect)
             }
             .buttonStyle(.pressable)
             .accessibilityLabel("Cancel")
@@ -101,6 +108,8 @@ struct QuickAddSheet: View {
                         Label(option.title, systemImage: option.icon)
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(direction == option ? Theme.textPrimary : Theme.textTertiary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 9)
                             .background(
@@ -115,7 +124,8 @@ struct QuickAddSheet: View {
             .background(Theme.surface, in: .capsule)
 
             Spacer(minLength: 8)
-            Color.clear.frame(width: 38, height: 38)
+            // Mirrors the close button so the direction toggle stays centred.
+            Color.clear.frame(width: 44, height: 44)
         }
         .padding(.horizontal, 16)
         .padding(.top, 14)
@@ -144,6 +154,11 @@ struct QuickAddSheet: View {
                 Text(name.isEmpty ? "Who's it for?" : name)
                     .font(.body)
                     .foregroundStyle(name.isEmpty ? Theme.textTertiary : Theme.textPrimary)
+                    // A long name stays one line rather than growing the
+                    // block and squeezing the keypad.
+                    .lineLimit(1)
+                    .frame(minHeight: 44)
+                    .contentShape(.rect)
             }
             .buttonStyle(.pressable)
         }
@@ -173,7 +188,9 @@ struct QuickAddSheet: View {
             }
             .padding(.horizontal, 16)
         }
-        .padding(.vertical, 18)
+        // The same 14pt as between the keypad and the swipe control, so the
+        // three blocks at the bottom are evenly spaced.
+        .padding(.vertical, 14)
     }
 
     private var keypad: some View {
@@ -192,8 +209,9 @@ struct QuickAddSheet: View {
                                 }
                             }
                             .foregroundStyle(Theme.textPrimary)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 58)
+                            // 58pt where there is room, never below a 44pt
+                            // tap target where there is not.
+                            .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 58)
                             .background(Theme.surfaceElevated, in: .rect(cornerRadius: 16))
                         }
                         .buttonStyle(.pressable)

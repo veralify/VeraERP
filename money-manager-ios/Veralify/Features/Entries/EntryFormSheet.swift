@@ -26,6 +26,17 @@ struct EntryFormSheet: View {
     @State private var dueDay: String
     @State private var isConfirmingDelete = false
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Bottom-aligned when side by side: "Annual interest %" can wrap to two
+    /// lines in half the width, and top alignment then left its field lower
+    /// than the one beside it. Stacked at accessibility sizes.
+    private var pairLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 12))
+            : AnyLayout(HStackLayout(alignment: .bottom, spacing: 12))
+    }
+
     init(mode: Mode) {
         self.mode = mode
 
@@ -116,7 +127,7 @@ struct EntryFormSheet: View {
                                 keyboard: .decimalPad
                             )
                             if kind == .debt {
-                                HStack(spacing: 12) {
+                                pairLayout {
                                     FieldRow(label: "Annual interest %", placeholder: "0", text: $apr, keyboard: .decimalPad)
                                     FieldRow(label: "Minimum", placeholder: "0.00", text: $minimum, keyboard: .decimalPad)
                                 }
