@@ -136,6 +136,8 @@ Errors are JSON `{ "error": CODE, "message": "…" }`:
 
 Offline: steps 1–2 wait in a local queue and run when the phone is back online.
 
+**Server-to-server calls.** `inbound-receipts` (Phase 4) has no user token. `receipts-extract` therefore also accepts `Authorization: Bearer <service role key>` with `"user_id": "uuid"` in the body. It then acts for that user, with the same ownership check against the row, the same scan limit and the same response. Any other caller that sends `user_id` is ignored and treated as the token's user.
+
 ## 6. Accounting (Phase 3)
 
 - OAuth runs in edge functions: `accounting-connect` returns the provider's authorize URL (state + PKCE stored in `accounting_oauth_states`), and `accounting-callback` exchanges the code, stores the token bundle in Vault (`vault.create_secret`), and inserts `accounting_connections`.
