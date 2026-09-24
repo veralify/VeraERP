@@ -55,94 +55,110 @@ struct AllocateSheet: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(toward ? "Pay more on \(debt.name)" : "Pay less on \(debt.name)")
-                    .font(.title3.weight(.bold))
-                    .foregroundStyle(Theme.textPrimary)
-                Text(subtitle)
-                    .font(.footnote)
-                    .foregroundStyle(Theme.textTertiary)
-            }
-
-            VStack(spacing: 10) {
-                Text(CurrencyFormat.string(moved))
-                    .font(.system(size: 40, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundStyle(toward ? Theme.lime : Theme.yellow)
-                    .contentTransition(.numericText())
-                    .animation(.snappy, value: amount)
-                    .frame(maxWidth: .infinity)
-
-                // No range, no slider. `Slider` traps at init when the step is
-                // wider than the bounds, and a debt paid at exactly its
-                // minimum gives bounds of zero — which crashed the app the
-                // moment that debt was dragged onto the leftover.
-                if maximum > 0 {
-                    Slider(value: $amount, in: 0...maximum, step: step)
-                        .tint(toward ? Theme.lime : Theme.yellow)
-
-                    HStack {
-                        Text(CurrencyFormat.string(0))
-                        Spacer()
-                        Text(CurrencyFormat.string(ceiling))
-                    }
-                    .font(.caption2)
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textTertiary)
-                }
-            }
-
-            GroupedCard {
-                // The minimum is the one figure here the app does not get to
-                // decide, so it is typed rather than dragged — and it is on
-                // this screen because this is where its consequences show.
-                HStack {
-                    Text("Minimum payment")
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.textSecondary)
-                    Spacer(minLength: 8)
-                    // The symbol sits outside the field so the value stays a
-                    // plain number to type into, and still reads as money. The
-                    // pair is sized to its content so the symbol stays against
-                    // the digits instead of drifting to the far side of a
-                    // fixed-width field.
-                    HStack(spacing: 2) {
-                        Text(CurrencyFormat.symbol)
-                            .foregroundStyle(Theme.textTertiary)
-                        TextField(
-                            NSDecimalNumber(decimal: debt.minimumPayment).stringValue,
-                            text: $minimumText
-                        )
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
+        // The figures scroll and the swipe stays pinned beneath them. The sheet
+        // has a fixed height, so when the decimal pad rises for the minimum
+        // payment — or the type is large — a plain stack had nowhere to go and
+        // squeezed the title off the top; this way the field stays reachable
+        // and the commit control stays on screen, above the keyboard.
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(toward ? "Pay more on \(debt.name)" : "Pay less on \(debt.name)")
+                        .font(.title3.weight(.bold))
                         .foregroundStyle(Theme.textPrimary)
-                        .fixedSize()
-                    }
-                    .font(.subheadline.weight(.bold))
-                    .monospacedDigit()
+                    Text(subtitle)
+                        .font(.footnote)
+                        .foregroundStyle(Theme.textTertiary)
                 }
-                .padding(.vertical, 12)
 
-                RowDivider()
-                row("Extra each month", CurrencyFormat.string(newExtra), tint: Theme.textSecondary)
-                RowDivider()
-                row("Total each month", CurrencyFormat.string(newPayment), tint: Theme.textPrimary)
+                VStack(spacing: 10) {
+                    Text(CurrencyFormat.string(moved))
+                        .font(.system(size: 40, weight: .bold, design: .rounded))
+                        .monospacedDigit()
+                        .foregroundStyle(toward ? Theme.lime : Theme.yellow)
+                        .contentTransition(.numericText())
+                        .animation(.snappy, value: amount)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(maxWidth: .infinity)
+
+                    // No range, no slider. `Slider` traps at init when the step is
+                    // wider than the bounds, and a debt paid at exactly its
+                    // minimum gives bounds of zero — which crashed the app the
+                    // moment that debt was dragged onto the leftover.
+                    if maximum > 0 {
+                        Slider(value: $amount, in: 0...maximum, step: step)
+                            .tint(toward ? Theme.lime : Theme.yellow)
+
+                        HStack {
+                            Text(CurrencyFormat.string(0))
+                            Spacer()
+                            Text(CurrencyFormat.string(ceiling))
+                        }
+                        .font(.caption2)
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.textTertiary)
+                    }
+                }
+
+                GroupedCard {
+                    // The minimum is the one figure here the app does not get to
+                    // decide, so it is typed rather than dragged — and it is on
+                    // this screen because this is where its consequences show.
+                    HStack {
+                        Text("Minimum payment")
+                            .font(.subheadline)
+                            .foregroundStyle(Theme.textSecondary)
+                        Spacer(minLength: 8)
+                        // The symbol sits outside the field so the value stays a
+                        // plain number to type into, and still reads as money. The
+                        // pair is sized to its content so the symbol stays against
+                        // the digits instead of drifting to the far side of a
+                        // fixed-width field.
+                        HStack(spacing: 2) {
+                            Text(CurrencyFormat.symbol)
+                                .foregroundStyle(Theme.textTertiary)
+                            TextField(
+                                NSDecimalNumber(decimal: debt.minimumPayment).stringValue,
+                                text: $minimumText
+                            )
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .foregroundStyle(Theme.textPrimary)
+                            .fixedSize()
+                        }
+                        .font(.subheadline.weight(.bold))
+                        .monospacedDigit()
+                    }
+                    .padding(.vertical, 12)
+
+                    RowDivider()
+                    row("Extra each month", CurrencyFormat.string(newExtra), tint: Theme.textSecondary)
+                    RowDivider()
+                    row("Total each month", CurrencyFormat.string(newPayment), tint: Theme.textPrimary)
+                }
+
+                if maximum <= 0 {
+                    Text(
+                        toward
+                            ? "There is nothing left over to move this month."
+                            : "You are only paying the minimum on this one, so there is nothing extra to take back."
+                    )
+                    .font(.caption)
+                    .foregroundStyle(Theme.textTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
             }
-
-            if maximum <= 0 {
-                Text(
-                    toward
-                        ? "There is nothing left over to move this month."
-                        : "You are only paying the minimum on this one, so there is nothing extra to take back."
-                )
-                .font(.caption)
-                .foregroundStyle(Theme.textTertiary)
-                .fixedSize(horizontal: false, vertical: true)
-            }
-
-            Spacer(minLength: 0)
-
+            .padding(.horizontal, 20)
+            .padding(.top, 20)
+            .padding(.bottom, 18)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        // The decimal pad has no return key; dragging the figures down is the
+        // way to put it away.
+        .scrollDismissesKeyboard(.interactively)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             // A swipe rather than a tap, for the same reason the entry sheet
             // uses one: this writes a change to the plan, and a stray tap on a
             // sheet that arrived under your finger should not be able to.
@@ -161,8 +177,10 @@ struct AllocateSheet: View {
                 try? context.save()
                 dismiss()
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
+            .background(Theme.background)
         }
-        .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .background(Theme.background)
         .presentationDragIndicator(.visible)
@@ -183,10 +201,12 @@ struct AllocateSheet: View {
                 .font(.subheadline)
                 .foregroundStyle(Theme.textSecondary)
             Spacer(minLength: 8)
+            // The figure wins the width; a long label wraps beside it.
             Text(value)
                 .font(.subheadline.weight(.bold))
                 .monospacedDigit()
                 .foregroundStyle(tint)
+                .fixedSize()
         }
         .padding(.vertical, 12)
     }

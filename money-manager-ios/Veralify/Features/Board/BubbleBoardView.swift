@@ -193,7 +193,10 @@ struct BubbleBoardView: View {
         }
         .sheet(item: $payingDebt) { debt in
             DebtDueSheet(debt: debt, paidThisMonth: isPaidThisMonth(debt))
-                .presentationDetents([.height(360)])
+                // Tall enough for the title, the figure, three rows and the
+                // swipe at the default type size. At 360 the stack overflowed
+                // and the debt's name sat under the grabber.
+                .presentationDetents([.height(420)])
                 .presentationBackground(Theme.background)
         }
         .sheet(isPresented: $isAdding) {
@@ -238,13 +241,18 @@ struct BubbleBoardView: View {
 
                 Spacer(minLength: 8)
 
+                // Held to one line at its natural width: on a narrow phone or
+                // at a large type size the total scales down instead, rather
+                // than the link breaking onto two lines beside it.
                 HStack(spacing: 4) {
                     Text("Whole plan")
                         .font(.footnote.weight(.bold))
+                        .lineLimit(1)
                     Image(systemName: "chevron.right")
                         .font(.caption2.weight(.bold))
                 }
                 .foregroundStyle(Theme.lime)
+                .fixedSize()
             }
             .padding(.vertical, 6)
             .contentShape(.rect)
@@ -263,6 +271,10 @@ struct BubbleBoardView: View {
         .multilineTextAlignment(.center)
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity)
+        // The hint takes its height from the board. At the largest
+        // accessibility sizes it ran to a dozen lines and left the circles no
+        // room on a small phone, so it stops growing here.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
     }
 
     // MARK: - The board

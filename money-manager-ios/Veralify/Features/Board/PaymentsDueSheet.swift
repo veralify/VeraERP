@@ -15,34 +15,39 @@ struct PaymentsDueSheet: View {
     @Environment(\.modelContext) private var context
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Still to pay")
-                    .font(.title3.weight(.bold))
-                    .foregroundStyle(Theme.textPrimary)
-                Text("Tick a payment once you have made it this month.")
-                    .font(.footnote)
-                    .foregroundStyle(Theme.textTertiary)
-            }
+        // Scrolls so a long list of debts, or a large type size, runs on
+        // rather than clipping the rows at the foot of the sheet.
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Still to pay")
+                        .font(.title3.weight(.bold))
+                        .foregroundStyle(Theme.textPrimary)
+                    Text("Tick a payment once you have made it this month.")
+                        .font(.footnote)
+                        .foregroundStyle(Theme.textTertiary)
+                }
 
-            if debts.isEmpty {
-                Text("Everything for this month is paid.")
-                    .font(.subheadline)
-                    .foregroundStyle(Theme.textSecondary)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.vertical, 28)
-            } else {
-                GroupedCard {
-                    ForEach(Array(debts.enumerated()), id: \.element.remoteID) { index, debt in
-                        if index > 0 { RowDivider() }
-                        row(debt)
+                if debts.isEmpty {
+                    Text("Everything for this month is paid.")
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 28)
+                } else {
+                    GroupedCard {
+                        ForEach(Array(debts.enumerated()), id: \.element.remoteID) { index, debt in
+                            if index > 0 { RowDivider() }
+                            row(debt)
+                        }
                     }
                 }
             }
-
-            Spacer(minLength: 0)
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(20)
+        .scrollBounceBehavior(.basedOnSize)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .background(Theme.background)
         .presentationDragIndicator(.visible)
@@ -68,10 +73,12 @@ struct PaymentsDueSheet: View {
 
                 Spacer(minLength: 8)
 
+                // The figure keeps its width; a long name wraps instead.
                 Text(CurrencyFormat.string(debt.monthlyPayment))
                     .font(.subheadline.weight(.bold))
                     .monospacedDigit()
                     .foregroundStyle(Theme.textPrimary)
+                    .fixedSize()
             }
             .padding(.vertical, 13)
             .contentShape(.rect)
