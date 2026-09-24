@@ -56,6 +56,9 @@ struct BubbleCircle: View {
                         .kerning(0.4)
                         .foregroundStyle(ink.opacity(0.9))
                         .lineLimit(1)
+                        // A long lender's name tightens before it shrinks,
+                        // and only past both does it truncate.
+                        .allowsTightening(true)
                         .minimumScaleFactor(0.6)
                 }
 
