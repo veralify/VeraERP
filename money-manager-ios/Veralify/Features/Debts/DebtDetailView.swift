@@ -37,7 +37,10 @@ struct DebtDetailView: View {
         return LoanMath.remainingMonths(
             balance: debt.balance,
             monthlyRate: Money.monthlyRate(apr: debt.apr),
-            instalment: debt.minimumPayment
+            // The monthly total, not the floor. Overpaying finishing the debt
+            // sooner is the whole point of the board, and this is the figure
+            // that is supposed to say how much sooner.
+            instalment: debt.monthlyPayment
         )
     }
 
