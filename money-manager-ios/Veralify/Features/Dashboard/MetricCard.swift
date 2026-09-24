@@ -57,7 +57,9 @@ struct MetricCard: View {
             changeChip
         }
         .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        // Fills the height its row offers, so two cards side by side end
+        // level when only one has a movement chip. Content stays at the top.
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
         .accessibilityElement(children: .combine)
     }

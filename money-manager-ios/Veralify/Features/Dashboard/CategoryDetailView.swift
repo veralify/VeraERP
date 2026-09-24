@@ -41,7 +41,7 @@ struct CategoryDetailView: View {
             Theme.background.ignoresSafeArea()
 
             ScrollView {
-                VStack(spacing: 14) {
+                VStack(spacing: 16) {
                     header
 
                     if entries.isEmpty {
@@ -51,11 +51,17 @@ struct CategoryDetailView: View {
                             message: "No entries in this category for the period you picked."
                         )
                     } else {
-                        ForEach(entries) { TransactionRow(record: $0) }
+                        // The ledger's rhythm: rows 10pt apart, the list as a
+                        // whole further from the summary above it. At one
+                        // spacing for everything, the header read as the
+                        // first entry.
+                        VStack(spacing: 10) {
+                            ForEach(entries) { TransactionRow(record: $0) }
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 12)
+                .padding(.top, 8)
                 .padding(.bottom, 28)
             }
             .scrollIndicators(.hidden)

@@ -120,7 +120,9 @@ struct SpendingByCategory: View {
     private func row(_ share: CategoryShare, colour: Color) -> some View {
         HStack(spacing: 12) {
             if share.isOther {
-                Circle().fill(colour).frame(width: 9, height: 9).frame(width: 30)
+                // Boxed to the badge's full 30×30, not only its width, so the
+                // "Everything else" row is as tall as the rows above it.
+                Circle().fill(colour).frame(width: 9, height: 9).frame(width: 30, height: 30)
             } else {
                 CategoryStyle.badge(share.name, size: 30)
             }
@@ -147,6 +149,9 @@ struct SpendingByCategory: View {
                     .monospacedDigit()
                     .foregroundStyle(Theme.textTertiary)
             }
+            // A long category name truncates; the amount beside it must not.
+            .lineLimit(1)
+            .layoutPriority(1)
 
             Image(systemName: "chevron.right")
                 .font(.caption.weight(.bold))

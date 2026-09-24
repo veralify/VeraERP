@@ -98,43 +98,49 @@ struct TimeframeSheet: View {
         ZStack {
             Theme.background.ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: 14) {
-                Text("Time frame")
-                    .font(.caption.weight(.bold))
-                    .kerning(0.6)
-                    .textCase(.uppercase)
-                    .foregroundStyle(Theme.textTertiary)
+            // The sheet is a fixed 340pt. The grid alone fits, but with the
+            // custom range open (two dates and a button) it runs to about 350,
+            // and further at large text, which cut off "Use this range". It
+            // scrolls only when it has to.
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    Text("Time frame")
+                        .font(.caption.weight(.bold))
+                        .kerning(0.6)
+                        .textCase(.uppercase)
+                        .foregroundStyle(Theme.textTertiary)
 
-                LazyVGrid(columns: columns, spacing: 8) {
-                    ForEach(Timeframe.presets, id: \.self) { option in
-                        chip(option, isSelected: timeframe == option) {
-                            timeframe = option
-                            dismiss()
+                    LazyVGrid(columns: columns, spacing: 8) {
+                        ForEach(Timeframe.presets, id: \.self) { option in
+                            chip(option, isSelected: timeframe == option) {
+                                timeframe = option
+                                dismiss()
+                            }
+                        }
+
+                        chip(.custom(start: start, end: end), isSelected: timeframe.isCustom) {
+                            withAnimation(.snappy(duration: 0.25)) { isPickingRange = true }
                         }
                     }
 
-                    chip(.custom(start: start, end: end), isSelected: timeframe.isCustom) {
-                        withAnimation(.snappy(duration: 0.25)) { isPickingRange = true }
-                    }
-                }
-
-                if isPickingRange || timeframe.isCustom {
-                    VStack(spacing: 10) {
-                        DateField(label: "From", date: $start)
-                        DateField(label: "To", date: $end)
-                        PrimaryButton(title: "Use this range", enabled: true) {
-                            timeframe = .custom(start: start, end: end)
-                            dismiss()
+                    if isPickingRange || timeframe.isCustom {
+                        VStack(spacing: 10) {
+                            DateField(label: "From", date: $start)
+                            DateField(label: "To", date: $end)
+                            PrimaryButton(title: "Use this range", enabled: true) {
+                                timeframe = .custom(start: start, end: end)
+                                dismiss()
+                            }
                         }
+                        .padding(14)
+                        .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
+                        .transition(.opacity.combined(with: .move(edge: .top)))
                     }
-                    .padding(14)
-                    .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
-                    .transition(.opacity.combined(with: .move(edge: .top)))
                 }
-
-                Spacer(minLength: 0)
+                .padding(20)
             }
-            .padding(20)
+            .scrollBounceBehavior(.basedOnSize)
+            .scrollIndicators(.hidden)
         }
     }
 
