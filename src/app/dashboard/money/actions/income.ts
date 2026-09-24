@@ -1,7 +1,15 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { assertSaved, currentUser, dayField, numberField, read, revalidateMoney } from './shared';
+import {
+  assertSaved,
+  currentUser,
+  dayField,
+  numberField,
+  read,
+  revalidateMoney,
+  softDeleteStamp,
+} from './shared';
 
 export async function addIncomeAction(formData: FormData) {
   const { supabase, user } = await currentUser();
@@ -33,7 +41,8 @@ export async function updateIncomeAction(formData: FormData) {
     .from('money_income')
     .update({ name, amount, type, payday, active })
     .eq('id', id)
-    .eq('user_id', user.id);
+    .eq('user_id', user.id)
+    .is('deleted_at', null);
   assertSaved(error, 'income');
   revalidateMoney('income');
   redirect('/dashboard/money/income?saved=1');
@@ -44,9 +53,10 @@ export async function deleteIncomeAction(formData: FormData) {
   const id = read(formData, 'id');
   const { error } = await supabase
     .from('money_income')
-    .delete()
+    .update(softDeleteStamp())
     .eq('id', id)
-    .eq('user_id', user.id);
+    .eq('user_id', user.id)
+    .is('deleted_at', null);
   assertSaved(error, 'income');
   revalidateMoney('income');
   redirect('/dashboard/money/income');

@@ -9,6 +9,7 @@ import {
   numberField,
   read,
   revalidateMoney,
+  softDeleteStamp,
 } from './shared';
 
 export async function addDebtAction(formData: FormData) {
@@ -57,7 +58,8 @@ export async function updateDebtAction(formData: FormData) {
       priority,
     })
     .eq('id', id)
-    .eq('user_id', user.id);
+    .eq('user_id', user.id)
+    .is('deleted_at', null);
   assertSaved(error, 'debts');
   revalidateMoney('debts');
   redirect('/dashboard/money/debts?saved=1');
@@ -66,7 +68,12 @@ export async function updateDebtAction(formData: FormData) {
 export async function deleteDebtAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
-  const { error } = await supabase.from('money_debts').delete().eq('id', id).eq('user_id', user.id);
+  const { error } = await supabase
+    .from('money_debts')
+    .update(softDeleteStamp())
+    .eq('id', id)
+    .eq('user_id', user.id)
+    .is('deleted_at', null);
   assertSaved(error, 'debts');
   revalidateMoney('debts');
   redirect('/dashboard/money/debts');
@@ -82,8 +89,10 @@ export async function updatePlanSettingsAction(formData: FormData) {
 
   const { error } = await supabase.from('money_settings').upsert(
     [
-      { user_id: user.id, key: 'targetMonths', value: String(targetMonths) },
-      { user_id: user.id, key: 'startDate', value: startDate },
+      // `deleted_at: null` revives a setting another device soft-deleted: the
+      // row keeps its (user_id, key) primary key, so the upsert lands on it.
+      { user_id: user.id, key: 'targetMonths', value: String(targetMonths), deleted_at: null },
+      { user_id: user.id, key: 'startDate', value: startDate, deleted_at: null },
     ],
     { onConflict: 'user_id,key' },
   );

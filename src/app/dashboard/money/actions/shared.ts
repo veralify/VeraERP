@@ -46,6 +46,16 @@ export function assertSaved(error: { message: string } | null, domain: string) {
   if (error) redirect(`/dashboard/money/${domain}?error=save`);
 }
 
+/**
+ * Tables that sync with the phone (money_income, money_expenses, money_debts,
+ * money_transactions, money_settings, money_budgets) are never hard-deleted:
+ * a missing row can't tell another device to drop its copy, a tombstone can.
+ * Delete actions stamp `deleted_at` with this; every read filters it out.
+ */
+export function softDeleteStamp() {
+  return { deleted_at: new Date().toISOString() };
+}
+
 /** Revalidates both the domain sub-page and the shared Overview page. */
 export function revalidateMoney(domain: string) {
   revalidatePath('/dashboard/money');

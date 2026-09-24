@@ -31,6 +31,7 @@ export default async function IncomePage({ searchParams }: { searchParams: Searc
     .from('money_income')
     .select('id, name, amount, type, payday, active')
     .eq('user_id', user.id)
+    .is('deleted_at', null)
     .order('created_at', { ascending: false });
   const income = rows ?? [];
 
