@@ -137,9 +137,12 @@ struct QuickAddSheet: View {
                 Text(direction.sign)
                     .font(.system(size: 34, weight: .bold))
                     .foregroundStyle(direction.accent)
-                Text("€")
+                // The display currency, not a hard-coded euro: someone who picked
+                // pounds was typing amounts under a "€".
+                Text(CurrencyFormat.symbol)
                     .font(.system(size: 34, weight: .bold))
                     .foregroundStyle(Theme.textSecondary)
+                    .lineLimit(1)
                 Text(amountText)
                     .font(.system(size: 62, weight: .bold))
                     .monospacedDigit()
