@@ -29,9 +29,12 @@ struct BudgetsView: View {
     }
 
     private var report: BudgetReport {
+        // Bounded at both ends: an entry dated into next month is next month's
+        // spending, not this one's.
         let start = MonthlySnapshot.monthStart(for: .now)
+        let end = Calendar.current.date(byAdding: .month, value: 1, to: start) ?? .distantFuture
         let spending = transactions
-            .filter { $0.occurredAt >= start && $0.direction == .debit }
+            .filter { $0.occurredAt >= start && $0.occurredAt < end && $0.direction == .debit }
             .map { (category: $0.category, amount: $0.amount) }
 
         return BudgetTracker.report(

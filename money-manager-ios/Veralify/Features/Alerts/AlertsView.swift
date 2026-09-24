@@ -97,7 +97,7 @@ struct AlertsSummary {
             else { continue }
             bills.append(UpcomingBill(name: expense.name, amount: expense.amount, daysUntil: days, isDebt: false))
         }
-        for debt in debts where !debtsWithPlannedPayment.contains(debt.remoteID) {
+        for debt in debts where !debt.isPaidOff && !debtsWithPlannedPayment.contains(debt.remoteID) {
             guard let day = debt.dueDay,
                   let days = BillSchedule.daysUntil(dueDay: day, from: now),
                   days <= Self.horizonDays
@@ -107,7 +107,7 @@ struct AlertsSummary {
         upcoming = bills.sorted { $0.daysUntil < $1.daysUntil }
 
         itemsMissingDueDate = expenses.filter { $0.isActive && $0.dueDay == nil }.count
-            + debts.filter { $0.dueDay == nil }.count
+            + debts.filter { !$0.isPaidOff && $0.dueDay == nil }.count
     }
 }
 

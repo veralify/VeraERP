@@ -37,8 +37,7 @@ struct AllocateSheet: View {
     }
 
     private var editedMinimum: Decimal {
-        Decimal(string: minimumText.replacingOccurrences(of: ",", with: "."))
-            ?? debt.minimumPayment
+        AmountParser.parse(minimumText) ?? debt.minimumPayment
     }
 
     private var newPayment: Decimal { editedMinimum + newExtra }

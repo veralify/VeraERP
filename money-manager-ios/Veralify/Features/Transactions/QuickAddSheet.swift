@@ -28,7 +28,9 @@ struct QuickAddSheet: View {
         Decimal(string: digits.isEmpty ? "0" : digits, locale: Locale(identifier: "en_US_POSIX")) ?? 0
     }
 
-    private var canCommit: Bool { amount > 0 }
+    /// False once committed: the swipe control stays on screen while the form
+    /// fades out, and a second swipe in that window saved the entry twice.
+    private var canCommit: Bool { amount > 0 && !isCommitting }
 
     private var amountText: String {
         let whole = digits.split(separator: ".", maxSplits: 1, omittingEmptySubsequences: false)
@@ -215,6 +217,9 @@ struct QuickAddSheet: View {
         default:
             // Two decimal places is the most a currency amount can carry.
             if let dot = digits.firstIndex(of: "."), digits.distance(from: dot, to: digits.endIndex) > 2 { return }
+            // Nine whole digits covers any household amount; beyond that the
+            // figure overflows the display rather than meaning anything.
+            if !digits.contains("."), digits.count >= 9 { return }
             if digits == "0" { digits = key } else { digits += key }
         }
     }

@@ -54,8 +54,16 @@ final class DebtRecord {
         self.createdAt = createdAt
     }
 
-    /// What actually leaves the account for this debt each month.
-    var monthlyPayment: Decimal { minimumPayment + max(extraPayment, 0) }
+    /// Cleared debts stay in the store as a record of progress, but nothing is
+    /// owed on them any more.
+    var isPaidOff: Bool { balance <= 0 }
+
+    /// What actually leaves the account for this debt each month — nothing once
+    /// it is cleared. Without that, a paid-off loan kept its instalment in the
+    /// monthly outgoings, so net cash flow stayed understated for good.
+    var monthlyPayment: Decimal {
+        isPaidOff ? 0 : minimumPayment + max(extraPayment, 0)
+    }
 
     /// The value type the payoff engine consumes.
     ///

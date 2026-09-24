@@ -68,6 +68,46 @@ struct DebtPaymentTests {
         #expect(debt.balance == Decimal(string: "6491.72")!)
     }
 
+    @Test("Undoing an overpayment restores what was owed, not what was paid")
+    func reverseOverpaymentRestoresOriginalBalance() {
+        // Applying clamps at zero, so a €9,000 payment only takes €6,491.72 off.
+        // Giving back the full €9,000 on delete used to leave the debt larger
+        // than it ever was.
+        let debt = intesa()
+        let over = payment(9000)
+
+        debt.applyPayment(over)
+        debt.reversePayment(over)
+
+        #expect(debt.balance == Decimal(string: "6491.72")!)
+    }
+
+    @Test("A cleared debt stops costing anything each month")
+    func clearedDebtHasNoMonthlyPayment() {
+        // Its instalment used to stay in the monthly outgoings, reminders and
+        // due list after the balance reached zero.
+        let debt = intesa()
+        debt.extraPayment = 50
+        debt.applyPayment(payment(9000))
+
+        #expect(debt.isPaidOff)
+        #expect(debt.monthlyPayment == 0)
+        #expect(debt.asDebt.minimumPayment == 0)
+    }
+
+    @Test("A payment can be marked paid, unpaid and paid again")
+    func reapplyAfterReverse() {
+        let debt = intesa()
+        let over = payment(9000)
+
+        debt.applyPayment(over)
+        debt.reversePayment(over)
+        debt.applyPayment(over)
+
+        #expect(debt.balance == 0)
+        #expect(over.appliedAmount == Decimal(string: "6491.72")!)
+    }
+
     @Test("Only the capital of an early repayment touches the balance")
     func interestDoesNotReduceBalance() {
         // The lender charges accrued interest on top; it leaves the account but
