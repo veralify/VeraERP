@@ -7,7 +7,8 @@ export type AiGatewayRoute =
   | 'insight'
   | 'progress-analysis'
   | 'recommendations'
-  | 'feedback';
+  | 'feedback'
+  | 'receipts-extract';
 
 export function rawRouteName(url: URL | string) {
   const u = typeof url === 'string' ? new URL(url) : url;
@@ -18,6 +19,6 @@ export function normalizeAiRoute(url: URL | string): AiGatewayRoute | null {
   const route = rawRouteName(url);
   if (route === 'food-estimate') return 'analyze-food';
   if (route === 'progress-analysis') return 'progress-analysis';
-  if (['analyze-food', 'food-verify', 'chat', 'insight', 'recommendations', 'feedback'].includes(route)) return route as AiGatewayRoute;
+  if (['analyze-food', 'food-verify', 'chat', 'insight', 'recommendations', 'feedback', 'receipts-extract'].includes(route)) return route as AiGatewayRoute;
   return null;
 }

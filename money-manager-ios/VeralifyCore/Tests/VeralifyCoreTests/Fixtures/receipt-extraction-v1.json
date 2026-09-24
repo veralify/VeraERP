@@ -1,0 +1,112 @@
+{
+  "version": "1",
+  "receipt_id": "33333333-3333-4333-8333-333333333333",
+  "document_type": "scontrino",
+  "merchant": {
+    "name": {
+      "value": "ESSELUNGA S.p.A.",
+      "confidence": 0.97
+    },
+    "vat_id": {
+      "value": "IT04916380159",
+      "confidence": 0.9
+    },
+    "address": {
+      "value": "Viale Piave 1, Milano",
+      "confidence": 0.8
+    },
+    "country": {
+      "value": "IT",
+      "confidence": 0.95
+    }
+  },
+  "merchant_key": "esselunga",
+  "date": {
+    "value": "2026-09-20",
+    "confidence": 0.96
+  },
+  "time": {
+    "value": "18:42",
+    "confidence": 0.9
+  },
+  "currency": {
+    "value": "EUR",
+    "confidence": 0.99
+  },
+  "total": {
+    "value": "12.50",
+    "confidence": 0.98
+  },
+  "subtotal": {
+    "value": null,
+    "confidence": 0
+  },
+  "tip": {
+    "value": null,
+    "confidence": 0
+  },
+  "discount": {
+    "value": "1.00",
+    "confidence": 0.9
+  },
+  "tax_total": {
+    "value": "1.07",
+    "confidence": 0.6
+  },
+  "tax_lines": [
+    {
+      "rate": "10",
+      "taxable": "4.36",
+      "tax": "0.44"
+    },
+    {
+      "rate": "22",
+      "taxable": "2.86",
+      "tax": "0.63"
+    }
+  ],
+  "line_items": [
+    {
+      "description": "LATTE INTERO",
+      "quantity": "1",
+      "unit_price": "1.29",
+      "amount": "1.29"
+    },
+    {
+      "description": "PANE",
+      "quantity": null,
+      "unit_price": null,
+      "amount": "3.21"
+    },
+    {
+      "description": "DETERSIVO",
+      "quantity": "2",
+      "unit_price": "4.50",
+      "amount": "9.00"
+    }
+  ],
+  "payment": {
+    "method": {
+      "value": "card",
+      "confidence": 0.9
+    },
+    "card_last4": {
+      "value": "1234",
+      "confidence": 0.8
+    }
+  },
+  "receipt_number": {
+    "value": "0042-0117",
+    "confidence": 0.8
+  },
+  "category": {
+    "key": "groceries",
+    "confidence": 0.93,
+    "source": "model"
+  },
+  "scope_suggestion": "personal",
+  "duplicate_of": "44444444-4444-4444-8444-444444444444",
+  "warnings": [],
+  "model": "google/gemini-3.7-flash",
+  "prompt_version": "receipts-v1"
+}
