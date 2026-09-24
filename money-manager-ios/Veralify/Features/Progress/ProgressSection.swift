@@ -136,6 +136,8 @@ struct ProgressSection: View {
                             .font(.system(size: 30, weight: .bold))
                             .foregroundStyle(Theme.textPrimary)
                             .monospacedDigit()
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
                     }
                 }
                 Spacer(minLength: 8)
@@ -147,9 +149,14 @@ struct ProgressSection: View {
             HStack(spacing: 6) {
                 ForEach(week, id: \.day) { entry in
                     VStack(spacing: 5) {
+                        // Seven columns across a small phone leave ~40pt each,
+                        // and abbreviated Arabic weekdays are whole words: one
+                        // line, scaled, so every column keeps the same height.
                         Text(entry.day.formatted(.dateTime.weekday(.abbreviated)))
                             .font(.caption2)
                             .foregroundStyle(Theme.textTertiary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
                         Image(systemName: entry.isActive ? "checkmark.circle.fill" : "circle")
                             .font(.system(size: 17))
                             .foregroundStyle(entry.isActive ? Theme.green : Theme.stroke)
@@ -192,6 +199,8 @@ struct ProgressSection: View {
                     .font(.footnote)
                     .foregroundStyle(Theme.textTertiary)
             }
+            // The title keeps its width; the count shrinks before it does.
+            .layoutPriority(1)
             Spacer(minLength: 8)
             HStack(spacing: 8) {
                 CompletionRing(completed: isRolling ? completedToday : 0, total: Quest.all.count)
@@ -200,6 +209,8 @@ struct ProgressSection: View {
                         .font(.subheadline)
                         .foregroundStyle(Theme.textSecondary)
                         .monospacedDigit()
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                 }
             }
         }
@@ -285,6 +296,9 @@ struct ProgressSection: View {
                 .padding(.top, 2)
             }
         }
+        // Out to the tick, so the empty stretch between a short title and the
+        // tick opens the quest too instead of swallowing the tap.
+        .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(.rect)
         .accessibilityElement(children: .combine)
         .accessibilityHint("Shows what to do")

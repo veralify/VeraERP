@@ -23,8 +23,12 @@ struct BudgetHistoryCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             summary
-            if !charted.isEmpty { chart }
-            legend
+            // The legend goes with the chart: on its own it was an empty row
+            // that still took the stack's spacing under the sentence.
+            if !charted.isEmpty {
+                chart
+                legend
+            }
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -159,6 +163,7 @@ struct FlowRow: Layout {
         var rows: CGFloat = 1
         var x: CGFloat = 0
         var height: CGFloat = 0
+        var widest: CGFloat = 0
 
         for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
@@ -167,10 +172,15 @@ struct FlowRow: Layout {
                 x = 0
             }
             x += size.width + spacing
+            widest = max(widest, x - spacing)
             height = max(height, size.height)
         }
 
-        return CGSize(width: width, height: rows * height + (rows - 1) * spacing)
+        // Asked for an ideal size (a nil width, as `fixedSize` or
+        // `ViewThatFits` do), this used to answer "infinitely wide". The
+        // content's own width is the honest answer.
+        guard !subviews.isEmpty else { return .zero }
+        return CGSize(width: width.isFinite ? width : widest, height: rows * height + (rows - 1) * spacing)
     }
 
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
