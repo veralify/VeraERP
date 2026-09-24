@@ -28,6 +28,14 @@ struct DashboardView: View {
     /// the dashboard rather than by way of the debts list.
     @State private var payingDebt: DebtRecord?
 
+    /// Two metric cards side by side leave each about 150pt; at accessibility
+    /// text sizes that is too narrow for a title and a figure, so they stack.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// The due cards scroll sideways, so their width is free to grow with the
+    /// text; a fixed 208 truncated the name at larger sizes.
+    @ScaledMetric(relativeTo: .subheadline) private var dueCardWidth: CGFloat = 208
+
     /// Days until the nearest due payment, or nil when nothing is scheduled.
     private var soonestDueInDays: Int? {
         let now = Date()
@@ -97,8 +105,12 @@ struct DashboardView: View {
     /// Income, core expenses and debts as their own cards, each carrying what it
     /// has done since the month began.
     private var metricCards: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 12) {
+        let pairLayout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 12))
+            : AnyLayout(HStackLayout(spacing: 12))
+
+        return VStack(spacing: 12) {
+            pairLayout {
                 NavigationLink(value: EntryKind.income) {
                     MetricCard(
                         title: "Income",
@@ -127,6 +139,8 @@ struct DashboardView: View {
                 }
                 .buttonStyle(.pressable)
             }
+            // With the cards' own `maxHeight: .infinity`, this makes the pair
+            // share the taller card's height instead of ending unevenly.
             .fixedSize(horizontal: false, vertical: true)
 
             NavigationLink(value: EntryKind.debt) {
@@ -173,27 +187,32 @@ struct DashboardView: View {
                 ScrollView(.horizontal) {
                     HStack(spacing: 8) {
                         ForEach(rest) { debt in
-                        Button {
-                            payingDebt = debt
-                        } label: {
-                            HStack(spacing: 7) {
-                                Image(systemName: "plus.circle.fill")
-                                    .font(.caption.weight(.bold))
-                                    .foregroundStyle(Theme.lime)
-                                Text(LocalizedStringKey(debt.name))
-                                    .font(.subheadline.weight(.semibold))
-                                    .foregroundStyle(Theme.textPrimary)
-                                Text(CurrencyFormat.string(debt.monthlyPayment))
-                                    .font(.subheadline.weight(.bold))
-                                    .monospacedDigit()
-                                    .foregroundStyle(Theme.textSecondary)
+                            Button {
+                                payingDebt = debt
+                            } label: {
+                                HStack(spacing: 7) {
+                                    Image(systemName: "plus.circle.fill")
+                                        .font(.caption.weight(.bold))
+                                        .foregroundStyle(Theme.lime)
+                                    Text(LocalizedStringKey(debt.name))
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(Theme.textPrimary)
+                                    Text(CurrencyFormat.string(debt.monthlyPayment))
+                                        .font(.subheadline.weight(.bold))
+                                        .monospacedDigit()
+                                        .foregroundStyle(Theme.textSecondary)
+                                }
+                                .lineLimit(1)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 10)
+                                .background(Theme.surface, in: .capsule)
+                                .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
+                                // The capsule is about 40pt tall; an invisible
+                                // margin brings the target to 44 without making
+                                // the chip itself any bigger.
+                                .padding(.vertical, 2)
+                                .contentShape(.rect)
                             }
-                            .lineLimit(1)
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 10)
-                            .background(Theme.surface, in: .capsule)
-                            .overlay(Capsule().strokeBorder(Theme.stroke, lineWidth: 1))
-                        }
                             .buttonStyle(.pressable)
                             .accessibilityLabel("Record a payment for \(debt.name)")
                         }
@@ -309,7 +328,8 @@ struct DashboardView: View {
         let items = dueItems
 
         if !items.isEmpty {
-            VStack(spacing: 10) {
+            // 12 between header and content, the same as the Today section.
+            VStack(spacing: 12) {
                 SectionHeader(title: "Due soon") {
                     Text(CurrencyFormat.string(items.reduce(Decimal(0)) { $0 + $1.amount }))
                         .font(.subheadline.weight(.bold))
@@ -381,8 +401,8 @@ struct DashboardView: View {
                 }
             }
         }
-        .padding(13)
-        .frame(width: 208, alignment: .leading)
+        .padding(14)
+        .frame(width: dueCardWidth, alignment: .leading)
         .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
         .overlay(
             RoundedRectangle(cornerRadius: Theme.Radius.card)
@@ -428,6 +448,14 @@ struct DashboardView: View {
                             .font(.caption2.weight(.bold))
                     }
                     .foregroundStyle(Theme.lime)
+                    // A caption link is about 16pt tall. Pad the hit area out
+                    // to 44 and take the padding back from the layout, so the
+                    // header row stays the height of "Due soon"'s.
+                    .padding(.vertical, 14)
+                    .padding(.leading, 12)
+                    .contentShape(.rect)
+                    .padding(.vertical, -14)
+                    .padding(.leading, -12)
                 }
                 .buttonStyle(.pressable)
             }
@@ -452,12 +480,18 @@ struct DashboardView: View {
                 }
                 .buttonStyle(.pressable)
             } else {
-                GroupedCard {
+                // Not `GroupedCard`: its 16pt inset stacked on the row's own 14
+                // put the entries 30pt in from the card edge, twice the inset
+                // of every other card here. The row brings its own padding, so
+                // the card only supplies the surface, with dividers inset to
+                // match the row content.
+                VStack(spacing: 0) {
                     ForEach(Array(today.prefix(4).enumerated()), id: \.element.id) { index, record in
-                        if index > 0 { RowDivider() }
+                        if index > 0 { RowDivider().padding(.horizontal, 14) }
                         entryRow(record)
                     }
                 }
+                .background(Theme.surface, in: .rect(cornerRadius: Theme.Radius.card))
             }
         }
     }
@@ -499,13 +533,13 @@ struct DashboardView: View {
 
         return NavigationLink(value: CashFlowRoute()) {
             AccentCard(
-            eyebrow: "Net available flow",
-            amount: summary.netCashFlow,
-            caption: summary.netCashFlow >= 0
-                ? "After expenses and payments"
-                : "Your commitments exceed your income this month",
-            progress: cleared?.fraction ?? 0,
-            progressLabel: progressLabel(for: cleared),
+                eyebrow: "Net available flow",
+                amount: summary.netCashFlow,
+                caption: summary.netCashFlow >= 0
+                    ? "After expenses and payments"
+                    : "Your commitments exceed your income this month",
+                progress: cleared?.fraction ?? 0,
+                progressLabel: progressLabel(for: cleared),
                 accent: summary.netCashFlow >= 0 ? Theme.lime : Theme.red
             )
         }
@@ -530,23 +564,51 @@ struct DashboardView: View {
 
     private var planPills: some View {
         HStack(spacing: 10) {
-            Pill(
-                text: CurrencyFormat.string(summary.plan.requiredMonthly),
-                style: .outlined(summary.plan.isFeasible ? Theme.lime : Theme.red)
-            )
-            Pill(
-                text: summary.plan.isFeasible
-                    ? String(localized: "Achievable")
-                    : String(localized: "Needs adjusting"),
-                style: .muted(dot: summary.plan.isFeasible ? Theme.green : Theme.red)
-            )
-            Pill(text: String(localized: "\(summary.plan.targetMonths) months"))
+            // Three pills and a chevron need about 350pt with "Needs
+            // adjusting", more than a 375pt phone leaves inside the gutters,
+            // and far more in Arabic or at large text. When one line will not
+            // hold them, the months pill drops to a second line rather than
+            // every pill squeezing its text onto two.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 10) {
+                    requiredPill
+                    feasibilityPill
+                    monthsPill
+                }
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack(spacing: 10) {
+                        requiredPill
+                        feasibilityPill
+                    }
+                    monthsPill
+                }
+            }
             Spacer(minLength: 0)
             Image(systemName: "chevron.right")
                 .font(.caption.weight(.bold))
                 .foregroundStyle(Theme.textTertiary)
         }
         .contentShape(.rect)
+    }
+
+    private var requiredPill: some View {
+        Pill(
+            text: CurrencyFormat.string(summary.plan.requiredMonthly),
+            style: .outlined(summary.plan.isFeasible ? Theme.lime : Theme.red)
+        )
+    }
+
+    private var feasibilityPill: some View {
+        Pill(
+            text: summary.plan.isFeasible
+                ? String(localized: "Achievable")
+                : String(localized: "Needs adjusting"),
+            style: .muted(dot: summary.plan.isFeasible ? Theme.green : Theme.red)
+        )
+    }
+
+    private var monthsPill: some View {
+        Pill(text: String(localized: "\(summary.plan.targetMonths) months"))
     }
 
 }

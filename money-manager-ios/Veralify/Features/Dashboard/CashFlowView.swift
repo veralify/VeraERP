@@ -39,6 +39,10 @@ struct CashFlowView: View {
     @State private var direction: EntryDirection = .debit
     @State private var timeframe: Timeframe = .month
 
+    /// Three stat tiles share about 107pt each; at accessibility text sizes
+    /// their labels no longer fit, so the tiles stack instead.
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     enum Scope: Int, CaseIterable, Identifiable {
         case month, spending, plan
         var id: Int { rawValue }
@@ -105,7 +109,7 @@ struct CashFlowView: View {
                     }
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 10)
+                .padding(.top, 8)
                 .padding(.bottom, 108)
             }
             .scrollIndicators(.hidden)
@@ -228,7 +232,11 @@ struct CashFlowView: View {
     /// what is left when it is over — the answer to "should I keep going" in
     /// the width of the screen.
     private func planStats(_ analysis: Analysis) -> some View {
-        HStack(spacing: 10) {
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 10))
+            : AnyLayout(HStackLayout(spacing: 10))
+
+        return layout {
             statTile(
                 "Each month",
                 CurrencyFormat.string(analysis.dashboard.plan.requiredMonthly),
@@ -309,21 +317,30 @@ struct CashFlowView: View {
                 .fill(colour)
                 .frame(width: 9, height: 9)
 
-            Text(title)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Theme.textPrimary)
+            // The title and its share sit on one baseline; centred, the smaller
+            // caption rode visibly higher than the label it qualifies.
+            HStack(alignment: .firstTextBaseline, spacing: 12) {
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary)
 
-            Text("\(share)%")
-                .font(.caption.weight(.bold))
-                .monospacedDigit()
-                .foregroundStyle(Theme.textTertiary)
+                Text("\(share)%")
+                    .font(.caption.weight(.bold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.textTertiary)
+                    .fixedSize()
+            }
 
             Spacer(minLength: 8)
 
+            // The amount is the point of the row: when space runs short the
+            // title wraps, the figure never truncates.
             Text(CurrencyFormat.string(amount))
                 .font(.subheadline.weight(.bold))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
+                .lineLimit(1)
+                .layoutPriority(1)
 
             Image(systemName: "chevron.right")
                 .font(.caption.weight(.bold))
