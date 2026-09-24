@@ -32,6 +32,11 @@ final class DebtPayment {
     /// instalment before restoring, so an older payment cannot clobber a newer
     /// one's recalculation.
     var newMinimum: Decimal?
+    /// What applying this payment actually took off the balance. Less than
+    /// `amount` when it overpaid and the balance was clamped at zero; reversing
+    /// must give back only this, or undoing an overpayment inflates the debt.
+    /// `nil` while unapplied, and on payments recorded before this existed.
+    var appliedAmount: Decimal?
     var note: String
     var createdAt: Date
 
@@ -70,7 +75,9 @@ extension DebtRecord {
     /// debt rather than pushing the balance negative, which would corrupt the
     /// payoff plan.
     func applyPayment(_ payment: DebtPayment) {
-        balance = max(0, balance - payment.amount)
+        let applied = min(payment.amount, max(balance, 0))
+        payment.appliedAmount = applied
+        balance -= applied
         if let recalculated = payment.newMinimum {
             minimumPayment = recalculated
         }
@@ -83,7 +90,8 @@ extension DebtRecord {
     /// only the capital goes back and the instalment is left as it stands,
     /// rather than silently resurrecting a figure that is no longer true.
     func reversePayment(_ payment: DebtPayment) {
-        balance += payment.amount
+        balance += payment.appliedAmount ?? payment.amount
+        payment.appliedAmount = nil
         guard let restored = payment.previousMinimum,
               let applied = payment.newMinimum,
               minimumPayment == applied

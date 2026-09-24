@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 /// Preferences, what is stored, and the ways out.
 ///
@@ -221,6 +222,13 @@ struct AccountView: View {
         for item in documents { context.delete(item) }
         for item in budgets { context.delete(item) }
         try? context.save()
+        // Scheduled reminders outlive the rows they describe. Left queued, a
+        // wiped vault still announced "your passport (number) expires" weeks
+        // later, and bills for deleted debts kept arriving. Every notification
+        // this app schedules is a money or document reminder, so all of them go.
+        let notifications = UNUserNotificationCenter.current()
+        notifications.removeAllPendingNotificationRequests()
+        notifications.removeAllDeliveredNotifications()
         // Send the user back through setup so the app is never left in a state
         // with no income, no debts and no way to add the first one.
         hasCompletedOnboarding = false

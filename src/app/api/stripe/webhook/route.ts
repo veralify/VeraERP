@@ -59,6 +59,13 @@ export async function POST(request: Request) {
         }
         break;
       }
+      case 'checkout.session.expired': {
+        const session = event.data.object as Stripe.Checkout.Session;
+        if (session.mode === 'payment' && session.metadata?.type === 'session_booking') {
+          await releaseExpiredBooking(session);
+        }
+        break;
+      }
       case 'customer.subscription.created':
       case 'customer.subscription.updated':
       case 'customer.subscription.deleted': {
@@ -178,12 +185,15 @@ async function finalizeSessionBooking(
   const platformFeeCents = paymentIntent.application_fee_amount ?? 0;
   const currency = paymentIntent.currency.toUpperCase();
 
-  await Promise.all([
+  const updates = await Promise.all([
     supabaseAdmin.from('session_bookings').update({ status: 'confirmed' }).eq('id', bookingId),
     supabaseAdmin.from('coach_sessions').update({ status: 'confirmed' }).eq('id', sessionId),
   ]);
+  // Throwing turns into a 500, so Stripe retries instead of the payment silently
+  // leaving the booking unconfirmed.
+  for (const { error } of updates) if (error) throw new Error(error.message);
 
-  const { data: paymentRow } = await supabaseAdmin
+  const { data: paymentRow, error: paymentError } = await supabaseAdmin
     .from('session_payment_intents')
     .upsert(
       {
@@ -201,8 +211,21 @@ async function finalizeSessionBooking(
     .select('id')
     .single();
 
+  if (paymentError) throw new Error(paymentError.message);
+
   if (paymentRow) {
-    await supabaseAdmin.from('coach_transactions').insert({
+    // Stripe delivers webhooks at least once; skip the ledger insert on a redelivery
+    // so the coach isn't credited twice for one payment.
+    const { data: existingCharge } = await supabaseAdmin
+      .from('coach_transactions')
+      .select('id')
+      .eq('session_payment_intent_id', paymentRow.id)
+      .eq('type', 'charge')
+      .limit(1)
+      .maybeSingle();
+    if (existingCharge) return;
+
+    const { error: ledgerError } = await supabaseAdmin.from('coach_transactions').insert({
       coach_id: coachId,
       session_payment_intent_id: paymentRow.id,
       type: 'charge',
@@ -210,5 +233,35 @@ async function finalizeSessionBooking(
       currency,
       stripe_ref: paymentIntentId,
     });
+    if (ledgerError) throw new Error(ledgerError.message);
   }
+}
+
+/**
+ * The booking route reserves the slot before sending the client to Checkout. If
+ * they never pay, Checkout expires the session; without this the slot stayed
+ * "booked" forever and nobody else could book it.
+ */
+async function releaseExpiredBooking(session: Stripe.Checkout.Session) {
+  const bookingId = session.metadata?.booking_id;
+  const sessionId = session.metadata?.session_id;
+  const clientId = session.metadata?.client_id;
+  if (!bookingId || !sessionId || !clientId) return;
+
+  const { data: released, error } = await supabaseAdmin
+    .from('session_bookings')
+    .delete()
+    .eq('id', bookingId)
+    .eq('status', 'payment_required')
+    .select('id');
+  if (error) throw new Error(error.message);
+  if (!released?.length) return; // Already paid or cleaned up.
+
+  const { error: slotError } = await supabaseAdmin
+    .from('coach_sessions')
+    .update({ status: 'available', client_id: null })
+    .eq('id', sessionId)
+    .eq('status', 'booked')
+    .eq('client_id', clientId);
+  if (slotError) throw new Error(slotError.message);
 }

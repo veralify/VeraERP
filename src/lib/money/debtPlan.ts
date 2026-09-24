@@ -66,12 +66,16 @@ export function simulateAvalanche(debts: DebtRow[], budget: number, months: numb
   return { schedule, remaining: balances.reduce((a, b) => a + b, 0) };
 }
 
-function monthsBetween(start: string, n: number): Date[] {
-  const d = new Date(`${start}T00:00:00`);
+/**
+ * First-of-month labels (`YYYY-MM`) for `n` consecutive months. Built from
+ * year/month directly: `setMonth` on a day like the 31st overflows into the
+ * following month (Jan 31 + 1 month = Mar 3), which skipped/duplicated rows.
+ */
+function monthsBetween(start: string, n: number): string[] {
+  const [y, m] = start.split('-').map(Number);
   return Array.from({ length: n }, (_, i) => {
-    const x = new Date(d);
-    x.setMonth(d.getMonth() + i);
-    return new Date(x.getFullYear(), x.getMonth(), 1);
+    const d = new Date(y, m - 1 + i, 1);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
   });
 }
 
@@ -164,8 +168,8 @@ export function computeDebtPlan({
     feasible,
     usedMonthly: money(feasible ? budget : available),
     projectedRemaining: money(sim.remaining),
-    months: dates.map((d, i) => ({
-      month: d.toISOString().slice(0, 7),
+    months: dates.map((month, i) => ({
+      month,
       payments: Object.fromEntries(
         debts.map((x, j) => [x.name, money(sim.schedule[i]?.paid[j] || 0)]),
       ),

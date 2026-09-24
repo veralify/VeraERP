@@ -56,8 +56,13 @@ export async function getMoneySnapshot(supabase: SupabaseClient, userId: string)
   const savingsContribution = activeSavings.reduce((s, r) => s + Number(r.monthly_contribution), 0);
   const netCashFlow = monthlyIncome - monthlyExpenses - debtMinPayments - savingsContribution;
 
-  const targetMonths = Number(settings.targetMonths) || 12;
-  const startDate = settings.startDate || new Date().toISOString().slice(0, 10);
+  // Guard against settings rows saved before validation existed: an invalid date would
+  // make the payoff table throw, and an unbounded horizon renders thousands of rows.
+  const storedMonths = Math.trunc(Number(settings.targetMonths));
+  const targetMonths = storedMonths >= 1 ? Math.min(storedMonths, 120) : 12;
+  const startDate = /^\d{4}-\d{2}-\d{2}$/.test(settings.startDate ?? '')
+    ? settings.startDate
+    : new Date().toISOString().slice(0, 10);
 
   return {
     income,

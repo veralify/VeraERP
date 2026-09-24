@@ -259,10 +259,22 @@ struct EntryListView: View {
         switch target {
         case .income(let item):  context.delete(item)
         case .expense(let item): context.delete(item)
-        case .debt(let item):
-            purgeRecords(forDebt: item.remoteID, in: context)
-            context.delete(item)
+        case .debt(let item):    context.deleteDebt(item)
         }
         try? context.save()
+    }
+}
+
+extension ModelContext {
+    /// Deletes a debt together with its payment ledger.
+    ///
+    /// Payments point at a debt by `remoteID`, and a new debt takes the next id
+    /// after the highest — so deleting the newest debt and adding another reused
+    /// its id, and the old debt's payments (planned ones included) attached
+    /// themselves to the new one: in its history, its due list and its reminders.
+    func deleteDebt(_ debt: DebtRecord) {
+        let id = debt.remoteID
+        try? delete(model: DebtPayment.self, where: #Predicate { $0.debtRemoteID == id })
+        delete(debt)
     }
 }

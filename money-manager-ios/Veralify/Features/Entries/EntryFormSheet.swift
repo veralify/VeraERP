@@ -71,10 +71,23 @@ struct EntryFormSheet: View {
     }
 
     private var canSave: Bool {
+        // A cleared debt is edited at a zero balance (to rename it, say); a new
+        // entry of nothing is not worth adding.
+        let allowsZero = isEditing && kind == .debt
         guard !name.trimmingCharacters(in: .whitespaces).isEmpty,
-              let value = AmountParser.parse(amount), value > 0
+              let value = AmountParser.parse(amount), value > 0 || (allowsZero && value == 0)
         else { return false }
-        if kind == .debt { return AmountParser.parse(minimum) != nil }
+        // Optional fields may be left empty, but a typed value that does not
+        // parse must stop the save. Otherwise "45" silently cleared the due day
+        // (and with it every alert), and a mistyped rate became 0%.
+        if kind != .income, !dueDay.trimmingCharacters(in: .whitespaces).isEmpty,
+           DayParser.parse(dueDay) == nil { return false }
+        if kind == .debt {
+            if !apr.trimmingCharacters(in: .whitespaces).isEmpty, AmountParser.parse(apr) == nil {
+                return false
+            }
+            return AmountParser.parse(minimum) != nil
+        }
         return true
     }
 
@@ -219,9 +232,7 @@ struct EntryFormSheet: View {
         switch target {
         case .income(let item):  context.delete(item)
         case .expense(let item): context.delete(item)
-        case .debt(let item):
-            purgeRecords(forDebt: item.remoteID, in: context)
-            context.delete(item)
+        case .debt(let item):    context.deleteDebt(item)
         }
         try? context.save()
         dismiss()

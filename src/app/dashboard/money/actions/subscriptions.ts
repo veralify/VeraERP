@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { currentUser, numberField, read, revalidateMoney } from './shared';
+import { assertSaved, currentUser, numberField, read, revalidateMoney } from './shared';
 
 function cadenceField(formData: FormData) {
   return read(formData, 'cadence') === 'yearly' ? 'yearly' : 'monthly';
@@ -22,7 +22,7 @@ export async function addSubscriptionAction(formData: FormData) {
   const category = read(formData, 'category') || 'Subscriptions';
   if (!name || amount === null) redirect('/dashboard/money/subscriptions?error=invalid');
 
-  await supabase.from('money_subscriptions').insert({
+  const { error } = await supabase.from('money_subscriptions').insert({
     user_id: user.id,
     name,
     amount,
@@ -31,6 +31,7 @@ export async function addSubscriptionAction(formData: FormData) {
     trial_ends_on: trialEndsOn,
     category,
   });
+  assertSaved(error, 'subscriptions');
   revalidateMoney('subscriptions');
   redirect('/dashboard/money/subscriptions?saved=1');
 }
@@ -47,7 +48,7 @@ export async function updateSubscriptionAction(formData: FormData) {
   const active = read(formData, 'active') === 'true';
   if (!id || !name || amount === null) redirect('/dashboard/money/subscriptions?error=invalid');
 
-  await supabase
+  const { error } = await supabase
     .from('money_subscriptions')
     .update({
       name,
@@ -60,6 +61,7 @@ export async function updateSubscriptionAction(formData: FormData) {
     })
     .eq('id', id)
     .eq('user_id', user.id);
+  assertSaved(error, 'subscriptions');
   revalidateMoney('subscriptions');
   redirect('/dashboard/money/subscriptions?saved=1');
 }
@@ -67,7 +69,12 @@ export async function updateSubscriptionAction(formData: FormData) {
 export async function deleteSubscriptionAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
-  await supabase.from('money_subscriptions').delete().eq('id', id).eq('user_id', user.id);
+  const { error } = await supabase
+    .from('money_subscriptions')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', user.id);
+  assertSaved(error, 'subscriptions');
   revalidateMoney('subscriptions');
   redirect('/dashboard/money/subscriptions');
 }

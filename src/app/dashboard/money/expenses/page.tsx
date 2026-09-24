@@ -43,7 +43,15 @@ export default async function ExpensesPage({ searchParams }: { searchParams: Sea
         title="Expenses"
         body="Recurring monthly costs — rent, subscriptions, family transfers, anything fixed."
       />
-      <ErrorMessage message={params.error ? 'Enter a name and a valid amount.' : undefined} />
+      <ErrorMessage
+        message={
+          params.error === 'save'
+            ? 'We couldn’t save that change. Please try again.'
+            : params.error
+              ? 'Enter a name and a valid amount.'
+              : undefined
+        }
+      />
 
       <div className="mt-4 grid gap-6 xl:grid-cols-[1fr_420px]">
         <Reveal variants={fadeUp}>

@@ -136,7 +136,8 @@ struct BubbleBoardView: View {
             income: income, expenses: expenses, debts: debts, settings: settings.first
         )
 
-        var list: [Bubble] = debts.enumerated().map { index, debt in
+        // A cleared debt has nothing left to move money onto.
+        var list: [Bubble] = debts.filter { !$0.isPaidOff }.enumerated().map { index, debt in
             .debt(
                 id: debt.remoteID,
                 name: debt.name,

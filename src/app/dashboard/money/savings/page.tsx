@@ -41,7 +41,15 @@ export default async function SavingsPage({ searchParams }: { searchParams: Sear
         title="Savings goals"
         body="Track progress toward a target and how much of your monthly budget it takes."
       />
-      <ErrorMessage message={params.error ? 'Enter a name for the savings goal.' : undefined} />
+      <ErrorMessage
+        message={
+          params.error === 'save'
+            ? 'We couldn’t save that change. Please try again.'
+            : params.error
+              ? 'Enter a name for the savings goal.'
+              : undefined
+        }
+      />
 
       <div className="mt-4 grid gap-6 xl:grid-cols-[1fr_420px]">
         <Reveal variants={fadeUp}>

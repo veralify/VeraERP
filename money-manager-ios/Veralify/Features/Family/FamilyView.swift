@@ -49,7 +49,8 @@ struct FamilyView: View {
     /// What the household spent this month, and this user's share of it.
     private var thisMonth: (total: Decimal, mine: Decimal) {
         let start = MonthlySnapshot.monthStart(for: .now)
-        let current = expenses.filter { $0.date >= start }
+        let end = Calendar.current.date(byAdding: .month, value: 1, to: start) ?? .distantFuture
+        let current = expenses.filter { $0.date >= start && $0.date < end }
         let total = current.reduce(Decimal(0)) { $0 + $1.amount }
         let mine = me.map { person in
             current.reduce(Decimal(0)) { $0 + ($1.asSharedExpense.shares[person.id] ?? 0) }

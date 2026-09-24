@@ -18,6 +18,17 @@ enum AppSettings {
 
     static let defaultCurrencyCode = "EUR"
 
+    /// The language list this app itself chose, or nil when it follows the system.
+    ///
+    /// `UserDefaults.standard` falls back to the device-wide `AppleLanguages`, so
+    /// reading it there always finds a value — "System" could never be detected,
+    /// and the picker showed a specific language right after System was chosen.
+    /// The app's own persistent domain only holds what `setLanguage` wrote.
+    static var chosenLanguages: [String]? {
+        guard let domain = Bundle.main.bundleIdentifier else { return nil }
+        return UserDefaults.standard.persistentDomain(forName: domain)?[Key.appleLanguages] as? [String]
+    }
+
     static var currencyCode: String {
         UserDefaults.standard.string(forKey: Key.currencyCode) ?? defaultCurrencyCode
     }
@@ -25,7 +36,7 @@ enum AppSettings {
     /// The language the app will speak, which is the first entry iOS resolves
     /// against the bundle's localizations.
     static var languageCode: String {
-        guard let stored = UserDefaults.standard.stringArray(forKey: Key.appleLanguages)?.first
+        guard let stored = chosenLanguages?.first
         else { return Language.system.code }
         // iOS stores regional variants like "en-GB"; the catalog only has the
         // base languages.
@@ -71,8 +82,7 @@ enum Language: String, CaseIterable, Identifiable, Hashable {
     }
 
     static var current: Language {
-        guard UserDefaults.standard.stringArray(forKey: AppSettings.Key.appleLanguages) != nil
-        else { return .system }
+        guard AppSettings.chosenLanguages != nil else { return .system }
         return allCases.first { $0 != .system && $0.code == AppSettings.languageCode } ?? .system
     }
 }

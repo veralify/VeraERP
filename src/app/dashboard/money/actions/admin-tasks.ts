@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { currentUser, read, revalidateMoney } from './shared';
+import { assertSaved, currentUser, read, revalidateMoney } from './shared';
 
 function optionalDateField(formData: FormData, key: string) {
   const value = read(formData, key);
@@ -16,13 +16,14 @@ export async function addAdminTaskAction(formData: FormData) {
   const notes = read(formData, 'notes');
   if (!title) redirect('/dashboard/money/admin-tasks?error=invalid');
 
-  await supabase.from('money_admin_tasks').insert({
+  const { error } = await supabase.from('money_admin_tasks').insert({
     user_id: user.id,
     title,
     category,
     due_date: dueDate,
     notes,
   });
+  assertSaved(error, 'admin-tasks');
   revalidateMoney('admin-tasks');
   redirect('/dashboard/money/admin-tasks?saved=1');
 }
@@ -37,11 +38,12 @@ export async function updateAdminTaskAction(formData: FormData) {
   const status = read(formData, 'status') === 'done' ? 'done' : 'open';
   if (!id || !title) redirect('/dashboard/money/admin-tasks?error=invalid');
 
-  await supabase
+  const { error } = await supabase
     .from('money_admin_tasks')
     .update({ title, category, due_date: dueDate, notes, status })
     .eq('id', id)
     .eq('user_id', user.id);
+  assertSaved(error, 'admin-tasks');
   revalidateMoney('admin-tasks');
   redirect('/dashboard/money/admin-tasks?saved=1');
 }
@@ -50,11 +52,12 @@ export async function toggleAdminTaskStatusAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
   const nextStatus = read(formData, 'status') === 'done' ? 'done' : 'open';
-  await supabase
+  const { error } = await supabase
     .from('money_admin_tasks')
     .update({ status: nextStatus })
     .eq('id', id)
     .eq('user_id', user.id);
+  assertSaved(error, 'admin-tasks');
   revalidateMoney('admin-tasks');
   redirect('/dashboard/money/admin-tasks');
 }
@@ -62,7 +65,12 @@ export async function toggleAdminTaskStatusAction(formData: FormData) {
 export async function deleteAdminTaskAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
-  await supabase.from('money_admin_tasks').delete().eq('id', id).eq('user_id', user.id);
+  const { error } = await supabase
+    .from('money_admin_tasks')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', user.id);
+  assertSaved(error, 'admin-tasks');
   revalidateMoney('admin-tasks');
   redirect('/dashboard/money/admin-tasks');
 }

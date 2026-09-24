@@ -122,7 +122,8 @@ export async function updateGoalAction(formData: FormData) {
     redirect('/dashboard/goals?error=invalid-edit');
   await supabase
     .from('goals')
-    .update({ title, status, target_value: targetValue })
+    // An empty/invalid target leaves the existing value in place rather than wiping it.
+    .update(targetValue === null ? { title, status } : { title, status, target_value: targetValue })
     .eq('id', goalId)
     .eq('user_id', user.id);
   revalidatePath('/dashboard');

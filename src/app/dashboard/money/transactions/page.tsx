@@ -53,7 +53,15 @@ export default async function TransactionsPage({ searchParams }: { searchParams:
         title="Transactions"
         body="A log of individual income and expense transactions, separate from your recurring budget."
       />
-      <ErrorMessage message={params.error ? 'Enter a merchant, amount, and date.' : undefined} />
+      <ErrorMessage
+        message={
+          params.error === 'save'
+            ? 'We couldn’t save that change. Please try again.'
+            : params.error
+              ? 'Enter a merchant, amount, and date.'
+              : undefined
+        }
+      />
 
       <div className="mt-4 grid gap-6 xl:grid-cols-[1fr_420px]">
         <Reveal variants={fadeUp}>

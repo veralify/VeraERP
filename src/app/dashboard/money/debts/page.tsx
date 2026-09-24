@@ -45,7 +45,15 @@ export default async function DebtsPage({ searchParams }: { searchParams: Search
         title="Debts & payoff plan"
         body="Avalanche strategy: minimums are covered first, then every extra unit goes to the highest-APR debt."
       />
-      <ErrorMessage message={params.error ? 'Enter a name and a valid balance.' : undefined} />
+      <ErrorMessage
+        message={
+          params.error === 'save'
+            ? 'We couldn’t save that change. Please try again.'
+            : params.error
+              ? 'Enter a name and a valid balance.'
+              : undefined
+        }
+      />
 
       <div className="mt-4 grid gap-6 xl:grid-cols-[1fr_420px]">
         <div className="space-y-6">

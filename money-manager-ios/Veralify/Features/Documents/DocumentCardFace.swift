@@ -87,7 +87,7 @@ struct DocumentCardFace: View {
         if let days = document.daysUntilExpiry {
             let label: LocalizedStringKey = document.hasExpired
                 ? "Expired"
-                : "Expires in \(days) days"
+                : (days == 0 ? "Expires today" : "Expires in \(days) days")
             let tint: Color = document.hasExpired
                 ? Theme.red
                 : (document.expiresSoon ? Theme.yellow : type.cardInk.opacity(0.14))

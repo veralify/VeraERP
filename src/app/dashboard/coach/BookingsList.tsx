@@ -1,3 +1,4 @@
+import { LocalDateTime } from '@components/generic/LocalDateTime';
 import { StaggerGroup, StaggerItem } from '@components/generic/Motion';
 import { Pager } from '@components/member/DashboardPrimitives';
 import { EmptyState } from '@components/member/EmptyState';
@@ -60,9 +61,11 @@ export async function BookingsList({ coachId, page }: { coachId: string; page: n
                   {booking.coach_sessions?.title ?? 'Untitled session'}
                 </h3>
                 <p className="mt-1 text-sm text-vera-fg-muted">
-                  {booking.coach_sessions?.scheduled_at
-                    ? new Date(booking.coach_sessions.scheduled_at).toLocaleString()
-                    : 'Unscheduled'}{' '}
+                  {booking.coach_sessions?.scheduled_at ? (
+                    <LocalDateTime iso={booking.coach_sessions.scheduled_at} />
+                  ) : (
+                    'Unscheduled'
+                  )}{' '}
                   · {booking.coach_sessions?.duration_minutes ?? 0} min · {booking.payment_method}
                 </p>
               </div>

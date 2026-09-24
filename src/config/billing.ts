@@ -67,7 +67,7 @@ export const billingOptions: BillingOption[] = [
     name: 'Annual',
     description: 'Default launch value for long-term consistency.',
     priceLabel: '$29.99 / year',
-    note: '3-day trial, then annual billing. Save 75% versus weekly.',
+    note: '3-day trial, then annual billing. Save 75% versus monthly.',
     trialDays: 3,
     monthlyAiCredits: 1000,
     features: proFeatures,

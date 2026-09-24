@@ -134,8 +134,17 @@ enum PaymentReminders {
         var candidates: [Reminder] = []
 
         // A payment the user deliberately planned outranks the debt's generic
-        // due day: they have already decided what and when.
-        let planned = Set(payments.filter { !$0.isPaid }.map(\.debtRemoteID))
+        // due day in the month it falls in: they have already decided what and
+        // when. Other months keep their usual reminder — a single planned
+        // payment used to silence the debt's reminders for every month ahead.
+        func monthKey(_ date: Date) -> Int {
+            let parts = calendar.dateComponents([.year, .month], from: date)
+            return (parts.year ?? 0) * 12 + (parts.month ?? 0)
+        }
+        var plannedMonths: [Int: Set<Int>] = [:]
+        for payment in payments where !payment.isPaid {
+            plannedMonths[payment.debtRemoteID, default: []].insert(monthKey(payment.date))
+        }
         for payment in payments where !payment.isPaid {
             guard let debt = debts.first(where: { $0.remoteID == payment.debtRemoteID }) else { continue }
             for lead in leads {
@@ -154,11 +163,12 @@ enum PaymentReminders {
             }
         }
 
-        for debt in debts where !planned.contains(debt.remoteID) {
+        for debt in debts where !debt.isPaidOff {
             guard let dueDay = debt.dueDay else { continue }
+            let skipped = plannedMonths[debt.remoteID] ?? []
             let dates = BillSchedule.occurrences(
                 dueDay: dueDay, from: now, count: monthsAhead, calendar: calendar
-            )
+            ).filter { !skipped.contains(monthKey($0)) }
             for lead in leads {
                 candidates.append(
                     contentsOf: reminders(

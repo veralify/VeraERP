@@ -1,7 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { currentUser, read, revalidateMoney } from './shared';
+import { assertSaved, currentUser, read, revalidateMoney } from './shared';
 
 function optionalDateField(formData: FormData, key: string) {
   const value = read(formData, key);
@@ -16,13 +16,14 @@ export async function addDocumentAction(formData: FormData) {
   const notes = read(formData, 'notes');
   if (!title) redirect('/dashboard/money/documents?error=invalid');
 
-  await supabase.from('money_documents').insert({
+  const { error } = await supabase.from('money_documents').insert({
     user_id: user.id,
     title,
     document_type: documentType,
     expiry_date: expiryDate,
     notes,
   });
+  assertSaved(error, 'documents');
   revalidateMoney('documents');
   redirect('/dashboard/money/documents?saved=1');
 }
@@ -36,11 +37,12 @@ export async function updateDocumentAction(formData: FormData) {
   const notes = read(formData, 'notes');
   if (!id || !title) redirect('/dashboard/money/documents?error=invalid');
 
-  await supabase
+  const { error } = await supabase
     .from('money_documents')
     .update({ title, document_type: documentType, expiry_date: expiryDate, notes })
     .eq('id', id)
     .eq('user_id', user.id);
+  assertSaved(error, 'documents');
   revalidateMoney('documents');
   redirect('/dashboard/money/documents?saved=1');
 }
@@ -48,7 +50,12 @@ export async function updateDocumentAction(formData: FormData) {
 export async function deleteDocumentAction(formData: FormData) {
   const { supabase, user } = await currentUser();
   const id = read(formData, 'id');
-  await supabase.from('money_documents').delete().eq('id', id).eq('user_id', user.id);
+  const { error } = await supabase
+    .from('money_documents')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', user.id);
+  assertSaved(error, 'documents');
   revalidateMoney('documents');
   redirect('/dashboard/money/documents');
 }

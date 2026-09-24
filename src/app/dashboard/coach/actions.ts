@@ -2,6 +2,7 @@
 
 import { canActAsCoach, claimCoachInvite } from '@lib/api/coachAccess';
 import { createSupabaseServerClient } from '@lib/supabase/server';
+import { zonedLocalToDate } from '@lib/time/zonedTime';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -86,8 +87,8 @@ export async function createCoachSessionAction(formData: FormData) {
     redirect('/dashboard/coach?error=invalid-session');
   }
 
-  const scheduledDate = new Date(scheduledAt);
-  if (Number.isNaN(scheduledDate.getTime()) || scheduledDate.getTime() <= Date.now()) {
+  const scheduledDate = zonedLocalToDate(scheduledAt, read(formData, 'timeZone') || 'UTC');
+  if (!scheduledDate || scheduledDate.getTime() <= Date.now()) {
     redirect('/dashboard/coach?error=invalid-session');
   }
 

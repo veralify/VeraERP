@@ -31,7 +31,8 @@ struct DashboardView: View {
     /// Days until the nearest due payment, or nil when nothing is scheduled.
     private var soonestDueInDays: Int? {
         let now = Date()
-        let days = (expenses.filter(\.isActive).compactMap(\.dueDay) + debts.compactMap(\.dueDay))
+        let owing = debts.filter { !$0.isPaidOff }
+        let days = (expenses.filter(\.isActive).compactMap(\.dueDay) + owing.compactMap(\.dueDay))
             .compactMap { BillSchedule.daysUntil(dueDay: $0, from: now) }
         return days.min()
     }
@@ -160,7 +161,7 @@ struct DashboardView: View {
     @ViewBuilder
     private var quickPayRow: some View {
         let dated = Set(dueItems.compactMap { $0.debt?.remoteID })
-        let rest = debts.filter { !dated.contains($0.remoteID) }
+        let rest = debts.filter { !$0.isPaidOff && !dated.contains($0.remoteID) }
 
         if !rest.isEmpty {
             VStack(alignment: .leading, spacing: 8) {
@@ -243,13 +244,15 @@ struct DashboardView: View {
 
         // Payments the user planned for a date and has not marked paid. These
         // win over the debt's generic minimum: the planned amount is the
-        // deliberate one.
-        let planned = Set(payments.filter { !$0.isPaid }.map(\.debtRemoteID))
+        // deliberate one. Only a payment inside the window counts, though — one
+        // planned for months ahead must not hide the instalment due this week.
+        var planned = Set<Int>()
         for payment in payments where !payment.isPaid {
             guard let debt = debts.first(where: { $0.remoteID == payment.debtRemoteID }) else { continue }
             let day = calendar.startOfDay(for: payment.date)
             let days = calendar.dateComponents([.day], from: today, to: day).day ?? 0
             guard days <= horizon else { continue }
+            planned.insert(debt.remoteID)
             items.append(
                 DueItem(
                     id: "planned-\(payment.persistentModelID.hashValue)",
@@ -262,7 +265,7 @@ struct DashboardView: View {
             )
         }
 
-        for debt in debts where !planned.contains(debt.remoteID) {
+        for debt in debts where !debt.isPaidOff && !planned.contains(debt.remoteID) {
             guard let dueDay = debt.dueDay,
                   let days = BillSchedule.daysUntil(dueDay: dueDay, from: .now),
                   days <= horizon,
@@ -411,8 +414,9 @@ struct DashboardView: View {
     /// of it — every entry ever recorded, by day, by scope — is a reference, and
     /// references live behind a link.
     private var todaySection: some View {
-        let startOfDay = Calendar.current.startOfDay(for: .now)
-        let today = transactions.filter { $0.occurredAt >= startOfDay }
+        let calendar = Calendar.current
+        // Same-day only: an entry dated later in the week was listed as today's.
+        let today = transactions.filter { calendar.isDateInToday($0.occurredAt) }
 
         return VStack(spacing: 12) {
             SectionHeader(title: "Today") {

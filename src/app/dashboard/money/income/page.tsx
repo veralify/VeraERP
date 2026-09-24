@@ -41,7 +41,15 @@ export default async function IncomePage({ searchParams }: { searchParams: Searc
         title="Income sources"
         body="Recurring income used to calculate your available budget and debt payoff plan."
       />
-      <ErrorMessage message={params.error ? 'Enter a name and a valid amount.' : undefined} />
+      <ErrorMessage
+        message={
+          params.error === 'save'
+            ? 'We couldn’t save that change. Please try again.'
+            : params.error
+              ? 'Enter a name and a valid amount.'
+              : undefined
+        }
+      />
 
       <div className="mt-4 grid gap-6 xl:grid-cols-[1fr_420px]">
         <Reveal variants={fadeUp}>

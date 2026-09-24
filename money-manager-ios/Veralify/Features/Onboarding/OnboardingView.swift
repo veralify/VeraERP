@@ -418,9 +418,8 @@ struct OnboardingView: View {
                     balance: draft.balance,
                     apr: draft.apr,
                     minimumPayment: draft.minimumPayment,
-                    // Collected on the way in, and dropped here until now —
-                    // which left every onboarded debt with no reminders and an
-                    // immediate "add a due date" nag.
+                    // Asked for on the debts step; dropping it here left every
+                    // debt set up during onboarding without alerts or reminders.
                     dueDay: draft.dueDay,
                     priority: index + 1
                 )

@@ -46,6 +46,23 @@ struct AmountParserTests {
         #expect(AmountParser.parse("abc") == nil)
         #expect(AmountParser.parse("€") == nil)
     }
+
+    @Test("A pasted amount with thousands separators keeps its magnitude")
+    func thousandsSeparators() {
+        // Parsing only a numeric prefix read "1,250.00" as 1.25.
+        #expect(AmountParser.parse("1,250.00") == 1250)
+        #expect(AmountParser.parse("1.250,00") == 1250)
+        #expect(AmountParser.parse("1,250,000") == 1_250_000)
+        #expect(AmountParser.parse("1 250,50") == Decimal(string: "1250.5"))
+    }
+
+    @Test("Trailing junk, exponents and malformed grouping are rejected, not truncated")
+    func rejectsPartialNumbers() {
+        #expect(AmountParser.parse("12abc") == nil)
+        #expect(AmountParser.parse("1e3") == nil)
+        #expect(AmountParser.parse("3.5.1") == nil)
+        #expect(AmountParser.parse("12,34.5") == nil)
+    }
 }
 
 /// Due days drive the alerts screen. A silently rejected day means an alert

@@ -12,7 +12,7 @@ import { EmptyState } from '@components/member/EmptyState';
 import { daysUntil } from '@lib/money/format';
 import { fadeUp } from '@lib/motion/variants';
 import { createSupabaseServerClient } from '@lib/supabase/server';
-import { CheckCircle2, ClipboardList, Circle } from 'lucide-react';
+import { CheckCircle2, Circle, ClipboardList } from 'lucide-react';
 import type { Metadata } from 'next';
 import {
   addAdminTaskAction,
@@ -55,7 +55,15 @@ export default async function AdminTasksPage({ searchParams }: { searchParams: S
         title="Admin tasks"
         body="Money-related to-dos and appointments — renewals, filings, calls to make."
       />
-      <ErrorMessage message={params.error ? 'Enter a title for the task.' : undefined} />
+      <ErrorMessage
+        message={
+          params.error === 'save'
+            ? 'We couldn’t save that change. Please try again.'
+            : params.error
+              ? 'Enter a title for the task.'
+              : undefined
+        }
+      />
 
       <div className="mt-4 grid gap-6 xl:grid-cols-[1fr_420px]">
         <Reveal variants={fadeUp}>

@@ -91,9 +91,17 @@ struct DebtStep: View {
     @State private var dueDay = ""
 
     private var canAdd: Bool {
-        !name.trimmingCharacters(in: .whitespaces).isEmpty
+        // Optional fields may stay empty, but a typed value that does not parse
+        // must not be quietly dropped (a due day of "45", a rate of "abc").
+        let dueDayIsValid = dueDay.trimmingCharacters(in: .whitespaces).isEmpty
+            || DayParser.parse(dueDay) != nil
+        let aprIsValid = apr.trimmingCharacters(in: .whitespaces).isEmpty
+            || AmountParser.parse(apr) != nil
+        return !name.trimmingCharacters(in: .whitespaces).isEmpty
             && (AmountParser.parse(balance) ?? 0) > 0
             && AmountParser.parse(minimum) != nil
+            && dueDayIsValid
+            && aprIsValid
     }
 
     var body: some View {

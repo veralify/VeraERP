@@ -1,8 +1,9 @@
+// Fixed locale so server and client render identical strings, and negatives come out
+// as "-€5.00" rather than "€-5.00".
+const moneyFormatter = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR' });
+
 export function formatMoney(amount: number): string {
-  return `€${Number(amount || 0).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
+  return moneyFormatter.format(Number(amount) || 0);
 }
 
 /** Whole days between today (local, midnight) and an ISO date string. Negative means overdue. */

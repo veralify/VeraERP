@@ -26,10 +26,10 @@ export function BaseNavigation({ pageTitle }: Props) {
       style={{ borderLeft: 'none', borderRight: 'none', borderTop: 'none' }}
     >
       {pageTitle && <h1 className="hidden">{pageTitle}</h1>}
-      <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-4 px-6">
+      <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6">
         <a
           href="/"
-          className="inline-flex items-center gap-2.5 transition-opacity hover:opacity-80"
+          className="inline-flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-80"
           aria-label={`${brand.name} home`}
         >
           <Image src={brand.assets.logoPath} alt="" width={30} height={30} priority />
@@ -66,7 +66,7 @@ export function BaseNavigation({ pageTitle }: Props) {
             Help
           </a>
         </nav>
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
           <ThemeToggle />
           <LanguageSwitcher />
           <AuthWidget />

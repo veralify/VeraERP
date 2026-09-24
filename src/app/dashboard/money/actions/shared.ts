@@ -13,14 +13,17 @@ export function read(formData: FormData, key: string) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+/** Non-negative number; null for empty/invalid (`Number('')` is 0, so empty must be checked first). */
 export function numberField(formData: FormData, key: string) {
-  const value = Number(read(formData, key));
+  const raw = read(formData, key);
+  if (!raw) return null;
+  const value = Number(raw);
   return Number.isFinite(value) && value >= 0 ? value : null;
 }
 
 export function dayField(formData: FormData, key: string) {
   const value = Number(read(formData, key));
-  return Number.isFinite(value) && value >= 1 && value <= 31 ? value : null;
+  return Number.isInteger(value) && value >= 1 && value <= 31 ? value : null;
 }
 
 /** Validates a plain `YYYY-MM-DD` date input; returns null for empty/invalid. */
@@ -36,6 +39,11 @@ export async function currentUser() {
   } = await supabase.auth.getUser();
   if (!user) redirect('/?auth=required');
   return { supabase, user };
+}
+
+/** Redirects back to the domain page with an error when a Supabase write failed. */
+export function assertSaved(error: { message: string } | null, domain: string) {
+  if (error) redirect(`/dashboard/money/${domain}?error=save`);
 }
 
 /** Revalidates both the domain sub-page and the shared Overview page. */

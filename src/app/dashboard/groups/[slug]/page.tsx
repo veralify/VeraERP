@@ -1,3 +1,4 @@
+import { LocalDateTime } from '@components/generic/LocalDateTime';
 import {
   Card,
   ErrorMessage,
@@ -120,7 +121,7 @@ export default async function GroupDetailPage({ params, searchParams }: Props) {
                   >
                     <p className="whitespace-pre-wrap text-sm leading-6">{post.content}</p>
                     <p className="mt-3 text-xs text-vera-fg-muted">
-                      {new Date(post.created_at).toLocaleString()}
+                      <LocalDateTime iso={post.created_at} />
                     </p>
                   </article>
                 ))
