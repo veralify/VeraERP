@@ -21,6 +21,6 @@ export const config = {
   // Run on non-API app paths only (excluding static assets and Next internals)
   // so auth-session refresh middleware never blocks public API endpoints.
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|google[a-z0-9]+\\.html$).*)',
   ],
 };
